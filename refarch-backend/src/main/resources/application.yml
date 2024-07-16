@@ -1,0 +1,32 @@
+spring:
+  application.name: @project.artifactId@
+  banner.location: banner.txt
+
+server:
+  shutdown: "graceful"
+  port: 8080
+  error:
+    include-exception: false
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+
+# Config for spring actuator endpoints
+management:
+  server.port: ${server.port}
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, prometheus, livenessstate, readinessstate
+      path-mapping:
+        prometheus: metrics
+  endpoint:
+    health.enabled: true
+    info.enabled: true
+    prometheus.enabled: true
+  info:
+    env:
+      enabled: true
+info.application.name: @project.artifactId@
+info.application.version: @project.version@
