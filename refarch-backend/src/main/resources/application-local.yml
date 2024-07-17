@@ -31,7 +31,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: https://<keycloak.auth-server-url>/auth/realms/${realm}/protocol/openid-connect/certs
+          jwk-set-uri: https://${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/certs
 
 
 # Define the local keycloak realm here
@@ -43,4 +43,4 @@ security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
   logging.requests: all
   oauth2:
-    resource.user-info-uri: https://<keycloak.auth-server-url>/auth/realms/${realm}/protocol/openid-connect/userinfo
+    resource.user-info-uri: https://${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
