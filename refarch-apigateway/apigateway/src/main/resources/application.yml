@@ -1,0 +1,58 @@
+spring:
+  application.name: @project.artifactId@
+  banner.location: banner.txt
+  main:
+    web-application-type: reactive
+  jackson:
+    serialization:
+      indent-output: on
+  session:
+    timeout: 36000  # in seconds; Goal: same lifetime as SSO Session (e.g. 10 hours)
+  zipkin:
+    enabled: false
+    sleuth:
+      reactor:
+        instrumentation-type: decorate_on_each  # https://github.com/spring-cloud/spring-cloud-gateway/pull/2106
+
+server:
+  port: 8080
+  error:
+    include-exception: false
+    include-stacktrace: never
+    include-message: always
+    whitelabel:
+      enabled: false
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      cors:
+        allowedOrigins:
+          - "http://localhost:8081"
+          - "http://127.0.0.1:8081"
+        allowedMethods: "*"
+        allowedHeaders: "*"
+        allowCredentials: on
+        maxAge: 3600
+      exposure:
+        include: health, info, prometheus
+      path-mapping:
+        prometheus: metrics
+  endpoint:
+    health:
+      enabled: on
+      probes:
+        enabled: true
+    info:
+      enabled: on
+    prometheus:
+      enabled: on
+  info:
+    env:
+      enabled: true
+info.application.name: ${spring.application.name}
+info.application.version: @project.version@
+info.appswitcher.url: https://appswitcher.muenchen.de
+
+config.map5xxto400: false

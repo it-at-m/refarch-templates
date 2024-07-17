@@ -1,0 +1,61 @@
+server:
+  port: 8082
+spring:
+
+  # Define the local keycloak realm here
+  realm: <YOUR_LOCAL_REALM>
+
+  # spring cloud gateway config
+  cloud:
+    gateway:
+      actuator:
+        verbose:
+          enabled: false
+      globalcors:
+        corsConfigurations:
+          # The cors configuration to allow frontend developers cross origin request via this api gateway
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:8081"
+              - "http://127.0.0.1:8081"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: sso
+          uri: https://${keycloak.auth-server-url}/
+          predicates:
+            - Path=/api/sso/userinfo
+          filters:
+            - RewritePath=/api/sso/userinfo, /auth/realms/${spring.realm}/protocol/openid-connect/userinfo
+        - id: backend
+          uri: http://localhost:39146/
+          predicates:
+            - Path=/api/refarch-backend-service/**
+          filters:
+            - RewritePath=/api/refarch-backend-service/(?<urlsegments>.*), /$\{urlsegments}
+            - RemoveResponseHeader=WWW-Authenticate
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie
+        - RemoveRequestHeader=x-xsrf-token
+        - TokenRelay=
+
+  # security config
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://${keycloak.auth-server-url}/auth/realms/${spring.realm}
+        registration:
+          keycloak:
+            client-id:
+            client-secret:
+
+  mvc:
+    log-request-details: on
+
+keycloak:
+  auth-server-url: <keycloak-server-url>

@@ -1,0 +1,63 @@
+wiremock:
+  server:
+    port: 0
+    https-port: -1
+
+spring:
+  
+  # muenchen.de realm is used by default so that the SpringContext can be initalized upon running the tests. Change to your own dev realm if available
+  realm: muenchen.de
+
+  # spring cloud gateway config
+  cloud:
+    gateway:
+      actuator:
+        verbose:
+          enabled: false
+      globalcors:
+        corsConfigurations:
+          # The cors configuration to allow frontend developers cross origin request via this api gateway
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:8081"
+              - "http://127.0.0.1:8081"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      routes:
+        - id: sso
+          uri: https://ssotest.muenchen.de/
+          predicates:
+            - Path=/api/sso/userinfo
+          filters:
+            - RewritePath=/api/sso/userinfo, /auth/realms/${spring.realm}/protocol/openid-connect/userinfo
+        - id: backend
+          uri: http://localhost:${wiremock.server.port}/
+          predicates:
+            - Path=/api/refarch-backend-service/**
+          filters:
+            - RewritePath=/api/refarch-backend-service/(?<urlsegments>.*), /$\{urlsegments}
+            - RemoveResponseHeader=WWW-Authenticate
+      default-filters:
+        - RemoveResponseHeader=Expires
+        - RemoveRequestHeader=cookie
+        - RemoveRequestHeader=x-xsrf-token
+        - TokenRelay=
+
+  # security config
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://sso.muenchen.de/auth/realms/${spring.realm}
+        registration:
+          keycloak:
+            client-id: refarch
+            client-secret: 0b67133e-f4e0-42f6-b05f-7b51175969e8
+
+  mvc:
+    log-request-details: on
+
+info.appswitcher.url: https://test-url-appswitcher.muenchen.de
