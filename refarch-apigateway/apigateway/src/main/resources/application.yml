@@ -53,6 +53,9 @@ management:
       enabled: true
 info.application.name: ${spring.application.name}
 info.application.version: @project.version@
-info.appswitcher.url: https://appswitcher.muenchen.de
+info.appswitcher.url: ${appswitcher.url}
 
 config.map5xxto400: false
+
+appswitcher:
+  url: <appswitcher-url>
