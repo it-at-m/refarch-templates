@@ -27,7 +27,7 @@ spring:
             maxAge: 3600
       routes:
         - id: sso
-          uri: https://${keycloak.auth-server-url}/
+          uri: https://sso.muenchen.de/
           predicates:
             - Path=/api/sso/userinfo
           filters:
@@ -51,14 +51,13 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: https://${keycloak.auth-server-url}/auth/realms/${spring.realm}
+            issuer-uri: https://sso.muenchen.de/auth/realms/${spring.realm}
         registration:
           keycloak:
-            client-id:
+            client-id: test
             client-secret:
 
   mvc:
     log-request-details: on
 
-keycloak:
-  auth-server-url: <keycloak-server-url>
+info.appswitcher.url: https://test-url-appswitcher.muenchen.de
