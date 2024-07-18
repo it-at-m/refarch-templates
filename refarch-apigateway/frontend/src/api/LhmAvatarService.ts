@@ -1,3 +1,5 @@
+import {MUCATAR_URL} from "@/Constants";
+
 export class LhmAvatarService {
   base: string;
   constructor(base: string) {
@@ -27,5 +29,5 @@ export class LhmAvatarService {
  * @see https://github.com/it-at-m/ad2image#documentation
  */
 export const DefaultLhmAvatarService = new LhmAvatarService(
-  "https://mucatar.muenchen.de/"
+    MUCATAR_URL
 );
