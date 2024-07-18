@@ -2,7 +2,7 @@
  * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
  * der Landeshauptstadt München, 2024
  */
-package refarch.configuration;
+package de.muenchen.refarch.configuration;
 
 import refarch.filter.CsrfTokenAppendingHelperFilter;
 import java.net.URI;

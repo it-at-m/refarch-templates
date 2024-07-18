@@ -2,7 +2,7 @@
  * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
  * der Landeshauptstadt München, 2024
  */
-package refarch.filter;
+package de.muenchen.refarch.filter;
 
 import com.hazelcast.org.apache.commons.codec.binary.StringUtils;
 import lombok.extern.slf4j.Slf4j;

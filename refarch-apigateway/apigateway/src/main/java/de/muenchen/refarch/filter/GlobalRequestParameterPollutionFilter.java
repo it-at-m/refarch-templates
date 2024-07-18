@@ -2,7 +2,7 @@
  * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
  * der Landeshauptstadt München, 2024
  */
-package refarch.filter;
+package de.muenchen.refarch.filter;
 
 import refarch.exception.ParameterPollutionException;
 import java.util.List;
