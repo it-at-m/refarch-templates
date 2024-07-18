@@ -4,7 +4,7 @@
  */
 package de.muenchen.refarch.filter;
 
-import refarch.configuration.SecurityConfiguration;
+import de.muenchen.refarch.configuration.SecurityConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;

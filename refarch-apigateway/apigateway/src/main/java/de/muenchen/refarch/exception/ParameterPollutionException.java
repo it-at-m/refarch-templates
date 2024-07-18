@@ -4,7 +4,7 @@
  */
 package de.muenchen.refarch.exception;
 
-import refarch.filter.GlobalRequestParameterPollutionFilter;
+import de.muenchen.refarch.filter.GlobalRequestParameterPollutionFilter;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
