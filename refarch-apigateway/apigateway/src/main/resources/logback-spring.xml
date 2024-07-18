@@ -20,7 +20,7 @@
         </appender>
 
         <!-- Logger -->
-        <logger name="refarch"
+        <logger name="de.muenchen.refarch"
                 level="debug"
                 additivity="false">
             <appender-ref ref="STDOUT" />
@@ -89,7 +89,7 @@
         </appender>
 
         <!-- Logger -->
-        <logger name="refarch"
+        <logger name="de.muenchen.refarch"
                 level="info"
                 additivity="false">
             <appender-ref ref="JSON_STDOUT" />
