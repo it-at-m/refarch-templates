@@ -4,7 +4,6 @@
  */
 package de.muenchen.refarch.configuration;
 
-import refarch.filter.CsrfTokenAppendingHelperFilter;
 import java.net.URI;
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
