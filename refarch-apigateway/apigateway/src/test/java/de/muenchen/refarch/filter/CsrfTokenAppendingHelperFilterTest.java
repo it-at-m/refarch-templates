@@ -2,38 +2,36 @@
  * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
  * der Landeshauptstadt München, 2024
  */
-package refarch.controller;
+package de.muenchen.refarch.filter;
 
-import refarch.ApiGatewayApplication;
+import de.muenchen.refarch.ApiGatewayApplication;
+import de.muenchen.refarch.TestConstants;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-
-import static refarch.TestConstants.SPRING_TEST_PROFILE;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(
         classes = { ApiGatewayApplication.class },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@ActiveProfiles(SPRING_TEST_PROFILE)
-public class ActuatorInfoEndpointTest {
+@ActiveProfiles(TestConstants.SPRING_TEST_PROFILE)
+class CsrfTokenAppendingHelperFilterTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
-    public void actuatorInfoProvidesAppswitcherUrl() {
-        //@formatter:off
-        webTestClient.get().uri("/actuator/info").exchange()
-                .expectStatus().isOk()
-                .expectBody()
-                    .jsonPath("$.appswitcher.url").isEqualTo("https://test-url-appswitcher.muenchen.de");
-        //@formatter:on
+    @WithMockUser
+    void csrfCookieAppendition() {
+        webTestClient.get().uri("/").exchange()
+                .expectHeader()
+                .valueMatches("set-cookie", "XSRF-TOKEN=[a-f\\d]{8}(-[a-f\\d]{4}){3}-[a-f\\d]{12}?;\\sPath=/");
     }
 
 }
