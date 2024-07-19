@@ -32,7 +32,7 @@
         <apache.commons.io>2.11.0</apache.commons.io>
         <apache.commons.lang3>3.12.0</apache.commons.lang3>
         <apache.commons.text>1.9</apache.commons.text>
-        <apache.commons.validator>1.7</apache.commons.validator>
+        <apache.commons.validator>1.9.0</apache.commons.validator>
         <!-- SonarQube -->
         <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
         <!-- TestCoverage -->
