@@ -1,0 +1,41 @@
+camel:
+  springboot:
+    main-run-controller: true
+    tracing: false
+  servlet:
+    mapping:
+      context-path: /api/*
+
+spring:
+  application:
+    name: @project.artifactId@
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+  info:
+    env:
+      enabled: true
+    camel:
+      enabled: false
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+
+logging:
+  level:
+    org:
+      springframework: INFO
+
+# Custom properties
+output: direct:foo

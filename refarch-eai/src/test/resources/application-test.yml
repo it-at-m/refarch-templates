@@ -1,0 +1,15 @@
+management:
+  endpoints:
+    enabled-by-default: false
+
+logging:
+  level:
+    org:
+      springframework: INFO
+
+camel:
+  springboot:
+    tracing: false
+
+# Custom properties
+output : mock:output

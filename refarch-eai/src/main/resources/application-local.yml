@@ -1,0 +1,6 @@
+server:
+  port: 8083
+
+info:
+  application:
+    version: @project.version@-local
