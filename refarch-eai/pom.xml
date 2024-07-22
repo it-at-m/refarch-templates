@@ -38,7 +38,7 @@
         <jacoco.version>0.8.11</jacoco.version>
 
         <!-- Code Formatting -->
-        <maven-spotless-plugin.version>2.28.0</maven-spotless-plugin.version>
+        <maven-spotless-plugin.version>2.43.0</maven-spotless-plugin.version>
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
 
         <!-- Other -->
