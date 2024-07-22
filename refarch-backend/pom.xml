@@ -36,7 +36,7 @@
         <!-- SonarQube -->
         <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
         <!-- TestCoverage -->
-        <jacoco.version>0.8.11</jacoco.version>
+        <jacoco.version>0.8.12</jacoco.version>
         <!-- Plugins -->
         <maven-scm-plugin.version>1.10.0</maven-scm-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
