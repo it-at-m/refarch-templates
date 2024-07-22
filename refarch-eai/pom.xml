@@ -38,9 +38,7 @@
         <jacoco.version>0.8.7</jacoco.version>
 
         <!-- Code Formatting -->
-        <checkstyle.version>9.3</checkstyle.version>
         <maven-spotless-plugin.version>2.28.0</maven-spotless-plugin.version>
-        <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
 
         <!-- Other -->
@@ -257,31 +255,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Linter Checkstyle -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>${checkstyle.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
         </plugins>
     </build>
 
