@@ -44,7 +44,7 @@
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
 
         <!-- Other -->
-        <org.projectlombok.lombok.version>1.18.30</org.projectlombok.lombok.version>
+        <org.projectlombok.lombok.version>1.18.34</org.projectlombok.lombok.version>
     </properties>
 
     <scm>
