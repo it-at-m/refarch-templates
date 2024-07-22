@@ -17,7 +17,7 @@
     <properties>
 
         <!-- Java -->
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
@@ -44,7 +44,7 @@
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
 
         <!-- Other -->
-        <org.projectlombok.lombok.version>1.18.26</org.projectlombok.lombok.version>
+        <org.projectlombok.lombok.version>1.18.30</org.projectlombok.lombok.version>
     </properties>
 
     <scm>
