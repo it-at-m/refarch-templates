@@ -1,5 +1,5 @@
 {
-  "name": "refarch-apigateway-frontend",
+  "name": "refarch-frontend",
   "version": "0.0.0",
   "private": true,
   "scripts": {
