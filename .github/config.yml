@@ -10,9 +10,9 @@ newIssueWelcomeComment: >
 
 # Comment to be posted to on PRs from first time contributors in your repository
 newPRWelcomeComment: >
-  Greetings from Munich! 🥨 >
-  Thank you very much for participating in our project by opening this pull request! ❤ >
-  Please check out our contribution guidelines for further information. ℹ >
+  Greetings from Munich! 🥨
+  Thank you very much for participating in our project by opening this pull request! ❤
+  Please check out our contribution guidelines for further information. ℹ
   We will review your changes as soon as possible! 👀
 
 # Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
