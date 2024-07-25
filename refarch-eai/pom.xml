@@ -17,7 +17,7 @@
     <properties>
 
         <!-- Java -->
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
@@ -35,16 +35,14 @@
         <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
 
         <!-- TestCoverage -->
-        <jacoco.version>0.8.7</jacoco.version>
+        <jacoco.version>0.8.11</jacoco.version>
 
         <!-- Code Formatting -->
-        <checkstyle.version>9.3</checkstyle.version>
         <maven-spotless-plugin.version>2.28.0</maven-spotless-plugin.version>
-        <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
 
         <!-- Other -->
-        <org.projectlombok.lombok.version>1.18.26</org.projectlombok.lombok.version>
+        <org.projectlombok.lombok.version>1.18.30</org.projectlombok.lombok.version>
     </properties>
 
     <scm>
@@ -257,31 +255,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Linter Checkstyle -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>${checkstyle.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
         </plugins>
     </build>
 

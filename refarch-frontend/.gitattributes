@@ -1,0 +1,2 @@
+# Alle Textdateien (* text=auto) sollen den Unix-Zeilenumbruch (eol=lf) nutzen
+* text=auto eol=lf
