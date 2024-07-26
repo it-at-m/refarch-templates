@@ -64,7 +64,7 @@ Don't forget to give the project a star! Thanks again!
 5. Push to the Branch (`git push origin feature/AmazingFeature`)
 6. Open a Pull Request
 
-More about this in the [CODE_OF_CONDUCT](/CODE_OF_CONDUCT.md) file.
+More about this in the [CODE_OF_CONDUCT](/.github/CODE_OF_CONDUCT.md) file.
 
 
 ## License
