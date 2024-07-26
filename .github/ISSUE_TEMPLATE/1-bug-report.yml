@@ -49,6 +49,18 @@ body:
       placeholder: e.g. 1.0.2
     validations:
       required: true
+  - type: dropdown
+    id: template
+    attributes:
+      label: Affected template
+      description: Name(s) of the affected template(s) (if applicable)
+      options:
+        - refarch-frontend
+        - refarch-backend
+        - refarch-eai
+        - refarch-webcomponent
+    validations:
+      required: false
   - type: input
     id: last-working-version
     attributes:
