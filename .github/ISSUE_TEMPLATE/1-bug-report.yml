@@ -73,31 +73,29 @@ body:
     id: os
     attributes:
       label: Operating system
-      description: Operating systems the bug occurs on
+      description: Operating systems the bug occurs on (optional, only if applicable)
       options:
         - Windows
         - macOS
         - Linux
         - Other
-        - None
       default: 0
     validations:
-      required: true
+      required: false
   - type: dropdown
     id: browser
     attributes:
       label: Browser
-      description: Browsers the bug occurs on (if applicable)
+      description: Browsers the bug occurs on (optional, only if applicable)
       options:
         - Firefox
         - Chrome
         - Safari
         - Edge
         - Other
-        - None
       default: 0
     validations:
-      required: true
+      required: false
   - type: markdown
     attributes:
       value: "## Extras"
