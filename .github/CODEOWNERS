@@ -1,5 +1,5 @@
 # These owners will be the default owners for everything in the repo.
-* @it-at-m/refarch-admin @it-at-m/refarch-maintainer
+* @it-at-m/refarch-maintainer
 
 # Protect CODEOWNERS file itself against modification
 /.github/CODEOWNERS @it-at-m/refarch-admin
