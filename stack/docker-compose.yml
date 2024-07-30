@@ -13,7 +13,7 @@ services:
 
   pg-admin:
     container_name: pg-admin
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:4.8
     environment:
       - PGADMIN_DEFAULT_EMAIL=example@example.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -70,7 +70,7 @@ services:
 
   refarch-gateway:
     container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:latest
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.0.0
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
