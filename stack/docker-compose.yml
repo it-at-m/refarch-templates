@@ -1,0 +1,94 @@
+name: default-services
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16.0-alpine3.18
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+
+  pg-admin:
+    container_name: pg-admin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=example@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:20.0.3
+    command:
+      - start-dev --http-relative-path /auth
+    depends_on:
+      - db-postgres-keycloak
+    environment:
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KC_HOSTNAME_STRICT=false
+      - DB=postgres
+      - DB_URL=jdbc:postgresql://db-postgres-keycloak:5432/${KEYCLOAK_DB}
+      - DB_USERNAME=${KEYCLOAK_DB_USER}
+      - DB_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+    ports:
+      - "8080:8080"
+    networks:
+      - keycloak
+
+  db-postgres-keycloak:
+    container_name: db-postgres-keycloak
+    image: postgres:16.3-alpine3.18
+    environment:
+      - POSTGRES_DB=${KEYCLOAK_DB}
+      - POSTGRES_USER=${KEYCLOAK_DB_USER}
+      - POSTGRES_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+    networks:
+      - keycloak
+
+  init-keycloak:
+    container_name: init-keycloak
+    image: klg71/keycloakmigration:0.2.55
+    depends_on:
+      - keycloak
+    env_file:
+      - '.env'
+    environment:
+      ADMIN_USER: ${KEYCLOAK_ADMIN}
+      ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      BASEURL: ${SSO_BASE_URL}
+      WAIT_FOR_KEYCLOAK: 'true'
+      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+    volumes:
+      - './keycloak/migration:/migration'
+    networks:
+      - keycloak
+
+  refarch-gateway:
+    container_name: refarch-gateway
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:latest
+    depends_on:
+      init-keycloak:
+        condition: service_completed_successfully
+    ports:
+      - "8083:8083"
+    environment:
+    - SSO_ISSUER_URL=http://keycloak:8080/auth/realms/${SSO_REALM}
+    - SSO_CLIENT_ID=${SSO_CLIENT_ID}
+    - SSO_CLIENT_SECRET=${SSO_CLIENT_SECRET}
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://backend-service:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
+    - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
+    - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
+    - SPRING_PROFILES_ACTIVE=hazelcast-local
+    networks:
+      - keycloak
+
+networks:
+  keycloak:
