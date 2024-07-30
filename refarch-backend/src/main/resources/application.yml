@@ -1,6 +1,14 @@
 spring:
   application.name: @project.artifactId@
   banner.location: banner.txt
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          audiences:
+          # adds audience verification - https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_supplying_audiences
+          # TODO - should be the clientId of the actual project
+          - refarch
 
 server:
   shutdown: "graceful"
