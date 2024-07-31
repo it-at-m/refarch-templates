@@ -81,7 +81,6 @@ body:
         - macOS
         - Linux
         - Other
-      default: 0
     validations:
       required: false
   - type: dropdown
@@ -96,7 +95,6 @@ body:
         - Safari
         - Edge
         - Other
-      default: 0
     validations:
       required: false
   - type: markdown
