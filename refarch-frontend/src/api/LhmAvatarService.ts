@@ -1,4 +1,4 @@
-import {MUCATAR_URL} from "@/Constants";
+import { MUCATAR_URL } from "@/Constants";
 
 export class LhmAvatarService {
   base: string;
@@ -28,6 +28,4 @@ export class LhmAvatarService {
  * @see https://git.muenchen.de/km23/mucatar
  * @see https://github.com/it-at-m/ad2image#documentation
  */
-export const DefaultLhmAvatarService = new LhmAvatarService(
-    MUCATAR_URL
-);
+export const DefaultLhmAvatarService = new LhmAvatarService(MUCATAR_URL);
