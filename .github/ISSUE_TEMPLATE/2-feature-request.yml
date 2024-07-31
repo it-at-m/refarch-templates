@@ -16,6 +16,7 @@ body:
     id: template
     attributes:
       label: Relevant template
+      multiple: true
       description: Name(s) of the affected template(s) (if applicable)
       options:
         - refarch-frontend
