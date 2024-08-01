@@ -34,7 +34,7 @@
     "npm:unpublishSafe", // used to make sure updates are only done after the npm package is "stable" (at least for 3 days)
 
     // Schedule presets (https://docs.renovatebot.com/presets-schedule/)
-    "schedule:monthly", // renovatebot will search monthly for available dependency updates
+    "schedule:weekly", // renovatebot will search weekly for available dependency updates
 
     // Security presets (https://docs.renovatebot.com/presets-security/)
     "security:openssf-scorecard", // showw OpenSSF badge on pull requests to evaluate security health metrics for dependencies
