@@ -15,34 +15,30 @@
     <name>refarch_eai</name>
 
     <properties>
-
-        <!-- Java -->
+        <!-- Compilation -->
         <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-
-        <!-- Frameworks -->
-        <camel.version>4.1.0</camel.version>
-        <spring.boot.version>3.1.4</spring.boot.version>
-
-        <!-- Other Maven Plugins -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-scm-plugin.version>1.10.0</maven-scm-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
-        <!-- SonarQube -->
-        <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
+        <!-- Core Frameworks -->
+        <camel-spring-boot-dependencies.version>4.1.0</camel-spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.1.4</spring-boot-dependencies.version>
 
-        <!-- TestCoverage -->
-        <jacoco.version>0.8.11</jacoco.version>
-
-        <!-- Code Formatting -->
-        <maven-spotless-plugin.version>2.28.0</maven-spotless-plugin.version>
+        <!-- Linting & Formatting -->
+        <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
+        <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
 
-        <!-- Other -->
-        <org.projectlombok.lombok.version>1.18.30</org.projectlombok.lombok.version>
+        <!-- Testing -->
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+
+        <!-- Utility -->
+        <lombok.version>1.18.30</lombok.version>
     </properties>
 
     <scm>
@@ -57,7 +53,7 @@
             <dependency>
                 <groupId>org.apache.camel.springboot</groupId>
                 <artifactId>camel-spring-boot-dependencies</artifactId>
-                <version>${camel.version}</version>
+                <version>${camel-spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,7 +61,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -144,7 +140,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -166,7 +162,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${org.projectlombok.lombok.version}</version>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -193,13 +189,13 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar.scanner.version}</version>
+                <version>${sonar-maven-plugin.version}</version>
             </plugin>
 
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -226,7 +222,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>${maven-spotless-plugin.version}</version>
+                <version>${spotless-maven-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>de.muenchen.oss</groupId>
