@@ -75,7 +75,7 @@ services:
     ports:
       - "8083:8080"
     environment:
-    - SSO_ISSUER_URL=http://host.docker.internal:8080/auth/realms/test_realm
+    - SSO_ISSUER_URL=http://keycloak:8080/auth/realms/test_realm
     - SSO_CLIENT_ID=test
     - SSO_CLIENT_SECRET=client_secret
     - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
