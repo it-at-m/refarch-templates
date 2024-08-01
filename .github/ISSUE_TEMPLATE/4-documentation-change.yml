@@ -1,6 +1,6 @@
 name: 📄 Documentation change
 description: Suggest a documentation change for this project.
-title: "[Documentation Change] "
+title: "[Documentation] "
 labels: ["Type: Documentation"]
 body:
   - type: markdown
