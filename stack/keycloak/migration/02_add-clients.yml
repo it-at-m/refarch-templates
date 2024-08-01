@@ -1,10 +1,10 @@
 id: add client
 author: Default
-realm: ${SSO_REALM}
+realm: test_realm
 changes:
   - addSimpleClient:
-      clientId: ${SSO_CLIENT_ID}
-      secret: ${SSO_CLIENT_SECRET}
+      clientId: test
+      secret: client_secret
       publicClient: false
       redirectUris:
         - http://*
@@ -12,7 +12,7 @@ changes:
 
     # maps user attribute user_name to a claim user_name
   - addClientUserAttributeMapper:
-      clientId: ${SSO_CLIENT_ID}
+      clientId: test
       name: user_name
       userAttribute: user_name
       claimName: user_name
@@ -21,7 +21,7 @@ changes:
 
   # Maps user client roles of current client into a claim "authorities"
   - addClientMapper:
-      clientId: ${SSO_CLIENT_ID}
+      clientId: test
       name: userClientAuthorities
       protocolMapper: oidc-usermodel-client-role-mapper
       config:
@@ -31,10 +31,10 @@ changes:
         jsonType.label: String
         multivalued: true
         claim.name: "authorities"
-        usermodel.clientRoleMapping.clientId: ${SSO_CLIENT_ID}
+        usermodel.clientRoleMapping.clientId: test
         usermodel.clientRoleMapping.rolePrefix: ""
 
   # !!! very import must have. Without that default scope u dont have access to userinfo-endpoint
   - assignDefaultClientScope:
-      clientId: ${SSO_CLIENT_ID}
+      clientId: test
       clientScopeName: openid

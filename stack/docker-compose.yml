@@ -28,13 +28,13 @@ services:
     depends_on:
       - db-postgres-keycloak
     environment:
-      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
-      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HOSTNAME_STRICT=false
       - DB=postgres
-      - DB_URL=jdbc:postgresql://db-postgres-keycloak:5432/${KEYCLOAK_DB}
-      - DB_USERNAME=${KEYCLOAK_DB_USER}
-      - DB_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+      - DB_URL=jdbc:postgresql://db-postgres-keycloak:5432/keycloak
+      - DB_USERNAME=keycloak-user
+      - DB_PASSWORD=keycloak-secret
     ports:
       - "8080:8080"
     networks:
@@ -44,9 +44,9 @@ services:
     container_name: db-postgres-keycloak
     image: postgres:16.3-alpine3.18
     environment:
-      - POSTGRES_DB=${KEYCLOAK_DB}
-      - POSTGRES_USER=${KEYCLOAK_DB_USER}
-      - POSTGRES_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak-user
+      - POSTGRES_PASSWORD=keycloak-secret
     networks:
       - keycloak
 
@@ -55,12 +55,10 @@ services:
     image: klg71/keycloakmigration:0.2.55
     depends_on:
       - keycloak
-    env_file:
-      - '.env'
     environment:
-      ADMIN_USER: ${KEYCLOAK_ADMIN}
-      ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-      BASEURL: ${SSO_BASE_URL}
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin
+      BASEURL: http://keycloak:8080/auth
       WAIT_FOR_KEYCLOAK: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
@@ -75,11 +73,11 @@ services:
       init-keycloak:
         condition: service_completed_successfully
     ports:
-      - "8083:8083"
+      - "8083:8080"
     environment:
-    - SSO_ISSUER_URL=http://keycloak:8080/auth/realms/${SSO_REALM}
-    - SSO_CLIENT_ID=${SSO_CLIENT_ID}
-    - SSO_CLIENT_SECRET=${SSO_CLIENT_SECRET}
+    - SSO_ISSUER_URL=http://host.docker.internal:8080/auth/realms/test_realm
+    - SSO_CLIENT_ID=test
+    - SSO_CLIENT_SECRET=client_secret
     - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
     - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://backend-service:39146/
     - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
@@ -92,3 +90,4 @@ services:
 
 networks:
   keycloak:
+  internal:

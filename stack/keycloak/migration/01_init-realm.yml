@@ -2,8 +2,8 @@ id: init_realm
 author: Default
 changes:
   - addRealm:
-      name: ${SSO_REALM}
+      name: test_realm
 
   - addClientScope:
-      realm: ${SSO_REALM}
+      realm: test_realm
       name: openid
