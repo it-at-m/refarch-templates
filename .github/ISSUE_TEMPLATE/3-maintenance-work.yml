@@ -1,6 +1,6 @@
 name: ⚙ Maintenance work
 description: Suggest useful or required maintenance work for this project.
-title: "[Maintenance Work] "
+title: "[Maintenance] "
 labels: ["Type: Maintenance"]
 body:
   - type: markdown
@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to fill out this maintenance work issue!
         To expedite issue processing, please search open and closed issues before submitting a new one.
-        Please read our [Code of Conduct](/.github/CODE_OF_CONDUCT.md).
+        Please read our [Code of Conduct](../CODE_OF_CONDUCT.md).
   - type: markdown
     attributes:
       value: "## General"
@@ -16,6 +16,7 @@ body:
     id: template
     attributes:
       label: Relevant template
+      multiple: true
       description: Name(s) of the affected template(s) (if applicable)
       options:
         - refarch-frontend
@@ -70,7 +71,7 @@ body:
     id: conduct
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md).
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../CODE_OF_CONDUCT.md).
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
