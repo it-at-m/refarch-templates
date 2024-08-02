@@ -1,0 +1,9 @@
+id: init_realm
+author: Default
+changes:
+  - addRealm:
+      name: local_realm
+
+  - addClientScope:
+      realm: local_realm
+      name: openid
