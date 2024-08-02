@@ -233,14 +233,19 @@
                 <configuration>
                     <java>
                         <includes>
-                            <include>src/main/java/**/*.java</include>
-                            <include>src/test/java/**/*.java</include>
+                            <include>src/main/java/**/*.java</include> <!-- Check application code -->
+                            <include>src/test/java/**/*.java</include> <!-- Check application tests code -->
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
                         </eclipse>
                         <trimTrailingWhitespace/>
                         <endWithNewline/>
+                        <importOrder>
+                            <semanticSort>true</semanticSort> <!-- Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case) -->
+                        </importOrder>
+                        <removeUnusedImports />
+                        <formatAnnotations />
                     </java>
                 </configuration>
                 <executions>
