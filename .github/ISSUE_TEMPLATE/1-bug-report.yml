@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to fill out this bug report!
         To expedite issue processing, please search open and closed issues before submitting a new one.
-        Please read our [Code of Conduct](../?tab=coc-ov-file#readme).
+        Please read our [Code of Conduct](../blob/main/.github/CODE_OF_CONDUCT.md).
   - type: markdown
     attributes:
       value: "## General"
@@ -137,7 +137,7 @@ body:
     id: conduct
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](../?tab=coc-ov-file#readme).
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../blob/main/.github/CODE_OF_CONDUCT.md).
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
