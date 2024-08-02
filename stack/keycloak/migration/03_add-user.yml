@@ -3,15 +3,15 @@ author: Default
 realm: local_realm
 changes:
   - addUser:
-      name: keycloak_local
-      lastName: local
-      firstName: keycloak
+      name: user
+      lastName: user
+      firstName: user
       enabled: true
       emailVerified: true
-      email: keycloak.local@example.com
+      email: user@user.com
       attributes:
         user_name:
-          - keycloak_local
+          - user
   - updateUserPassword:
-      name: keycloak_local
-      password: "admin"
+      name: user
+      password: "user"
