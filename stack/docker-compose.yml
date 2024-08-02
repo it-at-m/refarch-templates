@@ -10,15 +10,30 @@ services:
       - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+      start_period: 60s
+    security_opt: &security_settings
+      - no-new-privileges:true
 
   pg-admin:
     container_name: pg-admin
-    image: dpage/pgadmin4:4.8
+    image: dpage/pgadmin4:8.10
     environment:
-      - PGADMIN_DEFAULT_EMAIL=example@example.com
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_PORT=5050
     ports:
-      - "5050:80"
+      - "5050:5050"
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+    security_opt: *security_settings
 
   keycloak:
     container_name: keycloak
@@ -31,6 +46,7 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HOSTNAME_STRICT=false
+      - KC_HEALTH_ENABLED=true
       - DB=postgres
       - DB_URL=jdbc:postgresql://db-postgres-keycloak:5432/keycloak
       - DB_USERNAME=keycloak-user
@@ -39,6 +55,12 @@ services:
       - "8080:8080"
     networks:
       - keycloak
+    healthcheck:
+      test: ["CMD-SHELL",  "curl http://localhost:8080/auth/health/live"]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+    security_opt: *security_settings
 
   db-postgres-keycloak:
     container_name: db-postgres-keycloak
@@ -49,6 +71,13 @@ services:
       - POSTGRES_PASSWORD=keycloak-secret
     networks:
       - keycloak
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+      start_period: 60s
+    security_opt: *security_settings
 
   init-keycloak:
     container_name: init-keycloak
@@ -65,6 +94,7 @@ services:
       - './keycloak/migration:/migration'
     networks:
       - keycloak
+    security_opt: *security_settings
 
   refarch-gateway:
     container_name: refarch-gateway
@@ -75,8 +105,8 @@ services:
     ports:
       - "8083:8080"
     environment:
-    - SSO_ISSUER_URL=http://keycloak:8080/auth/realms/test_realm
-    - SSO_CLIENT_ID=test
+    - SSO_ISSUER_URL=http://keycloak:8080/auth/realms/local_realm
+    - SSO_CLIENT_ID=local
     - SSO_CLIENT_SECRET=client_secret
     - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
     - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://backend-service:39146/
@@ -87,6 +117,13 @@ services:
     - SPRING_PROFILES_ACTIVE=hazelcast-local
     networks:
       - keycloak
+    healthcheck:
+      test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+      start_period: 60s
+    security_opt: *security_settings
 
 networks:
   keycloak:
