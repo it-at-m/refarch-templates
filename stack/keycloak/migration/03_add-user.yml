@@ -1,0 +1,17 @@
+id: add first user to work with keycloak
+author: Default
+realm: local_realm
+changes:
+  - addUser:
+      name: keycloak_local
+      lastName: local
+      firstName: keycloak
+      enabled: true
+      emailVerified: true
+      email: keycloak.local@example.com
+      attributes:
+        user_name:
+          - keycloak_local
+  - updateUserPassword:
+      name: keycloak_local
+      password: "admin"
