@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
-    healthcheck:
+    healthcheck: &healthcheck
       test: ["CMD-SHELL", "pg_isready"]
       interval: 30s
       timeout: 60s
@@ -29,10 +29,8 @@ services:
     ports:
       - "5050:5050"
     healthcheck:
+      <<: *healthcheck
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
-      interval: 30s
-      timeout: 60s
-      retries: 3
     security_opt: *security_settings
 
   keycloak:
@@ -56,10 +54,8 @@ services:
     networks:
       - keycloak
     healthcheck:
+      <<: *healthcheck
       test: ["CMD-SHELL",  "curl http://localhost:8080/auth/health/live"]
-      interval: 30s
-      timeout: 60s
-      retries: 3
     security_opt: *security_settings
 
   db-postgres-keycloak:
@@ -72,11 +68,8 @@ services:
     networks:
       - keycloak
     healthcheck:
+      <<: *healthcheck
       test: [ "CMD-SHELL", "pg_isready" ]
-      interval: 30s
-      timeout: 60s
-      retries: 3
-      start_period: 60s
     security_opt: *security_settings
 
   init-keycloak:
@@ -118,11 +111,8 @@ services:
     networks:
       - keycloak
     healthcheck:
+      <<: *healthcheck
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
-      interval: 30s
-      timeout: 60s
-      retries: 3
-      start_period: 60s
     security_opt: *security_settings
 
 networks:
