@@ -10,6 +10,7 @@ services:
       - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
+    restart: &restart-policy on-failure:3
     healthcheck: &healthcheck
       test: ["CMD-SHELL", "pg_isready -d postgres -U admin"]
       interval: 30s
@@ -28,6 +29,7 @@ services:
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - "5050:5050"
+    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
@@ -54,6 +56,7 @@ services:
       - "8100:8100"
     networks:
       - keycloak
+    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: ["CMD-SHELL",  "curl http://localhost:8100/auth/health/live"]
@@ -68,6 +71,7 @@ services:
       - POSTGRES_PASSWORD=keycloak-secret
     networks:
       - keycloak
+    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "pg_isready -d keycloak -U keycloak-user" ]
@@ -111,6 +115,7 @@ services:
     - SPRING_PROFILES_ACTIVE=hazelcast-local
     networks:
       - keycloak
+    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
