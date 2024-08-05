@@ -1,6 +1,6 @@
 name: 📄 Documentation change
 description: Suggest a documentation change for this project.
-title: "[Documentation Change] "
+title: "[Documentation] "
 labels: ["Type: Documentation"]
 body:
   - type: markdown
@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to fill out this documentation change issue!
         To expedite issue processing, please search open and closed issues before submitting a new one.
-        Please read our [Code of Conduct](/.github/CODE_OF_CONDUCT.md).
+        Please read our [Code of Conduct](../blob/main/.github/CODE_OF_CONDUCT.md).
   - type: markdown
     attributes:
       value: "## General"
@@ -16,15 +16,16 @@ body:
     id: template
     attributes:
       label: Relevant documentation
-      description: Affected documentation parts (if applicable)
+      multiple: true
+      description: Affected documentation parts
       options:
         - refarch-frontend
         - refarch-backend
         - refarch-eai
         - refarch-webcomponent
-        - ...
+        - Other
     validations:
-      required: false
+      required: true
   - type: textarea
     id: problem-description
     attributes:
@@ -64,7 +65,7 @@ body:
     id: conduct
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](/.github/CODE_OF_CONDUCT.md).
+      description: By submitting this issue, you agree to follow our [Code of Conduct](../blob/main/.github/CODE_OF_CONDUCT.md).
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true

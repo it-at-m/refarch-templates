@@ -19,27 +19,44 @@
 
 
     <properties>
+        <!-- Compilation -->
         <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>3.2.1</spring.boot.version>
-        <spring.cloud.version>2023.0.0</spring.cloud.version>
-        <logstash.encoder>7.0.1</logstash.encoder>
-        <apache.commons.collections4>4.4</apache.commons.collections4>
-        <apache.commons.csv>1.9.0</apache.commons.csv>
-        <apache.commons.io>2.11.0</apache.commons.io>
-        <apache.commons.lang3>3.12.0</apache.commons.lang3>
-        <apache.commons.text>1.9</apache.commons.text>
-        <apache.commons.validator>1.7</apache.commons.validator>
-        <!-- SonarQube -->
-        <sonar.scanner.version>3.9.0.2155</sonar.scanner.version>
-        <!-- TestCoverage -->
-        <jacoco.version>0.8.11</jacoco.version>
-        <!-- Plugins -->
         <maven-scm-plugin.version>1.10.0</maven-scm-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+
+        <!-- Core Frameworks -->
+        <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
+        <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
+
+        <!-- Logging -->
+        <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
+
+        <!-- Linting & Formatting -->
+        <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
+        <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
+        <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
+
+        <!-- Testing -->
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+
+        <!-- Utility -->
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-csv.version>1.9.0</commons-csv.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-text.version>1.9</commons-text.version>
+        <commons-validator.version>1.7</commons-validator.version>
+        <lombok.version>1.18.30</lombok.version> <!-- Must match provided version in spring-boot-dependencies -->
+        <mapstruct.version>1.5.5.Final</mapstruct.version>
+
+        <!-- Additional required dependencies -->
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <maven.resources.plugin.version>3.3.1</maven.resources.plugin.version>
         <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
@@ -57,7 +74,7 @@
                 <!-- Import dependency management from Spring Boot -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -65,7 +82,7 @@
                 <!-- Import dependency management from Spring Cloud -->
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
+                <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -103,7 +120,7 @@
             <artifactId>caffeine</artifactId>
         </dependency>
 
-        <!-- Spring security -->
+        <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -139,7 +156,7 @@
             <artifactId>json-path</artifactId>
         </dependency>
 
-        <!-- Datenbank -->
+        <!-- Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -162,6 +179,16 @@
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
 
         <!-- Validation -->
@@ -208,7 +235,7 @@
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
-            <version>${logstash.encoder}</version>
+            <version>${logstash-logback-encoder.version}</version>
         </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
@@ -220,42 +247,37 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-hal-explorer</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- apache commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>${apache.commons.collections4}</version>
+            <version>${commons-collections4.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>${apache.commons.csv}</version>
+            <version>${commons-csv.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${apache.commons.io}</version>
+            <version>${commons-io.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${apache.commons.lang3}</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>${apache.commons.text}</version>
+            <version>${commons-text.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
-            <version>${apache.commons.validator}</version>
+            <version>${commons-validator.version}</version>
         </dependency>
 
         <!-- Configuration Processor -->
@@ -286,7 +308,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven.resources.plugin.version}</version>
+                    <version>${maven-resources-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -294,7 +316,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot-dependencies.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -306,7 +328,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -314,12 +336,17 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${org.projectlombok.lombok.version}</version>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>${org.projectlombok.mapstructbinding.version}</version>
+                            <version>${lombok-mapstruct-binding.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -343,13 +370,13 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar.scanner.version}</version>
+                <version>${sonar-maven-plugin.version}</version>
             </plugin>
 
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -376,12 +403,12 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.28.0</version>
+                <version>${spotless-maven-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>de.muenchen.oss</groupId>
                         <artifactId>itm-java-codeformat</artifactId>
-                        <version>1.0.7</version>
+                        <version>${itm-java-codeformat.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
