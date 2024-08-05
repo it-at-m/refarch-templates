@@ -60,10 +60,6 @@
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
-
-        <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
-        <org.projectlombok.lombok.version>1.18.30</org.projectlombok.lombok.version>
-        <org.projectlombok.mapstructbinding.version>0.2.0</org.projectlombok.mapstructbinding.version>
     </properties>
 
 
