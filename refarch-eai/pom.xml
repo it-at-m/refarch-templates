@@ -21,7 +21,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <!-- Core Frameworks -->
         <camel-spring-boot-dependencies.version>4.1.0</camel-spring-boot-dependencies.version>
@@ -113,7 +112,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
