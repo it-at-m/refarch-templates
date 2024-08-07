@@ -7,7 +7,7 @@
       :readonly="readonly"
       :hide-details="hideDetails"
       :rules="validierungsRegeln"
-      :density="dense ? 'compact' : 'default'"
+      :density="density"
       :error="error"
       :error-messages="errorMessages"
       :persistent-hint="persistentHint"
@@ -23,7 +23,7 @@
             :readonly="readonly"
             :error="error"
             hide-details
-            :density="dense ? 'compact' : 'default'"
+            :density="density"
             :filled="filled"
             :outlined="outlined"
             type="date"
@@ -41,7 +41,7 @@
             :readonly="readonly"
             :error="error"
             hide-details
-            :density="dense ? 'compact' : 'default'"
+            :density="density"
             :filled="filled"
             :outlined="outlined"
             type="time"
@@ -50,7 +50,7 @@
             @blur="sendInput"
           >
             <template
-              v-if="clearable && !readonly"
+              v-if="showClearButton"
               #append-inner
             >
               <v-btn
@@ -135,6 +135,10 @@ const validierungsRegeln = computed(() => {
 onMounted(() => {
   parseValue();
 });
+
+const density = computed(() => (props.dense ? "compact" : "default"));
+
+const showClearButton = computed(() => props.clearable && !props.readonly);
 
 function clear(): void {
   errorMessages.value = "";
