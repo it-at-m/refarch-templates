@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <parent>
-        <groupId>de.muenchen</groupId>
-        <artifactId>muenchen-pom</artifactId>
-        <version>2.1.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version>
+        <relativePath/>
     </parent>
 
 
@@ -30,8 +30,7 @@
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
 
         <!-- Core Frameworks -->
-        <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
+        <spring-cloud-dependencies.version>2023.0.1</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Logging -->
         <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
@@ -62,14 +61,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <!-- Import dependency management from Spring Cloud -->
                 <groupId>org.springframework.cloud</groupId>
@@ -289,34 +280,7 @@
 
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven-resources-plugin.version}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -355,7 +319,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>${surefireArgLine}  -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
 
