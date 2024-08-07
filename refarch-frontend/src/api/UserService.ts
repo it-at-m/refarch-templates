@@ -1,6 +1,6 @@
 import { API_BASE } from "@/Constants";
 import User from "../types/User";
-import FetchUtils from "./FetchUtils";
+import FetchUtils from "@/api/FetchUtils";
 
 export default class UserService {
   /**
