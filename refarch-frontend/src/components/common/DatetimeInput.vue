@@ -117,8 +117,10 @@ const day = ref<string | null>(null);
 const time = ref<string | null>(null);
 const error = ref(false);
 const errorMessages = ref("");
-const dateFilled = (): string | boolean =>
-  checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
+
+function dateFilled(): string | boolean {
+  return checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
+}
 
 const emits = defineEmits<{
   (e: "update:modelValue", v: string | null): void;
