@@ -21,7 +21,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven-scm-plugin.version>1.10.0</maven-scm-plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <!-- Core Frameworks -->
@@ -136,15 +135,6 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>${maven-scm-plugin.version}</version>
-                <configuration>
-                    <tag>RT-REL-${project.version}</tag>
                 </configuration>
             </plugin>
 
