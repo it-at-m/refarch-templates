@@ -2,7 +2,7 @@
   <v-avatar>
     <img
       :src="avatarUrl"
-      :alt="'Bild von ' + props.username"
+      :alt="altText"
     />
   </v-avatar>
 </template>
@@ -30,4 +30,6 @@ const avatarUrl = computed(() => {
     props.avatarSize
   );
 });
+
+const altText = computed(() => `Bild von ${props.username}`);
 </script>
