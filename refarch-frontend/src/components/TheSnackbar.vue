@@ -63,7 +63,7 @@ watch(
   }
 );
 
-const hide = () => {
+function hide(): void {
   show.value = false;
-};
+}
 </script>
