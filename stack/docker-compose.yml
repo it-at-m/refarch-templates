@@ -107,7 +107,7 @@ services:
     - SSO_CLIENT_ID=local
     - SSO_CLIENT_SECRET=client_secret
     - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://backend-service:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://host.docker.internal:39146/
     - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
     - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
@@ -115,6 +115,8 @@ services:
     - SPRING_PROFILES_ACTIVE=hazelcast-local
     networks:
       - keycloak
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: *restart-policy
     healthcheck:
       <<: *healthcheck
