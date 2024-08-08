@@ -95,11 +95,11 @@ public class NfcHelper {
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
     public static Cookie nfcConverter(final Cookie original) {
-        final Cookie nfcCookie = new Cookie(NfcHelper.nfcConverter(original.getName()), NfcHelper.nfcConverter(original.getValue()));
+        final Cookie nfcCookie = new Cookie(nfcConverter(original.getName()), nfcConverter(original.getValue()));
         if (original.getDomain() != null) {
-            nfcCookie.setDomain(NfcHelper.nfcConverter(original.getDomain()));
+            nfcCookie.setDomain(nfcConverter(original.getDomain()));
         }
-        nfcCookie.setPath(NfcHelper.nfcConverter(original.getPath()));
+        nfcCookie.setPath(nfcConverter(original.getPath()));
         return nfcCookie;
     }
 

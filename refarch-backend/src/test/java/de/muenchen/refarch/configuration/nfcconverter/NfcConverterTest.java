@@ -164,8 +164,7 @@ class NfcConverterTest {
         Mockito.when(part.getInputStream()).thenReturn(new ByteArrayInputStream(VALUE_NFD.getBytes(UTF8)));
         final List<Part> baseListParts = new ArrayList<>();
         baseListParts.add(part);
-        final UnmodifiableList<Part> parts = new UnmodifiableList<>(baseListParts);
-        return parts;
+        return new UnmodifiableList<>(baseListParts);
     }
 
 }
