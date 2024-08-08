@@ -7,10 +7,10 @@
   >
     {{ message }}
     <v-btn
-      v-if="color === 'error'"
+      v-if="isError"
       color="primary"
       variant="text"
-      @click="show = false"
+      @click="hide"
     >
       Schließen
     </v-btn>
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 
 import { useSnackbarStore } from "@/stores/snackbar";
 
@@ -30,6 +30,8 @@ const show = ref(false);
 const timeout = ref(defaultTimeout);
 const message = ref("");
 const color = ref("info");
+
+const isError = computed(() => color.value === "error");
 
 watch(
   () => snackbarStore.message,
@@ -60,4 +62,8 @@ watch(
     }
   }
 );
+
+function hide(): void {
+  show.value = false;
+}
 </script>
