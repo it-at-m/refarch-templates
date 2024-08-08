@@ -380,7 +380,7 @@
                     <targetJdk>${java.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                     <rulesets>
-                        <ruleset>pmd-ruleset.xml</ruleset>
+                        <ruleset>../shared-files/pmd-ruleset.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
