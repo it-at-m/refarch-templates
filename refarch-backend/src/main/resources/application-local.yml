@@ -1,16 +1,6 @@
 server:
   port: 39146
 spring:
-
-  # Spring data rest
-  data:
-    rest:
-      # Definition of page size for PagingAndSortingRepository
-      max-page-size: 0x7fffffff
-      default-page-size: 0x7fffffff
-      return-body-on-update: true
-      return-body-on-create: true
-
   # Spring JPA
   h2.console.enabled: true
   jpa:
