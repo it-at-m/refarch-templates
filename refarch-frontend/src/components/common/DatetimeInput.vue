@@ -86,8 +86,9 @@ import { computed, onMounted, ref, watch } from "vue";
  * ></datetime-input>
  */
 
+const modelValue = defineModel<string>();
+
 interface Props {
-  modelValue: string;
   readonly: boolean;
   hideDetails: boolean;
   dense: boolean;
@@ -121,10 +122,6 @@ const errorMessages = ref("");
 function dateFilled(): string | boolean {
   return checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
 }
-
-const emits = defineEmits<{
-  (e: "update:modelValue", v: string | null): void;
-}>();
 
 const validierungsRegeln = computed(() => {
   if (props.rules) {
