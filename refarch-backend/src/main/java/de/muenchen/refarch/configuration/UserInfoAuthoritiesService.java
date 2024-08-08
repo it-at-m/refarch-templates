@@ -45,7 +45,7 @@ public class UserInfoAuthoritiesService {
      * @param userInfoUri userinfo Endpoint URI
      * @param restTemplateBuilder ein {@link RestTemplateBuilder}
      */
-    public UserInfoAuthoritiesService(String userInfoUri, RestTemplateBuilder restTemplateBuilder) {
+    public UserInfoAuthoritiesService(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
         this.userInfoUri = userInfoUri;
         this.restTemplate = restTemplateBuilder.build();
         this.cache = new CaffeineCache(NAME_AUTHENTICATION_CACHE,
@@ -62,12 +62,12 @@ public class UserInfoAuthoritiesService {
      * @param jwt der JWT
      * @return die {@link GrantedAuthority}s gem. Claim "authorities" des /userinfo Endpoints
      */
-    public Collection<SimpleGrantedAuthority> loadAuthorities(Jwt jwt) {
-        ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
+    public Collection<SimpleGrantedAuthority> loadAuthorities(final Jwt jwt) {
+        final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
         if (valueWrapper != null) {
             // value present in cache
             @SuppressWarnings("unchecked")
-            Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) valueWrapper.get();
+            final Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) valueWrapper.get();
             log.debug("Resolved authorities (from cache): {}", authorities);
             return authorities;
         }
@@ -80,7 +80,7 @@ public class UserInfoAuthoritiesService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         try {
             @SuppressWarnings("unchecked")
-            Map<String, Object> map = restTemplate.exchange(this.userInfoUri, HttpMethod.GET, entity,
+            final Map<String, Object> map = restTemplate.exchange(this.userInfoUri, HttpMethod.GET, entity,
                     Map.class).getBody();
 
             log.debug("Response from user-info Endpoint: {}", map);
@@ -99,14 +99,14 @@ public class UserInfoAuthoritiesService {
     }
 
     private static List<SimpleGrantedAuthority> asAuthorities(Object object) {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         if (object instanceof Collection) {
-            Collection<?> collection = (Collection<?>) object;
+            final Collection<?> collection = (Collection<?>) object;
             object = collection.toArray(new Object[0]);
         }
         if (ObjectUtils.isArray(object)) {
             authorities.addAll(
-                    Stream.of(((Object[]) object))
+                    Stream.of((Object[]) object)
                             .map(Object::toString)
                             .map(SimpleGrantedAuthority::new)
                             .collect(Collectors.toList()));

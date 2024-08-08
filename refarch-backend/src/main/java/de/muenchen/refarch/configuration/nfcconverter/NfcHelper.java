@@ -94,7 +94,7 @@ public class NfcHelper {
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
-    public static Cookie nfcConverter(Cookie original) {
+    public static Cookie nfcConverter(final Cookie original) {
         final Cookie nfcCookie = new Cookie(NfcHelper.nfcConverter(original.getName()), NfcHelper.nfcConverter(original.getValue()));
         if (original.getDomain() != null) {
             nfcCookie.setDomain(NfcHelper.nfcConverter(original.getDomain()));

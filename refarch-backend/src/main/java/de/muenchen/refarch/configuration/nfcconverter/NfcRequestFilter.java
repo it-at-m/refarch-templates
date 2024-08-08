@@ -80,7 +80,7 @@ public class NfcRequestFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
 
         log.debug("Request-Type={}", request.getClass().getName());
@@ -88,7 +88,7 @@ public class NfcRequestFilter extends OncePerRequestFilter {
 
         final String contentType = request.getContentType();
         log.debug("ContentType for request with URI: \"{}\"", contentType);
-        if ((contentTypes != null) && (contentTypes.contains(contentType))) {
+        if (contentTypes != null && contentTypes.contains(contentType)) {
             log.debug("Processing request {}.", request.getRequestURI());
             filterChain.doFilter(new NfcRequest(request, contentTypes), response);
         } else {

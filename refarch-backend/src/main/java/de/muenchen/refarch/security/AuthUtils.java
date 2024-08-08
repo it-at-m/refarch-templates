@@ -11,14 +11,13 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
  * @author michael.prankl
  *
  */
-public class AuthUtils {
+public final class AuthUtils {
 
     public static final String NAME_UNAUTHENTICATED_USER = "unauthenticated";
 
     private static final String TOKEN_USER_NAME = "user_name";
 
-    private AuthUtils() {
-    }
+    private AuthUtils() {}
 
     /**
      * Extrahiert den Usernamen aus dem vorliegenden Spring Security Context via
@@ -27,12 +26,12 @@ public class AuthUtils {
      * @return der Username or a "unauthenticated", wenn keine {@link Authentication} existiert
      */
     public static String getUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken) {
-            JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) authentication;
+            final JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) authentication;
             return (String) jwtAuth.getTokenAttributes().getOrDefault(TOKEN_USER_NAME, null);
         } else if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            UsernamePasswordAuthenticationToken usernameAuth = (UsernamePasswordAuthenticationToken) authentication;
+            final UsernamePasswordAuthenticationToken usernameAuth = (UsernamePasswordAuthenticationToken) authentication;
             return usernameAuth.getName();
         } else {
             return NAME_UNAUTHENTICATED_USER;

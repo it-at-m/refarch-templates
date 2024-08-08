@@ -35,7 +35,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     private Map<String, List<String>> headers;
 
     @SuppressWarnings("unused")
-    private Set<String> contentTypes;
+    final private Set<String> contentTypes;
 
     public NfcRequest(final HttpServletRequest request, final Set<String> contentTypes) {
         super(request);
@@ -134,7 +134,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
      * Only the username is converted to nfc. Password won't be touched!
      */
     @Override
-    public void login(String username, String password) throws ServletException {
+    public void login(final String username, final String password) throws ServletException {
         getOriginalRequest().login(NfcHelper.nfcConverter(username), password);
     }
 
@@ -192,7 +192,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         final String encoding = getOriginalRequest().getCharacterEncoding();
 
         String content = null;
-        try (final InputStream is = getOriginalRequest().getInputStream()) {
+        try (InputStream is = getOriginalRequest().getInputStream()) {
             content = new String(IOUtils.toByteArray(is), encoding);
         }
 
