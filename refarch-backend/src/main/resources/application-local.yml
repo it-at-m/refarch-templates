@@ -1,20 +1,8 @@
 server:
   port: 39146
 spring:
-
-  # Spring data rest
-  data:
-    rest:
-      # Definition of page size for PagingAndSortingRepository
-      max-page-size: 0x7fffffff
-      default-page-size: 0x7fffffff
-      return-body-on-update: true
-      return-body-on-create: true
-
   # Spring JPA
-  h2.console.enabled: true
   jpa:
-    database: H2
     hibernate:
       # always drop and create the db should be the best
       # configuration for local (development) mode. this
@@ -27,20 +15,25 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: admin
+    username: admin
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: https://${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/certs
-
+          jwk-set-uri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/certs
+          audiences:
+            - local
 
 # Define the local keycloak realm here
-realm: <YOUR_LOCAL_REALM>
+realm: local_realm
 keycloak:
-  auth-server-url: <keycloak-server-url>
+  auth-server-url: http://keycloak:8100
 
 security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
   logging.requests: all
   oauth2:
-    resource.user-info-uri: https://${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
+    resource.user-info-uri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
