@@ -14,7 +14,9 @@
         <exclude name="ShortVariable"/>
         <exclude name="AtLeastOneConstructor"/>
     </rule>
-    <rule ref="category/java/design.xml"/>
+    <rule ref="category/java/design.xml">
+        <exclude name="LoosePackageCoupling" />
+    </rule>
     <rule ref="category/java/errorprone.xml"/>
     <rule ref="category/java/security.xml"/>
     <rule ref="category/java/multithreading.xml"/>

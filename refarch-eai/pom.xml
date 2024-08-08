@@ -205,6 +205,11 @@
                     <minimumTokens>100</minimumTokens>
                     <targetJdk>${java.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources</excludeRoot>
+                        <excludeRoot>target/generated-test-sources</excludeRoot>
+                    </excludeRoots>
                     <rulesets>
                         <ruleset>../shared-files/pmd-ruleset.xml</ruleset>
                     </rulesets>
