@@ -7,20 +7,20 @@
 "Type: Documentation":
   - head-branch: [ '^docs', "documentation" ]
   - changed-files:
-    - any-glob-to-any-file: ['docs/*']
+    - any-glob-to-any-file: ['docs/**']
 "Type: Dependency":
   - head-branch: [ '^dep', 'dependency' ]
 "Type: Security":
   - head-branch: [ '^sec', 'security' ]
 "Template: Backend":
   - changed-files:
-    - any-glob-to-any-file: ['refarch-backend/*']
+    - any-glob-to-any-file: ['refarch-backend/**']
 "Template: EAI":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-eai/*']
+      - any-glob-to-any-file: ['refarch-eai/**']
 "Template: Frontend":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-frontend/*']
+      - any-glob-to-any-file: ['refarch-frontend/**']
 "Template: Webcomponent":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-webcomponent/*']
+      - any-glob-to-any-file: ['refarch-webcomponent/**']
