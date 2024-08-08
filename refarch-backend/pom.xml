@@ -42,7 +42,6 @@
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <pmd-maven-plugin.version>3.23.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
-        <findsecbugs-maven-plugin.version>1.12.0</findsecbugs-maven-plugin.version>
 
         <!-- Testing -->
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
@@ -454,13 +453,6 @@
                 <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>${findsecbugs-maven-plugin.version}</version>
-                        </plugin>
-                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
