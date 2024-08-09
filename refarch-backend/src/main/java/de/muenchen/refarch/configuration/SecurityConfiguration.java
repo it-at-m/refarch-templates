@@ -31,7 +31,7 @@ public class SecurityConfiguration {
     private String userInfoUri;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
                         // allow access to /actuator/info
