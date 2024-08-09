@@ -27,13 +27,13 @@
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
-        <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
+        <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <pmd-maven-plugin.version>3.23.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     </properties>
 
     <scm>
