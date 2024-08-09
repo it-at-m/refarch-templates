@@ -81,8 +81,8 @@ public class RequestResponseLoggingFilter implements Filter {
      * @return True if logging should be done otherwise false.
      */
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
-        return requestLoggingMode.equals(REQUEST_LOGGING_MODE_ALL)
-                || (requestLoggingMode.equals(REQUEST_LOGGING_MODE_CHANGING)
+        return REQUEST_LOGGING_MODE_ALL.equals(requestLoggingMode)
+                || (REQUEST_LOGGING_MODE_CHANGING.equals(requestLoggingMode)
                         && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
     }
 

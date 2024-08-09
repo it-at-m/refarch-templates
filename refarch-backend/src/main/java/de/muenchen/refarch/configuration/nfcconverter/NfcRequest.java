@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -39,9 +40,6 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
     public NfcRequest(final HttpServletRequest request, final Set<String> contentTypes) {
         super(request);
-        this.params = null;
-        this.cookies = null;
-        this.headers = null;
         this.contentTypes = contentTypes;
     }
 
@@ -57,7 +55,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     @Override
     public Cookie[] getCookies() {
         convert();
-        return this.cookies;
+        return Arrays.copyOf(this.cookies, this.cookies.length);
     }
 
     @Override
@@ -191,7 +189,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         final String encoding = getOriginalRequest().getCharacterEncoding();
 
-        String content = null;
+        String content;
         try (InputStream is = getOriginalRequest().getInputStream()) {
             content = new String(IOUtils.toByteArray(is), encoding);
         }

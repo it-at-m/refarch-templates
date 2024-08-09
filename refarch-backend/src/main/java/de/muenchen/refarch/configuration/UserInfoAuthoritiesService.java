@@ -73,6 +73,7 @@ public class UserInfoAuthoritiesService {
         }
 
         log.debug("Fetching user-info for token subject: {}", jwt.getSubject());
+        @SuppressWarnings("PMD.LooseCoupling")
         final HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwt.getTokenValue());
         final HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -98,18 +99,19 @@ public class UserInfoAuthoritiesService {
         return authorities;
     }
 
-    private static List<SimpleGrantedAuthority> asAuthorities(Object object) {
+    private static List<SimpleGrantedAuthority> asAuthorities(final Object object) {
         final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if (object instanceof Collection) {
-            final Collection<?> collection = (Collection<?>) object;
-            object = collection.toArray(new Object[0]);
+        Object authoritiesObject = object;
+        if (authoritiesObject instanceof Collection) {
+            final Collection<?> collection = (Collection<?>) authoritiesObject;
+            authoritiesObject = collection.toArray(new Object[0]);
         }
-        if (ObjectUtils.isArray(object)) {
+        if (ObjectUtils.isArray(authoritiesObject)) {
             authorities.addAll(
-                    Stream.of((Object[]) object)
+                    Stream.of((Object[]) authoritiesObject)
                             .map(Object::toString)
                             .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList()));
+                            .toList());
         }
         return authorities;
     }

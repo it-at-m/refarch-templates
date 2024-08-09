@@ -64,7 +64,7 @@ public class NfcHelper {
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
-    public static String[] nfcConverter(final String[] original) {
+    public static String[] nfcConverter(final String... original) {
         return Arrays.stream(original)
                 .map(NfcHelper::nfcConverter)
                 .toArray(String[]::new);
@@ -79,7 +79,7 @@ public class NfcHelper {
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
     public static Map<String, String[]> nfcConverter(final Map<String, String[]> original) {
-        final HashMap<String, String[]> nfcConverted = new HashMap<>(original.size());
+        final Map<String, String[]> nfcConverted = new HashMap<>(original.size());
         original.forEach((nfdKey, nfdValueArray) -> nfcConverted.put(
                 nfcConverter(nfdKey),
                 nfcConverter(nfdValueArray)));
@@ -111,9 +111,9 @@ public class NfcHelper {
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
-    public static Cookie[] nfcConverter(final Cookie[] original) {
+    public static Cookie[] nfcConverter(final Cookie... original) {
         if (original == null) {
-            return null;
+            return new Cookie[0];
         }
         return Arrays.stream(original)
                 .map(NfcHelper::nfcConverter)
@@ -133,7 +133,7 @@ public class NfcHelper {
     public static Map<String, List<String>> nfcConverterForHeadersFromOriginalRequest(final HttpServletRequest originalRequest) {
         final Map<String, List<String>> converted = new CaseInsensitiveMap<>();
         Collections.list(originalRequest.getHeaderNames()).forEach(nfdHeaderName -> {
-            final String nfcHeaderName = NfcHelper.nfcConverter(nfdHeaderName);
+            final String nfcHeaderName = nfcConverter(nfdHeaderName);
             final List<String> nfcHeaderEntries = Collections.list(originalRequest.getHeaders(nfdHeaderName)).stream()
                     .map(NfcHelper::nfcConverter)
                     .collect(Collectors.toList());

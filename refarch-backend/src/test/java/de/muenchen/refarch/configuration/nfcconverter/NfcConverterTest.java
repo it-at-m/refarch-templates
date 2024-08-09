@@ -141,7 +141,7 @@ class NfcConverterTest {
         Mockito.when(req.getHeader(NAME_NFD)).thenReturn(headers.get(NAME_NFD));
         final List<String> baseListvalues = new ArrayList<>();
         baseListvalues.add(VALUE_NFD);
-        final UnmodifiableList<String> values = new UnmodifiableList<>(baseListvalues);
+        final List<String> values = new UnmodifiableList<>(baseListvalues);
         Mockito.when(req.getHeaders(NAME_NFD)).thenReturn(Collections.enumeration(values));
         Mockito.when(req.getCookies()).thenReturn(mockCookies());
 

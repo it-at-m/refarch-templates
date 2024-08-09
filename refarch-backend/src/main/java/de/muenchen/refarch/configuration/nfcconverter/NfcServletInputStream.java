@@ -14,11 +14,12 @@ public class NfcServletInputStream extends ServletInputStream {
     private final ByteArrayInputStream buffer;
 
     public NfcServletInputStream(final ByteArrayInputStream buffer) {
+        super();
         this.buffer = buffer;
     }
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         return buffer.read();
     }
 
