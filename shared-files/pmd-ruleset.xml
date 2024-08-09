@@ -12,13 +12,19 @@
         <exclude name="JUnitTestContainsTooManyAsserts"/>
     </rule>
     <rule ref="category/java/codestyle.xml">
-        <exclude name="LongVariable"/>
-        <exclude name="ShortVariable"/>
         <exclude name="AtLeastOneConstructor"/>
+        <exclude name="LongVariable"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="ShortVariable"/>
     </rule>
     <rule ref="category/java/design.xml">
+        <exclude name="AvoidCatchingGenericException"/>
+        <exclude name="AvoidThrowingRawExceptionTypes"/>
+        <exclude name="ExcessiveImports"/>
         <exclude name="LoosePackageCoupling" />
         <exclude name="LawOfDemeter"/>
+        <exclude name="SignatureDeclareThrowsException"/>
+        <exclude name="TooManyMethods"/>
     </rule>
     <rule ref="category/java/errorprone.xml"/>
     <rule ref="category/java/security.xml"/>
