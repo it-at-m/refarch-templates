@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -35,13 +36,10 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     private Map<String, List<String>> headers;
 
     @SuppressWarnings("unused")
-    private Set<String> contentTypes;
+    final private Set<String> contentTypes;
 
     public NfcRequest(final HttpServletRequest request, final Set<String> contentTypes) {
         super(request);
-        this.params = null;
-        this.cookies = null;
-        this.headers = null;
         this.contentTypes = contentTypes;
     }
 
@@ -57,7 +55,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     @Override
     public Cookie[] getCookies() {
         convert();
-        return this.cookies;
+        return Arrays.copyOf(this.cookies, this.cookies.length);
     }
 
     @Override
@@ -134,7 +132,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
      * Only the username is converted to nfc. Password won't be touched!
      */
     @Override
-    public void login(String username, String password) throws ServletException {
+    public void login(final String username, final String password) throws ServletException {
         getOriginalRequest().login(NfcHelper.nfcConverter(username), password);
     }
 
@@ -191,8 +189,8 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         final String encoding = getOriginalRequest().getCharacterEncoding();
 
-        String content = null;
-        try (final InputStream is = getOriginalRequest().getInputStream()) {
+        String content;
+        try (InputStream is = getOriginalRequest().getInputStream()) {
             content = new String(IOUtils.toByteArray(is), encoding);
         }
 

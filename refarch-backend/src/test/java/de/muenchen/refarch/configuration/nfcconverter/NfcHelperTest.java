@@ -24,9 +24,9 @@ class NfcHelperTest {
 
     private static final String THIRD_NFC = "\u1e69";
 
-    private static final String[] NFD_INPUT = new String[] { FIRST_NFD, SECOND_NFD, THIRD_NFD };
+    private static final String[] NFD_INPUT = { FIRST_NFD, SECOND_NFD, THIRD_NFD };
 
-    private static final String[] NFC_OUTPUT_EXPECTED = new String[] { FIRST_NFC, SECOND_NFC, THIRD_NFC };
+    private static final String[] NFC_OUTPUT_EXPECTED = { FIRST_NFC, SECOND_NFC, THIRD_NFC };
 
     @Test
     void nfcConverterString() {
@@ -82,6 +82,7 @@ class NfcHelperTest {
         assertEquals(THIRD_NFC, nfcCookie.getPath());
     }
 
+    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
     @Test
     void nfcConverterCookieArray() {
         final Cookie[] nfdCookies = Collections.nCopies(3, createNfdCookie()).toArray(new Cookie[3]);

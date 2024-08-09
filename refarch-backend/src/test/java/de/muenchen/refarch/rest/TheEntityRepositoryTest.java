@@ -31,9 +31,6 @@ class TheEntityRepositoryTest {
     @Test
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
     void testSave() {
-
-        // Implement your logic here by replacing and/or extending the code
-
         // initialize
         TheEntity original = new TheEntity();
         original.setTextAttribute("test");
@@ -42,10 +39,9 @@ class TheEntityRepositoryTest {
         original = repository.save(original);
 
         // check
-        TheEntity persisted = repository.findById(original.getId()).orElse(null);
+        final TheEntity persisted = repository.findById(original.getId()).orElse(null);
         assertNotNull(persisted);
         assertEquals(original, persisted);
-
     }
 
 }
