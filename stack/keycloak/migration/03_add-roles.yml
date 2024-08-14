@@ -1,0 +1,10 @@
+id: add roles
+author: Default
+realm: local_realm
+changes:
+  - addRole:
+      name: ROLE_user
+      description: Example role used for a user
+      clientRole: true
+      clientId: local
+      composite: false

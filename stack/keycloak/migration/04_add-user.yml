@@ -12,6 +12,9 @@ changes:
       attributes:
         user_name:
           - user
+        clientRoles:
+          - client: local
+            role: ROLE_user
   - updateUserPassword:
       name: user
       password: "user"
