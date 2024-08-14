@@ -17,7 +17,8 @@ public final class AuthUtils {
 
     private static final String TOKEN_USER_NAME = "user_name";
 
-    private AuthUtils() {}
+    private AuthUtils() {
+    }
 
     /**
      * Extrahiert den Usernamen aus dem vorliegenden Spring Security Context via
