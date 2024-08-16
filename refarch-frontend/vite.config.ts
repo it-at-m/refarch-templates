@@ -39,6 +39,7 @@ export default defineConfig({
     port: 8081,
     proxy: {
       "/api": "http://localhost:8083",
+      "/actuator": "http://localhost:8083"
     },
   },
 });

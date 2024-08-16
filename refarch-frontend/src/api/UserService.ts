@@ -1,5 +1,4 @@
 import FetchUtils from "@/api/FetchUtils";
-import { API_BASE } from "@/Constants";
 import User from "@/types/User";
 
 export default class UserService {
@@ -12,7 +11,7 @@ export default class UserService {
    * API-Definition: https://wiki.muenchen.de/betriebshandbuch/wiki/Red_Hat_Single_Sign-On_(Keycloak)#Scopes
    */
   static getUser(): Promise<User> {
-    return fetch(`${API_BASE}/api/sso/userinfo`, FetchUtils.getGETConfig())
+    return fetch(`api/sso/userinfo`, FetchUtils.getGETConfig())
       .catch(FetchUtils.defaultCatchHandler)
       .then((response) => {
         FetchUtils.defaultResponseHandler(
