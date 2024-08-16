@@ -106,10 +106,14 @@ services:
     - SSO_ISSUER_URL=http://keycloak:8100/auth/realms/local_realm
     - SSO_CLIENT_ID=local
     - SSO_CLIENT_SECRET=client_secret
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://host.docker.internal:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://keycloak:8100/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=/api/backend-service/**
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_PROFILES_ACTIVE=hazelcast-local
