@@ -111,14 +111,16 @@ services:
     - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
     - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
     - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://backend-service:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=/api/backend-service/**
     - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_PROFILES_ACTIVE=hazelcast-local
     networks:
       - keycloak
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: *restart-policy
     healthcheck:
       <<: *healthcheck

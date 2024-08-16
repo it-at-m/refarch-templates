@@ -3,6 +3,8 @@ package de.muenchen.refarch.configuration.nfcconverter;
 import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.Reader;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
@@ -24,19 +26,14 @@ import org.apache.commons.io.IOUtils;
  * </p>
  */
 @Slf4j
+@RequiredArgsConstructor
 public class NfcReader extends Reader {
 
     private final Reader original;
 
     private CharArrayReader converted;
 
-    public NfcReader(final Reader original) {
-        this.original = original;
-        this.converted = null;
-    }
-
     private void convert() {
-
         if (converted != null) {
             return;
         }
@@ -46,7 +43,6 @@ public class NfcReader extends Reader {
             final String nfdContent = IOUtils.toString(original);
             final String nfcConvertedContent = NfcHelper.nfcConverter(nfdContent);
             converted = new CharArrayReader(nfcConvertedContent.toCharArray());
-
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,7 +55,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public int read(char[] cbuf, int off, int len) throws IOException {
+    public int read(final char[] cbuf, final int off, final int len) throws IOException {
         convert();
         return converted.read(cbuf, off, len);
     }
@@ -70,7 +66,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public long skip(long n) throws IOException {
+    public long skip(final long n) throws IOException {
         convert();
         return converted.skip(n);
     }
@@ -88,7 +84,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public void mark(int readAheadLimit) throws IOException {
+    public void mark(final int readAheadLimit) throws IOException {
         convert();
         converted.mark(readAheadLimit);
     }
