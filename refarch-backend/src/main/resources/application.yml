@@ -53,5 +53,8 @@ management:
       enabled: true
     readinessstate:
       enabled: true
-info.application.name: @project.artifactId@
-info.application.version: @project.version@
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@

@@ -37,15 +37,15 @@ management:
     readinessstate:
       enabled: true
 
-info:
-  application:
-    name: @project.artifactId@
-    version: @project.version@
-
 logging:
   level:
     org:
       springframework: INFO
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
 
 # Custom properties
 output: direct:foo
