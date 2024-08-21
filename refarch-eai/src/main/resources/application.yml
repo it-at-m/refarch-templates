@@ -18,7 +18,9 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health,info
+        include: health,info, prometheus
+      path-mapping:
+        prometheus: metrics
   endpoint:
     info:
       enabled: true
@@ -26,6 +28,8 @@ management:
       enabled: true
       probes:
         enabled: true
+    prometheus:
+      enabled: true
   info:
     env:
       enabled: true
