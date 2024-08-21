@@ -31,6 +31,10 @@ info:
   application:
     name: @project.artifactId@
     version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    spring-cloud.version: @spring-cloud-dependencies.version@
 
 logging:
   level:
