@@ -10,6 +10,9 @@ spring:
   application:
     name: @project.artifactId@
 
+server:
+  shutdown: "graceful"
+
 management:
   endpoints:
     enabled-by-default: false
@@ -21,11 +24,18 @@ management:
       enabled: true
     health:
       enabled: true
+      probes:
+        enabled: true
   info:
     env:
       enabled: true
     camel:
       enabled: false
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
 
 info:
   application:
