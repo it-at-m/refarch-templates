@@ -34,7 +34,7 @@ info:
     description: @project.description@
   build:
     java.version: @java.version@
-    spring-cloud.version: @spring-cloud-dependencies.version@
+    camel.version: @camel-spring-boot-dependencies.version@
 
 logging:
   level:
