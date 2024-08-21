@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------------------------------------------------------------------------------
- refarch-backend
+ refarch-eai
 
  Application Name    : ${spring.application.name} (${info.application.version})
  Java Version        : ${info.build.java.version}
  Spring Boot Version : ${spring-boot.version}
- Spring Cloud Version: ${info.build.spring-cloud.version}
+ Camel Version       : ${info.build.camel.version}
  About               : ${info.application.description}
 
  This project is based on the reference architecture templates of it@M maintained under https://github.com/it-at-m/refarch-templates.

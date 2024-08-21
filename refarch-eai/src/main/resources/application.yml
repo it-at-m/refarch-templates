@@ -41,15 +41,19 @@ management:
     readinessstate:
       enabled: true
 
-logging:
-  level:
-    org:
-      springframework: INFO
-
 info:
   application:
     name: @project.artifactId@
     version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    camel.version: @camel-spring-boot-dependencies.version@
+
+logging:
+  level:
+    org:
+      springframework: INFO
 
 # Custom properties
 output: direct:foo
