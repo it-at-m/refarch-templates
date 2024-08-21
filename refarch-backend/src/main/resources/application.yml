@@ -45,5 +45,12 @@ management:
   info:
     env:
       enabled: true
-info.application.name: @project.artifactId@
-info.application.version: @project.version@
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    spring-cloud.version: @spring-cloud-dependencies.version@
