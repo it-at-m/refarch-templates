@@ -4,15 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.muenchen</groupId>
-        <artifactId>muenchen-pom</artifactId>
-        <version>2.1.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.4</version>
+        <relativePath/>
     </parent>
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-eai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>refarch_eai</name>
+    <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
 
     <properties>
         <!-- Compilation -->
@@ -20,25 +22,22 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven-scm-plugin.version>1.10.0</maven-scm-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.1.0</camel-spring-boot-dependencies.version>
-        <spring-boot-dependencies.version>3.1.4</spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>4.1.0</camel-spring-boot-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
-        <itm-java-codeformat.version>1.0.7</itm-java-codeformat.version>
+        <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
+        <pmd-maven-plugin.version>3.23.0</pmd-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
+
+        <!-- Logging -->
+        <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
 
         <!-- Testing -->
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-
-        <!-- Utility -->
-        <lombok.version>1.18.30</lombok.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     </properties>
 
     <scm>
@@ -57,14 +56,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-             <!-- Spring Boot BOM -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -75,7 +66,6 @@
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-servlet-starter</artifactId>
@@ -97,16 +87,33 @@
             <artifactId>camel-test-spring-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-mock-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash-logback-encoder.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
         <!-- Other -->
@@ -115,45 +122,13 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven.release.plugin}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -162,6 +137,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <!-- defined via parent -->
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
@@ -170,19 +146,10 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-scm-plugin</artifactId>
-                <version>${maven-scm-plugin.version}</version>
-                <configuration>
-                    <tag>RT-REL-${project.version}</tag>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>${surefireArgLine}  -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <!--suppress UnresolvedMavenProperty because this is set by jacoco-maven-plugin -->
+                    <argLine>${surefireArgLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
 
@@ -242,6 +209,47 @@
                         <trimTrailingWhitespace/>
                         <endWithNewline/>
                     </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd-maven-plugin.version}</version>
+                <configuration>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>${java.version}</targetJdk>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources</excludeRoot>
+                        <excludeRoot>target/generated-test-sources</excludeRoot>
+                    </excludeRoots>
+                    <rulesets>
+                        <ruleset>../shared-files/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-maven-plugin.version}</version>
+                <configuration>
+                    <effort>Max</effort>
                 </configuration>
                 <executions>
                     <execution>

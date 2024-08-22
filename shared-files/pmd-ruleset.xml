@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Rules"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <description>
+        Custom Ruleset
+    </description>
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/>
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
+    </rule>
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="LongVariable"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="ShortVariable"/>
+    </rule>
+    <rule ref="category/java/design.xml">
+        <exclude name="AvoidCatchingGenericException"/>
+        <exclude name="AvoidThrowingRawExceptionTypes"/>
+        <exclude name="ExcessiveImports"/>
+        <exclude name="LoosePackageCoupling" />
+        <exclude name="LawOfDemeter"/>
+        <exclude name="SignatureDeclareThrowsException"/>
+        <exclude name="TooManyMethods"/>
+    </rule>
+    <rule ref="category/java/errorprone.xml"/>
+    <rule ref="category/java/security.xml"/>
+    <rule ref="category/java/multithreading.xml">
+        <exclude name="UseConcurrentHashMap"/>
+    </rule>
+</ruleset>

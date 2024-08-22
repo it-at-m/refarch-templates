@@ -7,8 +7,17 @@ spring:
         jwt:
           audiences:
           # adds audience verification - https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_supplying_audiences
+          # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
           # TODO - should be the clientId of the actual project
           - refarch
+  # Spring data rest
+  data:
+    rest:
+      # Definition of page size for PagingAndSortingRepository
+      max-page-size: 0x7fffffff
+      default-page-size: 0x7fffffff
+      return-body-on-update: true
+      return-body-on-create: true
 
 server:
   shutdown: "graceful"
@@ -26,15 +35,30 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health, info, prometheus, livenessstate, readinessstate
+        include: health, info, prometheus
       path-mapping:
         prometheus: metrics
   endpoint:
-    health.enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
     info.enabled: true
     prometheus.enabled: true
   info:
     env:
       enabled: true
-info.application.name: @project.artifactId@
-info.application.version: @project.version@
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    spring-cloud.version: @spring-cloud-dependencies.version@

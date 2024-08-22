@@ -20,8 +20,12 @@ import de.muenchen.refarch.domain.TheEntity;
  * </p>
  */
 @RepositoryRestResource
-@PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_READ_THEENTITY.name())")
+@PreAuthorize(TheEntityRepository.HAS_AUTHORITY_READ)
 public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { //NOSONAR
+
+    String HAS_AUTHORITY_READ = "hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_READ_THEENTITY.name())";
+    String HAS_AUTHORITY_WRITE = "hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_WRITE_THEENTITY.name())";
+    String HAS_AUTHORITY_DELETE = "hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_DELETE_THEENTITY.name())";
 
     /**
      * Name for the specific cache.
@@ -50,7 +54,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      */
     @Override
     @CachePut(value = CACHE, key = "#p0.id")
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_WRITE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_WRITE)
     <S extends TheEntity> S save(S theEntity);
 
     /**
@@ -64,7 +68,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      * @return the collection saved {@link TheEntity}.
      */
     @Override
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_WRITE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_WRITE)
     <S extends TheEntity> Iterable<S> saveAll(Iterable<S> entities);
 
     /**
@@ -74,7 +78,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      */
     @Override
     @CacheEvict(value = CACHE, key = "#p0")
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_DELETE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_DELETE)
     void deleteById(UUID id);
 
     /**
@@ -84,7 +88,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      */
     @Override
     @CacheEvict(value = CACHE, key = "#p0.id")
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_DELETE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_DELETE)
     void delete(TheEntity entity);
 
     /**
@@ -94,7 +98,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      */
     @Override
     @CacheEvict(value = CACHE, allEntries = true)
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_DELETE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_DELETE)
     void deleteAll(Iterable<? extends TheEntity> entities);
 
     /**
@@ -102,7 +106,7 @@ public interface TheEntityRepository extends CrudRepository<TheEntity, UUID> { /
      */
     @Override
     @CacheEvict(value = CACHE, allEntries = true)
-    @PreAuthorize("hasAuthority(T(de.muenchen.refarch.security.AuthoritiesEnum).REFARCH_BACKEND_DELETE_THEENTITY.name())")
+    @PreAuthorize(HAS_AUTHORITY_DELETE)
     void deleteAll();
 
 }

@@ -1,6 +1,7 @@
 package de.muenchen.refarch.configuration;
 
 import de.muenchen.refarch.MicroServiceApplication;
+import de.muenchen.refarch.TestConstants;
 import de.muenchen.refarch.domain.TheEntity;
 import de.muenchen.refarch.rest.TheEntityRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.net.URI;
 import java.util.UUID;
@@ -18,15 +24,17 @@ import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.refarch.TestConstants.TheEntityDto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Testcontainers
 @SpringBootTest(
         classes = { MicroServiceApplication.class },
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = {
-                "spring.datasource.url=jdbc:h2:mem:testexample;DB_CLOSE_ON_EXIT=FALSE"
-        }
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles(profiles = { SPRING_TEST_PROFILE, SPRING_NO_SECURITY_PROFILE })
 class UnicodeConfigurationTest {
+
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
 
     private static final String ENTITY_ENDPOINT_URL = "/theEntities";
 
