@@ -40,7 +40,6 @@ const calloutContent = computed(() => {
 
 <style>
 @import "@muenchen/muc-patternlab-vue/dist/assets/temporary/muenchende-style.css";
-/*@import "@muenchen/muc-patternlab-vue/dist/assets/temporary/muenchende-fontfaces.css";*/
 @import "@muenchen/muc-patternlab-vue/dist/assets/temporary/custom-style.css";
 @import "@muenchen/muc-patternlab-vue/dist/style.css";
 </style>
