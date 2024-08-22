@@ -1,18 +1,19 @@
 <template>
-  <main>
-    <div>
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="mucIconsSprite" />
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="customIconsSprite" />
+  <div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <div v-html="mucIconsSprite" />
+    <!-- eslint-disable-next-line vue/no-v-html -->
+    <div v-html="customIconsSprite" />
 
-      <muc-callout>
-        <template #content>
-          <p>{{ calloutContent }}</p>
-        </template>
-      </muc-callout>
-    </div>
-  </main>
+    <muc-callout>
+      <template #header>
+        <p>Welcome to the default template for refarch-webcomponent</p>
+      </template>
+      <template #content>
+        <p>{{ calloutContent }}</p>
+      </template>
+    </muc-callout>
+  </div>
 </template>
 
 <script setup lang="ts">
