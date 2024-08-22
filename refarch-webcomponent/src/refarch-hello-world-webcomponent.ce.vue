@@ -1,7 +1,9 @@
 <template>
   <main>
     <div>
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="mucIconsSprite" />
+      <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="customIconsSprite" />
 
       <muc-callout>
