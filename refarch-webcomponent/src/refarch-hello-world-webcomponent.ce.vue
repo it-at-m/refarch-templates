@@ -1,11 +1,14 @@
 <template>
   <main>
     <div>
-      <div v-html="mucIconsSprite"></div>
-      <div v-html="customIconsSprite"></div>
+      <div v-html="mucIconsSprite"/>
+      <div v-html="customIconsSprite"/>
 
-      <MucCallout :content="calloutContent" header="Test"/>
-      <p>{{ calloutContent }}</p>
+      <MucCallout>
+        <template #content>
+          <p>{{ calloutContent }}</p>
+        </template>
+      </MucCallout>
     </div>
   </main>
 </template>
@@ -29,11 +32,11 @@ const props = withDefaults(
 const calloutContent = computed(() => {
   return `Hello ${props.firstName}`;
 })
-
 </script>
 
 <style>
   @import "@muenchen/muc-patternlab-vue/dist/assets/temporary/muenchende-style.css";
+  /*@import "@muenchen/muc-patternlab-vue/dist/assets/temporary/muenchende-fontfaces.css";*/
   @import "@muenchen/muc-patternlab-vue/dist/assets/temporary/custom-style.css";
   @import "@muenchen/muc-patternlab-vue/dist/style.css";
 </style>
