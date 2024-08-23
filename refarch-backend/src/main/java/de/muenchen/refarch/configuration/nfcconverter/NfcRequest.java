@@ -1,5 +1,6 @@
 package de.muenchen.refarch.configuration.nfcconverter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
@@ -185,6 +186,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return getOriginalRequest().getParts();
     }
 
+    @SuppressFBWarnings
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
@@ -197,7 +199,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         log.debug("Converting InputStream data to NFC.");
         final String nfcConvertedContent = NfcHelper.nfcConverter(content);
-        return new NfcServletInputStream(new ByteArrayInputStream(nfcConvertedContent.getBytes(StandardCharsets.UTF_8)));
+        return new NfcServletInputStream(new ByteArrayInputStream(nfcConvertedContent.getBytes()));
     }
 
     private HttpServletRequest getOriginalRequest() {
