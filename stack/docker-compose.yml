@@ -3,7 +3,7 @@ name: default-services
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.0-alpine3.18@sha256:acf5271bbecd4b8733f4e93959a8d2b536a57aeee6cc4b6a71890aaf646425b8
+    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
