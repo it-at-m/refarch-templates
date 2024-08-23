@@ -20,7 +20,7 @@
     "vuetify": "3.7.0"
   },
   "devDependencies": {
-    "@babel/types": "7.25.2",
+    "@babel/types": "7.25.4",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@types/jsdom": "21.1.7",
     "@types/node": "18.19.45",
