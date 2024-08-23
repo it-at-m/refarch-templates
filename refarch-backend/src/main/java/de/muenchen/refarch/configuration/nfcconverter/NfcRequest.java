@@ -1,5 +1,6 @@
 package de.muenchen.refarch.configuration.nfcconverter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
@@ -10,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,7 +42,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
     public NfcRequest(final HttpServletRequest request, final Set<String> contentTypes) {
         super(request);
-        this.contentTypes = contentTypes;
+        this.contentTypes = Set.copyOf(contentTypes);
     }
 
     private void convert() {
@@ -146,7 +148,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     @Override
     public Map<String, String[]> getParameterMap() {
         convert();
-        return this.params;
+        return Map.copyOf(this.params);
     }
 
     @Override
@@ -184,6 +186,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return getOriginalRequest().getParts();
     }
 
+    @SuppressFBWarnings
     @Override
     public ServletInputStream getInputStream() throws IOException {
 

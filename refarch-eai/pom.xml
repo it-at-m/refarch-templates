@@ -32,6 +32,7 @@
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <pmd-maven-plugin.version>3.24.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
 
         <!-- Logging -->
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
@@ -121,6 +122,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs-annotations.version}</version>
         </dependency>
     </dependencies>
 

@@ -36,6 +36,7 @@
         <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <pmd-maven-plugin.version>3.24.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
@@ -163,6 +164,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs-annotations.version}</version>
         </dependency>
 
         <!-- Validation -->
