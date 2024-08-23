@@ -13,4 +13,4 @@ jobs:
         uses: actions/dependency-review-action@v4
         with:
           config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
-          allow_dependencies_licenses: 'pkg:npm/escape-string-regexp, pkg:npm/path-exists, pkg:npm/slash, pkg:npm/yocto-queue, pkg:npm/load-script, pkg:npm/node-forge, pkg:maven/com.puppycrawl.tools/checkstyle, pkg:maven/com.hazelcast/hazelcast-spring, pgk:maven/com.github.spotbugs/spotbugs'
+          allow_dependencies_licenses: 'pkg:npm/escape-string-regexp, pkg:npm/path-exists, pkg:npm/slash, pkg:npm/yocto-queue, pkg:npm/load-script, pkg:npm/node-forge, pkg:maven/com.puppycrawl.tools/checkstyle, pkg:maven/com.hazelcast/hazelcast-spring'
