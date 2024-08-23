@@ -13,3 +13,4 @@ jobs:
         uses: actions/dependency-review-action@v4
         with:
           config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
+          deny-licenses: GPL-1.0-or-later, AGPL-1.0-or-later
