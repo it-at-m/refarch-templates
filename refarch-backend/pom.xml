@@ -47,7 +47,7 @@
         <commons-lang3.version>3.16.0</commons-lang3.version>
         <commons-text.version>1.12.0</commons-text.version>
         <commons-validator.version>1.9.0</commons-validator.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <mapstruct.version>1.6.0</mapstruct.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
