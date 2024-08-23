@@ -38,5 +38,6 @@
 
     // Security presets (https://docs.renovatebot.com/presets-security/)
     "security:openssf-scorecard", // showw OpenSSF badge on pull requests to evaluate security health metrics for dependencies
-  ]
+  ],
+  "additionalBranchPrefix": "{{parentDir}}-"
 }
