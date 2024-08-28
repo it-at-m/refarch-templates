@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -64,7 +63,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     public String getHeader(final String name) {
         convert();
         final List<String> values = headers.get(NfcHelper.nfcConverter(name));
-        return (values == null) ? null : values.get(0);
+        return (values == null) ? null : values.getFirst();
     }
 
     @Override
@@ -192,7 +191,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         final String encoding = getOriginalRequest().getCharacterEncoding();
 
-        String content;
+        final String content;
         try (InputStream is = getOriginalRequest().getInputStream()) {
             content = new String(IOUtils.toByteArray(is), encoding);
         }
