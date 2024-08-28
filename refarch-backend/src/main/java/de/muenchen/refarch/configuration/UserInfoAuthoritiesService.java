@@ -84,7 +84,7 @@ public class UserInfoAuthoritiesService {
                     Map.class).getBody();
 
             log.debug("Response from user-info Endpoint: {}", map);
-            if (map.containsKey(CLAIM_AUTHORITIES)) {
+            if (map != null && map.containsKey(CLAIM_AUTHORITIES)) {
                 authorities = asAuthorities(map.get(CLAIM_AUTHORITIES));
             }
             log.debug("Resolved Authorities (from /userinfo Endpoint): {}", authorities);

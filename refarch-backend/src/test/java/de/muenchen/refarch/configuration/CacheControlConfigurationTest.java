@@ -32,7 +32,8 @@ class CacheControlConfigurationTest {
 
     @Container
     @ServiceConnection
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
+    @SuppressWarnings("unused")
+    private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER = new PostgreSQLContainer<>(DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
 
     private static final String ENTITY_ENDPOINT_URL = "/theEntities";
 

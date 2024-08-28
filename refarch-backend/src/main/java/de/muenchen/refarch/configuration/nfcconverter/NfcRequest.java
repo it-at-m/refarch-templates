@@ -1,5 +1,6 @@
 package de.muenchen.refarch.configuration.nfcconverter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
@@ -40,7 +41,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
     public NfcRequest(final HttpServletRequest request, final Set<String> contentTypes) {
         super(request);
-        this.contentTypes = contentTypes;
+        this.contentTypes = Set.copyOf(contentTypes);
     }
 
     private void convert() {
@@ -62,7 +63,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     public String getHeader(final String name) {
         convert();
         final List<String> values = headers.get(NfcHelper.nfcConverter(name));
-        return (values == null) ? null : values.get(0);
+        return (values == null) ? null : values.getFirst();
     }
 
     @Override
@@ -146,7 +147,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     @Override
     public Map<String, String[]> getParameterMap() {
         convert();
-        return this.params;
+        return Map.copyOf(this.params);
     }
 
     @Override
@@ -184,12 +185,13 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return getOriginalRequest().getParts();
     }
 
+    @SuppressFBWarnings
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
         final String encoding = getOriginalRequest().getCharacterEncoding();
 
-        String content;
+        final String content;
         try (InputStream is = getOriginalRequest().getInputStream()) {
             content = new String(IOUtils.toByteArray(is), encoding);
         }
