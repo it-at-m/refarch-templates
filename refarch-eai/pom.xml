@@ -33,6 +33,7 @@
         <pmd-maven-plugin.version>3.24.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
         <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
+        <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Logging -->
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
@@ -256,6 +257,13 @@
                 <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>${findsecbugs-plugin.version}</version>
+                        </plugin>
+                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
