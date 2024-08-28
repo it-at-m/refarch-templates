@@ -96,7 +96,7 @@ services:
 
   refarch-gateway:
     container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.0.0@sha256:78af746de560bae737e2ea476bd1759f4dd360ff9f2bb7647b8ed27599ed66ed
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.0@sha256:c7bf3db8f9da695f9dc5d1a511ff69a830a742b588382c90e889f0e54fbfe51c
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
