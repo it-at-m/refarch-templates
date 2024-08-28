@@ -46,5 +46,6 @@
       "matchFileNames": ["refarch-eai/pom.xml"],
       "enabled": false
     }
-  ]
+  ],
+  "additionalBranchPrefix": "{{parentDir}}-"
 }
