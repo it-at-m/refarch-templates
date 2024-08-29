@@ -89,7 +89,8 @@ export default class FetchUtils {
       if (response.status === 403) {
         throw new ApiError({
           level: Levels.ERROR,
-          message: "You do not have the necessary rights to perform this action.",
+          message:
+            "You do not have the necessary rights to perform this action.",
         });
       } else if (response.type === "opaqueredirect") {
         location.reload();

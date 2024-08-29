@@ -81,13 +81,12 @@ import { onMounted, ref } from "vue";
 
 import InfoService from "@/api/InfoService";
 import UserService from "@/api/UserService";
-import LhmAvatar from "@/components/common/Ad2ImageAvatar.vue";
+import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
 import { ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
-import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 
 const drawer = ref(true);
 const query = ref<string>("");
