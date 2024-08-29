@@ -23,7 +23,7 @@
     "@babel/types": "7.25.4",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@types/jsdom": "21.1.7",
-    "@types/node": "18.19.45",
+    "@types/node": "20.14.0",
     "@vitejs/plugin-vue": "4.6.2",
     "@vue/eslint-config-prettier": "8.0.0",
     "@vue/eslint-config-typescript": "12.0.0",
