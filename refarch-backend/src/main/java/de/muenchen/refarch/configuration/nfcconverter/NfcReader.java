@@ -16,8 +16,10 @@ import org.apache.commons.io.IOUtils;
  * <p>
  * <strong>Please note:</strong>
  * <ul>
- * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are processed there.</li>
- * <li>Before reading the first character, this reader reads the complete text of the wrapped reader into an internal buffer and performs NFC normalization on it.
+ * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
+ * processed there.</li>
+ * <li>Before reading the first character, this reader reads the complete text of the wrapped reader
+ * into an internal buffer and performs NFC normalization on it.
  * The reason is that NFC conversion cannot be performed on a character-by-character basis.</li>
  * </ul>
  * </p>

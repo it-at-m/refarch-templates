@@ -23,8 +23,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * <strong>Please note:</strong>
  * <ul>
  * <li>All data streams associated with multipart requests are not normalized according to NFC.
- * The reason for this is that binary data streams are transferred here and these are generally not simple text.
- * If necessary or useful, the application logic or a suitable library can or must carry out NFC normalization.</li>
+ * The reason for this is that binary data streams are transferred here and these are generally not
+ * simple text.
+ * If necessary or useful, the application logic or a suitable library can or must carry out NFC
+ * normalization.</li>
  * <li>NFC normalization can only be performed at the character level
  * and the conversion of binary data streams requires knowledge of the data format,
  * which implies knowledge of the charset used.
