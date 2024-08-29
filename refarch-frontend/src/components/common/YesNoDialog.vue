@@ -38,14 +38,14 @@
           variant="text"
           @click="no"
         >
-          Nein
+          No
         </v-btn>
         <v-btn
           id="yesnodialog-btn-yes"
           color="primary"
           @click="yes"
         >
-          Ja
+          Yes
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -56,24 +56,22 @@
 import { computed } from "vue";
 
 /**
- * Der YesNo-Dialog ist ein generischer Dialog zur binären Abfrage beim Nutzer.
- * So kann z.B. die Bestätigung für das Löschen einer Entität damit realisiert werden.
+ * The YesNo dialog is a generic dialog for yes/no queries to the user.
+ * For example, it can be used to confirm the deletion of an entity.
  *
- * Da das Bestätigen einer Aktion in der Regel mit einem Button zusammenhängt, bietet der
- * YesNoDialog diesen gleich mit an. Über `buttontext` und `icontext` kann dieser konfiguriert werden.
+ * As confirming an action is usually associated with a button, the YesNoDialog offers this at the same time. This can be configured via `buttontext` and `icontext`.
  *
- * Wenn sowohl kein `buttontext` als auch `icontext` nicht gesetzt sind, kann der YesNoDialog auch
- * als reiner Dialog verwendet werden. Hierzu wird das Value vom Dialog durchgereicht.
+ * If both `buttontext` and `icontext` are not set, the YesNoDialog can also be used as a pure dialog. In this case, the value is passed through from the dialog.
  *
- * Die Bestätigung des Dialogs wird über ein `yes` Event signalisiert. Analog erfolgt die
- * Signalisierung der Abweisung durch ein `no` Event.
+ * Confirmation of the dialog is signalled via a `yes` event. Similarly, the
+ * rejection is signaled by a `no` event.
  *
- * Beispiel:
+ * Example:
  * <yes-no-dialog
  *    v-model="deleteDialog"
- *    buttontext="Löschen"
- *    dialogtitle="Löschen?"
- *    dialogtext="Wollen Sie die Entität wirklich löschen?"
+ *    buttontext="Delete"
+ *    dialogtitle="Delete?"
+ *    dialogtext="Do you really want to delete the entity?"
  *    @no="deleteDialog = false"
  *    @yes="deleteSome"></yes-no-dialog>
  */
@@ -84,7 +82,7 @@ const props = defineProps<{
   dialogtitle: string;
   dialogtext: string;
   /**
-   * Steuerflag für den Dialog
+   * Control flag for dialog
    */
   modelValue: boolean;
 }>();

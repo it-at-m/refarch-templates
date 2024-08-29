@@ -21,12 +21,12 @@
           class="d-flex align-center justify-center"
         >
           <v-text-field
-            id="suchfeld"
+            id="searchField"
             v-model="query"
             flat
             variant="solo-inverted"
             hide-details
-            label="Suche"
+            label="Search"
             clearable
             prepend-inner-icon="mdi-magnify"
             theme="dark"
@@ -46,7 +46,7 @@
             variant="text"
             icon
           >
-            <lhm-avatar
+            <ad2-image-avatar
               v-if="userStore.getUser !== null"
               :username="userStore.getUser.username"
             />
@@ -81,12 +81,13 @@ import { onMounted, ref } from "vue";
 
 import InfoService from "@/api/InfoService";
 import UserService from "@/api/UserService";
-import LhmAvatar from "@/components/common/LhmAvatar.vue";
+import LhmAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
 import { ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
+import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 
 const drawer = ref(true);
 const query = ref<string>("");
@@ -107,13 +108,13 @@ onMounted(() => {
 });
 
 /**
- * Lädt UserInfo vom Backend und setzt diese im Store.
+ * Loads UserInfo from the backend and sets it in the store.
  */
 function loadUser(): void {
   UserService.getUser()
     .then((user: User) => userStore.setUser(user))
     .catch(() => {
-      // Keine Userinfo gekriegt, also Fallback
+      // No user info received, so fallback
       if (import.meta.env.DEV) {
         userStore.setUser(UserLocalDevelopment());
       } else {
@@ -122,11 +123,14 @@ function loadUser(): void {
     });
 }
 
-//Navigiert zur Seite mit den Suchergebnissen und sendet ein Event zum Auslösen weiterer Suchen.
+/**
+ * Navigates to the page with the search results and sends an event to trigger further searches.
+ */
+
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.showMessage({
-      message: "Sie haben nach " + query.value + " gesucht. ;)",
+      message: "You searched for " + query.value + ".",
     });
   }
 }

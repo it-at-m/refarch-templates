@@ -16,7 +16,7 @@ export interface Appswitcher {
 
 export default class InfoService {
   static getInfo(): Promise<Info> {
-    return fetch(`actuator/info`, FetchUtils.getGETConfig())
+    return fetch("actuator/info", FetchUtils.getGETConfig())
       .then((response) => {
         FetchUtils.defaultResponseHandler(response);
         return response.json();

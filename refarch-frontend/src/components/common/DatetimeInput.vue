@@ -6,7 +6,7 @@
     <v-input
       :readonly="readonly"
       :hide-details="hideDetails"
-      :rules="validierungsRegeln"
+      :rules="validationRules"
       :density="density"
       :error="error"
       :error-messages="errorMessages"
@@ -19,7 +19,7 @@
             ref="day"
             v-model="day"
             required
-            label="Datum"
+            label="Date"
             :readonly="readonly"
             :error="error"
             hide-details
@@ -37,7 +37,7 @@
             ref="time"
             v-model="time"
             required
-            label="Zeit"
+            label="Time"
             :readonly="readonly"
             :error="error"
             hide-details
@@ -72,17 +72,17 @@
 import { computed, onMounted, ref, watch } from "vue";
 
 /**
- * Das Date-Time-Input` Feld bietet eine Eingabemöglichkeit von Date-Times ohne zusätzliche
- * Dialoge und möglichst mit den nativen Features des Browsers, welche auch per Tastatur bedient werden können.
+ * The Date-Time-Input` field offers the possibility to enter date-times without additional
+ * dialogs and, if possible, with the native features of the browser, which can also be operated using the keyboard.
  *
- * Beispiel:
+ * Example:
  * <datetime-input
- *   id="kontakt-field"
- *   v-model="kontaktDate"
+ *   id="contact-field"
+ *   v-model="contactDate"
  *   dense
  *   clearable
- *   label="Kontakt am"
- *   :rules="[(v: string) => !v || moment(v).isBefore(moment.now()) || 'Datum muss in der Vergangenheit liegen.']"
+ *   label="Contact on"
+ *   :rules="[(v: string) => !v || moment(v).isBefore(moment.now()) || 'Date must be in the past'.]"
  * ></datetime-input>
  */
 
@@ -119,14 +119,14 @@ const error = ref(false);
 const errorMessages = ref("");
 
 function dateFilled(): string | boolean {
-  return checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
+  return checkBothFieldsFilled() || "Date and time must be filled in";
 }
 
 const emits = defineEmits<{
   (e: "update:modelValue", v: string | null): void;
 }>();
 
-const validierungsRegeln = computed(() => {
+const validationRules = computed(() => {
   if (props.rules) {
     return [...props.rules, dateFilled];
   } else {
@@ -189,7 +189,7 @@ function parseTime(timestamp: Date): string {
 function leaveInput(): void {
   if (!checkBothFieldsFilled()) {
     error.value = true;
-    errorMessages.value = "Datum und Zeit muss ausgefüllt werden";
+    errorMessages.value = "Date and time must be filled in";
   }
 }
 

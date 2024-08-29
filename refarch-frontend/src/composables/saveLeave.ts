@@ -1,13 +1,12 @@
 /**
- * Mit dem SaveLeaveComposable kann ein Datenverlust durch ungewolltest Navigieren verhindert werden.
+ * The SaveLeave Composable can be used to prevent data loss due to unintentional navigation.
  *
- * Nimmt eine Funktion `isDirty()` entgegen, in der festgelegt werden kann,
- * ob sicher navigiert werden kann oder eine Rückfrage an den Nutzer stattfinden soll.
- * Diese Rückfrage kann z.B. über einen Dialog gelöst werden. Hierzu bietet das SaveLeaveComposable
- * ein `saveLeaveDialog` Flag an. Für genererische Dialoge bietet das SaveLeaveComposable bereits Titel und
- * Text mit an.
+ * Accepts a function `isDirty()`, in which it can be determined whether it is safe to navigate or whether a query should be sent to the user.
+ * This query can be resolved via a dialog, for example. For this purpose, the SaveLeaveComposable
+ * offers a `saveLeaveDialog` flag for this purpose. For generic dialogs, the SaveLeaveComposable already provides the title and
+ * text for generic dialogs.
  *
- * Mit dem Aufruf von `leave()` oder `cancel()` kann die Entscheidung des Nutzers ausgeführt werden.
+ * The user's decision can be executed by calling `leave()` or `cancel()`.
  */
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
@@ -15,9 +14,9 @@ import { ref } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
 export function useSaveLeave(isDirty: () => boolean) {
-  const saveLeaveDialogTitle = ref("Ungespeicherte Änderungen");
+  const saveLeaveDialogTitle = ref("Unsaved changes");
   const saveLeaveDialogText = ref(
-    "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?"
+    "There are unsaved changes. Do you want to leave the page?"
   );
   const saveLeaveDialog = ref(false);
   const isSave = ref(false);

@@ -8,18 +8,18 @@ export class ApiError extends Error {
   level: string;
   constructor({
     level = Levels.ERROR,
-    message = "Ein unbekannter Fehler ist aufgetreten, bitte den Administrator informieren.",
+    message = "An unknown error has occurred, please inform the administrator.",
   }: {
     level?: string;
     message?: string;
   }) {
-    // Übergibt die verbleibenden Parameter (einschließlich Vendor spezifischer Parameter) dem Error Konstruktor
+    // Passes the remaining parameters (including vendor-specific parameters) to the error constructor
     super(message);
 
-    // Behält den richtigen Stack-Trace für die Stelle bei, an der unser Fehler ausgelöst wurde
+    // Retains the correct stack trace for the point at which the error was triggered
     this.stack = new Error().stack;
 
-    // Benutzerdefinierte Informationen
+    // User-defined information
     this.level = level;
     this.message = message;
   }

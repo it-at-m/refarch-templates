@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { DefaultLhmAvatarService } from "@/api/LhmAvatarService";
+import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
 
 const props = withDefaults(
   defineProps<{
@@ -31,5 +31,5 @@ const avatarUrl = computed(() => {
   );
 });
 
-const altText = computed(() => `Bild von ${props.username}`);
+const altText = computed(() => `Profile picture of ${props.username}`);
 </script>

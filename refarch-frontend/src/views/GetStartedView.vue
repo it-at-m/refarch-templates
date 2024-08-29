@@ -2,14 +2,14 @@
   <v-container>
     <v-row class="text-center">
       <v-col>
-        <h1 class="text-h3 font-weight-bold mb-10">Dokumentation</h1>
-        <h3>Weiterführende Links sind hier zu finden:</h3>
+        <h1 class="text-h3 font-weight-bold mb-10">Documentation</h1>
+        <h3>Further links can be found here:</h3>
         <div>
           <a
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Barrakuda"
             target="_blank"
             rel="noopener noreferrer"
-            @click="dokumentationClicked = true"
+            @click="documentationClicked = true"
             >Barrakuda-Doku</a
           >
         </div>
@@ -18,7 +18,7 @@
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_API-Gateway"
             target="_blank"
             rel="noopener noreferrer"
-            @click="dokumentationClicked = true"
+            @click="documentationClicked = true"
             >Doku Archetype API-Gateway</a
           >
         </div>
@@ -27,7 +27,7 @@
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_Backend"
             target="_blank"
             rel="noopener noreferrer"
-            @click="dokumentationClicked = true"
+            @click="documentationClicked = true"
             >Doku Archetype Backend</a
           >
         </div>
@@ -36,7 +36,7 @@
             href="https://git.muenchen.de/ccse/refarch-archetype"
             target="_blank"
             rel="noopener noreferrer"
-            @click="dokumentationClicked = true"
+            @click="documentationClicked = true"
             >Git-Repo Archetypes</a
           >
         </div>
@@ -45,7 +45,7 @@
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/JavaScript-Themen"
             target="_blank"
             rel="noopener noreferrer"
-            @click="dokumentationClicked = true"
+            @click="documentationClicked = true"
             >Javascript-Wiki</a
           >
         </div>
@@ -53,8 +53,8 @@
     </v-row>
     <yes-no-dialog
       v-model="saveLeaveDialog"
-      dialogtitle="Wirklich verlassen?"
-      dialogtext="Wollen Sie wirklich nicht die Dokumentation anschauen?"
+      dialogtitle="Do you want to leave?"
+      dialogtext="Are you sure you don't want to read the documentation?"
       @no="cancel"
       @yes="leave"
     />
@@ -67,10 +67,10 @@ import { ref } from "vue";
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
 import { useSaveLeave } from "@/composables/saveLeave";
 
-const dokumentationClicked = ref(false);
+const documentationClicked = ref(false);
 const { cancel, leave, saveLeaveDialog } = useSaveLeave(isDirty);
 
 function isDirty(): boolean {
-  return !dokumentationClicked.value;
+  return !documentationClicked.value;
 }
 </script>

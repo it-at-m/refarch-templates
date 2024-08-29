@@ -3,20 +3,20 @@ import User from "@/types/User";
 
 export default class UserService {
   /**
-   * Holt die Userdaten über die userinfo Route das API Gateways. Der SSO Client muss so konfiguriert
-   * sein, das im Protocol-Mapper richtig die von LHM-KeyCloak angebotenen (siehe API-Definition) claims
-   * geliefert werden. Welche Mapper eingestellt sind kann man in KeyCloak kontrollieren. Für Testdaten auf
-   * ssodev evtl. custom User Attribute und Mapper anlegen.
+   * Retrieves the user data via the userinfo route of the API gateway. The SSO client must be configured so that
+   * that the claims offered by Keycloak (see API definition) are correctly delivered in the protocol mapper.
+   * You can check which mappers are set in Keycloak UI or the local development stack files under /stack/keycloak.
+   * For testdata you might need to create custom user attributes and mappers manually.
    *
-   * API-Definition: https://wiki.muenchen.de/betriebshandbuch/wiki/Red_Hat_Single_Sign-On_(Keycloak)#Scopes
+   * API-Definition (internal only): https://wiki.muenchen.de/betriebshandbuch/wiki/Red_Hat_Single_Sign-On_(Keycloak)#Scopes
    */
   static getUser(): Promise<User> {
-    return fetch(`api/sso/userinfo`, FetchUtils.getGETConfig())
+    return fetch("api/sso/userinfo", FetchUtils.getGETConfig())
       .catch(FetchUtils.defaultCatchHandler)
       .then((response) => {
         FetchUtils.defaultResponseHandler(
           response,
-          `Beim Laden des Users ist ein Fehler aufgetreten.`
+          "An error occurred while loading the user."
         );
         return response.json();
       })
