@@ -14,9 +14,9 @@ import { ref } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
 export function useSaveLeave(isDirty: () => boolean) {
-  const saveLeaveDialogTitle = ref("Unsaved changes");
+  const saveLeaveDialogTitle = ref("Ungespeicherte Änderungen");
   const saveLeaveDialogText = ref(
-    "There are unsaved changes. Do you want to leave the page?"
+      "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?"
   );
   const saveLeaveDialog = ref(false);
   const isSave = ref(false);

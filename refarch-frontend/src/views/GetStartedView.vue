@@ -2,8 +2,8 @@
   <v-container>
     <v-row class="text-center">
       <v-col>
-        <h1 class="text-h3 font-weight-bold mb-10">Documentation</h1>
-        <h3>Further links can be found here:</h3>
+        <h1 class="text-h3 font-weight-bold mb-10">Dokumentation</h1>
+        <h3>Weiterführende Links sind hier zu finden:</h3>
         <div>
           <a
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Barrakuda"
@@ -53,8 +53,8 @@
     </v-row>
     <yes-no-dialog
       v-model="saveLeaveDialog"
-      dialogtitle="Do you want to leave?"
-      dialogtext="Are you sure you don't want to read the documentation?"
+      dialogtitle="Wirklich verlassen?"
+      dialogtext="Wollen Sie wirklich nicht die Dokumentation anschauen?"
       @no="cancel"
       @yes="leave"
     />

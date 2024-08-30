@@ -12,7 +12,7 @@
       variant="text"
       @click="hide"
     >
-      Close
+      Schließen
     </v-btn>
   </v-snackbar>
 </template>

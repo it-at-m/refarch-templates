@@ -11,10 +11,10 @@
 
       <v-col class="mb-4">
         <h1 class="text-h3 font-weight-bold mb-3">
-          Welcome to the default refarch-frontend by it@M
+          Willkommen beim refarch-frontend von it@M
         </h1>
         <p>
-          The API-Gateway is:
+          Das API-Gateway ist:
           <span :class="status">{{ status }}</span>
         </p>
       </v-col>

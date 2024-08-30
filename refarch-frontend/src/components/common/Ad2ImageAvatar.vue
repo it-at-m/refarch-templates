@@ -31,5 +31,5 @@ const avatarUrl = computed(() => {
   );
 });
 
-const altText = computed(() => `Profile picture of ${props.username}`);
+const altText = computed(() => `Bild von ${props.username}`);
 </script>

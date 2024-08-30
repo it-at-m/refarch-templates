@@ -83,14 +83,14 @@ export default class FetchUtils {
    */
   static defaultResponseHandler(
     response: Response,
-    errorMessage = "An unknown error has occurred."
+    errorMessage = "Es ist ein unbekannter Fehler aufgetreten."
   ): void {
     if (!response.ok) {
       if (response.status === 403) {
         throw new ApiError({
           level: Levels.ERROR,
           message:
-            "You do not have the necessary rights to perform this action.",
+            "Sie haben nicht die nötigen Rechte um diese Aktion durchzuführen.",
         });
       } else if (response.type === "opaqueredirect") {
         location.reload();
@@ -110,7 +110,7 @@ export default class FetchUtils {
    */
   static defaultCatchHandler(
     error: Error,
-    errorMessage = "An unknown error has occurred."
+    errorMessage = "Es ist ein unbekannter Fehler aufgetreten."
   ): PromiseLike<never> {
     throw new ApiError({
       level: Levels.WARNING,

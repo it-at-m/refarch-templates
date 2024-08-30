@@ -16,7 +16,7 @@ export default class UserService {
       .then((response) => {
         FetchUtils.defaultResponseHandler(
           response,
-          "An error occurred while loading the user."
+          "Beim Laden des Users ist ein Fehler aufgetreten."
         );
         return response.json();
       })

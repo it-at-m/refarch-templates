@@ -19,7 +19,7 @@
             ref="day"
             v-model="day"
             required
-            label="Date"
+            label="Datum"
             :readonly="readonly"
             :error="error"
             hide-details
@@ -37,7 +37,7 @@
             ref="time"
             v-model="time"
             required
-            label="Time"
+            label="Zeit"
             :readonly="readonly"
             :error="error"
             hide-details
@@ -81,8 +81,8 @@ import { computed, onMounted, ref, watch } from "vue";
  *   v-model="contactDate"
  *   dense
  *   clearable
- *   label="Contact on"
- *   :rules="[(v: string) => !v || moment(v).isBefore(moment.now()) || 'Date must be in the past'.]"
+ *   label="Kontakt am"
+ *   :rules="[(v: string) => !v || moment(v).isBefore(moment.now()) || 'Datum muss in der Vergangenheit liegen.']"
  * ></datetime-input>
  */
 
@@ -119,7 +119,7 @@ const error = ref(false);
 const errorMessages = ref("");
 
 function dateFilled(): string | boolean {
-  return checkBothFieldsFilled() || "Date and time must be filled in";
+  return checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
 }
 
 const emits = defineEmits<{
@@ -189,7 +189,7 @@ function parseTime(timestamp: Date): string {
 function leaveInput(): void {
   if (!checkBothFieldsFilled()) {
     error.value = true;
-    errorMessages.value = "Date and time must be filled in";
+    errorMessages.value = "Datum und Zeit muss ausgefüllt werden";
   }
 }
 

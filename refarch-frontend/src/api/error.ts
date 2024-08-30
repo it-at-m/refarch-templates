@@ -8,7 +8,7 @@ export class ApiError extends Error {
   level: string;
   constructor({
     level = Levels.ERROR,
-    message = "An unknown error has occurred, please inform the administrator.",
+    message = "Ein unbekannter Fehler ist aufgetreten, bitte den Administrator informieren.",
   }: {
     level?: string;
     message?: string;

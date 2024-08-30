@@ -38,14 +38,14 @@
           variant="text"
           @click="no"
         >
-          No
+          Nein
         </v-btn>
         <v-btn
           id="yesnodialog-btn-yes"
           color="primary"
           @click="yes"
         >
-          Yes
+          Ja
         </v-btn>
       </v-card-actions>
     </v-card>

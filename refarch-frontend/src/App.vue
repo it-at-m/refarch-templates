@@ -26,7 +26,7 @@
             flat
             variant="solo-inverted"
             hide-details
-            label="Search"
+            label="Suche"
             clearable
             prepend-inner-icon="mdi-magnify"
             theme="dark"
@@ -129,7 +129,7 @@ function loadUser(): void {
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.showMessage({
-      message: "You searched for " + query.value + ".",
+      message: "Sie haben nach " + query.value + " gesucht. ;)",
     });
   }
 }
