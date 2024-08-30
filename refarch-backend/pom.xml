@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.3</version>
         <relativePath/>
     </parent>
 
@@ -28,12 +28,11 @@
         <spring-cloud-dependencies.version>2023.0.3</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
-        <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
         <pmd-maven-plugin.version>3.24.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
         <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
@@ -41,12 +40,13 @@
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+        <argLine></argLine> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
         <!-- Utility -->
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-csv.version>1.11.0</commons-csv.version>
         <commons-io.version>2.16.1</commons-io.version>
-        <commons-lang3.version>3.16.0</commons-lang3.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.12.0</commons-text.version>
         <commons-validator.version>1.9.0</commons-validator.version>
         <mapstruct.version>1.6.0</mapstruct.version>
@@ -323,15 +323,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!--suppress UnresolvedMavenProperty because this is set by jacoco-maven-plugin -->
-                    <argLine>${surefireArgLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar-maven-plugin.version}</version>
             </plugin>
 
             <plugin>
@@ -342,18 +335,6 @@
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                           <append>true</append>
-                           <destFile>${sonar.jacoco.reportPath}</destFile>
-                           <!-- Sets the VM argument line used when unit tests are run. -->
-                           <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
