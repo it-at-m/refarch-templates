@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
  **/
 @SpringBootTest
 @CamelSpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles(TestConstants.SPRING_TEST_PROFILE)
 class EaiTest {
 
     @SuppressWarnings("unused") // field is auto-injected by camel
