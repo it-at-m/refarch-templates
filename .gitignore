@@ -122,10 +122,38 @@ logs
 
 # ============== IDE specific settings ================
 
-# Covers Eclipse specific:
+### Eclipse
+# Covers Eclipse, based on https://www.toptal.com/developers/gitignore/api/eclipse , stripped to relevant java based rules
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
 .settings/
 .classpath
+.loadpath
+.recommenders
 .project
+# External tool builders
+.externalToolBuilders/
+# Locally stored "Eclipse launch configurations"
+*.launch
+# Java annotation processor (APT)
+.factorypath
+# STS (Spring Tool Suite)
+.springBeans
+# Code Recommenders
+.recommenders/
+# Annotation Processing
+.apt_generated/
+.apt_generated_test/
+
+# Spring Boot Tooling
+.sts4-cache/
+### End of Eclipse
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 .idea
