@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "engines" : {
+    "node" : ">=18 <=20"
+  },
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
@@ -13,7 +16,7 @@
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
-    "@muenchen/appswitcher-vue": "2.0.2",
+    "@muenchen/appswitcher-vue": "2.0.3",
     "pinia": "2.2.2",
     "roboto-fontface": "0.10.0",
     "vue": "3.4.38",
@@ -27,8 +30,10 @@
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
     "@vitejs/plugin-vue": "5.1.2",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
     "@vue/eslint-config-prettier": "9.0.0",
-    "@vue/eslint-config-typescript": "12.0.0",
+    "@vue/eslint-config-typescript": "13.0.0",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.5.1",
     "eslint": "8.57.0",

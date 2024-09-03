@@ -20,7 +20,13 @@ module.exports = {
     "@vue/eslint-config-prettier",
   ],
   rules: {
-    "no-console": "error",
+    "no-console": ["error", { allow: ["debug"] }],
     "vue/component-name-in-template-casing": ["error", "kebab-case"],
+  },
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    ecmaFeatures: {
+      jsx: false,
+    },
   },
 };
