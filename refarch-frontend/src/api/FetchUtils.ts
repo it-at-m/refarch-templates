@@ -2,7 +2,7 @@ import { ApiError, Levels } from "@/api/error";
 
 export default class FetchUtils {
   /**
-   * Liefert eine default GET-Config für fetch
+   * Returns a default GET-Config for fetch
    */
   static getGETConfig(): RequestInit {
     return {
@@ -14,8 +14,8 @@ export default class FetchUtils {
   }
 
   /**
-   * Liefert eine default POST-Config für fetch
-   * @param body Optional zu übertragender Body
+   * Returns a default POST-Config for fetch
+   * @param body Optional body to be transferred
    */
   // eslint-disable-next-line
   static getPOSTConfig(body: any): RequestInit {
@@ -30,10 +30,9 @@ export default class FetchUtils {
   }
 
   /**
-   * Liefert eine default PUT-Config für fetch
-   * In dieser wird, wenn vorhanden, die Version der zu aktualisierenden Entität
-   * als "If-Match"-Header mitgesetzt.
-   * @param body Optional zu übertragender Body
+   * Returns a default PUT-Config for fetch
+   * If available, the version of the entity to be updated is included in this as an "If-Match" header.
+   * @param body Optional body to be transferred
    */
   // eslint-disable-next-line
   static getPUTConfig(body: any): RequestInit {
@@ -52,10 +51,9 @@ export default class FetchUtils {
   }
 
   /**
-   * Liefert eine default PATCH-Config für fetch
-   * In dieser wird, wenn vorhanden, die Version der zu aktualisierenden Entität
-   * als "If-Match"-Header mitgesetzt.
-   * @param body Optional zu übertragender Body
+   * Returns a default PATCH-Config for fetch
+   * If available, the version of the entity to be updated is included in this as an "If-Match" header.
+   * @param body Optional body to be transferred
    */
   // eslint-disable-next-line
   static getPATCHConfig(body: any): RequestInit {
@@ -74,14 +72,14 @@ export default class FetchUtils {
   }
 
   /**
-   * Deckt das Default-Handling einer Response ab. Dazu zählt:
+   * Covers the default handling of a response. This includes:
    *
-   * - Fehler bei fehlenden Berechtigungen --> HTTP 403
-   * - Reload der App bei Session-Timeout --> HTTP 3xx
-   * - Default-Fehler bei allen HTTP-Codes !2xx
+   * - Error with missing authorizations --> HTTP 403
+   * - Reload the app at session timeout --> HTTP 3xx
+   * - Default error for all HTTP codes nicht 2xx
    *
-   * @param response Die response aus fetch-Befehl die geprüft werden soll.
-   * @param errorMessage Die Fehlermeldung, welche bei einem HTTP-Code != 2xx angezeigt werden soll.
+   * @param response The response from the fetch command to be checked.
+   * @param errorMessage The error message to be displayed for an HTTP code != 2xx.
    */
   static defaultResponseHandler(
     response: Response,
@@ -91,7 +89,8 @@ export default class FetchUtils {
       if (response.status === 403) {
         throw new ApiError({
           level: Levels.ERROR,
-          message: `Sie haben nicht die nötigen Rechte um diese Aktion durchzuführen.`,
+          message:
+            "Sie haben nicht die nötigen Rechte um diese Aktion durchzuführen.",
         });
       } else if (response.type === "opaqueredirect") {
         location.reload();
@@ -104,9 +103,10 @@ export default class FetchUtils {
   }
 
   /**
-   * Default Catch-Handler für alle Anfragen des Service.
-   * Schmeißt derzeit nur einen ApiError
-   * @param error die Fehlermeldung aus fetch-Befehl
+   * Default catch handler for all service requests.
+   * Currently only throws an ApiError
+   * @param error The error object from fetch command
+   * @param errorMessage The error message to be included in the ApiError object.
    */
   static defaultCatchHandler(
     error: Error,
@@ -119,7 +119,7 @@ export default class FetchUtils {
   }
 
   /**
-   *  Baut den Header fuer den Request auf
+   * Builds the headers for the request.
    * @returns {Headers}
    */
   static getHeaders(): Headers {
@@ -134,7 +134,7 @@ export default class FetchUtils {
   }
 
   /**
-   * Liefert den XSRF-TOKEN zurück.
+   * Returns the XSRF-TOKEN.
    * @returns {string|string}
    */
   static _getXSRFToken(): string {
