@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { DefaultLhmAvatarService } from "@/api/LhmAvatarService";
+import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
 
 const props = withDefaults(
   defineProps<{
