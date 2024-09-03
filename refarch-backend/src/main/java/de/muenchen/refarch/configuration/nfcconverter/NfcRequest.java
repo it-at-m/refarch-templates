@@ -23,7 +23,7 @@ import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.io.IOUtils;
 
 /**
- * Wrapper für HttpServletRequest, der NFC-Konvertierung durchführt.
+ * Wrapper for HttpServletRequest that performs NFC conversion.
  *
  * @see java.text.Normalizer
  */

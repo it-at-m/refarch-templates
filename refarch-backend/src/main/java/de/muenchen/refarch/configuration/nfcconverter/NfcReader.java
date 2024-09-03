@@ -10,18 +10,17 @@ import org.apache.commons.io.IOUtils;
 
 /**
  * <p>
- * Wrapper für Reader der eine NFC-Konvertierung durchführt.
+ * Wrapper for readers that performs an NFC conversion.
  * </p>
  *
  * <p>
- * <strong>Achtung:</strong>
+ * <strong>Please note:</strong>
  * <ul>
- * <li>Bei Java-Readern und -Writern kann gefahrlos eine NFC-Konvertierung
- * durchgeführt werden, da dort Zeichen verarbeitet werden.</li>
- * <li>Dieser Reader liest bei vor dem Lesen des ersten Zeichens denn vollständig Text des
- * gewrappten Readers in einern internen Buffer und führt darauf die NFC-Normalisierung
- * durch. Grund ist, dass NFC-Konvertierung kann nicht auf Basis von einzelnen Zeichen
- * durchgeführt werden kann. Dies kann zu erhöhter Latenz führen.</li>
+ * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
+ * processed there.</li>
+ * <li>Before reading the first character, this reader reads the complete text of the wrapped reader
+ * into an internal buffer and performs NFC normalization on it.
+ * The reason is that NFC conversion cannot be performed on a character-by-character basis.</li>
  * </ul>
  * </p>
  */
