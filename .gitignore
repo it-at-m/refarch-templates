@@ -153,6 +153,10 @@ local.properties
 
 # Spring Boot Tooling
 .sts4-cache/
+
+# PMD Plugin
+.pmd
+.ruleset
 ### End of Eclipse
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
