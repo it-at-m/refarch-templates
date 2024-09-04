@@ -221,6 +221,7 @@
                     <targetJdk>${java.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                     <linkXRef>false</linkXRef>
+                    <includeTests>true</includeTests>
                     <excludeRoots>
                         <excludeRoot>target/generated-sources</excludeRoot>
                         <excludeRoot>target/generated-test-sources</excludeRoot>
