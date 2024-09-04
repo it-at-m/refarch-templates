@@ -7,7 +7,7 @@ declare module "*.vue" {
 }
 
 interface ImportMetaEnv {
-  readonly VITE_MUCATAR_URL: string;
+  readonly VITE_AD2IMAGE_URL: string;
 }
 
 interface ImportMeta {

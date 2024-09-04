@@ -52,7 +52,7 @@ class NfcConverterTest {
     @SuppressWarnings("unused")
     private static final String VALUE2_NFC = Normalizer.normalize(VALUE2_NFD, Normalizer.Form.NFC);
 
-    // Für Stellen der API an denen Strings bestimmten Regeln genügen müssen.
+    // For places in the API where strings must comply with certain rules.
     public static final String TOKEN = "token";
 
     private static final Charset UTF8 = StandardCharsets.UTF_8;
@@ -68,9 +68,7 @@ class NfcConverterTest {
 
     private final NfcRequestFilter filter = new NfcRequestFilter();
 
-    //
-    // Test, das Request mit konfigriertem ContentType auf NFC normalisiert wird.
-    //
+    // Test that request with configured ContentType is normalized to NFC.
     @Test
     void testFilterIfContenttypeInWhitelist() throws ServletException, IOException {
         mockRequest("text/plain");
@@ -79,9 +77,7 @@ class NfcConverterTest {
 
         filter.doFilter(req, resp, chain);
 
-        //
         // Check
-        //
         final ArgumentCaptor<HttpServletRequest> reqCaptor = ArgumentCaptor.forClass(HttpServletRequest.class);
         Mockito.verify(chain, Mockito.times(1)).doFilter(reqCaptor.capture(), Mockito.any(ServletResponse.class));
 
@@ -90,16 +86,11 @@ class NfcConverterTest {
         assertEquals(VALUE_NFC, reqCaptor.getValue().getCookies()[0].getValue());
         assertEquals(VALUE_NFC, IOUtils.toString(reqCaptor.getValue().getReader()));
 
-        //
-        // Prüfen, das Multipart-Requests nicht angefasst werden.
-        //
+        // Check that multipart requests are not touched.
         assertArrayEquals(VALUE_NFD.getBytes(UTF8), IOUtils.toByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
     }
 
-    //
-    // Test, das Request nicht konfigriertem ContentType auf unverändert bleibt, d.h. nicht
-    // auf NFC normalisiert wird.
-    //
+    // Test that Request not configured ContentType remains unchanged, i.e. is not normalized to NFC.
     @Test
     void testSkipFilterIfContenttypeNotInWhitelist() throws ServletException, IOException {
         mockRequest("application/postscript");
@@ -108,9 +99,7 @@ class NfcConverterTest {
 
         filter.doFilter(req, resp, chain);
 
-        //
         // Check
-        //
         final ArgumentCaptor<HttpServletRequest> reqCaptor = ArgumentCaptor.forClass(HttpServletRequest.class);
         Mockito.verify(chain, Mockito.times(1)).doFilter(reqCaptor.capture(), Mockito.any(ServletResponse.class));
 
@@ -119,9 +108,7 @@ class NfcConverterTest {
         assertEquals(VALUE_NFD, reqCaptor.getValue().getCookies()[0].getValue());
         assertEquals(VALUE_NFD, IOUtils.toString(reqCaptor.getValue().getReader()));
 
-        //
-        // Prüfen, das Multipart-Requests nicht angefasst werden.
-        //
+        // Check that multipart requests are not touched.
         assertArrayEquals(VALUE_NFD.getBytes(UTF8), IOUtils.toByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
     }
 

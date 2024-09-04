@@ -6,7 +6,7 @@ import java.io.ByteArrayInputStream;
 import org.apache.commons.lang3.NotImplementedException;
 
 /**
- * ServletInputStream, der von einem Puffer ließt.
+ * ServletInputStream, which reads from a buffer.
  */
 public class NfcServletInputStream extends ServletInputStream {
 

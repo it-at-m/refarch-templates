@@ -1,6 +1,6 @@
-import { MUCATAR_URL } from "@/Constants";
+import { AD2IMAGE_URL } from "@/Constants";
 
-export class LhmAvatarService {
+export class Ad2ImageAvatarService {
   base: string;
   constructor(base: string) {
     this.base = base;
@@ -8,10 +8,10 @@ export class LhmAvatarService {
 
   /**
    *
-   * @param username UID (vorname.nachname)
+   * @param username UID (firstname.lastname)
    * @param mode Mode, default: fallbackGeneric, see https://github.com/it-at-m/ad2image#using-the-api
    * @param size Size, default: 64, see https://github.com/it-at-m/ad2image#using-the-api
-   * @returns href zum Abruf des Avatars zum User
+   * @returns href to retrieve the avatar for the user
    */
   avatarHref(username: string, mode = "fallbackGeneric", size = "64"): string {
     const url = new URL("/avatar", this.base);
@@ -23,9 +23,8 @@ export class LhmAvatarService {
 }
 
 /**
- * Der Default-LhmAvatarService, der mucatar.muenchen.de verwendet.
+ * The default Ad2ImageAvatarService, which is configurable via environment variable VITE_AD2IMAGE_URL in .env file.
  *
- * @see https://git.muenchen.de/km23/mucatar
  * @see https://github.com/it-at-m/ad2image#documentation
  */
-export const DefaultLhmAvatarService = new LhmAvatarService(MUCATAR_URL);
+export const DefaultLhmAvatarService = new Ad2ImageAvatarService(AD2IMAGE_URL);
