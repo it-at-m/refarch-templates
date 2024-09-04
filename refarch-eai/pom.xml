@@ -35,7 +35,7 @@
         <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
