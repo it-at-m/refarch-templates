@@ -9,7 +9,7 @@ import lombok.ToString;
 import org.springframework.hateoas.RepresentationModel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@SuppressWarnings("PMD.TestClassWithoutTestCases")
+@SuppressWarnings({ "PMD.TestClassWithoutTestCases", "PMD.DataClass" })
 public final class TestConstants {
 
     public static final String SPRING_TEST_PROFILE = "test";

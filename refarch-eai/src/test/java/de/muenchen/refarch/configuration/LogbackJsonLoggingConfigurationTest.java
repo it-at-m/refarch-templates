@@ -34,25 +34,26 @@ import lombok.extern.slf4j.Slf4j;
 @DirtiesContext // force logback config reset after test
 class LogbackJsonLoggingConfigurationTest {
 
-    @Configuration
-    static class TestConfiguration {
-    }
-
     private static final String EXCEPTION_MESSAGE = "EXC_MESSAGE";
     private static final Pattern STACKTRACE_PATTERN = Pattern.compile("stack_trace\":\"([^\"]*)\"");
 
     private Throwable exception;
+
+    @Configuration
+    @SuppressWarnings("PMD.TestClassWithoutTestCases")
+    /* default */ static class TestConfiguration {
+    }
 
     @BeforeEach
     void setup() {
         // prepare an exception with huge stacktrace contents
         exception = genExceptionStack(new IllegalArgumentException("rootcause"), 40);
         // make sure generated stacktrace is long enough to test shortening
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
+        final StringWriter sw = new StringWriter();
+        final PrintWriter pw = new PrintWriter(sw);
         exception.printStackTrace(pw);
-        String untouchedStacktrace = sw.toString();
-        assertThat(untouchedStacktrace.length()).isGreaterThan(16000);
+        final String untouchedStacktrace = sw.toString();
+        assertThat(untouchedStacktrace.length()).isGreaterThan(16_000);
     }
 
     @AfterEach
@@ -62,53 +63,52 @@ class LogbackJsonLoggingConfigurationTest {
     }
 
     @Test
-    void puts_mdc_in_json(CapturedOutput output) {
+    void putsMdcInJson(final CapturedOutput output) {
         MDC.put("traceId", "myTraceId");
         MDC.put("spanId", "mySpanId");
-        String message = "my message";
+        final String message = "my message";
         log.info(message);
 
-        String line = findLogmessageInOutput(output, message);
+        final String line = findLogmessageInOutput(output, message);
 
         assertThat(line).contains("myTraceId").contains("mySpanId");
     }
 
     @Test
-    void json_prints_root_cause_of_stacktrace_first(CapturedOutput output) {
+    void jsonPrintsRootCauseOfStacktraceFirst(final CapturedOutput output) {
         log.error(EXCEPTION_MESSAGE, exception);
 
-        String line = findLogmessageInOutput(output, EXCEPTION_MESSAGE);
+        final String line = findLogmessageInOutput(output, EXCEPTION_MESSAGE);
 
         assertThat(line.indexOf("rootcause")).isLessThan(line.indexOf("stackmessage-#1"));
     }
 
     @Test
-    void shortens_length_of_stacktrace(CapturedOutput output) {
+    void shortensLengthOfStacktrace(final CapturedOutput output) {
         log.error(EXCEPTION_MESSAGE, exception);
 
-        String line = findLogmessageInOutput(output, EXCEPTION_MESSAGE);
+        final String line = findLogmessageInOutput(output, EXCEPTION_MESSAGE);
 
-        Matcher matcher = STACKTRACE_PATTERN.matcher(line);
+        final Matcher matcher = STACKTRACE_PATTERN.matcher(line);
         if (matcher.find()) {
-            String group = matcher.group(1);
+            final String group = matcher.group(1);
             // apparently ShortenedThrowableConverter is not a 100% accurate with "maxLength" - but that is fine
-            assertThat(group.length()).isCloseTo(8192, Percentage.withPercentage(10.0d));
+            assertThat(group.length()).isCloseTo(8_192, Percentage.withPercentage(10.0d));
         } else {
             Assertions.fail("Expected to find a stack_trace element in JSON structure, but was not present.");
         }
     }
 
-    private String findLogmessageInOutput(CapturedOutput output, String expected) {
-        String fullOutput = output.getOut();
-        String line = Arrays.stream(fullOutput.split("\n"))
+    private String findLogmessageInOutput(final CapturedOutput output, final String expected) {
+        final String fullOutput = output.getOut();
+        return Arrays.stream(fullOutput.split("\n"))
                 .filter(s -> s.contains(expected))
                 .findFirst().orElseThrow();
-        return line;
     }
 
-    private static Throwable genExceptionStack(Throwable root, int index) {
+    private static Throwable genExceptionStack(final Throwable root, final int index) {
         if (index > 0) {
-            return new IllegalArgumentException("stackmessage-#%d: (%s)".formatted(index, StringUtils.repeat("abcd ", 20)), genExceptionStack(root, --index));
+            return new IllegalArgumentException("stackmessage-#%d: (%s)".formatted(index, StringUtils.repeat("abcd ", 20)), genExceptionStack(root, index - 1));
         } else {
             return root;
         }

@@ -31,7 +31,7 @@ class EaiTest {
 
     @Test
     void sendToMockTest() throws InterruptedException {
-        var message = "Hello Test !";
+        final String message = "Hello Test !";
         output.expectedMessageCount(1);
 
         producer.sendBody(message);
