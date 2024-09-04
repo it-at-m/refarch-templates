@@ -43,7 +43,7 @@ class LogbackJsonLoggingConfigurationTest {
 
     @BeforeEach
     void setup() {
-        // prepare a exception with huge stacktrace contents
+        // prepare an exception with huge stacktrace contents
         exception = genExceptionStack(new IllegalArgumentException("rootcause"), 40);
         // make sure generated stacktrace is long enough to test shortening
         StringWriter sw = new StringWriter();
