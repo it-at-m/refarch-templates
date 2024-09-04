@@ -75,8 +75,6 @@ class LogbackJsonLoggingConfigurationTest {
 
     @Test
     void json_prints_root_cause_of_stacktrace_first(CapturedOutput output) {
-        MDC.put("traceId", "myTraceId");
-        MDC.put("spanId", "mySpanId");
         log.error(EXCEPTION_MESSAGE, exception);
 
         String line = findLogmessageInOutput(output, EXCEPTION_MESSAGE);
