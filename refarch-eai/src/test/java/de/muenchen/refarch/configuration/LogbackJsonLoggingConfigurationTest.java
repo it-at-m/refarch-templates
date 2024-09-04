@@ -37,7 +37,7 @@ class LogbackJsonLoggingConfigurationTest {
     }
 
     private static final String EXCEPTION_MESSAGE = "EXC_MESSAGE";
-    private static Pattern STACKTRACE_PATTERN = Pattern.compile("stack_trace\\\":\\\"([^\\\"]*)\\\"");
+    private static final Pattern STACKTRACE_PATTERN = Pattern.compile("stack_trace\":\"([^\"]*)\"");
 
     private Throwable exception;
 
