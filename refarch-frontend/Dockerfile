@@ -1,8 +1,14 @@
-
-# Copy Javascript code into a nginx container
-# Docs https://github.com/sclorg/nginx-container/blob/master/1.24/README.md
+# For web applications use /ubi9/nginx-124 or /ubi9/openjdk-17-runtime as Base Image, for documentation
+# please see https://github.com/sclorg/nginx-container/blob/master/1.24/README.md
 # All other variations must be approved by KM8
-FROM registry.access.redhat.com/ubi9/nginx-124:latest
-COPY dist/ /opt/app-root/src  
 
+FROM registry.access.redhat.com/ubi9/nginx-124:1-25@sha256:166f66aeac8aed74ad0d4238e899654c725b8376fc573cb78756c1df103a7704
+
+# Copy built web application
+COPY dist .
+
+# Copy custom nginx configurations
+COPY docker/nginx/*.conf "${NGINX_DEFAULT_CONF_PATH}"
+
+# Start the web server
 CMD nginx -g "daemon off;"
