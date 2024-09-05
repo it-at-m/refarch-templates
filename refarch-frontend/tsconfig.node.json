@@ -1,9 +1,11 @@
 {
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": ["vite.config.*"],
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
+    "types": ["node"],
     "allowSyntheticDefaultImports": true
-  },
-  "include": ["vite.config.ts"]
+  }
 }
