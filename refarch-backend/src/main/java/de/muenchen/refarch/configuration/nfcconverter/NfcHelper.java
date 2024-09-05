@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
 /**
- * Hilfsklasse für das NFC-Normalisieren
+ * Utility class for NFC normalization
  *
  * @see Normalizer
  */
@@ -24,10 +24,10 @@ import org.apache.commons.collections4.map.CaseInsensitiveMap;
 public class NfcHelper {
 
     /**
-     * Konvertieren eines String in die kanonische Unicode-Normalform (NFC)
+     * Converting a string to the canonical Unicode normal form (NFC)
      *
-     * @param in Eingabe-String
-     * @return Normalisierter String.
+     * @param in Input string
+     * @return Normalized string
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
     public static String nfcConverter(final String in) {
@@ -45,10 +45,10 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren eines {@link StringBuffer}-Inhalts in die kanonische Unicode-Normalform (NFC)
+     * Converting {@link StringBuffer} content to canonical Unicode normal form (NFC)
      *
-     * @param in Eingabe
-     * @return Normalisierter Inhalt.
+     * @param in Input buffer
+     * @return Normalized buffer
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
@@ -57,10 +57,10 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren eines Array von Strings in die kanonische Unicode-Normalform (NFC)
+     * Converting an array of strings into the canonical Unicode normal form (NFC)
      *
-     * @param original Eingabe-Array
-     * @return Array mit normalisierten Inhalt.
+     * @param original Input array
+     * @return Array with normalized strings
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
@@ -71,10 +71,10 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren einer {@link Map} von Strings in die kanonische Unicode-Normalform (NFC).
+     * Converting a {@link Map} of strings into the canonical Unicode normal form (NFC).
      *
-     * @param original Eingabe-Map
-     * @return Map mit normalisierten Inhalt.
+     * @param original Input map
+     * @return Map with normalized content
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
@@ -87,10 +87,10 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren eines {@link Cookie}s in die kanonische Unicode-Normalform (NFC).
+     * Converting a {@link Cookie} to the canonical Unicode normal form (NFC).
      *
-     * @param original Cookie
-     * @return Cookie mit normalisierten Inhalt.
+     * @param original Input cookie
+     * @return Cookie with normalized content
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
@@ -104,10 +104,10 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren eines Arrays von {@link Cookie}s in die kanonische Unicode-Normalform (NFC).
+     * Converting an array of {@link Cookie}s to canonical Unicode normal form (NFC).
      *
-     * @param original Cookies
-     * @return Cookies mit normalisierten Inhalt.
+     * @param original Input array of cookies
+     * @return Array with normalized cookies
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
@@ -121,12 +121,11 @@ public class NfcHelper {
     }
 
     /**
-     * Konvertieren der Header eines {@link HttpServletRequest} von Strings in die kanonische
-     * Unicode-Normalform (NFC).
+     * Converting the headers of a {@link HttpServletRequest} from strings to the canonical Unicode
+     * normal form (NFC).
      *
-     * @param originalRequest Der {@link HttpServletRequest} zur Extraktion und Konvertierung der
-     *            Header.
-     * @return Map mit normalisierten Inhalt.
+     * @param originalRequest The {@link HttpServletRequest} for extracting and converting the headers.
+     * @return Map with normalized content.
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */

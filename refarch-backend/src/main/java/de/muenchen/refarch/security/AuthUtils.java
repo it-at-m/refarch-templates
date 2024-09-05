@@ -6,10 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 
 /**
- * Utilities zu Authentifizierungsdaten.
- *
- * @author michael.prankl
- *
+ * Utilities for authentication data.
  */
 public final class AuthUtils {
 
@@ -17,13 +14,14 @@ public final class AuthUtils {
 
     private static final String TOKEN_USER_NAME = "user_name";
 
-    private AuthUtils() {}
+    private AuthUtils() {
+    }
 
     /**
-     * Extrahiert den Usernamen aus dem vorliegenden Spring Security Context via
+     * Extracts the user name from the existing Spring Security Context via
      * {@link SecurityContextHolder}.
      *
-     * @return der Username or a "unauthenticated", wenn keine {@link Authentication} existiert
+     * @return the username or an "unauthenticated" if no {@link Authentication} exists
      */
     public static String getUsername() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

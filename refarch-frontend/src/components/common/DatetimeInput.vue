@@ -6,7 +6,7 @@
     <v-input
       :readonly="readonly"
       :hide-details="hideDetails"
-      :rules="validierungsRegeln"
+      :rules="validationRules"
       :density="density"
       :error="error"
       :error-messages="errorMessages"
@@ -72,13 +72,13 @@
 import { computed, onMounted, ref, watch } from "vue";
 
 /**
- * Das Date-Time-Input` Feld bietet eine Eingabemöglichkeit von Date-Times ohne zusätzliche
- * Dialoge und möglichst mit den nativen Features des Browsers, welche auch per Tastatur bedient werden können.
+ * The Date-Time-Input` field offers the possibility to enter date-times without additional
+ * dialogs and, if possible, with the native features of the browser, which can also be operated using the keyboard.
  *
- * Beispiel:
+ * Example:
  * <datetime-input
- *   id="kontakt-field"
- *   v-model="kontaktDate"
+ *   id="contact-field"
+ *   v-model="contactDate"
  *   dense
  *   clearable
  *   label="Kontakt am"
@@ -123,7 +123,7 @@ function dateFilled(): string | boolean {
   return checkBothFieldsFilled() || "Datum und Zeit muss ausgefüllt werden";
 }
 
-const validierungsRegeln = computed(() => {
+const validationRules = computed(() => {
   if (props.rules) {
     return [...props.rules, dateFilled];
   } else {

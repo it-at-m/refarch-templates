@@ -35,15 +35,30 @@ management:
     enabled-by-default: false
     web:
       exposure:
-        include: health, info, prometheus, livenessstate, readinessstate
+        include: health, info, prometheus
       path-mapping:
         prometheus: metrics
   endpoint:
-    health.enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
     info.enabled: true
     prometheus.enabled: true
   info:
     env:
       enabled: true
-info.application.name: @project.artifactId@
-info.application.version: @project.version@
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    spring-cloud.version: @spring-cloud-dependencies.version@

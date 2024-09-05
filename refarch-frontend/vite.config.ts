@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
 import ViteFonts from "unplugin-fonts/vite";
-// Utilities
 import { defineConfig } from "vite";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
@@ -13,10 +12,7 @@ export default defineConfig({
     vue({
       template: { transformAssetUrls },
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-    vuetify({
-      autoImport: true,
-    }),
+    vuetify(),
     ViteFonts({
       google: {
         families: [
@@ -28,14 +24,21 @@ export default defineConfig({
       },
     }),
   ],
-  define: { "process.env": {} },
+  server: {
+    port: 8081,
+    proxy: {
+      "/api": "http://localhost:8083",
+      "/actuator": "http://localhost:8083",
+    },
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
     extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
-  server: {
-    port: 8081,
+  build: {
+    minify: true,
   },
+  define: { "process.env": {} },
 });

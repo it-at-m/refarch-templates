@@ -1,5 +1,6 @@
 package de.muenchen.refarch.configuration;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -35,6 +36,7 @@ public class SpringRestConfiguration implements RepositoryRestConfigurer {
      * See {@link RepositoryRestConfigurer#configureValidatingRepositoryEventListener}
      */
     @Override
+    @SuppressFBWarnings(justification = "Values are not further used, so they dont need to be saved in a variable")
     public void configureValidatingRepositoryEventListener(final ValidatingRepositoryEventListener validatingListener) {
         validatingListener.addValidator("afterCreate", validator());
         validatingListener.addValidator("beforeCreate", validator());

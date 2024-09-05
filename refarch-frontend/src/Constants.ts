@@ -1,8 +1,4 @@
-export const API_BASE: string | undefined = import.meta.env
-  .VITE_VUE_APP_API_URL;
-export const ROUTER_BASE: string = import.meta.env.BASE_URL;
-
 export const ROUTES_HOME = "home";
 export const ROUTES_GETSTARTED = "getstarted";
 
-export const MUCATAR_URL = import.meta.env.VITE_MUCATAR_URL;
+export const AD2IMAGE_URL = import.meta.env.VITE_AD2IMAGE_URL;

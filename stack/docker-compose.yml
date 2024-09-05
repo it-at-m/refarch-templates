@@ -3,7 +3,7 @@ name: default-services
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.0-alpine3.18
+    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
@@ -22,7 +22,7 @@ services:
 
   pg-admin:
     container_name: pg-admin
-    image: dpage/pgadmin4:8.10
+    image: dpage/pgadmin4:8.11@sha256:822dd7a1fa68601f70b3e06445c9cb52b134862b0c43f0f7a96ab6ac44a592a4
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -37,7 +37,7 @@ services:
 
   keycloak:
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:20.0.3
+    image: quay.io/keycloak/keycloak:20.0.5@sha256:054ef67eb7dae0129bbb9eb0e0797fd2392cd6d135094a6063ae7ff7773ef81f
     command:
       - start-dev --http-relative-path /auth
     depends_on:
@@ -64,7 +64,7 @@ services:
 
   db-postgres-keycloak:
     container_name: db-postgres-keycloak
-    image: postgres:16.3-alpine3.18
+    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak-user
@@ -79,7 +79,7 @@ services:
 
   init-keycloak:
     container_name: init-keycloak
-    image: klg71/keycloakmigration:0.2.55
+    image: klg71/keycloakmigration:0.2.67@sha256:ca5659d0f2907e77f50f2ccda4f0848f7fbd038c8d59024c0659f5256861d244
     depends_on:
       - keycloak
     environment:
@@ -96,7 +96,7 @@ services:
 
   refarch-gateway:
     container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.0.0
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.0.0@sha256:78af746de560bae737e2ea476bd1759f4dd360ff9f2bb7647b8ed27599ed66ed
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
@@ -106,10 +106,14 @@ services:
     - SSO_ISSUER_URL=http://keycloak:8100/auth/realms/local_realm
     - SSO_CLIENT_ID=local
     - SSO_CLIENT_SECRET=client_secret
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://host.docker.internal:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://keycloak:8100/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_PROFILES_ACTIVE=hazelcast-local

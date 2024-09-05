@@ -7,16 +7,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.3.3</version>
         <relativePath/>
     </parent>
-
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>refarch_backend</name>
-
+    <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
 
     <properties>
         <!-- Compilation -->
@@ -29,26 +28,28 @@
         <spring-cloud-dependencies.version>2023.0.3</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>7.0.1</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
-        <sonar-maven-plugin.version>3.9.0.2155</sonar-maven-plugin.version>
-        <pmd-maven-plugin.version>3.23.0</pmd-maven-plugin.version>
+        <pmd-maven-plugin.version>3.25.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.8.6.2</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
+        <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+        <argLine></argLine> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
         <!-- Utility -->
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-csv.version>1.9.0</commons-csv.version>
-        <commons-io.version>2.11.0</commons-io.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
-        <commons-text.version>1.10.0</commons-text.version>
-        <commons-validator.version>1.7</commons-validator.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <commons-csv.version>1.11.0</commons-csv.version>
+        <commons-io.version>2.16.1</commons-io.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <commons-text.version>1.12.0</commons-text.version>
+        <commons-validator.version>1.9.0</commons-validator.version>
+        <mapstruct.version>1.6.0</mapstruct.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
@@ -165,6 +166,11 @@
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-annotations</artifactId>
+            <version>${spotbugs-annotations.version}</version>
+        </dependency>
 
         <!-- Validation -->
         <dependency>
@@ -185,6 +191,21 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -302,14 +323,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar-maven-plugin.version}</version>
             </plugin>
 
             <plugin>
@@ -320,18 +335,6 @@
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                           <append>true</append>
-                           <destFile>${sonar.jacoco.reportPath}</destFile>
-                           <!-- Sets the VM argument line used when unit tests are run. -->
-                           <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
@@ -404,6 +407,13 @@
                 <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>${findsecbugs-plugin.version}</version>
+                        </plugin>
+                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
