@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="visible"
+    :model-value="modelValue"
     persistent
     width="800"
   >
@@ -53,8 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-
 /**
  * The YesNo dialog is a generic dialog for yes/no queries to the user.
  * For example, it can be used to confirm the deletion of an entity.
@@ -76,27 +74,21 @@ import { computed } from "vue";
  *    @yes="deleteSome"></yes-no-dialog>
  */
 
-const props = defineProps<{
-  buttontext?: string;
-  icontext?: string;
-  dialogtitle: string;
-  dialogtext: string;
+defineProps<{
   /**
    * Control flag for dialog
    */
   modelValue: boolean;
+  buttontext?: string;
+  icontext?: string;
+  dialogtitle: string;
+  dialogtext: string;
 }>();
 
 const emits = defineEmits<{
   (e: "no"): void;
   (e: "yes"): void;
-  (e: "update:modelValue", v: boolean): void;
 }>();
-
-const visible = computed({
-  get: () => props.modelValue,
-  set: (v) => emits("update:modelValue", v),
-});
 
 function no(): void {
   emits("no");
