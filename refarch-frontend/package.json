@@ -1,16 +1,17 @@
 {
   "name": "refarch-frontend",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
-  "engines" : {
-    "node" : ">=18 <=20"
+  "engines": {
+    "node": ">=18 <=20"
   },
   "scripts": {
     "dev": "vite",
+    "test": "vitest run",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest run",
-    "lint": "prettier . --check && eslint . && vue-tsc --noEmit --skipLibCheck",
+    "lint": "prettier . --check && eslint . && vue-tsc -p tsconfig.app.json --noEmit --skipLibCheck --composite false",
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
@@ -18,7 +19,7 @@
     "@muenchen/appswitcher-vue": "2.0.3",
     "pinia": "2.2.2",
     "roboto-fontface": "0.10.0",
-    "vue": "3.4.38",
+    "vue": "3.5.1",
     "vue-router": "4.4.3",
     "vuetify": "3.7.0"
   },
@@ -26,22 +27,24 @@
     "@babel/types": "7.25.4",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@types/jsdom": "21.1.7",
+    "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
+    "@vitejs/plugin-vue": "5.1.2",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@vitejs/plugin-vue": "4.6.2",
     "@vue/eslint-config-prettier": "9.0.0",
     "@vue/eslint-config-typescript": "13.0.0",
     "@vue/test-utils": "2.4.6",
+    "@vue/tsconfig": "0.5.1",
     "eslint": "8.57.0",
     "eslint-plugin-vue": "9.27.0",
     "jsdom": "25.0.0",
     "prettier": "3.3.3",
     "typescript": "5.5.4",
     "unplugin-fonts": "1.1.1",
-    "vite": "4.5.3",
-    "vite-plugin-vuetify": "1.0.2",
-    "vitest": "0.34.6",
+    "vite": "5.4.2",
+    "vite-plugin-vuetify": "2.0.4",
+    "vitest": "2.0.5",
     "vue-tsc": "2.0.28"
   }
 }
