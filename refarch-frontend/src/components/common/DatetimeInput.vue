@@ -16,7 +16,6 @@
       <v-row>
         <v-col cols="6">
           <v-text-field
-            ref="day"
             v-model="day"
             required
             label="Datum"
@@ -34,7 +33,6 @@
         </v-col>
         <v-col cols="6">
           <v-text-field
-            ref="time"
             v-model="time"
             required
             label="Zeit"
@@ -86,7 +84,7 @@ import { computed, onMounted, ref, watch } from "vue";
  * ></datetime-input>
  */
 
-const modelValue = defineModel<string>();
+const modelValue = defineModel<string | null>();
 
 interface Props {
   readonly: boolean;
@@ -143,7 +141,7 @@ function clear(): void {
   errorMessages.value = "";
   time.value = null;
   day.value = null;
-  emits("update:modelValue", getDate());
+  modelValue.value = getDate();
 }
 
 function getDate(): string | null {
@@ -157,8 +155,8 @@ function getDate(): string | null {
 }
 
 function parseValue(): void {
-  if (props.modelValue) {
-    const newDate = new Date(props.modelValue);
+  if (modelValue.value) {
+    const newDate = new Date(modelValue.value);
     day.value = parseDay(newDate);
     time.value = parseTime(newDate);
   } else {
@@ -167,10 +165,7 @@ function parseValue(): void {
   }
 }
 
-watch(
-  () => props.modelValue,
-  () => parseValue()
-);
+watch(modelValue, parseValue);
 
 function parseDay(timestamp: Date): string {
   return timestamp.toISOString().replace(/T.*/, "");
@@ -199,7 +194,7 @@ function enterInput(): void {
 
 function sendInput(): void {
   if (checkBothFieldsFilled()) {
-    emits("update:modelValue", getDate());
+    modelValue.value = getDate();
   }
 }
 
