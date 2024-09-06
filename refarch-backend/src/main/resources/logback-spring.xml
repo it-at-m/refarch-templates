@@ -49,20 +49,20 @@
 
 
     <springProfile name="json-logging">
-		
-		<appender name="JSON_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
-				<throwableConverter
-					class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
-					<!-- default max size of one log line in docker is 16kb - UTF8 ~ 1 Character = 1 Byte -->
-					<!-- therefore limit stack_traces to a maximum of 8192 characters (to leave room for the rest of the message) -->
-					<maxLength>8192</maxLength>
-					<exclude>sun\.reflect\..*\.invoke.*</exclude>
-					<exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
-					<rootCauseFirst>true</rootCauseFirst>
-				</throwableConverter>
-			</encoder>
-		</appender>
+
+        <appender name="JSON_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <throwableConverter
+                    class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                    <!-- default max size of one log line in docker is 16kb - UTF8 ~ 1 Character = 1 Byte -->
+                    <!-- therefore limit stack_traces to a maximum of 8192 characters (to leave room for the rest of the message) -->
+                    <maxLength>8192</maxLength>
+                    <exclude>sun\.reflect\..*\.invoke.*</exclude>
+                    <exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+                    <rootCauseFirst>true</rootCauseFirst>
+                </throwableConverter>
+            </encoder>
+        </appender>
 
         <!-- Logger usage -->
         <root level="info">
