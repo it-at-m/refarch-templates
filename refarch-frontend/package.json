@@ -21,7 +21,7 @@
     "roboto-fontface": "0.10.0",
     "vue": "3.5.1",
     "vue-router": "4.4.3",
-    "vuetify": "3.7.0"
+    "vuetify": "3.7.1"
   },
   "devDependencies": {
     "@babel/types": "7.25.4",
