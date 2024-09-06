@@ -99,6 +99,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Logging -->
         <dependency>
@@ -216,6 +221,7 @@
                     <targetJdk>${java.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                     <linkXRef>false</linkXRef>
+                    <includeTests>true</includeTests>
                     <excludeRoots>
                         <excludeRoot>target/generated-sources</excludeRoot>
                         <excludeRoot>target/generated-test-sources</excludeRoot>
