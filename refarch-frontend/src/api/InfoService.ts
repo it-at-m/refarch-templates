@@ -2,16 +2,11 @@ import FetchUtils from "@/api/FetchUtils";
 
 export interface Info {
   application: Application;
-  appswitcher: Appswitcher;
 }
 
 export interface Application {
   name: string;
   version: string;
-}
-
-export interface Appswitcher {
-  url: string;
 }
 
 export default class InfoService {

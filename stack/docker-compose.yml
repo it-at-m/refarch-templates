@@ -127,5 +127,18 @@ services:
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
     security_opt: *security_settings
 
+  appswitcher-server:
+    container_name: appswitcher-server
+    image: itatm/appswitcher-server:1.1.0@sha256:3e70822d1fed7f644628f4919bb429d21a585b8c4bd46edc05fc4fe564f0b04a
+    ports:
+      - "8084:8080"
+    volumes:
+      - "./appswitcher-server/application.yml:/workspace/config/application.yml"
+    restart: *restart-policy
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
+    security_opt: *security_settings
+
 networks:
   keycloak:
