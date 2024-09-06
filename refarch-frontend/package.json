@@ -42,7 +42,7 @@
     "prettier": "3.3.3",
     "typescript": "5.5.4",
     "unplugin-fonts": "1.1.1",
-    "vite": "5.4.2",
+    "vite": "5.4.3",
     "vite-plugin-vuetify": "2.0.4",
     "vitest": "2.0.5",
     "vue-tsc": "2.0.28"
