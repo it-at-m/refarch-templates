@@ -1,5 +1,4 @@
-# For web applications use /ubi9/nginx-124 as base image, for documentation
-# please see https://github.com/sclorg/nginx-container/blob/master/1.24/README.md
+# For documentation see https://github.com/sclorg/nginx-container
 FROM registry.access.redhat.com/ubi9/nginx-124:1-25@sha256:166f66aeac8aed74ad0d4238e899654c725b8376fc573cb78756c1df103a7704
 
 # Copy built web components
