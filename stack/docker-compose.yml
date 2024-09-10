@@ -3,7 +3,7 @@ name: default-services
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.3-alpine3.20
+    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
@@ -64,7 +64,7 @@ services:
 
   db-postgres-keycloak:
     container_name: db-postgres-keycloak
-    image: postgres:16.3-alpine3.20
+    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak-user
