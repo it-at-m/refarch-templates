@@ -69,7 +69,7 @@
       "description": "Limit Postgres version in docker stack to versions in company infrastructure (needs to be updated manually when new versions are rolled out)",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["postgres"],
-      "allowedVersions": "<=16.4-alpine3.20"
+      "allowedVersions": "<=16.4"
     }
   ],
   "additionalBranchPrefix": "{{parentDir}}-"
