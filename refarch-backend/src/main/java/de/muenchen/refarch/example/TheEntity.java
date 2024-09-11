@@ -1,5 +1,6 @@
-package de.muenchen.refarch.domain;
+package de.muenchen.refarch.example;
 
+import de.muenchen.refarch.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
