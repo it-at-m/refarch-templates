@@ -1,4 +1,4 @@
-package de.muenchen.refarch.example;
+package de.muenchen.refarch.theentity;
 
 import de.muenchen.refarch.domain.BaseEntity;
 import jakarta.persistence.Column;

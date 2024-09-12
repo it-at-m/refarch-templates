@@ -1,11 +1,12 @@
-package de.muenchen.refarch.example;
+package de.muenchen.refarch.theentity;
 
-import de.muenchen.refarch.example.dto.TheEntityDTO;
-import de.muenchen.refarch.example.dto.TheEntityMapper;
+import de.muenchen.refarch.theentity.dto.TheEntityMapperImpl;
+import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
+import de.muenchen.refarch.theentity.dto.TheEntityMapper;
+import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
 import jakarta.validation.constraints.NotEmpty;
-import java.util.stream.Collectors;
-import lombok.val;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
@@ -26,38 +27,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/theEntity")
 public class TheEntityController {
 
-    TheEntityService theEntityService;
-    TheEntityMapper theEntityMapper;
+    private final TheEntityService theEntityService;
+    private final TheEntityMapper theEntityMapper = new TheEntityMapperImpl();
 
     @GetMapping("{theEntityID}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityDTO getTheEntity(@PathVariable("theEntityID") final UUID theEntityId) {
+    public TheEntityResponseDTO getTheEntity(@PathVariable("theEntityID") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.getTheEntity(theEntityId));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<TheEntityDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,
-            @RequestParam(defaultValue = "10") final int pageSize) {
+    public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber, @RequestParam(defaultValue = "10") final int pageSize) {
         Page<TheEntity> pageWithEntity = theEntityService.getAllEntities(pageNumber, pageSize);
-        List<TheEntityDTO> theEntityDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
-        return new PageImpl<>(theEntityDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());
+        List<TheEntityResponseDTO> theEntityRequestDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
+        return new PageImpl<>(theEntityRequestDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TheEntityDTO saveTheEntity(@RequestBody TheEntityDTO theEntityDTO) {
-        return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityDTO)));
+    public TheEntityResponseDTO saveTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO) {
+        return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
     }
 
     @PutMapping("{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityDTO updateTheEntity(@RequestBody TheEntityDTO theEntityDTO, @PathVariable("theEntityId") @NotEmpty UUID theEntityId) {
-        return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityDTO), theEntityId));
+    public TheEntityResponseDTO updateTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") @NotEmpty UUID theEntityId) {
+        return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
     @DeleteMapping("{theEntityId}")
