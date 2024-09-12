@@ -1,6 +1,10 @@
 name: "CodeQL Advanced"
 
-on: [pull_request]
+on:
+  pull_request:
+  push:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,7 +41,7 @@ jobs:
     name: Analyze Java source files using CodeQL
     runs-on: ubuntu-latest
     needs: check-changes
-    if: needs.check-changes.outputs.java == 'true'
+    if: github.ref_name == 'main' || needs.check-changes.outputs.java == 'true'
     permissions:
       security-events: write
     steps:
@@ -56,7 +60,7 @@ jobs:
     name: Analyze JavaScript/TypeScript/Vue source files using CodeQL
     runs-on: ubuntu-latest
     needs: check-changes
-    if: needs.check-changes.outputs.javascript-typescript-vue == 'true'
+    if: github.ref_name == 'main' || needs.check-changes.outputs.java == 'true'
     permissions:
       security-events: write
     steps:
