@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@rushstack/eslint-patch": "1.10.4",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
