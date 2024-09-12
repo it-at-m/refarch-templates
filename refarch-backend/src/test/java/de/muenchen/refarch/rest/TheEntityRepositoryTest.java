@@ -1,6 +1,7 @@
 package de.muenchen.refarch.rest;
 
 import de.muenchen.refarch.TestConstants;
+import de.muenchen.refarch.theentity.TheEntityRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.muenchen.refarch.MicroServiceApplication;
-import de.muenchen.refarch.domain.TheEntity;
+import de.muenchen.refarch.theentity.TheEntity;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
