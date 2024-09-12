@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TheEntityController {
 
     private final TheEntityService theEntityService;
-    private final TheEntityMapper theEntityMapper = new TheEntityMapperImpl();
+    private final TheEntityMapper theEntityMapper;
 
     @GetMapping("{theEntityID}")
     @ResponseStatus(HttpStatus.OK)
