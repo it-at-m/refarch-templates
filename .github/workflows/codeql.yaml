@@ -51,7 +51,8 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: java-kotlin # name of the CodeQL analysis template
-          queries: +security-and-quality
+          build-mode: none # analysis without compilation
+          queries: +security-and-quality # use largest ruleset
       - name: Perform CodeQL Analysis for Java
         uses: github/codeql-action/analyze@v3
         with:
@@ -70,7 +71,8 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: javascript-typescript # name of the CodeQL analysis template
-          queries: +security-and-quality
+          build-mode: none # analysis without compilation
+          queries: +security-and-quality # use largest ruleset
       - name: Perform CodeQL Analysis for JavaScript/TypeScript
         uses: github/codeql-action/analyze@v3
         with:
