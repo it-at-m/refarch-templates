@@ -24,15 +24,15 @@ jobs:
         with:
           filters: |
             java:
-              - '*.java'
+              - '**/*.java'
             javascript-typescript-vue:
-              - '*.js'
-              - '*.cjs'
-              - '*.mjs'
-              - '*.ts'
-              - '*.cts'
-              - '*.mts'
-              - '*.vue'
+              - '**/*.js'
+              - '**/*.cjs'
+              - '**/*.mjs'
+              - '**/*.ts'
+              - '**/*.cts'
+              - '**/*.mts'
+              - '**/*.vue'
   codeql-java:
     name: Analyze Java source files using CodeQL
     runs-on: ubuntu-latest
