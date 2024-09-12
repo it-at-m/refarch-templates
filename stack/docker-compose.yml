@@ -20,20 +20,30 @@ services:
     security_opt: &security_settings
       - no-new-privileges:true
 
+  # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
     container_name: pg-admin
     image: dpage/pgadmin4:8.11@sha256:822dd7a1fa68601f70b3e06445c9cb52b134862b0c43f0f7a96ab6ac44a592a4
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - "5050:5050"
     restart: *restart-policy
+    depends_on:
+      - postgres
     healthcheck:
       <<: *healthcheck
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
     security_opt: *security_settings
+    volumes:
+      - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
+      - './pgadmin/pgpass:/pgpass'
+    user: root
+    entrypoint: /bin/sh -c "chmod 600 /pgpass; /entrypoint.sh;"
 
   keycloak:
     container_name: keycloak
