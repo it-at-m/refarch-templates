@@ -10,7 +10,7 @@ export default defineConfig({
       features: {
         customElement: true,
       },
-    })
+    }),
   ],
   server: {
     port: 8082,
