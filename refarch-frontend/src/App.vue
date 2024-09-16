@@ -80,14 +80,14 @@ import { onMounted, ref } from "vue";
 import UserService from "@/api/UserService";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { APPSWITCHER_SERVER_URL, ROUTES_GETSTARTED } from "@/Constants";
+import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
 
 const drawer = ref(true);
 const query = ref<string>("");
-const appswitcherBaseUrl = APPSWITCHER_SERVER_URL;
+const appswitcherBaseUrl = APPSWITCHER_URL;
 
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
