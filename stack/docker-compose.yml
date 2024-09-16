@@ -3,7 +3,7 @@ name: default-services
 services:
   postgres:
     container_name: postgres
-    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
+    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
@@ -64,7 +64,7 @@ services:
 
   db-postgres-keycloak:
     container_name: db-postgres-keycloak
-    image: postgres:16.3-alpine3.18@sha256:64e18e8fb3e9c9aac89ac590c5dd8306b862478404f76cd9b5f7720d012b4c47
+    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak-user
@@ -96,7 +96,7 @@ services:
 
   refarch-gateway:
     container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.0@sha256:a1313ada8f2a5cfc73fe2adb2bd11f0db5717f3a07dc0482b6ad7d00a9509bb1
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.1@sha256:2dafced375cb8dcbda8e63a8bf333a4d516c0e1d94b1b7aac9e07a340ed2c746
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
