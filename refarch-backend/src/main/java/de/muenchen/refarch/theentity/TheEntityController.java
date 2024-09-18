@@ -1,10 +1,8 @@
 package de.muenchen.refarch.theentity;
 
-import de.muenchen.refarch.theentity.dto.TheEntityMapperImpl;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityMapper;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
-import jakarta.validation.constraints.NotEmpty;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
