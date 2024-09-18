@@ -15,10 +15,4 @@ public class Authorities {
     public static final String HAS_AUTHORITY_WRITE_THEENTITY = "hasAuthority(WRITE_THEENTITY)";
     public static final String HAS_AUTHORITY_DELETE_THEENTIT = "hasAuthority(DELETE_THEENTIT)";
     // add your authorities here and also add these new authorities to sso-authorisation.json.
-
-    public enum AuthoritiesEnum {
-        READ_THEENTITY,
-        WRITE_THEENTITY,
-        DELETE_THEENTIT
-    }
 }
