@@ -86,7 +86,7 @@ import { computed, onMounted, ref, watch } from "vue";
 
 const modelValue = defineModel<string | null>();
 
-interface Props {
+const { readonly = false, hideDetails = false, dense = false, filled = false, outlined = false, clearable = true, persistentHint = false, hint = "", label = "", rules = []} = defineProps<{
   readonly: boolean;
   hideDetails: boolean;
   dense: boolean;
@@ -97,20 +97,7 @@ interface Props {
   hint: string;
   label: string;
   rules: { (v: string): string | boolean }[];
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  readonly: false,
-  hideDetails: false,
-  dense: false,
-  filled: false,
-  outlined: false,
-  clearable: true,
-  persistentHint: false,
-  hint: "",
-  label: "",
-  rules: () => [],
-});
+}>();
 
 const day = ref<string | null>(null);
 const time = ref<string | null>(null);
@@ -122,8 +109,8 @@ function dateFilled(): string | boolean {
 }
 
 const validationRules = computed(() => {
-  if (props.rules) {
-    return [...props.rules, dateFilled];
+  if (rules) {
+    return [...rules, dateFilled];
   } else {
     return [dateFilled];
   }
@@ -133,9 +120,9 @@ onMounted(() => {
   parseValue();
 });
 
-const density = computed(() => (props.dense ? "compact" : "default"));
+const density = computed(() => (dense ? "compact" : "default"));
 
-const showClearButton = computed(() => props.clearable && !props.readonly);
+const showClearButton = computed(() => clearable && !readonly);
 
 function clear(): void {
   errorMessages.value = "";
