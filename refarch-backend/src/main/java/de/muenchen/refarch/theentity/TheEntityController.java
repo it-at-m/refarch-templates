@@ -54,15 +54,15 @@ public class TheEntityController {
         return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
     }
 
-    @PutMapping("{theEntityId}")
+    @PutMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityResponseDTO updateTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") @NotEmpty UUID theEntityId) {
+    public TheEntityResponseDTO updateTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
-    @DeleteMapping("{theEntityId}")
+    @DeleteMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTheEntity(@PathVariable("theEntityId") @NotEmpty UUID theEntityId) {
+    public void deleteTheEntity(@PathVariable("theEntityId") UUID theEntityId) {
         theEntityService.deleteTheEntity(theEntityId);
     }
 
