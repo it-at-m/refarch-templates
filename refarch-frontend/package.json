@@ -27,7 +27,7 @@
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
-    "@vitejs/plugin-vue": "5.1.3",
+    "@vitejs/plugin-vue": "5.1.4",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "@vue/eslint-config-prettier": "9.0.0",
