@@ -7,7 +7,7 @@
       "Port": 5432,
       "MaintenanceDB": "postgres",
       "Username": "admin",
-      "PassFile": "/pgpass",
+      "PassFile": "/pgadmin4/pgpass",
       "SSLMode": "prefer"
     }
   }

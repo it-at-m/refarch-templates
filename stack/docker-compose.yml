@@ -41,9 +41,9 @@ services:
     security_opt: *security_settings
     volumes:
       - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
-      - './pgadmin/pgpass:/pgpass'
-    user: root
-    entrypoint: /bin/sh -c "chmod 600 /pgpass; /entrypoint.sh;"
+      - './pgadmin/pgpass:/pgadmin4/pgpass'
+    user: root # see https://github.com/pgadmin-org/pgadmin4/issues/6257
+    entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
 
   keycloak:
     container_name: keycloak
