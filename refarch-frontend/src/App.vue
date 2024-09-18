@@ -74,36 +74,26 @@
 </template>
 
 <script setup lang="ts">
-import type { Info } from "@/api/InfoService";
-
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { onMounted, ref } from "vue";
 
-import InfoService from "@/api/InfoService";
 import UserService from "@/api/UserService";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { ROUTES_GETSTARTED } from "@/Constants";
+import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
 
 const drawer = ref(true);
 const query = ref<string>("");
-const appswitcherBaseUrl = ref<string | null>(null);
+const appswitcherBaseUrl = APPSWITCHER_URL;
 
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
 
 onMounted(() => {
   loadUser();
-  InfoService.getInfo()
-    .then((content: Info) => {
-      appswitcherBaseUrl.value = content.appswitcher.url;
-    })
-    .catch((error) => {
-      snackbarStore.showMessage(error);
-    });
 });
 
 /**

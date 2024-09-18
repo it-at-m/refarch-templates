@@ -1,0 +1,13 @@
+appswitcher.apps:
+  pgadmin:
+    display-name: pgAdmin
+    url: http://localhost:5050
+    image-url: http://localhost:8084/logos/Logo_PostgreSQL.png
+    tags:
+      - global
+  keycloak:
+    display-name: Keycloak
+    url: http://localhost:8100/auth/admin
+    image-url: http://localhost:8084/logos/Keycloak_Logo.png
+    tags:
+      - global
