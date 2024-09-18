@@ -43,7 +43,6 @@ public class TheEntityService {
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity updateTheEntity(final TheEntity entity, final UUID theEntityId) {
         TheEntity foundEntity = getEntityOrThrowException(theEntityId);
-        foundEntity.setId(entity.getId());
         foundEntity.setTextAttribute(entity.getTextAttribute());
         log.debug("Update TheEntity {}", foundEntity);
         return theEntityRepository.save(foundEntity);
