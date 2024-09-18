@@ -1,5 +1,5 @@
 # For documentation see https://jboss-container-images.github.io/openjdk/
-FROM registry.access.redhat.com/ubi9/openjdk-21-runtime:1.20-2.1724037311@sha256:4536f1460fd9c75c300b7d0785a282c282d595d1d35f68ba10508b929dd74261
+FROM registry.access.redhat.com/ubi9/openjdk-21-runtime:1.20-2.1725851019@sha256:4ef4e9bdc908abca04b119002c6e00545101084d6e974d98c111bbf0b9885c13
 
 # Copy runnable jar to deployments
 COPY target/*.jar /deployments/application.jar
