@@ -106,7 +106,7 @@ services:
 
   refarch-gateway:
     container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.1@sha256:2dafced375cb8dcbda8e63a8bf333a4d516c0e1d94b1b7aac9e07a340ed2c746
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.2@sha256:ffc3a9a5703b4db315d28e63a2e11ee201e40405816c61c9c1062e775a09b1cd
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
@@ -135,6 +135,22 @@ services:
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
+    security_opt: *security_settings
+
+  appswitcher-server:
+    container_name: appswitcher-server
+    image: itatm/appswitcher-server:1.1.0@sha256:3e70822d1fed7f644628f4919bb429d21a585b8c4bd46edc05fc4fe564f0b04a
+    environment:
+      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
+    ports:
+      - "8084:8080"
+    volumes:
+      - "./appswitcher-server/application.yml:/workspace/config/application.yml"
+      - "./appswitcher-server/static:/workspace/static"
+    restart: *restart-policy
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
     security_opt: *security_settings
 
 networks:
