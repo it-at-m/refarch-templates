@@ -9,7 +9,7 @@ export default defineConfig({
     vue({
       features: {
         customElement: true,
-        optionsAPI: false
+        optionsAPI: false,
       },
     }),
   ],
