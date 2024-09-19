@@ -86,7 +86,18 @@ import { computed, onMounted, ref, watch } from "vue";
 
 const modelValue = defineModel<string | null>();
 
-const { readonly = false, hideDetails = false, dense = false, filled = false, outlined = false, clearable = true, persistentHint = false, hint = "", label = "", rules = []} = defineProps<{
+const {
+  readonly = false,
+  hideDetails = false,
+  dense = false,
+  filled = false,
+  outlined = false,
+  clearable = true,
+  persistentHint = false,
+  hint = "",
+  label = "",
+  rules = [],
+} = defineProps<{
   readonly: boolean;
   hideDetails: boolean;
   dense: boolean;
