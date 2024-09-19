@@ -9,6 +9,7 @@ export default defineConfig({
     vue({
       features: {
         customElement: true,
+        optionsAPI: false,
       },
     }),
   ],
@@ -28,11 +29,8 @@ export default defineConfig({
     extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
   build: {
-    ssrManifest: true,
-    manifest: true,
+    manifest: true, // required for post build logic in 'processes' folder
     minify: true,
-    outDir: "dist",
-    emptyOutDir: false,
     rollupOptions: {
       input: {
         "refarch-hello-world-webcomponent":

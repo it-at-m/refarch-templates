@@ -11,6 +11,9 @@ export default defineConfig({
   plugins: [
     vue({
       template: { transformAssetUrls },
+      features: {
+        optionsAPI: false,
+      },
     }),
     vuetify(),
     ViteFonts({

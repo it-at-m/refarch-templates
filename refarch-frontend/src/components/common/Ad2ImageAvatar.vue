@@ -11,18 +11,18 @@ import { computed } from "vue";
 
 import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
 
-const { username, avatarMode = "fallbackGeneric", avatarSize = "64" } = defineProps<{
+const {
+  username,
+  avatarMode = "fallbackGeneric",
+  avatarSize = "64",
+} = defineProps<{
   username: string;
   avatarMode?: string;
   avatarSize?: string;
 }>();
 
 const avatarUrl = computed(() => {
-  return DefaultLhmAvatarService.avatarHref(
-    username,
-    avatarMode,
-    avatarSize
-  );
+  return DefaultLhmAvatarService.avatarHref(username, avatarMode, avatarSize);
 });
 
 const altText = computed(() => `Bild von ${username}`);
