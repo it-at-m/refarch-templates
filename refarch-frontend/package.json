@@ -9,9 +9,9 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vite build",
+    "build": "vue-tsc --build && vite build",
     "preview": "vite preview",
-    "lint": "prettier . --check && eslint . && vue-tsc -p tsconfig.app.json --noEmit --skipLibCheck --composite false",
+    "lint": "prettier . --check && eslint . && vue-tsc -p tsconfig.app.json --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
