@@ -15,7 +15,9 @@ export default defineConfig({
         optionsAPI: false,
       },
     }),
-    vuetify(),
+    vuetify({
+      autoImport: false,
+    }),
     ViteFonts({
       google: {
         families: [
@@ -40,8 +42,4 @@ export default defineConfig({
     },
     extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
-  build: {
-    minify: true,
-  },
-  define: { "process.env": {} },
 });
