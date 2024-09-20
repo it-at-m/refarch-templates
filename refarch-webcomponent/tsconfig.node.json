@@ -1,9 +1,10 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
-  "include": ["vite.config.*"],
+  "include": ["vite.config.*", "vitest.config.*"],
   "compilerOptions": {
     "composite": true,
-    "module": "ESNext",
+    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+    "noEmit": true,
     "types": ["node"]
   }
 }

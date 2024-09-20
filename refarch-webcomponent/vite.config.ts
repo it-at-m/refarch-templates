@@ -30,7 +30,6 @@ export default defineConfig({
   },
   build: {
     manifest: true, // required for post build logic in 'processes' folder
-    minify: true,
     rollupOptions: {
       input: {
         "refarch-hello-world-webcomponent":
@@ -41,11 +40,5 @@ export default defineConfig({
         dir: "dist/src",
       },
     },
-  },
-  esbuild: {
-    drop: ["console", "debugger"],
-  },
-  define: {
-    "process.env": {},
   },
 });
