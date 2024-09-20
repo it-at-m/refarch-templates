@@ -2,7 +2,7 @@
 import { fileURLToPath, URL } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
-import ViteFonts from "unplugin-fonts/vite";
+import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
@@ -18,7 +18,7 @@ export default defineConfig({
     vuetify({
       autoImport: false,
     }),
-    ViteFonts({
+    UnpluginFonts({
       google: {
         families: [
           {
