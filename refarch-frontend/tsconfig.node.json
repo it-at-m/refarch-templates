@@ -3,8 +3,10 @@
   "include": ["vite.config.*", "vitest.config.*"],
   "compilerOptions": {
     "composite": true,
-    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
     "noEmit": true,
+    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "types": ["node"]
   }
 }
