@@ -1,13 +1,13 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.vue"],
-  "exclude": ["tests/**/*"],
+  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.vue", "tests/**/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": ["vitest/jsdom"],
     "allowSyntheticDefaultImports": true
   }
 }
