@@ -10,7 +10,7 @@ jobs:
       matrix:
         include: # hier müssen die Pfade angegeben werden
           - app-path: refarch-backend
-          #- app-path: # z. B. sps-frontend
+          - app-path: refarch-frontend 
     steps:
       - uses: actions/checkout@v4
       - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}} 
