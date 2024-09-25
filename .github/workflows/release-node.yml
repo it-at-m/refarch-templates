@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Change directory to refarch-frontend
-        run: cd refarch-frontend
-    
       - name: Checkout repository
         uses: actions/checkout@v4
         
@@ -23,9 +20,15 @@ jobs:
           node-version: "20"
         
       - name: Install dependencies
-        run: npm install
+        working-directory: ./refarch-frontend
+        run: npm ci
+
+      - name: Build the project
+        working-directory: ./refarch-frontend
+        run: npm run build
         
       - name: Run semantic-release
+        working-directory: ./refarch-frontend
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run semantic-release
