@@ -59,4 +59,4 @@ jobs:
           tag_name: ${{needs.release-maven.outputs.MVN_ARTIFACT_ID}}-${{ github.event.inputs.releaseVersion }}
           draft: false
           prerelease: false
-          generate_release_notes: false
+          generate_release_notes: true
