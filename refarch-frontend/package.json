@@ -12,7 +12,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "prettier . --check && eslint . && vue-tsc -p tsconfig.app.json --noEmit --skipLibCheck --composite false",
-    "fix": "prettier . --write && eslint . --fix"
+    "fix": "prettier . --write && eslint . --fix",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
