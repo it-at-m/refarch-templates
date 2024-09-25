@@ -13,14 +13,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Change directory to refarch-frontend
+        run: cd refarch-frontend
         
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          
-      - name: Change directory to refarch-frontend
-        run: cd refarch-frontend
         
       - name: Install dependencies
         run: npm install
