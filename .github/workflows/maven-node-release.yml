@@ -1,0 +1,34 @@
+name: build and release
+
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Europe/Berlin # timezone
+    strategy:
+      matrix:
+        include: # hier müssen die Pfade angegeben werden
+          - app-path: refarch-backend
+          - app-path: refarch-frontend 
+    steps:
+      - uses: actions/checkout@v4
+      - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}} 
+        id: node
+        uses: jan-niklasml/.github/.github/actions/action-npm-build@main
+        with:
+          app-path:  "${{ matrix.app-path }}"
+      - if:  ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}} 
+        id: maven
+        uses: jan-niklasml/.github/.github/actions/action-maven-build@main
+        with:
+          app-path: "${{ matrix.app-path }}"
+      - if: github.ref == 'refs/heads/main'
+        uses: jan-niklasml/.github/.github/actions/action-build-image@main
+        with:
+          path: "${{  matrix.app-path }}"
+          image-name: "${{  matrix.app-path }}"
+          artifact-name: ${{join(steps.*.outputs.artifact-name)}}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          registry-username: ${{ github.actor }}
