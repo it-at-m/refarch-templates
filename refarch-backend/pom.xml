@@ -11,7 +11,7 @@
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
-    <version>1.0.0</version>
+    <version>X.Y.Z-SNAPSHOT</version>
     <name>refarch_backend</name>
     <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
 
@@ -287,7 +287,7 @@
     <scm>
         <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
         <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
-      <tag>refarch-backend-1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
 
