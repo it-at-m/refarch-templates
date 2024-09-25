@@ -21,7 +21,7 @@ jobs:
         
       - name: Install dependencies
         working-directory: ./refarch-frontend
-        run: npm ci
+        run: npm install
 
       - name: Build the project
         working-directory: ./refarch-frontend
