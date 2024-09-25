@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: "20"
           
-      - name: Change directory to frontend
-        run: cd frontend
+      - name: Change directory to refarch-frontend
+        run: cd refarch-frontend
         
       - name: Install dependencies
         run: npm install
