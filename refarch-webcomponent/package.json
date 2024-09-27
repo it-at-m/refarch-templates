@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "test": "vitest run",
+    "test:unit": "vitest run",
     "build": "vite build --mode production && npm run post-build",
     "post-build": "node ./processes/post-build.js",
     "preview": "vite preview",
