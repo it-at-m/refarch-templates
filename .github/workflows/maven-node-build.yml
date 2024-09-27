@@ -23,7 +23,7 @@ jobs:
           app-path:  "${{ matrix.app-path }}"
       - if:  ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}} 
         id: maven
-        uses: jan-niklasml/.github/.github/actions/action-maven-build@main
+        uses: it-at-m/.github/.github/actions/action-maven-build@main
         with:
           app-path: "${{ matrix.app-path }}"
       - if: github.ref == 'refs/heads/main'
