@@ -13,7 +13,10 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+  
+permissions:
+  id-token: write 
+  
 jobs:
   deploy-pages:
     uses: it-at-m/.github/.github/workflows/reuseable-template-deploy-pages.yml@main
