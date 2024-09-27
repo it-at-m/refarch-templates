@@ -25,7 +25,7 @@ jobs:
         id: maven
         uses: it-at-m/.github/.github/actions/action-maven-build@main
         with:
-          java_version: 21
+          java-version: 21
           app-path: "${{ matrix.app-path }}"
       - if: github.ref == 'refs/heads/main'
         uses: it-at-m/.github/.github/actions/action-build-image@main
