@@ -4,10 +4,6 @@ What to adjust:
 * Add a short and long desciption.
 * Add links for your final repo to report a bug or request a feature.
 * Add list of used technologies.
-* If you have, add a roadmap or remove this section.
-* Fill up the section for set up and documentation.
- * Start in this file only with documentation and link to the docs folder.
-* Add more project shields. Use [shields.io](https://shields.io/) with style `for-the-badge`.
 
 ## ------- end to remove -------
 <!-- add Project Logo, if existing -->

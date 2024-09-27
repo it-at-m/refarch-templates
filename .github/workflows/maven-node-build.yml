@@ -7,10 +7,13 @@ jobs:
     env:
       TZ: Europe/Berlin # timezone
     strategy:
+      fail-fast: false
       matrix:
         include: # hier müssen die Pfade angegeben werden
           - app-path: refarch-backend
           - app-path: refarch-frontend 
+          - app-path: refarch-eai
+          - app-path: refarch-webcomponent 
     steps:
       - uses: actions/checkout@v4
       - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}} 
