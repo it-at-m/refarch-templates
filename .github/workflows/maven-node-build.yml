@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}} 
         id: node
-        uses: jan-niklasml/.github/.github/actions/action-npm-build@main
+        uses: it-at-m/.github/.github/actions/action-npm-build@main
         with:
           app-path:  "${{ matrix.app-path }}"
       - if:  ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}} 
@@ -27,7 +27,7 @@ jobs:
         with:
           app-path: "${{ matrix.app-path }}"
       - if: github.ref == 'refs/heads/main'
-        uses: jan-niklasml/.github/.github/actions/action-build-image@main
+        uses: it-at-m/.github/.github/actions/action-build-image@main
         with:
           path: "${{  matrix.app-path }}"
           image-name: "${{  matrix.app-path }}"
