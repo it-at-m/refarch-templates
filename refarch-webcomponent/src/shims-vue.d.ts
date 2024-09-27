@@ -1,1 +1,1 @@
-declare module "*.vue";
+declare module "@muenchen/muc-patternlab-vue";
