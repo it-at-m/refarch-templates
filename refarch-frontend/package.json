@@ -41,7 +41,7 @@
     "unplugin-fonts": "1.1.1",
     "vite": "5.4.8",
     "vite-plugin-vuetify": "2.0.4",
-    "vitest": "2.0.5",
+    "vitest": "2.1.1",
     "vue-tsc": "2.1.6"
   }
 }
