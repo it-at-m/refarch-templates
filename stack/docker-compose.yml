@@ -23,7 +23,7 @@ services:
   # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
     container_name: pg-admin
-    image: dpage/pgadmin4:8.11@sha256:822dd7a1fa68601f70b3e06445c9cb52b134862b0c43f0f7a96ab6ac44a592a4
+    image: dpage/pgadmin4:8.12@sha256:585350593e8b0483941fa9a2d5ebb04b88a66e83a7b5603c169f9446b271312f
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -89,7 +89,7 @@ services:
 
   init-keycloak:
     container_name: init-keycloak
-    image: klg71/keycloakmigration:0.2.67@sha256:ca5659d0f2907e77f50f2ccda4f0848f7fbd038c8d59024c0659f5256861d244
+    image: klg71/keycloakmigration:0.2.69@sha256:66474865869f4dc11763e62e9722a62bd3351161d148547c3620f71e6809e95a
     depends_on:
       - keycloak
     environment:

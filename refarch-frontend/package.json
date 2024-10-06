@@ -17,9 +17,9 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@muenchen/appswitcher-vue": "2.0.3",
-    "pinia": "2.2.2",
+    "pinia": "2.2.4",
     "roboto-fontface": "0.10.0",
-    "vue": "3.5.4",
+    "vue": "3.5.11",
     "vue-router": "4.4.5",
     "vuetify": "3.7.2"
   },
@@ -41,9 +41,9 @@
     "prettier": "3.3.3",
     "typescript": "5.5.4",
     "unplugin-fonts": "1.1.1",
-    "vite": "5.4.6",
+    "vite": "5.4.8",
     "vite-plugin-vuetify": "2.0.4",
-    "vitest": "2.0.5",
+    "vitest": "2.1.2",
     "vue-tsc": "2.1.6"
   }
 }
