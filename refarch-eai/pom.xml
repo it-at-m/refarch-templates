@@ -12,7 +12,7 @@
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-eai</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>refarch_eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
 
