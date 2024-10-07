@@ -2,7 +2,6 @@ name: refarch-stack
 
 services:
   postgres:
-    container_name: postgres
     image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=postgres
@@ -10,7 +9,6 @@ services:
       - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
-    restart: &restart-policy on-failure:3
     healthcheck: &healthcheck
       test: ["CMD-SHELL", "pg_isready -d postgres -U admin"]
       interval: 30s
@@ -22,7 +20,6 @@ services:
 
   # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
-    container_name: pg-admin
     image: dpage/pgadmin4:8.12@sha256:585350593e8b0483941fa9a2d5ebb04b88a66e83a7b5603c169f9446b271312f
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
@@ -32,7 +29,6 @@ services:
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - "5050:5050"
-    restart: *restart-policy
     depends_on:
       - postgres
     healthcheck:
@@ -46,7 +42,6 @@ services:
     entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
 
   keycloak:
-    container_name: keycloak
     image: quay.io/keycloak/keycloak:20.0.5@sha256:054ef67eb7dae0129bbb9eb0e0797fd2392cd6d135094a6063ae7ff7773ef81f
     command:
       - start-dev --http-relative-path /auth
@@ -66,14 +61,12 @@ services:
       - "8100:8100"
     networks:
       - keycloak
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: ["CMD-SHELL",  "curl http://localhost:8100/auth/health/live"]
     security_opt: *security_settings
 
   db-postgres-keycloak:
-    container_name: db-postgres-keycloak
     image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
     environment:
       - POSTGRES_DB=keycloak
@@ -81,14 +74,12 @@ services:
       - POSTGRES_PASSWORD=keycloak-secret
     networks:
       - keycloak
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "pg_isready -d keycloak -U keycloak-user" ]
     security_opt: *security_settings
 
   init-keycloak:
-    container_name: init-keycloak
     image: klg71/keycloakmigration:0.2.69@sha256:66474865869f4dc11763e62e9722a62bd3351161d148547c3620f71e6809e95a
     depends_on:
       - keycloak
@@ -105,7 +96,6 @@ services:
     security_opt: *security_settings
 
   refarch-gateway:
-    container_name: refarch-gateway
     image: ghcr.io/it-at-m/refarch/refarch-gateway:1.1.2@sha256:ffc3a9a5703b4db315d28e63a2e11ee201e40405816c61c9c1062e775a09b1cd
     depends_on:
       init-keycloak:
@@ -131,14 +121,12 @@ services:
       - keycloak
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
     security_opt: *security_settings
 
   appswitcher-server:
-    container_name: appswitcher-server
     image: itatm/appswitcher-server:1.1.0@sha256:3e70822d1fed7f644628f4919bb429d21a585b8c4bd46edc05fc4fe564f0b04a
     environment:
       - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
@@ -147,7 +135,6 @@ services:
     volumes:
       - "./appswitcher-server/application.yml:/workspace/config/application.yml"
       - "./appswitcher-server/static:/workspace/static"
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
