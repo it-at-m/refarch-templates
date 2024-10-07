@@ -17,7 +17,7 @@ on:
         required: true
         options:
           - refarch-backend # todo: muss angepasst werden. eigenen Ordner verwenden
-          - refarch-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
+          - refarch-eai # todo: muss angepasst werden. eigenen Ordner verwenden
 
 jobs:
   release-maven:
