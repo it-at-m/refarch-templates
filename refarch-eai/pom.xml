@@ -7,12 +7,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.7</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/4.4.3/dependencies and search for 'spring' -->
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-eai</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <name>refarch_eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
 
@@ -39,14 +39,14 @@
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-        <argLine></argLine> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
+        <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
     </properties>
 
     <scm>
         <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
         <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>refarch-eai-1.1.1</tag>
     </scm>
 
     <dependencyManagement>
@@ -200,8 +200,8 @@
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
                         </eclipse>
-                        <trimTrailingWhitespace/>
-                        <endWithNewline/>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
                     </java>
                 </configuration>
                 <executions>
