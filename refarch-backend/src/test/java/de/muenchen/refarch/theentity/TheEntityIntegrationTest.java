@@ -3,14 +3,18 @@ package de.muenchen.refarch.theentity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.muenchen.refarch.TestConstants;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
+import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -20,6 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -54,18 +59,19 @@ class TheEntityIntegrationTest {
     @Autowired
     private TheEntityRepository theEntityRepository;
 
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
     @BeforeEach
     public void setUp() {
-
         // Create and save an example entity
         TheEntity entity = new TheEntity();
         entity.setTextAttribute("Test");
         testEntityId = theEntityRepository.save(entity).getId();
-
     }
 
     @Test
-    void testGetTheEntityById() throws Exception {
+    void givenEntityId_whenGetEntityById_thenReturnEntity() throws Exception {
         mockMvc.perform(get("/theEntity/{theEntityID}", testEntityId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -74,7 +80,22 @@ class TheEntityIntegrationTest {
     }
 
     @Test
-    void testGetTheEntitiesByPageAndSize() throws Exception {
+    void givenEntityId_whenGetEntityByIdWithTestRestTemplate_thenReturnEntity() {
+        TheEntityResponseDTO expectedDTO = new TheEntityResponseDTO(testEntityId, "Test");
+        String url = "/theEntity/{theEntityID}";
+        ResponseEntity<TheEntityResponseDTO> response = testRestTemplate.getForEntity(url, TheEntityResponseDTO.class, testEntityId);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_JSON);
+
+        assertThat(response.getBody()).usingRecursiveComparison().isEqualTo(expectedDTO);
+    }
+
+
+
+
+    @Test
+    void givenPageNumberAndPageSize_whenGetEntitiesByPageAndSize_thenReturnPageOfEntities() throws Exception {
         mockMvc.perform(get("/theEntity")
                         .param("pageNumber", "0")
                         .param("pageSize", "10")
@@ -85,7 +106,7 @@ class TheEntityIntegrationTest {
     }
 
     @Test
-    void testSaveTheEntity() throws Exception {
+    void givenEntity_whenSaveEntity_thenEntityIsSaved() throws Exception {
         TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test");
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
@@ -98,7 +119,7 @@ class TheEntityIntegrationTest {
     }
 
     @Test
-    void testUpdateTheEntity() throws Exception {
+    void givenEntity_whenUpdateEntity_thenEntityIsUpdated() throws Exception {
         TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test");
         String requestBody = objectMapper.writeValueAsString(requestDTO);
 
@@ -112,7 +133,7 @@ class TheEntityIntegrationTest {
     }
 
     @Test
-    void testDeleteTheEntity() throws Exception {
+    void givenEntityId_whenDeleteEntity_thenEntityIsDeleted() throws Exception {
         mockMvc.perform(delete("/theEntity/{theEntityId}", testEntityId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
