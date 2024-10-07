@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { VBtn, VSnackbar } from "vuetify/components";
 
 import { useSnackbarStore } from "@/stores/snackbar";
 
