@@ -39,7 +39,8 @@ public class TheEntityController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber, @RequestParam(defaultValue = "10") final int pageSize) {
+    public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,
+            @RequestParam(defaultValue = "10") final int pageSize) {
         Page<TheEntity> pageWithEntity = theEntityService.getAllEntities(pageNumber, pageSize);
         List<TheEntityResponseDTO> theEntityRequestDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
         return new PageImpl<>(theEntityRequestDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());

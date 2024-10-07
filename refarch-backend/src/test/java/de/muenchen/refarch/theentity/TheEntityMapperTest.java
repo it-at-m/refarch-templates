@@ -47,5 +47,4 @@ class TheEntityMapperTest {
         assertEquals("test", result.getTextAttribute());
     }
 
-
 }
