@@ -287,7 +287,6 @@
     <scm>
         <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
         <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
-      <tag>refarch-backend-1.0.0</tag>
   </scm>
 
 
