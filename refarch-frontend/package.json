@@ -37,7 +37,7 @@
     "@vue/tsconfig": "0.5.1",
     "eslint": "8.57.1",
     "eslint-plugin-vue": "9.28.0",
-    "jsdom": "25.0.0",
+    "jsdom": "25.0.1",
     "prettier": "3.3.3",
     "typescript": "5.5.4",
     "unplugin-fonts": "1.1.1",
