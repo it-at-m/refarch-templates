@@ -1,7 +1,8 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+const vitepressConfig = defineConfig({
   title: "Refarch Vitepress init",
   description: "Documentation for the RefArch",
   themeConfig: {
@@ -10,7 +11,6 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Examples', link: '/markdown-examples' }
     ],
-
     sidebar: [
       {
         text: 'Examples',
@@ -20,7 +20,6 @@ export default defineConfig({
         ]
       }
     ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ],
@@ -28,4 +27,6 @@ export default defineConfig({
       provider: 'local'
     }
   }
-})
+});
+
+export default withMermaid(vitepressConfig);
