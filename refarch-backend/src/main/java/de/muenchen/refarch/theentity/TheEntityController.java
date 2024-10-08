@@ -54,7 +54,8 @@ public class TheEntityController {
 
     @PutMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityResponseDTO updateTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") final UUID theEntityId) {
+    public TheEntityResponseDTO updateTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO,
+            @PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
