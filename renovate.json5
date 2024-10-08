@@ -51,7 +51,7 @@
       "description": "Limit Camel updates to current LTS version (needs to be updated manually when new LTS release is out)",
       "matchDatasources": ["maven"],
       "matchPackageNames": ["org.apache.camel.springboot:camel-spring-boot-dependencies"],
-      "allowedVersions": "<=4.4"
+      "allowedVersions": "<=4.8"
     },
     {
       "description": "Limit dependencies directly related to Node to versions on company machines (needs to be updated manually when new versions are rolled out)",
