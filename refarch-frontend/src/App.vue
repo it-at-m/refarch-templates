@@ -76,6 +76,23 @@
 <script setup lang="ts">
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { onMounted, ref } from "vue";
+import {
+  VApp,
+  VAppBar,
+  VAppBarNavIcon,
+  VBtn,
+  VCol,
+  VContainer,
+  VFadeTransition,
+  VList,
+  VListItem,
+  VListItemTitle,
+  VMain,
+  VNavigationDrawer,
+  VRow,
+  VTextField,
+  VToolbarTitle,
+} from "vuetify/components";
 
 import UserService from "@/api/UserService";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";

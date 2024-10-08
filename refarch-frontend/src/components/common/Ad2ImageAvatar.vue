@@ -8,6 +8,7 @@
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
+import { VAvatar } from "vuetify/components";
 
 import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
 
