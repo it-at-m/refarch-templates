@@ -26,11 +26,9 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-    extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
   build: {
     manifest: true, // required for post build logic in 'processes' folder
-    minify: true,
     rollupOptions: {
       input: {
         "refarch-hello-world-webcomponent":
@@ -41,11 +39,5 @@ export default defineConfig({
         dir: "dist/src",
       },
     },
-  },
-  esbuild: {
-    drop: ["console", "debugger"],
-  },
-  define: {
-    "process.env": {},
   },
 });
