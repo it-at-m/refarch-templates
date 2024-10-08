@@ -8,11 +8,12 @@
   },
   "scripts": {
     "dev": "vite",
-    "test": "vitest run",
+    "test:unit": "vitest run",
     "build": "vue-tsc --build --force && vite build",
     "preview": "vite preview",
     "lint": "prettier . --check && eslint . && vue-tsc --noEmit",
-    "fix": "prettier . --write && eslint . --fix"
+    "fix": "prettier . --write && eslint . --fix",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
@@ -39,6 +40,7 @@
     "eslint-plugin-vue": "9.28.0",
     "jsdom": "25.0.1",
     "prettier": "3.3.3",
+    "semantic-release": "24.0.0",
     "typescript": "5.5.4",
     "unplugin-fonts": "1.1.1",
     "vite": "5.4.8",
