@@ -5,6 +5,7 @@ import de.muenchen.refarch.TestConstants;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
 import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +65,14 @@ class TheEntityIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        // Create and save an example entity
-        TheEntity entity = new TheEntity();
-        entity.setTextAttribute("Test");
-        testEntityId = theEntityRepository.save(entity).getId();
+        final TheEntity exampleEntity = new TheEntity();
+        exampleEntity.setTextAttribute("Test");
+        testEntityId = theEntityRepository.save(exampleEntity).getId();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        theEntityRepository.deleteById(testEntityId);
     }
 
     @Test
@@ -81,9 +86,9 @@ class TheEntityIntegrationTest {
 
     @Test
     void givenEntityId_whenGetEntityByIdWithTestRestTemplate_thenReturnEntity() {
-        TheEntityResponseDTO expectedDTO = new TheEntityResponseDTO(testEntityId, "Test");
-        String url = "/theEntity/{theEntityID}";
-        ResponseEntity<TheEntityResponseDTO> response = testRestTemplate.getForEntity(url, TheEntityResponseDTO.class, testEntityId);
+        final TheEntityResponseDTO expectedDTO = new TheEntityResponseDTO(testEntityId, "Test");
+        final String url = "/theEntity/{theEntityID}";
+        final ResponseEntity<TheEntityResponseDTO> response = testRestTemplate.getForEntity(url, TheEntityResponseDTO.class, testEntityId);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getHeaders().getContentType()).isEqualTo(MediaType.APPLICATION_JSON);
@@ -104,21 +109,21 @@ class TheEntityIntegrationTest {
 
     @Test
     void givenEntity_whenSaveEntity_thenEntityIsSaved() throws Exception {
-        TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test");
-        String requestBody = objectMapper.writeValueAsString(requestDTO);
+        final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test1");
+        final String requestBody = objectMapper.writeValueAsString(requestDTO);
 
         mockMvc.perform(post("/theEntity")
                 .content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.textAttribute", is("Test")));
+                .andExpect(jsonPath("$.textAttribute", is(requestDTO.textAttribute())));
     }
 
     @Test
     void givenEntity_whenUpdateEntity_thenEntityIsUpdated() throws Exception {
-        TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test");
-        String requestBody = objectMapper.writeValueAsString(requestDTO);
+        final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test2");
+        final String requestBody = objectMapper.writeValueAsString(requestDTO);
 
         mockMvc.perform(put("/theEntity/{theEntityId}", testEntityId)
                 .content(requestBody)
@@ -126,7 +131,7 @@ class TheEntityIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id", is(testEntityId.toString())))
-                .andExpect(jsonPath("$.textAttribute", is("Test")));
+                .andExpect(jsonPath("$.textAttribute", is(requestDTO.textAttribute())));
     }
 
     @Test

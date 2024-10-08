@@ -30,7 +30,7 @@ public class TheEntityService {
     @PreAuthorize(Authorities.HAS_AUTHORITY_READ_THEENTITY)
     public Page<TheEntity> getAllEntities(final int pageNumber, final int pageSize) {
         log.info("Get AllEntities with at Page {} with a PageSize of {}", pageNumber, pageSize);
-        Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
+        final Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
         return theEntityRepository.findAll(pageRequest);
     }
 
@@ -42,7 +42,7 @@ public class TheEntityService {
 
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity updateTheEntity(final TheEntity entity, final UUID theEntityId) {
-        TheEntity foundEntity = getEntityOrThrowException(theEntityId);
+        final TheEntity foundEntity = getEntityOrThrowException(theEntityId);
         foundEntity.setTextAttribute(entity.getTextAttribute());
         log.debug("Update TheEntity {}", foundEntity);
         return theEntityRepository.save(foundEntity);

@@ -41,26 +41,26 @@ public class TheEntityController {
     @ResponseStatus(HttpStatus.OK)
     public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,
             @RequestParam(defaultValue = "10") final int pageSize) {
-        Page<TheEntity> pageWithEntity = theEntityService.getAllEntities(pageNumber, pageSize);
-        List<TheEntityResponseDTO> theEntityRequestDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
+        final Page<TheEntity> pageWithEntity = theEntityService.getAllEntities(pageNumber, pageSize);
+        final List<TheEntityResponseDTO> theEntityRequestDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
         return new PageImpl<>(theEntityRequestDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TheEntityResponseDTO saveTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO) {
+    public TheEntityResponseDTO saveTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO) {
         return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
     }
 
     @PutMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityResponseDTO updateTheEntity(@RequestBody TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") UUID theEntityId) {
+    public TheEntityResponseDTO updateTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO, @PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
     @DeleteMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTheEntity(@PathVariable("theEntityId") UUID theEntityId) {
+    public void deleteTheEntity(@PathVariable("theEntityId") final UUID theEntityId) {
         theEntityService.deleteTheEntity(theEntityId);
     }
 
