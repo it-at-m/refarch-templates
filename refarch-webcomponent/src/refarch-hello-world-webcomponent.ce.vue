@@ -4,7 +4,6 @@
     <div v-html="mucIconsSprite" />
     <!-- eslint-disable-next-line vue/no-v-html -->
     <div v-html="customIconsSprite" />
-
     <muc-callout>
       <template #header>
         <p>Welcome to the default template for refarch-webcomponent</p>
@@ -24,17 +23,12 @@ import { computed } from "vue";
 
 import { FIRSTNAME_DEFAULT } from "@/util/constants";
 
-const props = withDefaults(
-  defineProps<{
-    firstName?: string;
-  }>(),
-  {
-    firstName: FIRSTNAME_DEFAULT,
-  }
-);
+const { firstName = FIRSTNAME_DEFAULT } = defineProps<{
+  firstName?: string;
+}>();
 
 const calloutContent = computed(() => {
-  return `Hello ${props.firstName}`;
+  return `Hello ${firstName}`;
 });
 </script>
 

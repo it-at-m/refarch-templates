@@ -63,6 +63,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { VCol, VContainer, VRow } from "vuetify/components";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
 import { useSaveLeave } from "@/composables/saveLeave";

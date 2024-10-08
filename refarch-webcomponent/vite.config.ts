@@ -1,11 +1,7 @@
 import { fileURLToPath, URL } from "node:url";
 
-import type { PluginOption } from "vite";
-
-import { viteVueCESubStyle } from "@unplugin-vue-ce/sub-style";
 import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vite";
-import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,10 +9,9 @@ export default defineConfig({
     vue({
       features: {
         customElement: true,
+        optionsAPI: false,
       },
     }),
-    viteVueCESubStyle({}) as PluginOption,
-    cssInjectedByJsPlugin(),
   ],
   server: {
     port: 8082,
@@ -31,14 +26,9 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-    extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
   },
   build: {
-    ssrManifest: true,
-    manifest: true,
-    minify: true,
-    outDir: "dist",
-    emptyOutDir: false,
+    manifest: true, // required for post build logic in 'processes' folder
     rollupOptions: {
       input: {
         "refarch-hello-world-webcomponent":
@@ -49,11 +39,5 @@ export default defineConfig({
         dir: "dist/src",
       },
     },
-  },
-  esbuild: {
-    drop: ["console", "debugger"],
-  },
-  define: {
-    "process.env": {},
   },
 });

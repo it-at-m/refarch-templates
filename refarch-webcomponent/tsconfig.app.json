@@ -1,12 +1,13 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "dev/**/*"],
-  "exclude": ["src/**/__tests__/*"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["tests/**/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   }
 }

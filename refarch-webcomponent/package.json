@@ -1,45 +1,44 @@
 {
   "name": "refarch-webcomponent",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
+  "private": true,
   "engines": {
     "node": ">=18 <=20"
   },
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vite build --mode production && npm run post-build",
+    "build": "vue-tsc --build --force && vite build && npm run post-build",
     "post-build": "node ./processes/post-build.js",
     "preview": "vite preview",
-    "lint": "prettier . --check && eslint . && vue-tsc -p tsconfig.app.json --noEmit --skipLibCheck --composite false",
+    "lint": "prettier . --check && eslint . && vue-tsc --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
     "@muenchen/muc-patternlab-vue": "1.13.0",
-    "@vueuse/core": "11.0.3",
-    "vue": "3.4.38"
+    "@vueuse/core": "11.1.0",
+    "vue": "3.5.11"
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@rushstack/eslint-patch": "1.10.4",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@unplugin-vue-ce/sub-style": "1.0.0-beta.21",
-    "@vitejs/plugin-vue": "5.1.3",
+    "@vitejs/plugin-vue": "5.1.4",
     "@vue/eslint-config-prettier": "9.0.0",
     "@vue/eslint-config-typescript": "13.0.0",
+    "@vue/language-server": "2.1.6",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.5.1",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-plugin-vue": "9.28.0",
+    "jsdom": "25.0.1",
     "prettier": "3.3.3",
     "typescript": "5.5.4",
-    "vite": "5.4.3",
-    "vitest": "2.0.5",
-    "vite-plugin-css-injected-by-js": "3.5.1",
-    "vue-tsc": "2.1.4"
+    "vite": "5.4.8",
+    "vitest": "2.1.2",
+    "vue-tsc": "2.1.6"
   }
 }

@@ -8,28 +8,23 @@
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
+import { VAvatar } from "vuetify/components";
 
 import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
 
-const props = withDefaults(
-  defineProps<{
-    username: string;
-    avatarMode?: string;
-    avatarSize?: string;
-  }>(),
-  {
-    avatarMode: "fallbackGeneric",
-    avatarSize: "64",
-  }
-);
+const {
+  username,
+  avatarMode = "fallbackGeneric",
+  avatarSize = "64",
+} = defineProps<{
+  username: string;
+  avatarMode?: string;
+  avatarSize?: string;
+}>();
 
 const avatarUrl = computed(() => {
-  return DefaultLhmAvatarService.avatarHref(
-    props.username,
-    props.avatarMode,
-    props.avatarSize
-  );
+  return DefaultLhmAvatarService.avatarHref(username, avatarMode, avatarSize);
 });
 
-const altText = computed(() => `Bild von ${props.username}`);
+const altText = computed(() => `Bild von ${username}`);
 </script>
