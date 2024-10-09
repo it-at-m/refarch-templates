@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
 import { MucCallout } from "@muenchen/muc-patternlab-vue";
-import customIconsSprite from "@muenchen/muc-patternlab-vue/dist/assets/temporary/custom-icons.svg?raw";
-import mucIconsSprite from "@muenchen/muc-patternlab-vue/dist/assets/temporary/muc-icons.svg?raw";
+import customIconsSprite from "@muenchen/muc-patternlab-vue/assets/temporary/custom-icons.svg?raw";
+import mucIconsSprite from "@muenchen/muc-patternlab-vue/assets/temporary/muc-icons.svg?raw";
 import { computed } from "vue";
 
 import { FIRSTNAME_DEFAULT } from "@/util/constants";
@@ -33,7 +33,7 @@ const calloutContent = computed(() => {
 </script>
 
 <style>
-@import "@muenchen/muc-patternlab-vue/dist/assets/temporary/muenchende-style.css";
-@import "@muenchen/muc-patternlab-vue/dist/assets/temporary/custom-style.css";
-@import "@muenchen/muc-patternlab-vue/dist/style.css";
+@import "@muenchen/muc-patternlab-vue/assets/temporary/muenchende-style.css";
+@import "@muenchen/muc-patternlab-vue/assets/temporary/custom-style.css";
+@import "@muenchen/muc-patternlab-vue/style.css";
 </style>
