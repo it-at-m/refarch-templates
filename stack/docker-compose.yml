@@ -127,7 +127,7 @@ services:
     security_opt: *security_settings
 
   appswitcher-server:
-    image: itatm/appswitcher-server:1.1.0@sha256:3e70822d1fed7f644628f4919bb429d21a585b8c4bd46edc05fc4fe564f0b04a
+    image: ghcr.io/it-at-m/appswitcher-server:1.1.1@sha256:db333ba06620b3b45f730651c95a0969942bf839bcb74695b5b6875d365a6f08
     environment:
       - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
     ports:
