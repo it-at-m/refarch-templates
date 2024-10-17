@@ -1,4 +1,8 @@
-import FetchUtils from "@/api/FetchUtils";
+import {
+  defaultCatchHandler,
+  defaultResponseHandler,
+  getConfig,
+} from "@/api/fetch-utils";
 import User from "@/types/User";
 
 export default class UserService {
@@ -11,10 +15,10 @@ export default class UserService {
    * API-Definition (internal only): https://wiki.muenchen.de/betriebshandbuch/wiki/Red_Hat_Single_Sign-On_(Keycloak)#Scopes
    */
   static getUser(): Promise<User> {
-    return fetch("api/sso/userinfo", FetchUtils.getGETConfig())
-      .catch(FetchUtils.defaultCatchHandler)
+    return fetch("api/sso/userinfo", getConfig())
+      .catch(defaultCatchHandler)
       .then((response) => {
-        FetchUtils.defaultResponseHandler(
+        defaultResponseHandler(
           response,
           "Beim Laden des Users ist ein Fehler aufgetreten."
         );

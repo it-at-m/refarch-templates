@@ -1,15 +1,15 @@
-import FetchUtils from "@/api/FetchUtils";
+import { defaultResponseHandler, getConfig } from "@/api/fetch-utils";
 import HealthState from "@/types/HealthState";
 
 export default class HealthService {
   static checkHealth(): Promise<HealthState> {
-    return fetch("actuator/health", FetchUtils.getGETConfig())
+    return fetch("actuator/health", getConfig())
       .then((response) => {
-        FetchUtils.defaultResponseHandler(response);
+        defaultResponseHandler(response);
         return response.json();
       })
       .catch((err) => {
-        FetchUtils.defaultResponseHandler(err);
+        defaultResponseHandler(err);
       });
   }
 }

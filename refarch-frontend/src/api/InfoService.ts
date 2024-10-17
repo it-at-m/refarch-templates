@@ -1,4 +1,4 @@
-import FetchUtils from "@/api/FetchUtils";
+import { defaultResponseHandler, getConfig } from "@/api/fetch-utils";
 
 export interface Info {
   application: Application;
@@ -11,13 +11,13 @@ export interface Application {
 
 export default class InfoService {
   static getInfo(): Promise<Info> {
-    return fetch("actuator/info", FetchUtils.getGETConfig())
+    return fetch("actuator/info", getConfig())
       .then((response) => {
-        FetchUtils.defaultResponseHandler(response);
+        defaultResponseHandler(response);
         return response.json();
       })
       .catch((err) => {
-        FetchUtils.defaultResponseHandler(err);
+        defaultResponseHandler(err);
       });
   }
 }
