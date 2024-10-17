@@ -26,7 +26,7 @@
 import { onMounted, ref } from "vue";
 import { VCol, VContainer, VImg, VRow } from "vuetify/components";
 
-import HealthService from "@/api/HealthService";
+import { checkHealth } from "@/api/health-client";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
 
@@ -34,7 +34,7 @@ const snackbarStore = useSnackbarStore();
 const status = ref("DOWN");
 
 onMounted(() => {
-  HealthService.checkHealth()
+  checkHealth()
     .then((content: HealthState) => (status.value = content.status))
     .catch((error) => {
       snackbarStore.showMessage(error);
