@@ -2,8 +2,8 @@ package de.muenchen.refarch.configuration;
 
 import de.muenchen.refarch.MicroServiceApplication;
 import de.muenchen.refarch.TestConstants;
-import de.muenchen.refarch.domain.TheEntity;
-import de.muenchen.refarch.rest.TheEntityRepository;
+import de.muenchen.refarch.theentity.TheEntity;
+import de.muenchen.refarch.theentity.TheEntityRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
