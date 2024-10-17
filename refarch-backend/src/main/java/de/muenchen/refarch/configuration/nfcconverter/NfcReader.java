@@ -13,7 +13,6 @@ import org.apache.commons.io.IOUtils;
  * Wrapper for readers that performs an NFC conversion.
  * </p>
  *
- * <p>
  * <strong>Please note:</strong>
  * <ul>
  * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
@@ -22,7 +21,6 @@ import org.apache.commons.io.IOUtils;
  * into an internal buffer and performs NFC normalization on it.
  * The reason is that NFC conversion cannot be performed on a character-by-character basis.</li>
  * </ul>
- * </p>
  */
 @Slf4j
 @RequiredArgsConstructor
