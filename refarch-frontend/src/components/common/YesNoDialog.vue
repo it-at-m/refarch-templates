@@ -96,15 +96,15 @@ defineProps<{
   dialogtext: string;
 }>();
 
-const emits = defineEmits<{
-  (e: "no"): void;
-  (e: "yes"): void;
+const emit = defineEmits<{
+  no: [];
+  yes: [];
 }>();
 
 function no(): void {
-  emits("no");
+  emit("no");
 }
 function yes(): void {
-  emits("yes");
+  emit("yes");
 }
 </script>

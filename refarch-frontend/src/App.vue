@@ -94,7 +94,7 @@ import {
   VToolbarTitle,
 } from "vuetify/components";
 
-import UserService from "@/api/UserService";
+import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
 import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
@@ -117,7 +117,7 @@ onMounted(() => {
  * Loads UserInfo from the backend and sets it in the store.
  */
 function loadUser(): void {
-  UserService.getUser()
+  getUser()
     .then((user: User) => userStore.setUser(user))
     .catch(() => {
       // No user info received, so fallback

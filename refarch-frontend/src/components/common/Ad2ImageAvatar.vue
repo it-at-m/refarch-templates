@@ -10,7 +10,7 @@
 import { computed } from "vue";
 import { VAvatar } from "vuetify/components";
 
-import { DefaultLhmAvatarService } from "@/api/Ad2ImageAvatarService";
+import { DefaultLhmAvatarService } from "@/api/ad2image-avatar-client";
 
 const {
   username,

@@ -1,6 +1,6 @@
 import { AD2IMAGE_URL } from "@/Constants";
 
-export class Ad2ImageAvatarService {
+export class Ad2imageAvatarClient {
   base: string;
   constructor(base: string) {
     this.base = base;
@@ -23,8 +23,8 @@ export class Ad2ImageAvatarService {
 }
 
 /**
- * The default Ad2ImageAvatarService, which is configurable via environment variable VITE_AD2IMAGE_URL in .env file.
+ * The default Ad2imageAvatarClient, which is configurable via environment variable VITE_AD2IMAGE_URL in .env file.
  *
  * @see https://github.com/it-at-m/ad2image#documentation
  */
-export const DefaultLhmAvatarService = new Ad2ImageAvatarService(AD2IMAGE_URL);
+export const DefaultLhmAvatarService = new Ad2imageAvatarClient(AD2IMAGE_URL);
