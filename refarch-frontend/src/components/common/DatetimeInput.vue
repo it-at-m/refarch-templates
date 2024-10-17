@@ -92,6 +92,9 @@ import {
  * ></datetime-input>
  */
 
+// required until https://github.com/vuetifyjs/vuetify/issues/16680 is fixed
+type ValidationRules = InstanceType<typeof VInput>["$props"]["rules"];
+
 const modelValue = defineModel<string | null>();
 
 const {
@@ -115,7 +118,7 @@ const {
   persistentHint: boolean;
   hint: string;
   label: string;
-  rules: { (v: string): string | boolean }[];
+  rules: ValidationRules;
 }>();
 
 const day = ref<string | null>(null);
