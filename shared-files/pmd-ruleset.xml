@@ -16,6 +16,7 @@
         <exclude name="LongVariable"/>
         <exclude name="OnlyOneReturn"/>
         <exclude name="ShortVariable"/>
+        <exclude name="TooManyStaticImports" />
     </rule>
     <rule ref="category/java/design.xml">
         <exclude name="AvoidCatchingGenericException"/>
@@ -31,4 +32,15 @@
     <rule ref="category/java/multithreading.xml">
         <exclude name="UseConcurrentHashMap"/>
     </rule>
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions">
+        <properties>
+            <property name="junit5TestPattern" value="[a-z]([a-zA-Z0-9]*[a-zA-Z]_?)*[a-zA-Z0-9]*" />
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert">
+        <properties>
+            <property name="extraAssertMethodNames" value="andExpect" />
+        </properties>
+    </rule>
+
 </ruleset>
