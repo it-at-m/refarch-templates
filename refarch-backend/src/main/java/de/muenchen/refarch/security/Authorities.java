@@ -1,6 +1,5 @@
 package de.muenchen.refarch.security;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -9,10 +8,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * The enums are used within the {@link PagingAndSortingRepository}
  * in the annotation e.g. {@link PreAuthorize}.
  */
-@UtilityClass
-public class Authorities {
+public final class Authorities {
     public static final String HAS_AUTHORITY_READ_THEENTITY = "hasAuthority(READ_THEENTITY)";
     public static final String HAS_AUTHORITY_WRITE_THEENTITY = "hasAuthority(WRITE_THEENTITY)";
-    public static final String HAS_AUTHORITY_DELETE_THEENTIT = "hasAuthority(DELETE_THEENTIT)";
+    public static final String HAS_AUTHORITY_DELETE_THEENTITY = "hasAuthority(DELETE_THEENTITY)";
+
+    private Authorities() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+    }
     // add your authorities here and also add these new authorities to sso-authorisation.json.
 }
