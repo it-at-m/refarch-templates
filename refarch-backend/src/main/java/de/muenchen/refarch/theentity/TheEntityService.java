@@ -29,7 +29,7 @@ public class TheEntityService {
 
     @PreAuthorize(Authorities.HAS_AUTHORITY_READ_THEENTITY)
     public Page<TheEntity> getAllEntities(final int pageNumber, final int pageSize) {
-        log.info("Get AllEntities with at Page {} with a PageSize of {}", pageNumber, pageSize);
+        log.info("Get all TheEntity with at Page {} with a PageSize of {}", pageNumber, pageSize);
         final Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
         return theEntityRepository.findAll(pageRequest);
     }
