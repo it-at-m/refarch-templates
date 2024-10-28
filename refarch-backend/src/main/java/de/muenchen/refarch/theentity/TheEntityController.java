@@ -4,6 +4,7 @@ import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityMapper;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -48,13 +49,13 @@ public class TheEntityController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TheEntityResponseDTO saveTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO) {
+    public TheEntityResponseDTO saveTheEntity(@Valid @RequestBody final TheEntityRequestDTO theEntityRequestDTO) {
         return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
     }
 
     @PutMapping("/{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityResponseDTO updateTheEntity(@RequestBody final TheEntityRequestDTO theEntityRequestDTO,
+    public TheEntityResponseDTO updateTheEntity(@Valid @RequestBody final TheEntityRequestDTO theEntityRequestDTO,
             @PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
