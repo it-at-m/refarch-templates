@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-import { Levels } from "@/api/error";
+import { Levels } from "@/api/ApiError";
 
 export interface SnackbarState {
   message: string | undefined;

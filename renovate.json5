@@ -15,7 +15,6 @@
     ":enableVulnerabilityAlertsWithLabel(Type: Security)", // custom label for security PRs created by Renovatebot
     ":npm", // updating package.json and package-lock.json
     ":pinAllExceptPeerDependencies", // do version pinning except for peer dependencies
-    ":prNotPending", // wait until branch succeeds or fails before creating the PR
     ":rebaseStalePrs", // rebase Renovate PR branched when base branch is updated
     ":semanticCommits", // enabled semantic commits in PR titles
     ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
