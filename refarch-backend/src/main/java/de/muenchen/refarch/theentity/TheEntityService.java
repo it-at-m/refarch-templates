@@ -48,7 +48,7 @@ public class TheEntityService {
         return theEntityRepository.save(foundEntity);
     }
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_DELETE_THEENTIT)
+    @PreAuthorize(Authorities.HAS_AUTHORITY_DELETE_THEENTITY)
     public void deleteTheEntity(final UUID theEntityId) {
         log.debug("Delete TheEntity with ID {}", theEntityId);
         theEntityRepository.deleteById(theEntityId);
