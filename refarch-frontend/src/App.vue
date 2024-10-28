@@ -7,7 +7,7 @@
           cols="3"
           class="d-flex align-center justify-start"
         >
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+          <v-app-bar-nav-icon @click.stop="toggleDrawer()" />
           <router-link to="/">
             <v-toolbar-title class="font-weight-bold">
               <span class="text-white">RefArch-</span>
@@ -101,13 +101,14 @@ import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
+import {useToggle} from "@vueuse/core";
 
-const drawer = ref(true);
 const query = ref<string>("");
 const appswitcherBaseUrl = APPSWITCHER_URL;
 
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
+const [drawer, toggleDrawer] = useToggle();
 
 onMounted(() => {
   loadUser();
