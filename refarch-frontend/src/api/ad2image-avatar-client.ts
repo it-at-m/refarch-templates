@@ -1,4 +1,4 @@
-import { AD2IMAGE_URL } from "@/Constants";
+import { AD2IMAGE_URL } from "@/constants";
 
 export class Ad2imageAvatarClient {
   base: string;
