@@ -21,8 +21,8 @@ import java.util.UUID;
 
 import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
 import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static de.muenchen.refarch.TestConstants.TheEntityDto;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
 @SpringBootTest(
