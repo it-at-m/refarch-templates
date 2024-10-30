@@ -1,9 +1,11 @@
 import js from "@eslint/js";
 import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import vueTsEslintConfig from "@vue/eslint-config-typescript";
+import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
 
 export default [
+  ...ESLint.defaultConfig,
   js.configs.recommended,
   ...vueEslintConfig.configs["flat/recommended"],
   ...vueTsEslintConfig({
