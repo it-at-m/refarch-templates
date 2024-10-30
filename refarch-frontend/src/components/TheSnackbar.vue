@@ -21,7 +21,7 @@
 import { computed, ref, watch } from "vue";
 import { VBtn, VSnackbar } from "vuetify/components";
 
-import { SNACKBAR_COLORS, SNACKBAR_DEFAULT_TIMEOUT } from "@/Constants";
+import { SNACKBAR_COLORS, SNACKBAR_DEFAULT_TIMEOUT } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 
 const snackbarStore = useSnackbarStore();
