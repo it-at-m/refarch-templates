@@ -1,7 +1,7 @@
 // Composables
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import { ROUTES_GETSTARTED, ROUTES_HOME } from "@/Constants";
+import { ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
 import GetStartedView from "@/views/GetStartedView.vue";
 import HomeView from "@/views/HomeView.vue";
 
