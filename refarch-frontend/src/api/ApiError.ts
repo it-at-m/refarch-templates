@@ -1,4 +1,5 @@
 export const enum Levels {
+  SUCCESS = "success",
   INFO = "info",
   WARNING = "warning",
   ERROR = "error",
