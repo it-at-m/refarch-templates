@@ -21,8 +21,8 @@
 import { computed, ref, watch } from "vue";
 import { VBtn, VSnackbar } from "vuetify/components";
 
+import { SNACKBAR_COLORS, SNACKBAR_DEFAULT_TIMEOUT } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
-import {SNACKBAR_COLORS, SNACKBAR_DEFAULT_TIMEOUT} from "@/Constants";
 
 const snackbarStore = useSnackbarStore();
 
@@ -45,7 +45,7 @@ watch(
     if (color.value === SNACKBAR_COLORS.ERROR) {
       timeout.value = 0;
     } else {
-      timeout.value = defaultTimeout;
+      timeout.value = SNACKBAR_DEFAULT_TIMEOUT;
     }
   }
 );
@@ -58,7 +58,7 @@ watch(
       setTimeout(() => {
         show.value = true;
         snackbarStore.show = false;
-      }, 100);
+      }, timeout.value);
     }
   }
 );
