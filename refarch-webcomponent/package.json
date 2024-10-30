@@ -21,7 +21,6 @@
     "vue": "3.5.12"
   },
   "devDependencies": {
-    "@eslint/js": "9.13.0",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "20.14.0",
