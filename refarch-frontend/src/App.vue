@@ -75,6 +75,7 @@
 
 <script setup lang="ts">
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
+import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
 import {
   VApp,
@@ -101,7 +102,6 @@ import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
-import {useToggle} from "@vueuse/core";
 
 const query = ref<string>("");
 const appswitcherBaseUrl = APPSWITCHER_URL;
