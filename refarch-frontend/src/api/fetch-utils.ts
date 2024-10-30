@@ -1,4 +1,5 @@
-import { ApiError, Levels } from "@/api/ApiError";
+import { ApiError } from "@/api/ApiError";
+import { STATUS_INDICATORS } from "@/constants";
 
 /**
  * Returns a default GET-Config for fetch
@@ -87,7 +88,7 @@ export function defaultResponseHandler(
   if (!response.ok) {
     if (response.status === 403) {
       throw new ApiError({
-        level: Levels.ERROR,
+        level: STATUS_INDICATORS.ERROR,
         message:
           "Sie haben nicht die nötigen Rechte um diese Aktion durchzuführen.",
       });
@@ -95,7 +96,7 @@ export function defaultResponseHandler(
       location.reload();
     }
     throw new ApiError({
-      level: Levels.WARNING,
+      level: STATUS_INDICATORS.WARNING,
       message: errorMessage,
     });
   }
@@ -112,7 +113,7 @@ export function defaultCatchHandler(
   errorMessage = "Es ist ein unbekannter Fehler aufgetreten."
 ): PromiseLike<never> {
   throw new ApiError({
-    level: Levels.WARNING,
+    level: STATUS_INDICATORS.WARNING,
     message: errorMessage,
   });
 }
