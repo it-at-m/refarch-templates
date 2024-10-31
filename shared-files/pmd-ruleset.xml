@@ -8,7 +8,6 @@
     </description>
     <rule ref="category/java/bestpractices.xml">
         <exclude name="GuardLogStatement"/>
-        <exclude name="UnitTestShouldIncludeAssert"/>
         <exclude name="UnitTestContainsTooManyAsserts"/>
         <exclude name="UnitTestAssertionsShouldIncludeMessage"/>
     </rule>
