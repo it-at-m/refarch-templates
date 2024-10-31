@@ -21,7 +21,8 @@
     "roboto-fontface": "0.10.0",
     "vue": "3.5.12",
     "vue-router": "4.4.5",
-    "vuetify": "3.7.3"
+    "vuetify": "3.7.3",
+    "@vueuse/core": "11.1.0"
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
