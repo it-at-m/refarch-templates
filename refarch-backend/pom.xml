@@ -48,6 +48,7 @@
         <commons-text.version>1.12.0</commons-text.version>
         <commons-validator.version>1.9.0</commons-validator.version>
         <mapstruct.version>1.6.2</mapstruct.version>
+        <refarch-tools.version>1.0.1</refarch-tools.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
@@ -391,7 +392,7 @@
                         <excludeRoot>target/generated-test-sources</excludeRoot>
                     </excludeRoots>
                     <rulesets>
-                        <ruleset>../shared-files/pmd-ruleset.xml</ruleset>
+                        <ruleset>refarch-pmd-ruleset.xml</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
@@ -402,6 +403,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.muenchen.refarch.tools</groupId>
+                        <artifactId>refarch-pmd</artifactId>
+                        <version>${refarch-tools.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
