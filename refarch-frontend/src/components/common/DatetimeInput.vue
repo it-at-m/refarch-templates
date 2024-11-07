@@ -56,7 +56,10 @@
                 :disabled="!modelValue"
                 @click="clear"
               >
-                <v-icon v-if="modelValue"> mdi-close </v-icon>
+                <v-icon
+                  v-if="modelValue"
+                  :icon="mdiClose"
+                />
               </v-btn>
             </template>
           </v-text-field>
@@ -67,6 +70,7 @@
 </template>
 
 <script setup lang="ts">
+import { mdiClose } from "@mdi/js";
 import { computed, onMounted, ref, watch } from "vue";
 import {
   VBtn,
