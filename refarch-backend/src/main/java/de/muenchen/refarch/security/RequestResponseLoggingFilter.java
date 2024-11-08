@@ -82,7 +82,7 @@ public class RequestResponseLoggingFilter implements Filter {
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
         return REQUEST_LOGGING_MODE_ALL.equals(requestLoggingMode)
                 || (REQUEST_LOGGING_MODE_CHANGING.equals(requestLoggingMode)
-                && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
+                        && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
     }
 
     public String toString() {
