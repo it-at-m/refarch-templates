@@ -1,5 +1,6 @@
 package de.muenchen.refarch.security;
 
+import de.muenchen.refarch.configuration.SecurityProperties;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -11,8 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 @Slf4j
+@RequiredArgsConstructor
 public class RequestResponseLoggingFilter implements Filter {
 
     private static final String REQUEST_LOGGING_MODE_ALL = "all";
@@ -34,8 +36,7 @@ public class RequestResponseLoggingFilter implements Filter {
     /**
      * The property or a zero length string if no property is available.
      */
-    @Value("${security.logging.requests:}")
-    private String requestLoggingMode;
+    private final SecurityProperties securityProperties;
 
     /**
      * {@inheritDoc}
@@ -80,8 +81,8 @@ public class RequestResponseLoggingFilter implements Filter {
      * @return True if logging should be done otherwise false.
      */
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
-        return REQUEST_LOGGING_MODE_ALL.equals(requestLoggingMode)
-                || (REQUEST_LOGGING_MODE_CHANGING.equals(requestLoggingMode)
+        return REQUEST_LOGGING_MODE_ALL.equals(securityProperties.requestLogging())
+                || (REQUEST_LOGGING_MODE_CHANGING.equals(securityProperties.requestLogging())
                         && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
     }
 
