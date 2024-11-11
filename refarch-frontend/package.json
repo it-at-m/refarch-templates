@@ -16,13 +16,13 @@
   },
   "dependencies": {
     "@mdi/font": "7.4.47",
-    "@muenchen/appswitcher-vue": "2.0.3",
+    "@muenchen/appswitcher-vue": "2.0.4",
+    "@vueuse/core": "11.2.0",
     "pinia": "2.2.5",
     "roboto-fontface": "0.10.0",
     "vue": "3.5.12",
     "vue-router": "4.4.5",
-    "vuetify": "3.7.3",
-    "@vueuse/core": "11.2.0"
+    "vuetify": "3.7.3"
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
