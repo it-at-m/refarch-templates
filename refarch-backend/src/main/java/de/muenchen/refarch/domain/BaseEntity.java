@@ -20,7 +20,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @EqualsAndHashCode
-public abstract class BaseEntity implements Cloneable, Serializable {
+public abstract class BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,4 +29,5 @@ public abstract class BaseEntity implements Cloneable, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
 }
