@@ -47,7 +47,7 @@
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.12.0</commons-text.version>
         <commons-validator.version>1.9.0</commons-validator.version>
-        <mapstruct.version>1.6.2</mapstruct.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.0.1</refarch-tools.version>
 
         <!-- Additional required dependencies -->
