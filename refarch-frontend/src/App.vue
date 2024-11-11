@@ -28,7 +28,7 @@
             hide-details
             label="Suche"
             clearable
-            prepend-inner-icon="mdi-magnify"
+            :prepend-inner-icon="mdiMagnify"
             theme="dark"
             @keyup.enter="search"
           />
@@ -74,6 +74,7 @@
 </template>
 
 <script setup lang="ts">
+import { mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
