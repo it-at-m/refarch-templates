@@ -1,6 +1,6 @@
 import path from "node:path";
 import { generateLoaderJs } from './lib/fileGenerator.js';
-import manifest from '../dist/src/.vite/manifest.json' assert {type: 'json'};
+import manifest from '../dist/src/.vite/manifest.json' with {type: 'json'};
 
 /**
  * Why this?
