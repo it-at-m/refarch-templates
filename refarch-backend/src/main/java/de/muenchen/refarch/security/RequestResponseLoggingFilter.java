@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 @Slf4j
+@ToString
 public class RequestResponseLoggingFilter implements Filter {
 
     private static final String REQUEST_LOGGING_MODE_ALL = "all";
@@ -84,5 +86,4 @@ public class RequestResponseLoggingFilter implements Filter {
                 || (REQUEST_LOGGING_MODE_CHANGING.equals(requestLoggingMode)
                         && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
     }
-
 }

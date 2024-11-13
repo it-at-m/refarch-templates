@@ -21,18 +21,17 @@
 import { computed, ref, watch } from "vue";
 import { VBtn, VSnackbar } from "vuetify/components";
 
+import { SNACKBAR_DEFAULT_TIMEOUT, STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 
 const snackbarStore = useSnackbarStore();
 
-const defaultTimeout = 5000;
-
 const show = ref(false);
-const timeout = ref(defaultTimeout);
+const timeout = ref(SNACKBAR_DEFAULT_TIMEOUT);
 const message = ref("");
-const color = ref("info");
+const color = ref(STATUS_INDICATORS.INFO);
 
-const isError = computed(() => color.value === "error");
+const isError = computed(() => color.value === STATUS_INDICATORS.ERROR);
 
 watch(
   () => snackbarStore.message,
@@ -43,10 +42,10 @@ watch(
   () => snackbarStore.level,
   () => {
     color.value = snackbarStore.level;
-    if (color.value === "error") {
+    if (color.value === STATUS_INDICATORS.ERROR) {
       timeout.value = 0;
     } else {
-      timeout.value = defaultTimeout;
+      timeout.value = SNACKBAR_DEFAULT_TIMEOUT;
     }
   }
 );
@@ -59,7 +58,7 @@ watch(
       setTimeout(() => {
         show.value = true;
         snackbarStore.show = false;
-      }, 100);
+      }, timeout.value);
     }
   }
 );

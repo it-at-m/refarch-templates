@@ -7,7 +7,7 @@
           cols="3"
           class="d-flex align-center justify-start"
         >
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+          <v-app-bar-nav-icon @click.stop="toggleDrawer()" />
           <router-link to="/">
             <v-toolbar-title class="font-weight-bold">
               <span class="text-white">RefArch-</span>
@@ -28,7 +28,7 @@
             hide-details
             label="Suche"
             clearable
-            prepend-inner-icon="mdi-magnify"
+            :prepend-inner-icon="mdiMagnify"
             theme="dark"
             @keyup.enter="search"
           />
@@ -74,7 +74,9 @@
 </template>
 
 <script setup lang="ts">
+import { mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
+import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
 import {
   VApp,
@@ -94,20 +96,20 @@ import {
   VToolbarTitle,
 } from "vuetify/components";
 
-import UserService from "@/api/UserService";
+import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/Constants";
+import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
 
-const drawer = ref(true);
 const query = ref<string>("");
 const appswitcherBaseUrl = APPSWITCHER_URL;
 
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
+const [drawer, toggleDrawer] = useToggle();
 
 onMounted(() => {
   loadUser();
@@ -117,7 +119,7 @@ onMounted(() => {
  * Loads UserInfo from the backend and sets it in the store.
  */
 function loadUser(): void {
-  UserService.getUser()
+  getUser()
     .then((user: User) => userStore.setUser(user))
     .catch(() => {
       // No user info received, so fallback

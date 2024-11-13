@@ -14,3 +14,4 @@ jobs:
       analyze-java: true
       analyze-javascript-typescript-vue: true
       analyze-python: false
+      java-build-paths: "['./refarch-backend','./refarch-eai']"

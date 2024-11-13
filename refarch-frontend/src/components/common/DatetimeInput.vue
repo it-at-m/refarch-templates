@@ -56,7 +56,10 @@
                 :disabled="!modelValue"
                 @click="clear"
               >
-                <v-icon v-if="modelValue"> mdi-close </v-icon>
+                <v-icon
+                  v-if="modelValue"
+                  :icon="mdiClose"
+                />
               </v-btn>
             </template>
           </v-text-field>
@@ -67,6 +70,7 @@
 </template>
 
 <script setup lang="ts">
+import { mdiClose } from "@mdi/js";
 import { computed, onMounted, ref, watch } from "vue";
 import {
   VBtn,
@@ -92,6 +96,9 @@ import {
  * ></datetime-input>
  */
 
+// required until https://github.com/vuetifyjs/vuetify/issues/16680 is fixed
+type ValidationRules = InstanceType<typeof VInput>["$props"]["rules"];
+
 const modelValue = defineModel<string | null>();
 
 const {
@@ -115,7 +122,7 @@ const {
   persistentHint: boolean;
   hint: string;
   label: string;
-  rules: { (v: string): string | boolean }[];
+  rules: ValidationRules;
 }>();
 
 const day = ref<string | null>(null);

@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Dependency Review
-        uses: actions/dependency-review-action@5a2ce3f5b92ee19cbb1541a4984c76d921601d7c # v4.3.4
+        uses: actions/dependency-review-action@4081bf99e2866ebe428fc0477b69eb4fcda7220a # v4.4.0
         with:
           config-file: it-at-m/.github/workflow-configs/dependency_review.yaml@main
           allow-dependencies-licenses: 'pkg:npm/escape-string-regexp, pkg:npm/path-exists, pkg:npm/slash, pkg:npm/yocto-queue, pkg:npm/load-script, pkg:npm/node-forge, pkg:maven/com.puppycrawl.tools/checkstyle, pkg:maven/com.hazelcast/hazelcast-spring, pkg:maven/com.github.spotbugs/spotbugs-annotations, pkg:maven/com.h3xstream.findsecbugs/findsecbugs-plugin'
