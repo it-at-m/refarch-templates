@@ -16,8 +16,8 @@ on:
         description: Service-Name
         required: true
         options:
-          - sps-backend # todo: muss angepasst werden. eigenen Ordner verwenden
-          - sps-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
+          - refarch-backend
+          - refarch-eai
 
 jobs:
   release-maven:
