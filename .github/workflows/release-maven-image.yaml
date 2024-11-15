@@ -34,7 +34,6 @@ jobs:
           app-path: "/${{ github.event.inputs.app-path }}"
           releaseVersion: "${{ github.event.inputs.releaseVersion }}"
           developmentVersion: "${{ github.event.inputs.developmentVersion }}"
-          java-version: 17
 
   build-image:
     runs-on: ubuntu-latest
