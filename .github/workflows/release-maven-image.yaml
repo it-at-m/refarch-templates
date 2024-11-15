@@ -45,7 +45,6 @@ jobs:
           image-name: "${{ github.event.inputs.app-path }}"
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
-          registry: ghcr.io
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
