@@ -18,7 +18,7 @@ class TheEntityMapperTest {
     private final TheEntityMapper theEntityMapper = Mappers.getMapper(TheEntityMapper.class);
 
     @Nested
-    class ToDTO{
+    class ToDTO {
         @Test
         void givenEntity_thenReturnsCorrectDTO() {
             // Given
@@ -50,7 +50,5 @@ class TheEntityMapperTest {
             assertThat(result).usingRecursiveComparison().ignoringFields("id").isEqualTo(requestDTO);
         }
     }
-
-
 
 }
