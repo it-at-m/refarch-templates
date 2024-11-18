@@ -35,14 +35,12 @@ public class TheEntityService {
         return theEntityRepository.findAll(pageRequest);
     }
 
-    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity createTheEntity(final TheEntity entity) {
         log.debug("Create TheEntity {}", entity);
         return theEntityRepository.save(entity);
     }
 
-    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity updateTheEntity(final TheEntity entity, final UUID theEntityId) {
         final TheEntity foundEntity = getEntityOrThrowException(theEntityId);
@@ -51,7 +49,6 @@ public class TheEntityService {
         return theEntityRepository.save(foundEntity);
     }
 
-    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_DELETE_THEENTITY)
     public void deleteTheEntity(final UUID theEntityId) {
         log.debug("Delete TheEntity with ID {}", theEntityId);
