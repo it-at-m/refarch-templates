@@ -1,6 +1,6 @@
 package de.muenchen.refarch.theentity;
 
-import de.muenchen.refarch.common.exception.NotFoundException;
+import de.muenchen.refarch.common.NotFoundException;
 import de.muenchen.refarch.security.Authorities;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +12,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static de.muenchen.refarch.common.ExceptionMessageConstants.MSG_NOT_FOUND;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
+
 public class TheEntityService {
-    private static final String MSG_NOT_FOUND = "Could not find entity with id %s";
 
     private final TheEntityRepository theEntityRepository;
 
@@ -34,12 +35,14 @@ public class TheEntityService {
         return theEntityRepository.findAll(pageRequest);
     }
 
+    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity createTheEntity(final TheEntity entity) {
         log.debug("Create TheEntity {}", entity);
         return theEntityRepository.save(entity);
     }
 
+    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
     public TheEntity updateTheEntity(final TheEntity entity, final UUID theEntityId) {
         final TheEntity foundEntity = getEntityOrThrowException(theEntityId);
@@ -48,6 +51,7 @@ public class TheEntityService {
         return theEntityRepository.save(foundEntity);
     }
 
+    @Transactional
     @PreAuthorize(Authorities.HAS_AUTHORITY_DELETE_THEENTITY)
     public void deleteTheEntity(final UUID theEntityId) {
         log.debug("Delete TheEntity with ID {}", theEntityId);

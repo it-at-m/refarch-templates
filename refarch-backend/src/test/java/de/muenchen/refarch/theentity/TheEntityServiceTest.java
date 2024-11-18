@@ -1,13 +1,15 @@
 package de.muenchen.refarch.theentity;
 
-import de.muenchen.refarch.common.exception.NotFoundException;
+import de.muenchen.refarch.common.NotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -32,131 +34,146 @@ class TheEntityServiceTest {
     @InjectMocks
     private TheEntityService unitUnderTest;
 
-    @Test
-    void givenUUID_whenFindByID_thenReturnEntity() {
-        // Given
-        final UUID id = UUID.randomUUID();
-        final TheEntity theEntity = new TheEntity();
-        theEntity.setId(id);
-        theEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
-        when(theEntityRepository.findById(id)).thenReturn(Optional.of(theEntity));
+    @Nested
+    class GetTheEntity {
+        @Test
+        void givenUUID_thenReturnEntity() {
+            // Given
+            final UUID id = UUID.randomUUID();
+            final TheEntity theEntity = new TheEntity();
+            theEntity.setId(id);
+            theEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
+            when(theEntityRepository.findById(id)).thenReturn(Optional.of(theEntity));
 
-        // When
-        final TheEntity result = unitUnderTest.getTheEntity(id);
+            // When
+            final TheEntity result = unitUnderTest.getTheEntity(id);
 
-        // Then
-        verify(theEntityRepository).findById(id);
-        assertThat(result).usingRecursiveComparison().isEqualTo(theEntity);
+            // Then
+            verify(theEntityRepository).findById(id);
+            assertThat(result).usingRecursiveComparison().isEqualTo(theEntity);
+        }
+
+        @Test
+        void givenNonExistentUUID_thenThrowNotFoundException() {
+            // Given
+            final UUID id = UUID.randomUUID();
+            when(theEntityRepository.findById(id)).thenReturn(Optional.empty());
+
+            // When
+            final Exception exception = Assertions.assertThrows(NotFoundException.class, () -> unitUnderTest.getTheEntity(id));
+
+            // Then
+            verify(theEntityRepository).findById(id);
+            Assertions.assertEquals(exception.getClass(), NotFoundException.class);
+            Assertions.assertEquals(exception.getMessage(), String.format("404 NOT_FOUND \"Could not find entity with id %s\"", id));
+        }
     }
 
-    @Test
-    void givenNonExistentUUID_whenFindById_thenThrowNotFoundException() {
-        // Given
-        final UUID id = UUID.randomUUID();
-        when(theEntityRepository.findById(id)).thenReturn(Optional.empty());
+    @Nested
+    class getAllEntities {
+        @Test
+        void givenPageNumberAndPageSize_thenReturnPageOfEntities() {
+            // Given
+            final int pageNumber = 0;
+            final int pageSize = 10;
+            final Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
 
-        // When
-        final Exception exception = Assertions.assertThrows(NotFoundException.class, () -> unitUnderTest.getTheEntity(id));
+            final TheEntity entity1 = new TheEntity();
+            final TheEntity entity2 = new TheEntity();
+            final List<TheEntity> entities = Arrays.asList(entity1, entity2);
+            final Page<TheEntity> expectedPage = new PageImpl<>(entities, pageRequest, entities.size());
 
-        // Then
-        verify(theEntityRepository).findById(id);
-        Assertions.assertEquals(exception.getClass(), NotFoundException.class);
-        Assertions.assertEquals(exception.getMessage(), String.format("404 NOT_FOUND \"Could not find entity with id %s\"", id));
+            when(theEntityRepository.findAll(pageRequest)).thenReturn(expectedPage);
+
+            // When
+            final Page<TheEntity> result = unitUnderTest.getAllEntities(pageNumber, pageSize);
+
+            // Then
+            Assertions.assertEquals(expectedPage, result);
+            verify(theEntityRepository, times(1)).findAll(pageRequest);
+        }
     }
 
-    @Test
-    void givenPageNumberAndPageSize_whenGetAllEntities_thenReturnPageOfEntities() {
-        // Given
-        final int pageNumber = 0;
-        final int pageSize = 10;
-        final Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
+    @Nested
+    class SaveTheEntity {
+        @Test
+        void givenTheEntity_thenReturnEntity() {
+            // Given
+            final TheEntity entityToSave = new TheEntity();
+            entityToSave.setTextAttribute(DEFAULT_TEXTATTRIBUT);
 
-        final TheEntity entity1 = new TheEntity();
-        final TheEntity entity2 = new TheEntity();
-        final List<TheEntity> entities = Arrays.asList(entity1, entity2);
-        final Page<TheEntity> expectedPage = new PageImpl<>(entities, pageRequest, entities.size());
+            final TheEntity expectedEntity = new TheEntity();
+            expectedEntity.setId(UUID.randomUUID());
+            expectedEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
 
-        when(theEntityRepository.findAll(pageRequest)).thenReturn(expectedPage);
+            when(theEntityRepository.save(entityToSave)).thenReturn(expectedEntity);
 
-        // When
-        final Page<TheEntity> result = unitUnderTest.getAllEntities(pageNumber, pageSize);
+            // When
+            final TheEntity result = unitUnderTest.createTheEntity(entityToSave);
 
-        // Then
-        Assertions.assertEquals(expectedPage, result);
-        verify(theEntityRepository, times(1)).findAll(pageRequest);
+            // Then
+            assertThat(result).usingRecursiveComparison().ignoringFields("id").isEqualTo(expectedEntity);
+            verify(theEntityRepository).save(entityToSave);
+        }
     }
 
-    @Test
-    void givenTheEntity_whenSaveNewEntity_thenReturnEntity() {
-        // Given
-        final TheEntity entityToSave = new TheEntity();
-        entityToSave.setTextAttribute(DEFAULT_TEXTATTRIBUT);
+    @Nested
+    class UpdateTheEntity {
+        @Test
+        void givenTheEntity_thenReturnEntity() {
+            // Given
+            final TheEntity entityToUpdate = new TheEntity();
+            final UUID entityToUpdateId = UUID.randomUUID();
+            entityToUpdate.setId(entityToUpdateId);
+            entityToUpdate.setTextAttribute(DEFAULT_TEXTATTRIBUT);
+            final TheEntity expectedEntity = new TheEntity();
+            expectedEntity.setId(entityToUpdateId);
+            expectedEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
+            when(theEntityRepository.save(entityToUpdate)).thenReturn(expectedEntity);
+            when(theEntityRepository.findById(entityToUpdateId)).thenReturn(Optional.of(entityToUpdate));
 
-        final TheEntity expectedEntity = new TheEntity();
-        expectedEntity.setId(UUID.randomUUID());
-        expectedEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
+            // When
+            final TheEntity result = unitUnderTest.updateTheEntity(entityToUpdate, entityToUpdateId);
 
-        when(theEntityRepository.save(entityToSave)).thenReturn(expectedEntity);
+            // Then
+            assertThat(result).usingRecursiveComparison().isEqualTo(expectedEntity);
+            verify(theEntityRepository).save(entityToUpdate);
+        }
 
-        // When
-        final TheEntity result = unitUnderTest.createTheEntity(entityToSave);
+        @Test
+        void givenTheEntity_thenThrowNotFoundException() {
+            // Given
+            final UUID entityToUpdateId = UUID.randomUUID();
+            final TheEntity entityToUpdate = new TheEntity();
+            entityToUpdate.setId(entityToUpdateId);
+            entityToUpdate.setTextAttribute(DEFAULT_TEXTATTRIBUT);
 
-        // Then
-        assertThat(result).usingRecursiveComparison().ignoringFields("id").isEqualTo(expectedEntity);
-        verify(theEntityRepository).save(entityToSave);
+            when(theEntityRepository.findById(entityToUpdate.getId())).thenReturn(Optional.empty());
+
+            // When
+            final Exception exception = Assertions.assertThrows(NotFoundException.class, () -> unitUnderTest.updateTheEntity(entityToUpdate, entityToUpdateId));
+
+            // Then
+            verify(theEntityRepository, times(1)).findById(entityToUpdate.getId());
+            Assertions.assertEquals(exception.getClass(), NotFoundException.class);
+            Assertions.assertEquals(exception.getMessage(), String.format("404 NOT_FOUND \"Could not find entity with id %s\"", entityToUpdateId));
+
+        }
     }
 
-    @Test
-    void givenTheEntity_whenUpdateEntity_thenReturnEntity() {
-        // Given
-        final TheEntity entityToUpdate = new TheEntity();
-        final UUID entityToUpdateId = UUID.randomUUID();
-        entityToUpdate.setId(entityToUpdateId);
-        entityToUpdate.setTextAttribute(DEFAULT_TEXTATTRIBUT);
-        final TheEntity expectedEntity = new TheEntity();
-        expectedEntity.setId(entityToUpdateId);
-        expectedEntity.setTextAttribute(DEFAULT_TEXTATTRIBUT);
-        when(theEntityRepository.save(entityToUpdate)).thenReturn(expectedEntity);
-        when(this.theEntityRepository.findById(entityToUpdateId)).thenReturn(Optional.of(entityToUpdate));
+    @Nested
+    class DeleteTheEntity {
+        @Test
+        void givenTheEntityId_thenReturnVoid() {
+            // Given
+            final UUID entityToDeleteId = UUID.randomUUID();
+            Mockito.doNothing().when(theEntityRepository).deleteById(entityToDeleteId);
 
-        // When
-        final TheEntity result = unitUnderTest.updateTheEntity(entityToUpdate, entityToUpdateId);
+            // When
+            unitUnderTest.deleteTheEntity(entityToDeleteId);
 
-        // Then
-        assertThat(result).usingRecursiveComparison().isEqualTo(expectedEntity);
-        verify(theEntityRepository).save(entityToUpdate);
-    }
-
-    @Test
-    void givenTheEntity_whenUpdateEntity_thenThrowNotFoundException() {
-        // Given
-        final UUID entityToUpdateId = UUID.randomUUID();
-        final TheEntity entityToUpdate = new TheEntity();
-        entityToUpdate.setId(entityToUpdateId);
-        entityToUpdate.setTextAttribute(DEFAULT_TEXTATTRIBUT);
-
-        when(theEntityRepository.findById(entityToUpdate.getId())).thenReturn(Optional.empty());
-
-        // When
-        final Exception exception = Assertions.assertThrows(NotFoundException.class, () -> unitUnderTest.updateTheEntity(entityToUpdate, entityToUpdateId));
-
-        // Then
-        verify(theEntityRepository, times(1)).findById(entityToUpdate.getId());
-        Assertions.assertEquals(exception.getClass(), NotFoundException.class);
-        Assertions.assertEquals(exception.getMessage(), String.format("404 NOT_FOUND \"Could not find entity with id %s\"", entityToUpdateId));
-
-    }
-
-    @Test
-    void givenTheEntityId_whenDeleteEntity_thenReturnVoid() {
-        // Given
-        final UUID entityToDeleteId = UUID.randomUUID();
-        Mockito.doNothing().when(theEntityRepository).deleteById(entityToDeleteId);
-
-        // When
-        unitUnderTest.deleteTheEntity(entityToDeleteId);
-
-        // Then
-        verify(theEntityRepository).deleteById(entityToDeleteId);
+            // Then
+            verify(theEntityRepository).deleteById(entityToDeleteId);
+        }
     }
 }

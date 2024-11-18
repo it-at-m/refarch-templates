@@ -5,6 +5,7 @@ import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -16,32 +17,40 @@ class TheEntityMapperTest {
 
     private final TheEntityMapper theEntityMapper = Mappers.getMapper(TheEntityMapper.class);
 
-    @Test
-    void givenEntity_whenToDTO_thenReturnsCorrectDTO() {
-        // Given
-        final UUID uuid = UUID.randomUUID();
-        final TheEntity theEntity = new TheEntity();
-        theEntity.setId(uuid);
-        theEntity.setTextAttribute("test");
+    @Nested
+    class ToDTO{
+        @Test
+        void givenEntity_whenToDTO_thenReturnsCorrectDTO() {
+            // Given
+            final UUID uuid = UUID.randomUUID();
+            final TheEntity theEntity = new TheEntity();
+            theEntity.setId(uuid);
+            theEntity.setTextAttribute("test");
 
-        // When
-        final TheEntityResponseDTO result = theEntityMapper.toDTO(theEntity);
+            // When
+            final TheEntityResponseDTO result = theEntityMapper.toDTO(theEntity);
 
-        // Then
-        assertNotNull(result);
-        assertThat(result).usingRecursiveComparison().isEqualTo(theEntity);
+            // Then
+            assertNotNull(result);
+            assertThat(result).usingRecursiveComparison().isEqualTo(theEntity);
+        }
     }
 
-    @Test
-    void givenRequestDTO_whenToEntity_thenReturnsCorrectEntity() {
-        // Given
-        final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("test");
+    @Nested
+    class ToEntity {
+        @Test
+        void givenRequestDTO_whenToEntity_thenReturnsCorrectEntity() {
+            // Given
+            final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("test");
 
-        // When
-        final TheEntity result = theEntityMapper.toEntity(requestDTO);
+            // When
+            final TheEntity result = theEntityMapper.toEntity(requestDTO);
 
-        // Then
-        assertThat(result).usingRecursiveComparison().ignoringFields("id").isEqualTo(requestDTO);
+            // Then
+            assertThat(result).usingRecursiveComparison().ignoringFields("id").isEqualTo(requestDTO);
+        }
     }
+
+
 
 }
