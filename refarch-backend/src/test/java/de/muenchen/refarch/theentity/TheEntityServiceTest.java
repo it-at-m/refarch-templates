@@ -69,7 +69,7 @@ class TheEntityServiceTest {
     }
 
     @Nested
-    class getAllEntities {
+    class GetEntitiesPage {
         @Test
         void givenPageNumberAndPageSize_thenReturnPageOfEntities() {
             // Given

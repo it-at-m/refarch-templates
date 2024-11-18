@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
@@ -57,9 +56,6 @@ class TheEntityIntegrationTest {
     @Autowired
     private TheEntityRepository theEntityRepository;
 
-    @Autowired
-    private TestRestTemplate testRestTemplate;
-
     @BeforeEach
     public void setUp() {
         final TheEntity exampleEntity = new TheEntity();
@@ -85,7 +81,7 @@ class TheEntityIntegrationTest {
     }
 
     @Nested
-    class GetEntitiesByPageAndSize {
+    class GetEntitiesPage {
         @Test
         void givenPageNumberAndPageSize_thenReturnPageOfEntities() throws Exception {
             mockMvc.perform(get("/theEntity")
