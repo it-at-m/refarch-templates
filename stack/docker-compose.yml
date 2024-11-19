@@ -106,7 +106,7 @@ services:
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://keycloak:8100/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://kubernetes.docker.internal:8100/
     - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
     - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
     - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
@@ -114,7 +114,7 @@ services:
     - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
     - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - SPRING_PROFILES_ACTIVE=hazelcast-local
-    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8100/auth/realms/local_realm
+    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://kubernetes.docker.internal:8100/auth/realms/local_realm
     - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
     - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
     - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
