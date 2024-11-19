@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.core.context.SecurityContext;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Slf4j
 @RequiredArgsConstructor
+@ToString
 public class RequestResponseLoggingFilter implements Filter {
 
     private static final String REQUEST_LOGGING_MODE_ALL = "all";
