@@ -2,7 +2,7 @@ name: refarch-stack
 
 services:
   postgres:
-    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
+    image: postgres:16.4-alpine3.20@sha256:5660c2cbfea50c7a9127d17dc4e48543eedd3d7a41a595a2dfa572471e37e64c
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
@@ -67,7 +67,7 @@ services:
     security_opt: *security_settings
 
   db-postgres-keycloak:
-    image: postgres:16.4-alpine3.20@sha256:d898b0b78a2627cb4ee63464a14efc9d296884f1b28c841b0ab7d7c42f1fffdf
+    image: postgres:16.4-alpine3.20@sha256:5660c2cbfea50c7a9127d17dc4e48543eedd3d7a41a595a2dfa572471e37e64c
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak-user
