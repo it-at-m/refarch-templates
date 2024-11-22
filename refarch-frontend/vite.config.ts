@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from "node:url";
 import vue from "@vitejs/plugin-vue";
 import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
+import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
@@ -28,6 +29,7 @@ export default defineConfig({
         ],
       },
     }),
+    vueDevTools(),
   ],
   server: {
     port: 8081,
