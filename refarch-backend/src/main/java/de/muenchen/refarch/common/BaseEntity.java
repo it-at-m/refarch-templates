@@ -1,4 +1,4 @@
-package de.muenchen.refarch.domain;
+package de.muenchen.refarch.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
