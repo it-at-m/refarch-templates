@@ -34,6 +34,5 @@ keycloak:
 
 security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
-  logging.requests: all
-  oauth2:
-    resource.user-info-uri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
+  requestLogging: all
+  userInfoUri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
