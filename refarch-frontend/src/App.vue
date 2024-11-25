@@ -41,6 +41,7 @@
             v-if="appswitcherBaseUrl"
             :base-url="appswitcherBaseUrl"
             :tags="['global']"
+            icon="$appswitcher"
           />
           <v-btn
             variant="text"
