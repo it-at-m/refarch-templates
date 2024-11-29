@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@tsconfig/node-lts": "22.0.0",
+    "@tsconfig/node-lts": "22.0.1",
     "@types/node": "22.10.0",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/eslint-config-prettier": "10.1.0",
