@@ -42,7 +42,7 @@
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
         <!-- Utility -->
-        <refarch-tools.version>1.0.1</refarch-tools.version>
+        <refarch-tools.version>1.1.0</refarch-tools.version>
     </properties>
 
     <scm>
