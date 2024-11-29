@@ -34,6 +34,10 @@ jobs:
           app-path: "/${{ github.event.inputs.app-path }}"
           releaseVersion: "${{ github.event.inputs.releaseVersion }}"
           developmentVersion: "${{ github.event.inputs.developmentVersion }}"
+          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password  }}
+          GDP_PRIVATE_KEY: ${{  secrets.gpg_private_key }}
 
   build-image:
     runs-on: ubuntu-latest
@@ -53,6 +57,10 @@ jobs:
     needs: release-maven
     runs-on: ubuntu-latest
     steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+         name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -61,3 +69,5 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: false
+          files: |
+            ${{ github.event.inputs.app-path }}/target/*.jar
