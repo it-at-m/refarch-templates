@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       releaseVersion:
-        description: "Default version to use when preparing a release."
+        description: "Version to use when preparing a release (e.g., 1.2.3)"
         required: true
-        default: "X.Y.Z"
+        default: "0.0.1"
       developmentVersion:
-        description: "Default version to use for new local working copy."
+        description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
         required: true
-        default: "X.Y.Z-SNAPSHOT"
+        default: "0.0.2-SNAPSHOT"
       app-path:
         type: choice
         description: Service-Name
