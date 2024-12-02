@@ -60,7 +60,7 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v4
         with:
-         name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+          name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
