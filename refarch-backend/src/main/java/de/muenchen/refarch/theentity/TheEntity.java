@@ -32,7 +32,7 @@ public class TheEntity extends BaseEntity {
     // Variables //
     // ========= //
 
-    @Column(name = "textattribute", nullable = false, length = 8)
+    @Column(nullable = false, length = 8)
     @NotNull
     @Size(min = 2, max = 8)
     private String textAttribute;

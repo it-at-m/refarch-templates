@@ -9,7 +9,6 @@ spring:
       # is also the default, that spring offers by convention.
       # but here explicite:
       ddl-auto: create-drop
-      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     # Logging for database operation
     show-sql: true
     properties:

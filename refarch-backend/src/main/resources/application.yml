@@ -1,6 +1,6 @@
 spring:
-  application.name: @project.artifactId@
-  banner.location: banner.txt
+  application:
+    name: @project.artifactId@
   security:
     oauth2:
       resourceserver:
@@ -10,26 +10,14 @@ spring:
           # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
           # TODO - should be the clientId of the actual project
           - refarch
-  # Spring data rest
-  data:
-    rest:
-      # Definition of page size for PagingAndSortingRepository
-      max-page-size: 0x7fffffff
-      default-page-size: 0x7fffffff
-      return-body-on-update: true
-      return-body-on-create: true
 
 server:
-  port: 8080
   error:
-    include-exception: false
-    include-stacktrace: never
     whitelabel:
       enabled: false
 
 # Config for spring actuator endpoints
 management:
-  server.port: ${server.port}
   endpoints:
     access:
       default: none
