@@ -9,6 +9,7 @@
       "@/*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["unplugin-fonts/client"]
   }
 }
