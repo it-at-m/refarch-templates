@@ -1,6 +1,9 @@
 spring:
   application:
     name: @project.artifactId@
+  flyway:
+    locations:
+    - classpath:db/migration/schema
   security:
     oauth2:
       resourceserver:

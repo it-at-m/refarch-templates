@@ -3,6 +3,9 @@ server:
 spring:
   # Spring JPA
   jpa:
+    hibernate:
+      # schema is managed by Flyway, only validate
+      ddl-auto: validate
     # Logging for database operation
     show-sql: true
     properties:
@@ -12,6 +15,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     password: admin
     username: admin
+  flyway:
+    locations:
+    - classpath:db/migration/schema
+    - classpath:db/migration/testdata
   security:
     oauth2:
       resourceserver:
