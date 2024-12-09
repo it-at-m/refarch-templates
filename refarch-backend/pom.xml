@@ -448,28 +448,12 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <!-- to easily reset/clean local stack database: "mvn flyway:clean flyway:migrate" -->
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>local</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- to reset/clean local stack database: "mvn flyway:clean flyway:migrate -Plocal" -->
-                        <groupId>org.flywaydb</groupId>
-                        <artifactId>flyway-maven-plugin</artifactId>
-                        <configuration>
-                            <url>jdbc:postgresql://localhost:5432/postgres</url>
-                            <user>admin</user>
-                            <password>admin</password>
-                            <!-- for local db this is ok -->
-                            <cleanDisabled>false</cleanDisabled>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
