@@ -21,7 +21,7 @@ changes:
           protocolMapper: oidc-usermodel-property-mapper
           config:
             claim.name: "surname"
-            user.attribute: "firstName"
+            user.attribute: "lastName"
             userinfo.token.claim: "true"
             id.token.claim: "true"
             access.token.claim: "false"
@@ -30,7 +30,7 @@ changes:
           protocolMapper: oidc-usermodel-property-mapper
           config:
             claim.name: "givenname"
-            user.attribute: "lastName"
+            user.attribute: "firstName"
             userinfo.token.claim: "true"
             id.token.claim: "true"
             access.token.claim: "false"
