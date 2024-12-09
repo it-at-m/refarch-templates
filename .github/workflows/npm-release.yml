@@ -1,0 +1,58 @@
+name: release-node-image
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        type: choice
+        description: "Add node release."
+        required: true
+        options:
+          - patch
+          - minor 
+          - major
+
+      app-path:
+        type: choice
+        description: Service-Name
+        required: true
+        options:
+          - sps-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
+
+permissions:
+
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        working-directory: ./${{inputs.app-path}}
+        run: npm ci
+        
+      - name: Install dependencies1
+        working-directory: ./${{inputs.app-path}}
+        run: | 
+         NEW_VERSION=$(npm version ${{inputs.releaseVersion}})
+         git config --global user.email "github-actions@github.com"
+         git config --global user.name "GitHub Actions"
+         git add package.json package-lock.json
+         git commit -m 'Bump version'
+         git tag $NEW_VERSION
+         git push && git push --tags
