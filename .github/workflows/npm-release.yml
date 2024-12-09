@@ -1,4 +1,4 @@
-name: release-node-image
+name: npm-release
 
 on:
   workflow_dispatch:
@@ -9,9 +9,8 @@ on:
         required: true
         options:
           - patch
-          - minor 
+          - minor
           - major
-
       app-path:
         type: choice
         description: Service-Name
