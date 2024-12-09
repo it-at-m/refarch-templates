@@ -3,12 +3,6 @@ server:
 spring:
   # Spring JPA
   jpa:
-    hibernate:
-      # always drop and create the db should be the best
-      # configuration for local (development) mode. this
-      # is also the default, that spring offers by convention.
-      # but here explicite:
-      ddl-auto: create-drop
     # Logging for database operation
     show-sql: true
     properties:
@@ -18,6 +12,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     password: admin
     username: admin
+  flyway:
+    locations:
+      - classpath:db/migration/schema
+      - classpath:db/migration/testdata
   security:
     oauth2:
       resourceserver:
