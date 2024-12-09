@@ -85,7 +85,27 @@ changes:
             access.token.claim: "false"
             aggregate.attrs: "false"
             multivalued: "false"
-  # assign LHM scope to client
+  - addClientScope:
+      name: LHM_Extended
+      displayOnConsentScreen: false
+      includeInTokenScope: true
+      protocolMappers:
+        - name: client roles
+          protocol: openid-connect
+          protocolMapper: oidc-usermodel-attribute-mapper
+          config:
+            claim.name: "memberof"
+            user.attribute: "memberof"
+            userinfo.token.claim: "true"
+            id.token.claim: "true"
+            access.token.claim: "false"
+            jsonType.label: "String"
+            aggregate.attrs: "false"
+            multivalued: "true"
+  # assign optional scopes to client
   - assignOptionalClientScope:
       clientId: local
       clientScopeName: LHM
+  - assignOptionalClientScope:
+      clientId: local
+      clientScopeName: LHM_Extended

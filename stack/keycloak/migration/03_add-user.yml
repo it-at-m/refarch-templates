@@ -19,6 +19,9 @@ changes:
           - "089-99998000"
         department:
           - "ACME"
+        memberof:
+          - "CN=acme-group-1,OU=ACME,DC=example,DC=com"
+          - "CN=acme-group-2,OU=ACME,DC=example,DC=com"
   - updateUserPassword:
       name: user
       password: "user"
