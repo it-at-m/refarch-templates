@@ -449,9 +449,18 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- to easily reset/clean local stack database: "mvn flyway:clean flyway:migrate" -->
+                <!-- to easily reset/clean local stack database: "mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false" -->
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/postgres</url>
+                    <user>admin</user>
+                    <password>admin</password>
+                    <locations>
+                        <location>classpath:db/migration/schema</location>
+                        <location>classpath:db/migration/testdata</location>
+                    </locations>
+                </configuration>
             </plugin>
         </plugins>
     </build>
