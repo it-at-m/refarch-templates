@@ -27,6 +27,7 @@ spring:
             - ${sso.client}
 
 # Define the local keycloak configuration here
+# Deduplication-only property
 sso:
   url: http://localhost:8100
   realm: local_realm
