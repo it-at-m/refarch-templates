@@ -10,7 +10,6 @@
     "dev": "vite",
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build",
-    "preview": "vite preview",
     "lint": "prettier . --check && eslint . && vue-tsc --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },

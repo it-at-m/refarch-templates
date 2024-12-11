@@ -1,6 +1,13 @@
 spring:
   application:
     name: @project.artifactId@
+  jpa:
+    hibernate:
+      # schema is managed by Flyway, only validate
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration/schema
   security:
     oauth2:
       resourceserver:
