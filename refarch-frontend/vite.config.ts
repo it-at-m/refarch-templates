@@ -20,11 +20,12 @@ export default defineConfig({
       autoImport: false,
     }),
     UnpluginFonts({
-      google: {
+      fontsource: {
         families: [
           {
             name: "Roboto",
-            styles: "wght@100;300;400;500;700;900",
+            weights: [100, 300, 400, 500, 700, 900],
+            subset: "latin",
           },
         ],
       },
@@ -32,6 +33,7 @@ export default defineConfig({
     vueDevTools(),
   ],
   server: {
+    host: true,
     port: 8081,
     proxy: {
       "/api": "http://localhost:8083",

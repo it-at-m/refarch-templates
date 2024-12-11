@@ -23,20 +23,20 @@
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.1",
-    "@types/node": "22.10.0",
+    "@types/node": "22.10.1",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/eslint-config-prettier": "10.1.0",
     "@vue/eslint-config-typescript": "14.1.4",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.7.0",
-    "eslint": "9.15.0",
-    "eslint-plugin-vue": "9.31.0",
+    "eslint": "9.16.0",
+    "eslint-plugin-vue": "9.32.0",
     "jsdom": "25.0.1",
-    "prettier": "3.4.1",
+    "prettier": "3.4.2",
     "typescript": "5.6.3",
     "vite": "5.4.11",
     "vite-plugin-vue-devtools": "7.6.7",
-    "vitest": "2.1.6",
+    "vitest": "2.1.8",
     "vue-tsc": "2.1.10"
   }
 }

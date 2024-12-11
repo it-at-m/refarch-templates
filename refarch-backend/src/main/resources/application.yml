@@ -1,6 +1,13 @@
 spring:
-  application.name: @project.artifactId@
-  banner.location: banner.txt
+  application:
+    name: @project.artifactId@
+  jpa:
+    hibernate:
+      # schema is managed by Flyway, only validate
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration/schema
   security:
     oauth2:
       resourceserver:
@@ -10,29 +17,17 @@ spring:
           # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
           # TODO - should be the clientId of the actual project
           - refarch
-  # Spring data rest
-  data:
-    rest:
-      # Definition of page size for PagingAndSortingRepository
-      max-page-size: 0x7fffffff
-      default-page-size: 0x7fffffff
-      return-body-on-update: true
-      return-body-on-create: true
 
 server:
-  shutdown: "graceful"
-  port: 8080
   error:
-    include-exception: false
-    include-stacktrace: never
     whitelabel:
       enabled: false
 
 # Config for spring actuator endpoints
 management:
-  server.port: ${server.port}
   endpoints:
-    enabled-by-default: false
+    access:
+      default: none
     web:
       exposure:
         include: health, info, prometheus
@@ -40,11 +35,13 @@ management:
         prometheus: metrics
   endpoint:
     health:
-      enabled: true
+      access: read_only
       probes:
         enabled: true
-    info.enabled: true
-    prometheus.enabled: true
+    info:
+      access: read_only
+    prometheus:
+      access: read_only
   info:
     env:
       enabled: true

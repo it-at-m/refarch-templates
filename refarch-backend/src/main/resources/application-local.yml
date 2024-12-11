@@ -3,13 +3,6 @@ server:
 spring:
   # Spring JPA
   jpa:
-    hibernate:
-      # always drop and create the db should be the best
-      # configuration for local (development) mode. this
-      # is also the default, that spring offers by convention.
-      # but here explicite:
-      ddl-auto: create-drop
-      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     # Logging for database operation
     show-sql: true
     properties:
@@ -19,20 +12,26 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     password: admin
     username: admin
+  flyway:
+    locations:
+      - classpath:db/migration/schema
+      - classpath:db/migration/testdata
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/certs
+          jwk-set-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/certs
           audiences:
-            - local
+            - ${sso.client}
 
-# Define the local keycloak realm here
-realm: local_realm
-keycloak:
-  auth-server-url: http://keycloak:8100
+# Define the local keycloak configuration here
+# Deduplication-only property
+sso:
+  url: http://localhost:8100
+  realm: local_realm
+  client: local
 
 security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
   requestLogging: all
-  userInfoUri: ${keycloak.auth-server-url}/auth/realms/${realm}/protocol/openid-connect/userinfo
+  userInfoUri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo

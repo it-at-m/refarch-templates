@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version>
+        <version>3.4.0</version>
         <relativePath/>
     </parent>
 
@@ -23,7 +23,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <spring-cloud-dependencies.version>2023.0.4</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
+        <spring-cloud-dependencies.version>2024.0.0</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Logging -->
         <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
@@ -52,6 +52,12 @@
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
+
+        <!-- Flyway maven plugin configuration for local stack database -->
+        <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
+        <flyway.user>admin</flyway.user>
+        <flyway.password>admin</flyway.password>
+        <flyway.locations>classpath:db/migration/schema,classpath:db/migration/testdata</flyway.locations>
     </properties>
 
 
@@ -148,6 +154,15 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
+        </dependency>
+        <!-- Database migrations -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
         <!-- Other -->
@@ -439,6 +454,19 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <!-- Flyway Maven plugin for local database management
+                     Usage:
+                     - Clean database: mvn flyway:clean
+                     - Apply migrations: mvn flyway:migrate
+                     - Reset and migrate: mvn flyway:clean flyway:migrate
+                     
+                     Note: Use -Dflyway.cleanDisabled=false when running clean command
+                -->
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
+
 </project>
