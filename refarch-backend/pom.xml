@@ -52,6 +52,12 @@
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
+
+        <!-- Flyway maven plugin configuration for local stack database -->
+        <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
+        <flyway.user>admin</flyway.user>
+        <flyway.password>admin</flyway.password>
+        <flyway.locations>classpath:db/migration/schema,classpath:db/migration/testdata</flyway.locations>
     </properties>
 
 
@@ -449,18 +455,16 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- to easily reset/clean local stack database: "mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false" -->
+                <!-- Flyway Maven plugin for local database management
+                     Usage:
+                     - Clean database: mvn flyway:clean
+                     - Apply migrations: mvn flyway:migrate
+                     - Reset and migrate: mvn flyway:clean flyway:migrate
+                     
+                     Note: Use -Dflyway.cleanDisabled=false when running clean command
+                -->
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:5432/postgres</url>
-                    <user>admin</user>
-                    <password>admin</password>
-                    <locations>
-                        <location>classpath:db/migration/schema</location>
-                        <location>classpath:db/migration/testdata</location>
-                    </locations>
-                </configuration>
             </plugin>
         </plugins>
     </build>
