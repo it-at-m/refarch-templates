@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Backend
-      link: /backend
+      link: /get-started
     - theme: brand
       text: Markdown Examples
       link: /markdown-examples
