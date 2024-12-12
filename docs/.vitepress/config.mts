@@ -15,9 +15,8 @@ const vitepressConfig = defineConfig({
       {
         text: 'Backend',
         items: [
-          {text: "Getting Started", link: '/get-started'},
-          { text: 'Dependencies', link: '/dependencies' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: "Getting Started", link: '/get-started' },
+          { text: 'Dependencies', link: '/dependencies' }
         ]
       }
     ],
