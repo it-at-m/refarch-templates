@@ -13,9 +13,9 @@ const vitepressConfig = defineConfig({
     ],
     sidebar: [
       {
-        text: 'Examples',
+        text: 'Backend',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
+          { text: 'Dependencies', link: '/backend' },
           { text: 'Runtime API Examples', link: '/api-examples' }
         ]
       }
