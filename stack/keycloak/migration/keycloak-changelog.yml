@@ -3,3 +3,4 @@ includes:
   - path: 02_add-clients.yml
   - path: 03_add-user.yml
   - path: 04_local-audience.yml
+  - path: 05_lhm-scopes.yml
