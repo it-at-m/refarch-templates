@@ -60,7 +60,7 @@ your local PostgreSQL database.
 
 ### AppSwitcher
 
-- **Repository**:<https://github.com/it-at-m/appswitcher-server>
+- **Repository**:[https://github.com/it-at-m/appswitcher-server](https://github.com/it-at-m/appswitcher-server)
 - **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server`
 folder.
 
