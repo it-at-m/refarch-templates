@@ -45,13 +45,13 @@ jobs:
         working-directory: ./${{inputs.app-path}}
         run: npm ci
         
-      - name: Install dependencies1
+      - name: Bump version and create git tag
         working-directory: ./${{inputs.app-path}}
         run: | 
-         NEW_VERSION=$(npm version ${{inputs.releaseVersion}})
+         NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
          git config --global user.email "github-actions@github.com"
          git config --global user.name "GitHub Actions"
          git add package.json package-lock.json
-         git commit -m 'Bump version'
-         git tag $NEW_VERSION
-         git push && git push --tags
+         git commit -m "Bump version to ${NEW_VERSION}" || exit 1
+         git tag "${NEW_VERSION}" || exit 1
+         git push && git push --tags || exit 1
