@@ -1,54 +1,68 @@
 # Getting Started
 
-Welcome to the Getting Started guide for the refarch-templates. This guide
-is divided into sections for Frontend/Web Component and Backend/EAI, as well
-as a general setup and requirements applicable to all templates.
+Welcome to the Getting Started guide for the **refarch-templates**. This guide is
+organized into sections covering **Frontend/Web Component**, **Backend/EAI**, and
+**Stack**, along with a general setup and requirements that apply to all templates.
+
+The purpose of these templates is to provide developers with an out-of-the-box
+solution for building full-stack applications.
 
 ## General
 
 To use the refarch-templates, you need to have Docker installed on your
 machine. Inside the `stack` folder, you will find a `docker-compose.yml`
-file that will spin up everything needed for local development. 
+file that will spin up everything needed for local development.
 
-When developing locally, the stack should always be running. 
+When developing locally, the stack should always be running.
+
 ### Download Templates
 
 You can download the templates or clone them directly from the GitHub
 repository.
-```
+
+```bash
 git clone https://github.com/it-at-m/refarch-templates.git
 ```
+
 Once the templates are available locally, copy the
 folders you need into your own project directory. For example, if you want
-to work with the backend, you should copy the `refarch-backend` folder. 
+to work with the backend, you should copy the `refarch-backend` folder.
 
-**Important**: You also need to copy the Stack folder to your project once. 
+**Important**: You also need to copy the Stack folder to your project once.
 
 ## Stack
 
 The stack includes:
 
-**Keycloak**
+### Keycloak
+
 - **Local Instance**: Set up and run a Keycloak instance locally.
 
-**Keycloak Migration**
+### Keycloak Migration
+
 - **Migration Tool**: Utilize a migration tool that executes scripts upon startup.
-- **Script Location**: All necessary scripts are located in the `stack/keycloak` folder. 
+- **Script Location**: All necessary scripts are located in the
+`stack/keycloak` folder.
 Extensions to Keycloak should be implemented through these scripts.
 
-**PostgreSQL**
+### PostgreSQL
+
 - **Local Instance**: Set up and run a PostgreSQL instance locally.
 
-**PGAdmin**
-- **Local Instance**: Run a pre-configured instance of PgAdmin that connects to your local PostgreSQL database.
+### PGAdmin
 
-**API Gateway**
+- **Local Instance**: Run a pre-configured instance of PgAdmin that connects to
+your local PostgreSQL database.
+
+### API Gateway
+
 - **Local Instance**: Launch the ITM API-gateway in your local environment.
 
-**AppSwitcher**
-- **Repository**:https://github.com/it-at-m/appswitcher-server
-- **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server` folder.
+### AppSwitcher
 
+- **Repository**:<https://github.com/it-at-m/appswitcher-server>
+- **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server`
+folder.
 
 ## Backend & EAI
 
@@ -70,20 +84,25 @@ After copying the templates, you will need to make a few adjustments:
 3. Inside the `pom.xml`, update the `artifactId`, `groupId`, and `name`
    fields.
 
-After Running `mvn install` the Backend/EAI is ready to use
+After running the following command, the Backend/EAI is ready to use:
+
+```bash
+mvn install
+```
 
 ### Profiles
 
 By default, the template supports two profiles:
 
-**local**
+#### local
+
 - Contains the necessary configurations for running the application
   locally, including settings for ports, SSO, and the database.
 
-**no-security**
+#### no-security
+
 - Configured to operate without security measures for development
   or testing purposes.
-
 
 ## Frontend and Web Components
 

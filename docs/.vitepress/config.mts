@@ -13,7 +13,10 @@ const vitepressConfig = defineConfig({
     ],
     sidebar: [
       {
-        text: 'Getting Started'
+        text: 'Getting Started',
+        items: [
+          {text: "Getting Started", link: "/getting-started"},
+        ]
       }
     ],
     socialLinks: [
