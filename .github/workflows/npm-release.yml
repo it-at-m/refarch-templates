@@ -18,10 +18,6 @@ on:
         options:
           - sps-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
 
-permissions:
-
-  contents: write
-
 jobs:
   release:
     name: Release
@@ -31,7 +27,9 @@ jobs:
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
-
+    outputs:
+      ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
+      VERSION: ${{steps.node-release.outputs.VERSION}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -45,13 +43,49 @@ jobs:
         working-directory: ./${{inputs.app-path}}
         run: npm ci
         
-      - name: Bump version and create git tag
+      - id: node-release
+        name: Bump version and create git tag
         working-directory: ./${{inputs.app-path}}
         run: | 
          NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
+         echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
          git config --global user.email "github-actions@github.com"
          git config --global user.name "GitHub Actions"
          git add package.json package-lock.json
          git commit -m "Bump version to ${NEW_VERSION}" || exit 1
          git tag "${NEW_VERSION}" || exit 1
          git push && git push --tags || exit 1
+      - id: node
+        uses: it-at-m/.github/.github/actions/action-npm-build@main
+        with:
+          app-path:  "${{ inputs.app-path }}"
+
+  build-image:  
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - uses: it-at-m/.github/.github/actions/action-build-image@main
+        with:
+          path: "${{  inputs.app-path }}"
+          image-name: "${{  inputs.app-path }}"
+          artifact-name:  ${{ needs.release.outputs.ARTIFACT_NAME }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry-username: ${{ github.actor }}
+          image-tags: |
+            type=semver,pattern={{version}},value=${{ needs.release.outputs.VERSION }}
+  create-github-release:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a single artifact
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: ${{ needs.release.outputs.ARTIFACT_NAME }}
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.release.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          generate_release_notes: false
