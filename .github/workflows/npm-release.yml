@@ -30,8 +30,8 @@ jobs:
     outputs:
       ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
       VERSION: ${{steps.node-release.outputs.VERSION}}
-    env: 
-     skipDeployment: false
+    env:
+      skipDeployment: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
