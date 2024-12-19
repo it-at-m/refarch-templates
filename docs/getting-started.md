@@ -129,16 +129,11 @@ Congratulations, the Backend/EAI is now ready to use.
 
 ### Profiles
 
-By default, the template supports two profiles:
+By default, the template supports two Maven profiles:
 
-#### local
-
-- Contains the necessary configurations for running the application
-  locally, including settings for ports, SSO, and the database.
-
-#### no-security
-
-- Configured to operate without security measures for development
+- `local`: Contains the necessary configurations for running the application
+  locally, including settings for ports, SSO, and the database
+- `no-security`: Configured to operate without security measures for development
   or testing purposes.
 
 ## Frontend & Web Components
