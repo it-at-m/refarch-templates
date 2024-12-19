@@ -6,12 +6,9 @@ and to execute initial required steps for the individual templates.
 
 The purpose of these templates is to provide developers with an out-of-the-box solution for
 building full-stack applications based on the reference architecture (RefArch) of it@M.
-For more information on the RefArch itself please visit <https://refarch.oss.muenchen.de/>
+For more information on the RefArch itself please visit the [RefArch documentation](https://refarch.oss.muenchen.de/)
 
 **Important**: To use the `refarch-templates` you need to have [Docker](https://www.docker.com/) installed on your system.
-
-**Quick Navigation**:
-[[toc]]
 
 ## Getting the templates
 
@@ -21,11 +18,11 @@ want to create a completely new project or add new components to an existing cod
 ### Variant 1: Use GitHub template mechanism
 
 When starting a completely new project on GitHub, it's recommended to use the "template repository" feature of GitHub.
-The `refarch-templates` repository under <https://github.com/it-at-m/refarch-templates> is defined as a "template repository".
+The [refarch-templates repository](https://github.com/it-at-m/refarch-templates) is defined as a "template repository".
 This means when you create a new repository for your project, you can choose to use `refarch-templates` as a starting point.
 
-Further information can be found in the official GitHub documentation under
-<https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template>.
+Further information can be found in the 
+[official GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
 ### Variant 2: Download or clone templates
 
@@ -85,22 +82,22 @@ Extensions to Keycloak should be implemented through these scripts.
 - **Website**: <https://www.postgresql.org>
 - **Purpose**: Run a PostgreSQL database instance locally
 
-#### PGAdmin
+#### pgAdmin
 
 - **Website**: <https://www.pgadmin.org/>
 - **Purpose**: Run a database management UI pre-configured to connect to the local PostgreSQL instance
 
-#### API Gateway
+#### API gateway
 
 - **Website**: <https://refarch.oss.muenchen.de/gateway>
 - **Purpose**: Launch the API gateway of the RefArch in your local environment
 - **Configuration**: The API gateway behaviour can be adjusted by altering the respective environment variables
 defined in `stack/docker-compose.yml` under the key `refarch-gateway.environment`
 
-#### AppSwitcher
+#### Appswitcher Server
 
 - **Repository**: <https://github.com/it-at-m/appswitcher-server>
-- **Purpose**: Utility functionality for local development to access local development tools via the frontend UI
+- **Purpose**: Server component required for appswitcher-vue to access local development tools via the frontend UI
 - **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server`
 folder.
 
