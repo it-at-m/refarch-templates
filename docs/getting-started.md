@@ -21,7 +21,7 @@ When starting a completely new project on GitHub, it's recommended to use the "t
 The [refarch-templates repository](https://github.com/it-at-m/refarch-templates) is defined as a "template repository".
 This means when you create a new repository for your project, you can choose to use `refarch-templates` as a starting point.
 
-Further information can be found in the 
+Further information can be found in the
 [official GitHub documentation](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
 
 ### Variant 2: Download or clone templates
