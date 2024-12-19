@@ -1,7 +1,7 @@
 name: Deploy documentation website
 
 on:
-  # Runs on pushes targeting the `main` branch. 
+  # Runs on pushes targeting the `main` branch
   push:
     branches: [main]
     paths:
