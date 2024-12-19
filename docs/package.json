@@ -2,10 +2,11 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "lint": "markdownlint .",
-    "fix": "markdownlint -f ."
+    "lint": "prettier . --check && markdownlint .",
+    "fix": "prettier . --write && markdownlint -f ."
   },
   "devDependencies": {
+    "@muenchen/prettier-codeformat": "1.0.2",
     "markdownlint-cli": "0.43.0",
     "mermaid": "11.4.1",
     "vitepress": "1.5.0",

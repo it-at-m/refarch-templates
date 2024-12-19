@@ -1,0 +1,8 @@
+:root {
+  --muc-logo-filter: invert(0);
+}
+
+footer.VPFooter {
+  display: block !important;
+  z-index: 100 !important;
+}
