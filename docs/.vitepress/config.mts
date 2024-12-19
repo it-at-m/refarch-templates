@@ -11,12 +11,13 @@ const vitepressConfig = defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Examples', link: '/markdown-examples' }
     ],
+    outline: {
+      level: "deep"
+    },
     sidebar: [
       {
-        text: 'Getting Started',
-        items: [
-          {text: "Getting Started", link: "/getting-started"},
-        ]
+        text: "Getting Started",
+        link: "/getting-started"
       }
     ],
     socialLinks: [
