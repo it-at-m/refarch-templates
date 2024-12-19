@@ -1,4 +1,4 @@
-name: Deploy docs
+name: Deploy documentation website
 
 on:
   # Runs on pushes targeting the `main` branch. Change this to `master` if you're
