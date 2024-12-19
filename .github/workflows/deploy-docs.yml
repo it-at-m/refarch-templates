@@ -8,8 +8,6 @@ on:
       - "docs/**"
       - ".github/workflows/**" # define the concrete paths on which a change triggers this action, e.g. backend/**
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 jobs:
   deploy-pages:
