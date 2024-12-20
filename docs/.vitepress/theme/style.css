@@ -2,7 +2,23 @@
   --muc-logo-filter: invert(0);
 }
 
+/* Enables footer on all pages instead of only the home page */
 footer.VPFooter {
   display: block !important;
   z-index: 100 !important;
+}
+
+.VPNav div.logo a img {
+  min-width: 169px;
+}
+
+.dark {
+  --muc-logo-filter: invert(1);
+}
+
+@media all and (max-width: 450px) {
+  .VPNav div.logo a {
+    overflow: hidden;
+    width: 25px;
+  }
 }
