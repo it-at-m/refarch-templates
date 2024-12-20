@@ -40,9 +40,9 @@ For example, if you want to work with the backend, you should copy the `refarch-
 **Important**: The `stack` folder must be copied to your project directory, as it contains essential components required by the templates.
 
 Besides the code templates, `refarch-templates` provides lots of other configuration files which help to establish
-best practices in project development and organisation. Copy those over as well, if you want to use them.
+best practices in project development, documentation and organisation. Copy those over as well, if you want to use them.
 
-For further information on those topics see **TODO**.
+For further information on those topics please check out [Develop](./develop), [Document](./document) and [Organize](./organize).
 
 ## Stack
 
@@ -106,7 +106,7 @@ or by executing the command `docker compose up` from within the `stack` folder.
 ### Prerequisites
 
 - Java 21
-- Maven 3.9.7
+- Maven 3.9
 - Docker (for Postgres and Keycloak)
 
 ### Configure templates
@@ -118,9 +118,10 @@ After getting the templates, you will need to make a few adjustments in the resp
    `de.muenchen.YourPackageName` (It's recommended to use an IDE for this
    task, as it will automatically update the imports; otherwise, you will
    need to do this manually).
-3. Inside the `pom.xml`, update the `groupId`, `artifactId`, `name` and `description`
+3. Change the name of the main application class (e.g. from `MicroServiceApplication` to `MyAppApplication`)
+4. Inside the `pom.xml`, update the `groupId`, `artifactId`, `name` and `description`
    fields.
-4. Install required dependencies by executing the command `mvn install`.
+5. Install required dependencies by executing the command `mvn install`.
 
 Congratulations, the Backend/EAI is now ready to use.
 
@@ -128,10 +129,11 @@ Congratulations, the Backend/EAI is now ready to use.
 
 By default, the template supports two Maven profiles:
 
-- `local`: Contains the necessary configurations for running the application
+- `local`: Contains the necessary configurations for running the application.
   locally, including settings for ports, SSO, and the database
-- `no-security`: Configured to operate without security measures for development
+- `no-security`: Configured to operate without security measures for development.
   or testing purposes.
+- `json-logging`: Switches logging from textual to JSON output (only relevant when deployed).
 
 ## Frontend & Web Components
 
@@ -155,4 +157,4 @@ Congratulations, the Frontend/WebComponent is now ready to use.
 If you finished the template configurations for all required components your project needs
 you have now successfully set up your project.
 
-To help you with software developing and project organisation, please check out **TODO** and **TODO**.
+To help you with software developing, documentation and project organisation, please check out [Develop](./develop), [Document](./document) and [Organize](./organize).
