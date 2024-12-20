@@ -12,7 +12,7 @@ For more information on the RefArch itself please visit the [RefArch documentati
 
 ## Getting the templates
 
-There are two different ways on how to get started with using the templates. Which variant to use depends on whether you
+There are two different ways on how to get started with the templates. Which variant to use depends on whether you
 want to create a completely new project or add new components to an existing code repository.
 
 ### Variant 1: Use GitHub template mechanism
