@@ -5,5 +5,5 @@
   "no-duplicate-heading": {
     "siblings_only": true
   },
-  "line-length": false
+  "line-length": false,
 }
