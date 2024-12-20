@@ -6,7 +6,7 @@ and to execute initial required steps for the individual templates.
 
 The purpose of these templates is to provide developers with an out-of-the-box solution for
 building full-stack applications based on the reference architecture (RefArch) of it@M.
-For more information on the RefArch itself please visit the [RefArch documentation](https://refarch.oss.muenchen.de/)
+For more information on the RefArch itself, please visit the [RefArch documentation](https://refarch.oss.muenchen.de/)
 
 **Important**: To use the `refarch-templates` you need to have [Docker](https://www.docker.com/) installed on your system.
 
@@ -37,7 +37,7 @@ git clone https://github.com/it-at-m/refarch-templates.git
 Once the templates are available locally, copy the folders you need into your own project directory.
 For example, if you want to work with the backend, you should copy the `refarch-backend` folder.
 
-**Important**: You also need to copy the `stack` folder to your project, otherwise the templates won't work.
+**Important**: The `stack` folder must be copied to your project directory, as it contains essential components required by the templates.
 
 Besides the code templates, `refarch-templates` provides lots of other configuration files which help to establish
 best practices in project development and organisation. Copy those over as well, if you want to use them.
@@ -111,14 +111,14 @@ or by executing the command `docker compose up` from within the `stack` folder.
 
 ### Configure templates
 
-After getting the templates, you will need to make a few adjustments:
+After getting the templates, you will need to make a few adjustments in the respective template directories:
 
 1. Rename the folder you copied (e.g. from `refarch-backend` to `myapp-backend`).
 2. Change the package name from `de.muenchen.refarch` to
    `de.muenchen.YourPackageName` (It's recommended to use an IDE for this
    task, as it will automatically update the imports; otherwise, you will
    need to do this manually).
-3. Inside the `pom.xml`, update the `artifactId`, `groupId`, and `name`
+3. Inside the `pom.xml`, update the `groupId`, `artifactId`, `name` and `description`
    fields.
 4. Install required dependencies by executing the command `mvn install`.
 
@@ -142,7 +142,7 @@ By default, the template supports two Maven profiles:
 
 ### Configure Templates
 
-After getting the templates, make the following adjustments:
+After getting the templates, you will need to make a few adjustments in the respective template directories:
 
 1. Rename the folder you copied (e.g. from `refarch-frontend` to `myapp-frontend`).
 2. Change the artifact `name` inside the `package.json` file.
