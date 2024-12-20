@@ -1,5 +1,10 @@
 :root {
-  --muc-logo-filter: invert(0);
+  --muc-logo-filter: invert(0); /* Sets the default LHM logo color to black */
+}
+
+/* Dark mode specific configurations */
+.dark {
+  --muc-logo-filter: invert(1); /* Sets the LHM logo color to white */
 }
 
 /* Enables footer on all pages instead of only the home page */
@@ -8,17 +13,16 @@ footer.VPFooter {
   z-index: 100 !important;
 }
 
-.VPNav div.logo a img {
-  min-width: 169px;
-}
-
-.dark {
-  --muc-logo-filter: invert(1);
-}
 
 @media all and (max-width: 450px) {
+  /* Hides the logo text on mobile phones */
   .VPNav div.logo a {
     overflow: hidden;
-    width: 25px;
+    width: 23px;
+  }
+  /* Fixes compression of logo on phone screens */
+  .VPNav div.logo a img {
+    object-fit: cover;
+    object-position: left;
   }
 }
