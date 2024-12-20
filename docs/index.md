@@ -25,4 +25,3 @@ features:
     title: Simplify Onboarding
     details: With clear documentation and predefined development configurations, new developers can quickly get up to speed, reducing the learning curve and increasing productivity from day one.
 ---
-
