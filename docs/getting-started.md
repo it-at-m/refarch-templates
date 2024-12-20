@@ -1,7 +1,7 @@
 # Getting Started
 
 Welcome to the Getting Started guide for the `refarch-templates`.
-This guide aims to help you in setting up a code repository to work with `refarch-templates`
+This guide aims to help you in setting up a code repository with `refarch-templates`
 and to execute initial required steps for the individual templates.
 
 The purpose of these templates is to provide developers with an out-of-the-box solution for
