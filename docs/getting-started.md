@@ -74,8 +74,8 @@ or by executing the command `docker compose up` from within the `stack` folder.
 - **Website**: <https://mayope.github.io/keycloakmigration/>
 - **Purpose**: Migration tool to set up the local SSO provider by executing scripts upon startup
 - **Configuration**: All necessary scripts are located in the
-`stack/keycloak/migration` folder.
-Extensions to Keycloak should be implemented through these scripts.
+  `stack/keycloak/migration` folder.
+  Extensions to Keycloak should be implemented through these scripts.
 
 #### PostgreSQL
 
@@ -92,14 +92,14 @@ Extensions to Keycloak should be implemented through these scripts.
 - **Website**: <https://refarch.oss.muenchen.de/gateway>
 - **Purpose**: Launch the API gateway of the RefArch in your local environment
 - **Configuration**: The API gateway behaviour can be adjusted by altering the respective environment variables
-defined in `stack/docker-compose.yml` under the key `refarch-gateway.environment`
+  defined in `stack/docker-compose.yml` under the key `refarch-gateway.environment`
 
 #### Appswitcher Server
 
 - **Repository**: <https://github.com/it-at-m/appswitcher-server>
 - **Purpose**: Server component required for appswitcher-vue to access local development tools via the frontend UI
 - **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server`
-folder.
+  folder.
 
 ## Backend & EAI
 
