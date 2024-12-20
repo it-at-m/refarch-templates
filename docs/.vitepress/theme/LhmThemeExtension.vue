@@ -7,7 +7,7 @@
           target="_blank"
         >
           <img
-            :src="lhmLogo"
+            src="https://assets.muenchen.de/logos/lhm/logo-lhm-muenchen.svg"
             alt="Logo Landeshauptstadt München"
           />
         </a>
@@ -18,8 +18,6 @@
 
 <script setup>
 import DefaultTheme from "vitepress/theme";
-
-import lhmLogo from "./logo-lhm.png";
 
 const { Layout } = DefaultTheme;
 </script>
