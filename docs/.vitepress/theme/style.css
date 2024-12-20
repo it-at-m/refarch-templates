@@ -13,7 +13,6 @@ footer.VPFooter {
   z-index: 100 !important;
 }
 
-
 @media all and (max-width: 450px) {
   /* Hides the logo text on mobile phones */
   .VPNav div.logo a {
