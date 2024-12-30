@@ -1,0 +1,50 @@
+## common message keys for generic stuff
+common:
+  yes: Ja
+  no: Nein
+  actions:
+    close: Schließen
+    # save: Speichern
+    # cancel: Abbrechen
+    # reset: Zurücksetzen
+  # messages:
+  #   saved: Erfolgreich gespeichert.
+  #   itemSaved: "{item} erfolgreich gespeichert."
+
+## global application specific keys
+app:
+  name:
+    part1: "RefArch-"
+    part2: Kick
+    part3: Starter
+    full: "@:app.name.part1@:app.name.part2@:app.name.part3"
+
+## message keys specific to a component
+# components:
+#   myComponent:
+#     myComponentText: demo
+
+## message keys specific to a view
+views:
+  home:
+    header: "Willkommen beim @:app.name.full von it{'@'}M"
+    apiGatewayStatus: "Das API-Gateway ist:"
+  getStarted:
+    navText: "Get started"
+    dokuHeader: Dokumentation
+    dokuSubtext: "Weiterführende Links sind hier zu finden:"
+    dokuLinks:
+      barrakuda: Barrakuda-Doku
+      apiGateway: Doku Archetype API-Gateway
+      backend: Doku Archetype Backend
+      archetypesRepo: Git-Repo Archetypes
+      javascriptWiki: Javascript-Wiki
+    saveLeave:
+      title: Wirklich verlassen?
+      text: Wollen Sie wirklich nicht die Dokumentation anschauen?
+## message keys specific to domain objects
+# domain:
+#   theEntity:
+#     name: Geschäftsobjekt
+#     fields:
+#       textAttribute: Text-Attribut

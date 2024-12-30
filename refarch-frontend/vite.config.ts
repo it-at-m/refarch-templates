@@ -1,6 +1,8 @@
 // Plugins
 import { fileURLToPath, URL } from "node:url";
+import path from "path";
 
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 import vue from "@vitejs/plugin-vue";
 import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
@@ -31,6 +33,9 @@ export default defineConfig({
       },
     }),
     vueDevTools(),
+    VueI18nPlugin({
+      include: [path.resolve(__dirname, "./src/locales/**")],
+    }),
   ],
   server: {
     host: true,
