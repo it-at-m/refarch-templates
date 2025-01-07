@@ -1,0 +1,13 @@
+name: Deploy documentation website
+
+on:
+  # Runs on pushes targeting the `main` branch
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml" # define the concrete paths on which a change triggers this action, e.g. backend/**
+
+jobs:
+  deploy-pages:
+    uses: it-at-m/.github/.github/workflows/deploy-pages.yml@main
