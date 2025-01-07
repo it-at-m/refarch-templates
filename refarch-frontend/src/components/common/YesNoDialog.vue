@@ -38,14 +38,14 @@
           variant="text"
           @click="no"
         >
-          Nein
+          {{ t("common.no") }}
         </v-btn>
         <v-btn
           id="yesnodialog-btn-yes"
           color="primary"
           @click="yes"
         >
-          Ja
+          {{ t("common.yes") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import {
   VBtn,
   VCard,
@@ -63,6 +64,8 @@ import {
   VIcon,
   VSpacer,
 } from "vuetify/components";
+
+const { t } = useI18n();
 
 /**
  * The YesNo dialog is a generic dialog for yes/no queries to the user.

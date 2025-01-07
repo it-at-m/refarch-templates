@@ -2,15 +2,17 @@
   <v-container>
     <v-row class="text-center">
       <v-col>
-        <h1 class="text-h3 font-weight-bold mb-10">Dokumentation</h1>
-        <h3>Weiterführende Links sind hier zu finden:</h3>
+        <h1 class="text-h3 font-weight-bold mb-10">
+          {{ t("views.getStarted.dokuHeader") }}
+        </h1>
+        <h3>{{ t("views.getStarted.dokuSubtext") }}</h3>
         <div>
           <a
             href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Barrakuda"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Barrakuda-Doku</a
+            >{{ t("views.getStarted.dokuLinks.barrakuda") }}</a
           >
         </div>
         <div>
@@ -19,7 +21,7 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Doku Archetype API-Gateway</a
+            >{{ t("views.getStarted.dokuLinks.apiGateway") }}</a
           >
         </div>
         <div>
@@ -28,7 +30,7 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Doku Archetype Backend</a
+            >{{ t("views.getStarted.dokuLinks.backend") }}</a
           >
         </div>
         <div>
@@ -37,7 +39,7 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Git-Repo Archetypes</a
+            >{{ t("views.getStarted.dokuLinks.archetypesRepo") }}</a
           >
         </div>
         <div>
@@ -46,15 +48,15 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Javascript-Wiki</a
+            >{{ t("views.getStarted.dokuLinks.javascriptWiki") }}</a
           >
         </div>
       </v-col>
     </v-row>
     <yes-no-dialog
       v-model="saveLeaveDialog"
-      dialogtitle="Wirklich verlassen?"
-      dialogtext="Wollen Sie wirklich nicht die Dokumentation anschauen?"
+      :dialogtitle="t('views.getStarted.saveLeave.title')"
+      :dialogtext="t('views.getStarted.saveLeave.text')"
       @no="cancel"
       @yes="leave"
     />
@@ -63,10 +65,13 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { VCol, VContainer, VRow } from "vuetify/components";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
 import { useSaveLeave } from "@/composables/saveLeave";
+
+const { t } = useI18n();
 
 const documentationClicked = ref(false);
 const { cancel, leave, saveLeaveDialog } = useSaveLeave(isDirty);
