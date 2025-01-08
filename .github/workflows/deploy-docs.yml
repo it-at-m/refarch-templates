@@ -1,5 +1,6 @@
 name: Deploy documentation website
-
+on:
+  workflow_dispatch:
 on:
   # Runs on pushes targeting the `main` branch
   push:
@@ -10,6 +11,11 @@ on:
       
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: "Version to use when preparing a release (e.g., 1.2.3)"
+        required: true
+        default: "0.0.1"
   
 jobs:
   deploy-pages:
