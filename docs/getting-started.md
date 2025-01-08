@@ -139,7 +139,7 @@ By default, the template supports two Maven profiles:
 
 ### Prerequisites
 
-- Node.js version 20 to 22
+- Node.js 22 LTS (`22.11.x` - `22.x.x`)
 - Docker (for AppSwitcher)
 
 ### Configure Templates
