@@ -3,18 +3,7 @@ name: Deploy documentation website
 on:
   # Runs on pushes targeting the `main` branch
   push:
-    branches: [main]
-    paths:
-      - "docs/**"
-      - ".github/workflows/deploy-docs.yml" # define the concrete paths on which a change triggers this action, e.g. backend/**
-      
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-    inputs:
-      releaseVersion:
-        description: "Version to use when preparing a release (e.g., 1.2.3)"
-        required: true
-        default: "0.0.1"
+
   
 jobs:
   deploy-pages:
