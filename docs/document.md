@@ -9,7 +9,7 @@ Those will be further explained below.
 
 ## Writing the documentation
 
-We encourage to write your software documentation using Markdown (`.md`). This format is broadly supported, standard on GitHub and has good support in IDEs.
+We encourage you to write your software documentation using Markdown (`.md`). This format is broadly supported, standard on GitHub and has good support in IDEs.
 If you need further information about Markdown itself, please check out this [guide](https://www.markdownguide.org/).
 
 By combining the use of Markdown with the Node-based tool [Vitepress](https://vitepress.dev/), we enable easy conversion of raw markdown files into aesthetically pleasing and easy to use static web pages.
@@ -29,7 +29,7 @@ The configuration file we provide (`.markdownlint.jsonc`) is almost default, but
 For all other files (e.g. the Vitepress configuration file itself) [Prettier](https://prettier.io/) and its respective configuration file (`.prettierrc`) is used.
 
 A lot of the reported errors can be automatically fixed by running `npm run fix`.
-It's suggested to make sure your documentation does not contain errors before commiting to version control.
+It's recommended to ensure your documentation is error-free before committing to version control.
 
 ## Deploying to the web
 
@@ -40,4 +40,4 @@ For the ease of use we prefer the use of GitHubs CI/CD capabilities using workfl
 By default, the documentation is deployed whenever a push to the `main` branch occurs, but you can adjust the workflow file to your needs.
 For further information about CI/CD-related topics, please check out the documentation for our [custom actions and workflows](https://github.com/it-at-m/.github).
 
-To make the workflow work you also need to enable GitHub pages for your repository and select "GitHub Actions" as source. Please check of the offical [GitHub Pages documentation](https://pages.github.com/) for further information.
+To make the workflow work you also need to enable GitHub pages for your repository and select "GitHub Actions" as source. Please check of the official [GitHub Pages documentation](https://pages.github.com/) for further information.
