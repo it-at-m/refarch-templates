@@ -42,14 +42,14 @@ export default defineConfig(({ mode }) => {
         "/actuator": "http://localhost:8083",
       },
       headers: {
-        "x-frame-options": "SAMEORIGIN" // required to use devtools behind proxy (e.g. API gateway)
-      }
+        "x-frame-options": "SAMEORIGIN", // required to use devtools behind proxy (e.g. API gateway)
+      },
     },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
-    logLevel: "info"
+    logLevel: "info",
   };
 });
