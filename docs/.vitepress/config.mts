@@ -21,10 +21,16 @@ const vitepressConfig = defineConfig({
       { text: "Home", link: "/" },
       {
         text: "Docs",
-        items: [{ text: "Getting Started", link: "/getting-started" }],
+        items: [
+          { text: "Getting Started", link: "/getting-started" },
+          { text: "Document", link: "/document" },
+        ],
       },
     ],
-    sidebar: [{ text: "Getting Started", link: "/getting-started" }],
+    sidebar: [
+      { text: "Getting Started", link: "/getting-started" },
+      { text: "Document", link: "/document" },
+    ],
     socialLinks: [
       { icon: "github", link: "https://github.com/it-at-m/refarch-templates" },
     ],
