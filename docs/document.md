@@ -25,7 +25,7 @@ If you want a preview of the documentation while writing, use the `npm run dev` 
 To maintain high quality in your documentation, we provide a script to run various checking tools.
 
 By executing `npm run lint`, the tool [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) will be used to check validity of your markdown files.
-The configuration file we provide (`.markdownlint.jsonc`) is almost default, but feel free adjust it to your own needs. Please check out the official documentation of [markdownlint](https://github.com/DavidAnson/markdownlint#optionsconfig) in this case.
+The configuration file we provide (`.markdownlint.jsonc`) is almost default, but feel free to adjust it to your own needs. Please check out the official documentation of [markdownlint](https://github.com/DavidAnson/markdownlint#optionsconfig) in this case.
 For all other files (e.g. the Vitepress configuration file) [Prettier](https://prettier.io/) and its respective configuration file (`.prettierrc`) is used.
 
 A lot of the reported errors can be automatically fixed by running `npm run fix`.
