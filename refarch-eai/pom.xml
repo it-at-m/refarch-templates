@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/4.8.1/dependencies and search for 'spring-boot-starter' -->
+        <version>3.3.7</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/4.8.1/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
