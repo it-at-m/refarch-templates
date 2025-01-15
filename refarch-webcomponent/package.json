@@ -16,14 +16,14 @@
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "2.0.0",
+    "@muenchen/muc-patternlab-vue": "2.1.0",
     "@vueuse/core": "12.3.0",
     "vue": "3.5.13"
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.1",
-    "@types/node": "22.10.5",
+    "@types/node": "22.10.6",
     "@vitejs/plugin-vue": "5.2.1",
     "@vue/eslint-config-prettier": "10.1.0",
     "@vue/eslint-config-typescript": "14.2.0",
@@ -31,7 +31,7 @@
     "@vue/tsconfig": "0.7.0",
     "eslint": "9.17.0",
     "eslint-plugin-vue": "9.32.0",
-    "jsdom": "25.0.1",
+    "jsdom": "26.0.0",
     "prettier": "3.4.2",
     "typescript": "5.7.3",
     "vite": "5.4.11",
