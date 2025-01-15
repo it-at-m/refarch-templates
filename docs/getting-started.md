@@ -119,7 +119,7 @@ After getting the templates, you will need to make a few adjustments in the resp
    task, as it will automatically update the imports; otherwise, you will
    need to do this manually).
 3. Change the name of the main application class (e.g. from `MicroServiceApplication` to `MyAppApplication`)
-4. Inside the `pom.xml`, update the `groupId`, `artifactId`, `name` and `description`
+4. Inside the `pom.xml`, update the `groupId`, `artifactId`, `name`, `description`, `url` and `scm`
    fields.
 5. Install required dependencies by executing the command `mvn install`.
 

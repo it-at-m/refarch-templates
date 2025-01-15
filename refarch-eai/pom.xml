@@ -15,7 +15,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>refarch_eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
-    <url>${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}</url>
+    <url>https://github.com/it-at-m/refarch-templates</url>
 
     <properties>
         <!-- Compilation -->
@@ -50,8 +50,8 @@
     </properties>
 
     <scm>
-        <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
-        <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
+        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
