@@ -61,6 +61,5 @@ jobs:
         uses: it-at-m/.github/.github/actions/action-create-github-release@main
         with:
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
-          mvn-artifact-id: ${{needs.release-maven.outputs.MVN_ARTIFACT_ID}}
-          release-version: ${{ github.event.inputs.releaseVersion }}
+          tag-name: ${{needs.release-maven.outputs.MVN_ARTIFACT_ID}}-${{ github.event.inputs.releaseVersion }}
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
