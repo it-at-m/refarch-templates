@@ -14,7 +14,7 @@ We highly suggest you only include the most important stuff and use a dedicated 
 But if you have a small repository and don't need a dedicated documentation page, you can use the `README.md` file for that purpose as well.
 
 Nonetheless, we provide a template for your `README.md` file inside the `.github` folder. This file needs to be adjusted to your specific project.
-Alter the project name, description, used technologies and remove sections like "Roadmap" if you don't need them. Also update the project shields at the top of the file to your needs.
+Alter the project name, description, used technologies and remove sections like "Roadmap" if you don't need them. Also update the project shields and links at the top of the file to your needs.
 Please check out the [shields.io documentation](https://shields.io/) for further information.
 
 When you solely use the `README.md` as your documentation also make sure that any links to externally hosted documentation are reachable or removed if not required.
