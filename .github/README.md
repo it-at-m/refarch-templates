@@ -6,7 +6,7 @@
 [documentation]: https://refarch-templates.oss.muenchen.de/
 [itm-opensource]: https://opensource.muenchen.de/
 [license]: ../LICENSE
-[code-of-conduct]: /.github/CODE_OF_CONDUCT.md
+[code-of-conduct]: ./CODE_OF_CONDUCT.md
 
 <!-- Project specific links -->
 [refarch-documentation]: https://refarch.oss.muenchen.de/
