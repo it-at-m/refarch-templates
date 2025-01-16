@@ -5,7 +5,7 @@ on:
     inputs:
       releaseVersion:
         type: choice
-        description: "Add node release."
+        description: "Select version increment type (follows Semantic Versioning)"
         required: true
         options:
           - patch
