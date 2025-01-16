@@ -1,3 +1,15 @@
+<!-- 
+What to adjust:
+* Alter the project name directy under the logo.
+* Alter the project description.
+* Add information about used technologies.
+* If you have, add a roadmap or remove this section.
+* Alter the section for set up and documentation.
+* Add more project shields. Use [shields.io](https://shields.io/) with style `for-the-badge`.
+
+Remove this whole comment section after adjustment are made.
+-->
+
 [documentation-shield]: https://img.shields.io/badge/documentation-blue?style=for-the-badge
 [new-issue-shield]: https://img.shields.io/badge/new%20issue-blue?style=for-the-badge
 [made-with-love-shield]: https://img.shields.io/badge/made%20with%20%E2%9D%A4%20by-it%40M-yellow?style=for-the-badge
