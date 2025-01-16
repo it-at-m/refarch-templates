@@ -41,8 +41,6 @@ jobs:
         with:
           node-version: "22"
           registry-url: 'https://registry.npmjs.org'
-
-        
       - id: node-release
         name: Bump version and create git tag
         working-directory: ./${{inputs.app-path}}
