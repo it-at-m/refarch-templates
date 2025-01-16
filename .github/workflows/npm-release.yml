@@ -16,7 +16,7 @@ on:
         description: Service-Name
         required: true
         options:
-          - refarch-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
+          - refarch-frontend # Please alter and add folder names to your specific project needs
 
 jobs:
   release:
