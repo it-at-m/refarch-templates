@@ -13,7 +13,7 @@ on:
           - major
       app-path:
         type: choice
-        description: Service-Name
+        description: Select the node service to release
         required: true
         options:
           - refarch-frontend # Please alter and add folder names to your specific project needs
