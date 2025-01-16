@@ -57,7 +57,7 @@ jobs:
         with:
           app-path:  "${{ inputs.app-path }}"
       - if: "${{ !env.skipDeployment }}"
-        run: npm --prefix ./${{ inputs.app-path }} publish   # publish
+        run: npm --prefix ./${{ inputs.app-path }} publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # in der GitHub it-at-m Orga zentral hinterlegter Token
   build-image:  
