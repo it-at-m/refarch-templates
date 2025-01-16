@@ -7,6 +7,19 @@ Those will be further explained below.
 
 - Node.js 22 LTS (`22.11.x` - `22.x.x`)
 
+## README.md
+
+The `README.md` acts as an entrypoint to your GitHub repository and thus should have the most important information about your repository.
+We highly suggest you only include the most important stuff and use a dedicated documentation page (see more in the sections down below) for the actual content.
+But if you have a small repository and don't need a dedicated documentation page, you can use the `README.md` file for that purpose as well.
+
+Nonetheless, we provide a template for your `README.md` file inside the `.github` folder. This file needs to be adjusted to your specific project.
+Alter the project name, description, used technologies and remove sections like "Roadmap" if you don't need them. Also update the project shields and links at the top of the file to your needs.
+Please check out the [shields.io documentation](https://shields.io/) for further information.
+
+When you solely use the `README.md` as your documentation also make sure that any links to externally hosted documentation are reachable or removed if not required.
+Also in this case, the sections below are irrelevant to you.
+
 ## Writing the documentation
 
 We encourage you to write your software documentation using Markdown (`.md`). This format is broadly supported, standard on GitHub and has good support in IDEs.
