@@ -7,7 +7,7 @@
 [documentation]: https://refarch-templates.oss.muenchen.de/
 [new-issue]: ./issues/new/choose
 [itm-opensource]: https://opensource.muenchen.de/
-[license]: https://github.com/it-at-m/itm-prettier-codeformat/blob/main/LICENSE
+[license]: https://github.com/it-at-m/refarch-templates/blob/main/LICENSE
 
 # RefArch Templates
 
@@ -16,15 +16,15 @@
 [![Made with love by it@M][made-with-love-shield]][itm-opensource]
 [![GitHub license][license-shield]][license]
 
-This projects acts as a template and provides starter files for web application projects based on the RefArch (reference architecture) of it@M.
+This project acts as a template and provides starter files for web application projects based on the RefArch (reference architecture) of it@M.
 
 To learn more about the architecture itself, checkout its [documentation](https://refarch.oss.muenchen.de/) or [code](https://github.com/it-at-m/refarch).
 
-The templates are based on [Spring](https://spring.io/) and [VueJS](https://vuejs.org/).
+The templates are based on [Spring](https://spring.io/) and [Vue.js](https://vuejs.org/).
 
 ## Usage
 
-To get set up and learn more about the templates please check out the [Getting Started](https://refarch-templates.oss.muenchen.de/getting-started.html) page.
+To get set up and learn more about the templates, please check out the [Getting Started](https://refarch-templates.oss.muenchen.de/getting-started.html) page.
 Also check the respective pages with suggestions on how to [develop](https://refarch-templates.oss.muenchen.de/develop.html), [document](https://refarch-templates.oss.muenchen.de/document.html) and [organize](https://refarch-templates.oss.muenchen.de/organize.html) your project.
 
 ## Roadmap

@@ -9,9 +9,9 @@ Those will be further explained below.
 
 ## README.md
 
-The `README.md` acts as a entrypoint to your GitHub repository and thus should have the most important information about your repository.
+The `README.md` acts as an entrypoint to your GitHub repository and thus should have the most important information about your repository.
 We highly suggest you only include the most important stuff and use a dedicated documentation page (see more in the sections down below) for the actual content.
-But if you have a small repository and don't need a dedicated documentation page you can use the `README.md` file for that purpose as well.
+But if you have a small repository and don't need a dedicated documentation page, you can use the `README.md` file for that purpose as well.
 
 Nonetheless, we provide a template for your `README.md` file inside the `.github` folder. This file needs to be adjusted to your specific project.
 Alter the project name, description, used technologies and remove sections like "Roadmap" if you don't need them. Also update the project shields at the top of the file to your needs.
