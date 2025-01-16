@@ -59,7 +59,7 @@ jobs:
       - if: "${{ !env.skipDeployment }}"
         run: npm --prefix ./${{ inputs.app-path }} publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # in der GitHub it-at-m Orga zentral hinterlegter Token
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
   build-image:  
     runs-on: ubuntu-latest
     needs: release
