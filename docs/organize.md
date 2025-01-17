@@ -113,7 +113,7 @@ By default, all LHM projects are licensed under
 For new contributors who create their first issue, open their first
 PR, or merge their first PR, we use a welcome bot to appreciate their
 contributions. The configuration for the bot is inside
-`.github/config.yml` and can be modified if need
+`.github/config.yml` and can be modified if needed.
 
 The bot is not enabled by default for new projects. To enable it, you need
 to go to the [GitHub site](https://probot.github.io/apps/welcome/) and press
