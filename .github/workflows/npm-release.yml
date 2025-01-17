@@ -43,7 +43,7 @@ jobs:
       - id: node-release
         name: Bump version and create git tag
         working-directory: ./${{inputs.app-path}}
-        run: | 
+        run: |
          NEW_VERSION=$(npm version ${{inputs.releaseVersion}}) || exit 1
          echo "VERSION=$NEW_VERSION" >> "$GITHUB_OUTPUT"
          git config --global user.email "github-actions@github.com"
