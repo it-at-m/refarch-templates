@@ -4,7 +4,6 @@ The following explains the currently used
 practices and recommendations for organizing
 your projects in GitHub.
 
-
 ## Labeling
 
 Labels are used for various purposes. Each project uses
@@ -22,7 +21,6 @@ clear structure. You can view all current labels
 
 These labels are also utilized for Automatic
 Labeling, which will be explained later.
-
 
 ## Issue Templates
 
@@ -43,7 +41,6 @@ templates in the `.github/ISSUE_TEMPLATE` folder.
 If needed, you can extend or remove any templates.
 Out of the box, issues created with one of the
 templates will be automatically labeled.
-
 
 ### Bug Report
 
@@ -74,7 +71,6 @@ have fewer stakeholders.
 If you have a larger project with more
 stakeholders, we recommend using more
 comprehensive solutions like Jira.
-
 
 ## Code of Conduct
 
@@ -111,8 +107,8 @@ responsibly.
 By default, all LHM projects are licensed under
 MIT.
 
-
 ## Welcome Bot
+
 For new Contributors, that create their first Issue, Open there First
 PR or Merge their first Pr, we use a welcome bot To appreciate the
 Contribution that are doing. The config for the Bot is inside
@@ -131,7 +127,6 @@ with custom configuration in `.github/labeler.yml`.
 Labeling depends on the branch prefix and your
 branch name. For example, the following line:
 
-
 ```
 "Type: Feature":
   - head-branch: [ '^feat', '-feature-' ]
@@ -142,8 +137,6 @@ name has `feat` as a prefix, e.g., `feat/001-ticket`.
 
 It will also add a label based on which files were
 changed, which is useful for multi-project repos.
-
-
 
 ```
 "Template: EAI":
