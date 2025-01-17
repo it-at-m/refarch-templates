@@ -20,7 +20,7 @@ clear structure. You can view all our current labels
 [here](https://github.com/it-at-m/refarch-templates/labels) for inspiration.
 For more information on how to set up labels for your own project, please check the official [GitHub documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
 
-These labels are also utilized for [Automatic
+Your project labels are also utilized for [Automatic
 Labeling](#automatic-labeling).
 
 ## Issue Templates
