@@ -134,7 +134,7 @@ branch name. For example, the following line:
 ```
 
 will add a label to a pull request if the branch
-name has `feat` as a prefix, e.g., `feat/001-ticket`.
+name has `feat` as a prefix, e.g., `feat/001-ticket`, or if you created the branch through the corresponding issue template.
 
 It will also add a label based on which files were
 changed, which is useful for multi-project repos.
