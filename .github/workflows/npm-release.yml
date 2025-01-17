@@ -29,7 +29,7 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     outputs:
       ARTIFACT_NAME: ${{ steps.npm_release.outputs.ARTIFACT_NAME }}
-      VERSION: ${{steps.npm_release.outputs.VERSION}}
+      ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
     steps:
       - name: NPM Release
         id: npm_release
@@ -50,7 +50,7 @@ jobs:
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
           image-tags: |
-            type=semver,pattern={{version}},value=${{ needs.release.outputs.VERSION }}
+            type=semver,pattern={{version}},value=${{ needs.release.outputs.ARTIFACT_VERSION }}
   create-github-release:
     needs: release
     runs-on: ubuntu-latest
@@ -60,4 +60,4 @@ jobs:
         uses: it-at-m/.github/.github/actions/action-create-github-release@82_addWrapper
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
-          tag-name: ${{ needs.release.outputs.VERSION }}
+          tag-name: ${{ needs.release.outputs.ARTIFACT_VERSION }}
