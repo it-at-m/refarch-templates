@@ -88,6 +88,7 @@ By adhering to this Code, we enhance our
 collective efforts and encourage diverse
 perspectives.
 
+More information about the Code of Conduct can be found in the official [GitHub documentation](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project).
 ## License
 
 The license included in our GitHub project is a
