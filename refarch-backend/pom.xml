@@ -14,6 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>refarch_backend</name>
     <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
+    <url>https://github.com/it-at-m/refarch-templates</url>
 
     <properties>
         <!-- Compilation -->
@@ -40,9 +41,12 @@
         <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
+        <!-- Release -->
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+
         <!-- Utility -->
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-csv.version>1.12.0</commons-csv.version>
+        <commons-csv.version>1.13.0</commons-csv.version>
         <commons-io.version>2.18.0</commons-io.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.13.0</commons-text.version>
@@ -299,12 +303,11 @@
 
     </dependencies>
 
-
     <scm>
-        <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
-        <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
+        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
-
 
     <build>
         <plugins>
@@ -342,6 +345,8 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
+
+            <!-- Testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -349,7 +354,6 @@
                     <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -362,6 +366,20 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
 
             <!-- Codeformatter Spotless -->
