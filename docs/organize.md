@@ -11,8 +11,8 @@ Additionally, labels indicate the priority of issues, for example, `Medium`.
 There are also labels that specify the type of issue, like`Documentation`.
 
 We highly recommend using labels to maintain a clear structure. 
-You can view all our current labels[here](https://github.com/it-at-m/refarch-templates/labels) for inspiration.
-For more information on how to set up labels for your own project, please check the official [GitHub documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
+You can view all our current labels [here](https://github.com/it-at-m/refarch-templates/labels) for inspiration.
+For more information on how to set up labels for your own project, please check the official [GitHub documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels).
 
 Your project labels are also utilized for [Automatic Labeling](#automatic-labeling).
 
@@ -30,14 +30,14 @@ You can find the code for these templates in the `.github/ISSUE_TEMPLATE` folder
 If needed, you can extend or remove any templates.
 Out of the box, issues created with one of the templates will be automatically labeled.
 
-Please check the official GitHub documentation for further information.
-
-**Note**: Issue forms are currently a preview feature and thus subject to change in the future.
-
 - **Bug Report**: Report a bug to help the project improve.
 - **Feature Request**: Suggest an idea or possible new feature for this project.
 - **Maintenance Work**: Suggest useful or required maintenance work for this project.
 - **Documentation Change**: Suggest a documentation change for this project.
+
+Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) for further information.
+
+**Note**: Issue forms are currently a preview feature and thus subject to change in the future.
 
 ## GitHub Projects
 
