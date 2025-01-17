@@ -43,21 +43,10 @@ If needed, you can extend or remove any templates.
 Out of the box, issues created with one of the
 templates will be automatically labeled.
 
-### Bug Report
-
-Report a bug to help the project improve.
-
-### Feature request
-
-Suggest an idea or possible new feature for this project.
-
-### Maintenance work
-
-Suggest useful or required maintenance work for this project.
-
-### Documentation change
-
-Suggest a documentation change for this project.
+- **Bug Report**: Report a bug to help the project improve.
+- **Feature Request**: Suggest an idea or possible new feature for this project.
+- **Maintenance Work**: Suggest useful or required maintenance work for this project.
+- **Documentation Change**: Suggest a documentation change for this project.
 
 ## GitHub Projects
 
