@@ -73,6 +73,7 @@ jobs:
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ needs.release.outputs.VERSION }}
+            type=raw,value=latest
   create-github-release:
     needs: release
     runs-on: ubuntu-latest
