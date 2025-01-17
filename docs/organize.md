@@ -106,7 +106,7 @@ understands how to engage with the project
 responsibly.
 
 By default, all LHM projects are licensed under
-MIT.
+[MIT](https://choosealicense.com/licenses/mit/).
 
 ## Welcome Bot
 
