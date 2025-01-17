@@ -61,7 +61,7 @@ Suggest a documentation change for this project.
 
 ## GitHub Projects
 
-For the Refarch, we currently use
+For the RefArch, we currently use
 [GitHub Projects](https://docs.github.com/de/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)
 for project management.
 
