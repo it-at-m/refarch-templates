@@ -24,6 +24,7 @@ const vitepressConfig = defineConfig({
         items: [
           { text: "Getting Started", link: "/getting-started" },
           { text: "Document", link: "/document" },
+          { text: "Organize", link: "/organize" },
         ],
       },
     ],
