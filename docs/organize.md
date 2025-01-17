@@ -4,13 +4,13 @@ The following explains the currently used practices and recommendations for orga
 
 ## Labeling
 
-Labels are used for various purposes. 
+Labels are used for various purposes.
 Each project uses different labels, such as `frontend`, to help differentiate them.
 
 Additionally, labels indicate the priority of issues, for example, `Medium`.
 There are also labels that specify the type of issue, like `Documentation`.
 
-We highly recommend using labels to maintain a clear structure. 
+We highly recommend using labels to maintain a clear structure.
 You can view all our current labels [here](https://github.com/it-at-m/refarch-templates/labels) for inspiration.
 For more information on how to set up labels for your own project, please check the official [GitHub documentation](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels).
 
@@ -18,10 +18,10 @@ Your project labels are also utilized for [Automatic Labeling](#automatic-labeli
 
 ## Issue Templates
 
-Issue templates are essential for the project. 
+Issue templates are essential for the project.
 They streamline the process of reporting bugs, requesting features, or providing feedback.
 
-These templates guide contributors in sharing relevant information, ensuring clarity and improving communication. 
+These templates guide contributors in sharing relevant information, ensuring clarity and improving communication.
 Using them enhances collaboration and creates a more efficient development process.
 
 Currently, there are four types of issue templates available for use.
@@ -73,7 +73,7 @@ By default, all LHM projects are licensed under [MIT](https://choosealicense.com
 For new contributors who create their first issue, open their first PR, or merge their first PR, we use a welcome bot to appreciate their contributions.
 The configuration for the bot is inside `.github/config.yml` and can be modified if needed.
 
-The bot is not enabled by default for new projects. 
+The bot is not enabled by default for new projects.
 To enable it, you need to go to the [GitHub site](https://probot.github.io/apps/welcome/) and press the `+ Add to GitHub` button. Afterward, select your project to add it.
 
 ## Automatic Labeling
@@ -81,7 +81,7 @@ To enable it, you need to go to the [GitHub site](https://probot.github.io/apps/
 To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr_labeler.yml` with custom configuration in `.github/labeler.yml`.
 Make sure to adjust the configuration file to your specific project needs.
 
-Labeling depends on the branch prefix or your branch name. 
+Labeling depends on the branch prefix or your branch name.
 For example, the following line:
 
 ```yml
