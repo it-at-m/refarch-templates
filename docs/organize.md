@@ -43,6 +43,12 @@ If needed, you can extend or remove any templates.
 Out of the box, issues created with one of the
 templates will be automatically labeled.
 
+Please check the official GitHub documentation for
+further information.
+
+**Note**: Issue forms are currently a preview 
+feature and thus subject to change in the future.
+
 - **Bug Report**: Report a bug to help the project improve.
 - **Feature Request**: Suggest an idea or possible new feature for this project.
 - **Maintenance Work**: Suggest useful or required maintenance work for this project.
