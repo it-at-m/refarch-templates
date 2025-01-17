@@ -60,15 +60,15 @@ jobs:
         run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
-  build-image:  
+  build-image:
     runs-on: ubuntu-latest
     needs: release
     steps:
       - uses: it-at-m/.github/.github/actions/action-build-image@main
         with:
-          path: "${{  inputs.app-path }}"
-          image-name: "${{  inputs.app-path }}"
-          artifact-name:  ${{ needs.release.outputs.ARTIFACT_NAME }}
+          path: "${{ inputs.app-path }}"
+          image-name: "${{ inputs.app-path }}"
+          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
           image-tags: |
