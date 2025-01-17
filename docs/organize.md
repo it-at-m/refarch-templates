@@ -127,9 +127,9 @@ with custom configuration in `.github/labeler.yml`.
 Labeling depends on the branch prefix and your
 branch name. For example, the following line:
 
-```
+```yml
 "Type: Feature":
-  - head-branch: [ '^feat', '-feature-' ]
+  - head-branch: ["^feat", "-feature-"]
 ```
 
 will add a label to a pull request if the branch
@@ -138,10 +138,10 @@ name has `feat` as a prefix, e.g., `feat/001-ticket`.
 It will also add a label based on which files were
 changed, which is useful for multi-project repos.
 
-```
+```yml
 "Template: EAI":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-eai/**']
+      - any-glob-to-any-file: ["refarch-eai/**"]
 ```
 
 This will add an `EAI` label if changes in the EAI
