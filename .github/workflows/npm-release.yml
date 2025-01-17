@@ -16,7 +16,7 @@ on:
         description: Service-Name
         required: true
         options:
-          - sps-frontend # todo: muss angepasst werden. eigenen Ordner verwenden
+          - refarch-frontend # Please alter and add folder names to your specific project needs
 
 jobs:
   release:
@@ -30,8 +30,6 @@ jobs:
     outputs:
       ARTIFACT_NAME: ${{ steps.npm_release.outputs.ARTIFACT_NAME }}
       VERSION: ${{steps.npm_release.outputs.VERSION}}
-    env: 
-     skipDeployment: false
     steps:
       - name: NPM Release
         id: npm_release
@@ -40,8 +38,7 @@ jobs:
           app-path: ${{inputs.app-path}}
           releaseVersion: ${{inputs.releaseVersion}}
 
-  
-  build-image:  
+  build-image:
     runs-on: ubuntu-latest
     needs: release
     steps:
@@ -49,7 +46,7 @@ jobs:
         with:
           path: "${{  inputs.app-path }}"
           image-name: "${{  inputs.app-path }}"
-          artifact-name:  ${{ needs.release.outputs.ARTIFACT_NAME }}
+          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
           image-tags: |
@@ -64,4 +61,3 @@ jobs:
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           tag-name: ${{ needs.release.outputs.VERSION }}
-          # artifact-path: ""
