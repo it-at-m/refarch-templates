@@ -121,8 +121,7 @@ the `+ Add to GitHub` button. Afterward, select your project to add it.
 
 ## Automatic Labeling
 
-To automatically label pull requests, the project
-uses a [Labeler Action](https://github.com/actions/labeler)
+To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr_labeler.yml` 
 with custom configuration in `.github/labeler.yml`.
 Make sure to adjust the configuration file to your specific project needs.
 
