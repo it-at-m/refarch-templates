@@ -125,7 +125,7 @@ To automatically label pull requests, the project
 uses a [Labeler Action](https://github.com/actions/labeler)
 with custom configuration in `.github/labeler.yml`.
 
-Labeling depends on the branch prefix and your
+Labeling depends on the branch prefix or your
 branch name. For example, the following line:
 
 ```yml
