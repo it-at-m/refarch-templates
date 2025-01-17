@@ -16,7 +16,7 @@ on:
         description: Select the node service to release
         required: true
         options:
-          - refarch-frontend # Please alter and add folder names to your specific project needs
+          - refarch-frontend # Add or modify frontend paths according to your project structure
 
 jobs:
   release:
