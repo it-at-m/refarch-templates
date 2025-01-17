@@ -19,8 +19,8 @@ We highly recommend using labels to maintain a
 clear structure. You can view all current labels
 [here](https://github.com/it-at-m/refarch-templates/labels).
 
-These labels are also utilized for Automatic
-Labeling, which will be explained later.
+These labels are also utilized for [Automatic
+Labeling](#automatic-labeling).
 
 ## Issue Templates
 
@@ -109,14 +109,14 @@ MIT.
 
 ## Welcome Bot
 
-For new Contributors, that create their first Issue, Open there First
-PR or Merge their first Pr, we use a welcome bot To appreciate the
-Contribution that are doing. The config for the Bot is inside
-the `.github/config.yml` and can be changed if wanted.
+For new contributors who create their first issue, open their first
+PR, or merge their first PR, we use a welcome bot to appreciate their
+contributions. The configuration for the bot is inside
+`.github/config.yml` and can be modified if need
 
-The Bot is not enabled per default for a new project. To Enable it you need
-to go to the [github site](https://probot.github.io/apps/welcome/) and press
-the `+ Add to Github` button, afterwards your need to select your project to add it.
+The bot is not enabled by default for new projects. To enable it, you need
+to go to the [GitHub site](https://probot.github.io/apps/welcome/) and press
+the `+ Add to GitHub` button. Afterward, select your project to add it.
 
 ## Automatic Labeling
 
