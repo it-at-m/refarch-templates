@@ -75,8 +75,7 @@ comprehensive solutions like Jira.
 
 ## Code of Conduct
 
-The Code of Conduct is a crucial part of our
-project's documentation. It outlines expected
+The Code of Conduct (which can be found in `.github/CODE_OF_CONDUCT.md`) outlines expected
 behaviors to ensure a respectful and inclusive
 environment for all contributors.
 
