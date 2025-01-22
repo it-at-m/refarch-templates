@@ -28,7 +28,7 @@
     "@tsconfig/node-lts": "22.0.1",
     "@types/node": "22.10.7",
     "@vitejs/plugin-vue": "5.2.1",
-    "@vue/eslint-config-prettier": "10.1.0",
+    "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.3.0",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.7.0",
