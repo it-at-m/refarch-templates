@@ -8,7 +8,9 @@ The purpose of these templates is to provide developers with an out-of-the-box s
 building full-stack applications based on the reference architecture (RefArch) of it@M.
 For more information on the RefArch itself, please visit the [RefArch documentation](https://refarch.oss.muenchen.de/)
 
-**Important**: To use the `refarch-templates` you need to have [Docker](https://www.docker.com/) installed on your system.
+::: danger IMPORTANT
+To use the `refarch-templates` you need to have [Docker](https://www.docker.com/) installed on your system.
+:::
 
 ## Getting the templates
 
@@ -36,8 +38,11 @@ git clone https://github.com/it-at-m/refarch-templates.git
 
 Once the templates are available locally, copy the folders you need into your own project directory.
 For example, if you want to work with the backend, you should copy the `refarch-backend` folder.
+If you want documentation, you should copy the `docs` folder.
 
-**Important**: The `stack` folder must be copied to your project directory, as it contains essential components required by the templates.
+::: danger IMPORTANT
+The `stack` folder must be copied to your project directory, as it contains essential components required by the templates.
+:::
 
 Besides the code templates, `refarch-templates` provides lots of other configuration files which help to establish
 best practices in project development, documentation and organisation. Copy those over as well, if you want to use them.
@@ -60,7 +65,9 @@ file that will spin up everything needed for local development.
 You can spin up the stack by using the integrated Docker features of your favorite IDE, by using a dedicated Docker UI
 or by executing the command `docker compose up` from within the `stack` folder.
 
-**Important**: When developing locally, the stack should always be running.
+::: danger IMPORTANT
+When developing locally, the stack must always be running.
+:::
 
 ### Stack components
 
@@ -142,15 +149,28 @@ By default, the template supports two Maven profiles:
 - Node.js 22 LTS (`22.11.x` - `22.x.x`)
 - Docker (for AppSwitcher)
 
-### Configure Templates
+### Configure templates
 
 After getting the templates, you will need to make a few adjustments in the respective template directories:
 
 1. Rename the folder you copied (e.g. from `refarch-frontend` to `myapp-frontend`).
 2. Change the artifact `name` inside the `package.json` file.
-3. Generate a new `package-lock.json` file by executing the command `npm install`.
+3. Download dependencies and generate a new `package-lock.json` file by executing the command `npm install`.
 
 Congratulations, the Frontend/WebComponent is now ready to use.
+
+## Documentation
+
+### Prerequisites
+
+- Node.js 22 LTS (`22.11.x` - `22.x.x`)
+
+### Configure documentation
+
+After getting the documentation template (`docs` directory), you will need to make a few adjustments inside the directory:
+
+1. Change the artifact `name` inside the `package.json` file (e.g. from `refarch-templates-docs` to `myapp-docs`).
+2. Download dependencies and generate a new `package-lock.json` file by executing the command `npm install`.
 
 ## Next steps
 
