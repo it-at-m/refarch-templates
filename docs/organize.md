@@ -37,7 +37,9 @@ Out of the box, issues created with one of the templates will be automatically l
 
 Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms) for further information.
 
-**Note**: Issue forms are currently a preview feature and thus subject to change in the future.
+::: danger IMPORTANT
+Issue forms are currently a GitHub preview feature and thus subject to change in the future.
+:::
 
 ## GitHub Projects
 
@@ -99,4 +101,4 @@ It will also add a label based on which files were changed, which is useful for 
       - any-glob-to-any-file: ["refarch-eai/**"]
 ```
 
-This will add an `EAI` label if changes in the EAI folder have occurred.
+This will add an `Template: EAI` label if changes in the `refarch-eai` folder have occurred.
