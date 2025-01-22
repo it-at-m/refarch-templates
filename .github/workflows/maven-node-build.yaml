@@ -21,7 +21,7 @@ jobs:
           - app-path: refarch-webcomponent
           - app-path: docs
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: it-at-m/.github/.github/actions/action-checkout@main
       - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}}
         id: node
         uses: it-at-m/.github/.github/actions/action-npm-build@main

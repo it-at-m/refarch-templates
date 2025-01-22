@@ -3,10 +3,6 @@
 The templates include various tools and best practices to help you with documenting your software project.
 Those will be further explained below.
 
-## Prerequisites
-
-- Node.js 22 LTS (`22.11.x` - `22.x.x`)
-
 ## README.md
 
 The `README.md` acts as an entrypoint to your GitHub repository and thus should have the most important information about your repository.
@@ -27,8 +23,11 @@ If you need further information about Markdown itself, please check out this [gu
 
 By combining the use of Markdown with the Node-based tool [Vitepress](https://vitepress.dev/), we enable easy conversion of raw markdown files into aesthetically pleasing and easy to use static web pages.
 
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 In the [templates repository](https://github.com/it-at-m/refarch-templates), you will find a `docs` folder. This folder holds your markdown files and other configuration files for Vitepress itself.
-To get started and install the required tools, execute `npm install` inside the folder.
 For more information on Vitepress and its configuration options, please check out its [Getting Started Guide](https://vitepress.dev/guide/getting-started).
 
 If you want a preview of the documentation while writing, use the `npm run dev` script to spin up a web server serving your documentation.
