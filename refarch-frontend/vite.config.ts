@@ -41,8 +41,9 @@ export default defineConfig(({ mode }) => {
         "/api": "http://localhost:8083",
         "/actuator": "http://localhost:8083",
       },
+      allowedHosts: ["host.docker.internal"], // required to use frontend behind proxy (e.g. API Gateway)
       headers: {
-        "x-frame-options": "SAMEORIGIN", // required to use devtools behind proxy (e.g. API gateway)
+        "x-frame-options": "SAMEORIGIN", // required to use devtools behind proxy (e.g. API Gateway)
       },
     },
     resolve: {

@@ -3,9 +3,18 @@
 The templates include various tools and best practices to help you with documenting your software project.
 Those will be further explained below.
 
-## Prerequisites
+## README.md
 
-- Node.js 22 LTS (`22.11.x` - `22.x.x`)
+The `README.md` acts as an entrypoint to your GitHub repository and thus should have the most important information about your repository.
+We highly suggest you only include the most important stuff and use a dedicated documentation page (see more in the sections down below) for the actual content.
+But if you have a small repository and don't need a dedicated documentation page, you can use the `README.md` file for that purpose as well.
+
+Nonetheless, we provide a template for your `README.md` file inside the `.github` folder. This file needs to be adjusted to your specific project.
+Alter the project name, description, used technologies and remove sections like "Roadmap" if you don't need them. Also update the project shields and links at the top of the file to your needs.
+Please check out the [shields.io documentation](https://shields.io/) for further information.
+
+When you solely use the `README.md` as your documentation also make sure that any links to externally hosted documentation are reachable or removed if not required.
+Also in this case, the sections below are irrelevant to you.
 
 ## Writing the documentation
 
@@ -14,8 +23,11 @@ If you need further information about Markdown itself, please check out this [gu
 
 By combining the use of Markdown with the Node-based tool [Vitepress](https://vitepress.dev/), we enable easy conversion of raw markdown files into aesthetically pleasing and easy to use static web pages.
 
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 In the [templates repository](https://github.com/it-at-m/refarch-templates), you will find a `docs` folder. This folder holds your markdown files and other configuration files for Vitepress itself.
-To get started and install the required tools, execute `npm install` inside the folder.
 For more information on Vitepress and its configuration options, please check out its [Getting Started Guide](https://vitepress.dev/guide/getting-started).
 
 If you want a preview of the documentation while writing, use the `npm run dev` script to spin up a web server serving your documentation.
