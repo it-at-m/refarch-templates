@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Create GitHub Release
         id: create_release
-        uses: it-at-m/.github/.github/actions/action-create-github-release@82_addWrapper
+        uses: it-at-m/.github/.github/actions/action-create-github-release@main
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           tag-name: ${{ needs.release.outputs.ARTIFACT_VERSION }}
