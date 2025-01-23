@@ -19,7 +19,7 @@ on:  # yamllint disable-line rule:truthy
           - refarch-frontend # Add or modify frontend paths according to your project structure
 jobs:
   release:
-    name: Release
+    name: release
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
