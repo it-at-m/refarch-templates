@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, test } from "vitest";
 
 describe("this", () => {
-  it("is a test", () => {
+  test("is a test", () => {
     expect(1).toEqual(1);
   });
 });
