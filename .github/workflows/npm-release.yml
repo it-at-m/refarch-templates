@@ -30,7 +30,7 @@ jobs:
       ARTIFACT_NAME: ${{ steps.npm_release.outputs.ARTIFACT_NAME }}
       ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
     steps:
-      - name: NPM Release
+      - name: Npm Release
         id: npm_release
         uses: it-at-m/.github/.github/actions/action-npm-release@main
         with:
