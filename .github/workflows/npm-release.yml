@@ -43,13 +43,14 @@ jobs:
     steps:
       - uses: it-at-m/.github/.github/actions/action-build-image@main
         with:
-          path: "${{  inputs.app-path }}"
-          image-name: "${{  inputs.app-path }}"
+          path: "${{ inputs.app-path }}"
+          image-name: "${{ inputs.app-path }}"
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ needs.release.outputs.ARTIFACT_VERSION }}
+            type=raw,value=latest
   create-github-release:
     needs: release
     runs-on: ubuntu-latest
