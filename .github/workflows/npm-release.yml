@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: NPM Release
         id: npm_release
-        uses: it-at-m/.github/.github/actions/action-npm-release@84-npm-docker-image-release
+        uses: it-at-m/.github/.github/actions/action-npm-release@main
         with:
           app-path: ${{inputs.app-path}}
           releaseVersion: ${{inputs.releaseVersion}}
