@@ -1,11 +1,11 @@
 name: npm-release
 
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       releaseVersion:
         type: choice
-        description: "Add node release."
+        description: "Select version increment type (follows Semantic Versioning)"
         required: true
         options:
           - patch
@@ -13,11 +13,10 @@ on:
           - major
       app-path:
         type: choice
-        description: Service-Name
+        description: "Select the node service to release"
         required: true
         options:
-          - refarch-frontend # Please alter and add folder names to your specific project needs
-
+          - refarch-frontend  # Add or modify frontend paths according to your project structure
 jobs:
   release:
     name: Release
