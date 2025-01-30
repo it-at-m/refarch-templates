@@ -29,6 +29,5 @@ jobs:
           app-path: ${{inputs.app-path}}
       - id: deploy_docs
         # Only deploy documentation from the main branch to prevent unauthorized changes
-        if: (github.ref_name == 'main')
 
         uses: it-at-m/.github/.github/actions/action-deploy-docs@main
