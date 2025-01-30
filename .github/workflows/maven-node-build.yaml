@@ -19,14 +19,15 @@ jobs:
           - app-path: refarch-frontend
           - app-path: refarch-eai
           - app-path: refarch-webcomponent
+
     steps:
       - uses: it-at-m/.github/.github/actions/action-checkout@main
-      - if:  ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}}
+      - if: ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}}
         id: node
         uses: it-at-m/.github/.github/actions/action-npm-build@main
         with:
-          app-path:  "${{ matrix.app-path }}"
-      - if:  ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}}
+          app-path: "${{ matrix.app-path }}"
+      - if: ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}}
         id: maven
         uses: it-at-m/.github/.github/actions/action-maven-build@main
         with:
