@@ -1,89 +1,73 @@
-# Develop
+# Development Documentation
 
 ## Docker Stack
-
-
+TBD]
 
 ## CI/CD Configurations
-### TBD
+TBD
 
-## Codeowners
+## CODEOWNERS
 
-A CODEOWNERS file is a special file used in version control systems like GitHub to define who is responsible for specific parts of a project. 
-It allows teams to designate individuals or teams as "owners" for different files or directories in the repository.
-
-When a change is made to a file or directory covered by the CODEOWNERS file, the designated owners will automatically be requested for review.
-This helps ensure that the right people are involved in the review process, improving code quality and accountability.
+The **CODEOWNERS** file is an essential tool in version control systems like GitHub. It specifies who is responsible for different parts of the project, ensuring that the right people are involved in code reviews.
 
 ### How It Works
 
-- **Location**: The CODEOWNERS file is located  in the `.github/` directory.
-- **Syntax**: Each line in the file specifies a path and the corresponding owner(s) using their GitHub usernames or team names.
+- **Location**: The CODEOWNERS file resides in the `.github/` directory.
+- **Syntax**: Each line identifies a file or directory along with the owner(s) using their GitHub usernames or team names.
 
+When modifications are made to these files, the designated owners receive a review request automatically, enhancing code quality and accountability.
 
 ## Pull Request Tooling
-If a pull Request gets created, there are differnt tools that will help to kepp good code quality
+
+When a pull request (PR) is created, several tools help maintain code quality:
 
 ### Code Rabbit
-Code Rabbit ia an AI-Powered code reviewer for pull requests. 
-The configuration file can be found at the root of the project inside the `.coderabbit.yaml` file.
-More Informations about Code Rabbit can be found [here](https://docs.coderabbit.ai/)
+**Code Rabbit** is an AI-powered code reviewer that assists with PR assessments. The configuration file can be found at the root of the project in `.coderabbit.yaml`. More information is available [here](https://docs.coderabbit.ai/).
 
 ### CodeQL
-CodeQL is a Github Tool that helps discover vulnerabilityies. 
-To use it, you need to adjust the file inside `.github/workflows/codeql.yml`, where you need to add your java projects to the `java-build-path` variable.
-More Informations can be found [here](https://codeql.github.com/)
+**CodeQL** is a GitHub tool for discovering vulnerabilities in code. To use it, update the `.github/workflows/codeql.yml` file by adding Java projects to the `java-build-path` variable. More details can be found [here](https://codeql.github.com/).
 
-### Dependencie Review
-To check, that only dependencies with allowed licenses are contained, there is a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml).
-The allowed licenses can be viewed [here](https://opensource.muenchen.de/de/licenses.html#einbindung-in-eigenentwicklungen)
+### Dependency Review
+To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented. The allowed licenses can be viewed [here](https://opensource.muenchen.de/de/licenses.html#einbindung-in-eigenentwicklungen).
 
-### Github Rules
-We recommend checking the rulesets for pushing and merging inside the github repository.
-Depending on your project and Branching strategy, some branches should be protected to deny force pushes and Merging withouth approve.
-The Setting can be changed under `Settings > Rules > Rulesets`.
+### GitHub Rules
+It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval. These settings can be modified under `Settings > Rules > Rulesets`.
 
 ## LCM Tooling
 
-To keep our LCM up-to-date we are using [Renovate](https://docs.renovatebot.com/). 
-The Bot is globaly configured with [custom settings](https://github.com/it-at-m/.github/tree/main/renovate-configs)
-and refarch [specific settings](https://github.com/it-at-m/refarch/blob/main/refarch-tools/refarch-renovate/refarch-renovate-config.json5).
-these configurations contain settings, so that for each directory a branch for an dependecie upgrade will be created.
-e.g. If Two projects contain `spotless-maven-plugin` there will be two branches, one for each project.
+To keep Lifecycle Management (LCM) up to date, [Renovate](https://docs.renovatebot.com/) is used. The bot is configured globally with [custom settings](https://github.com/it-at-m/.github/tree/main/renovate-configs) and repository-specific settings [here](https://github.com/it-at-m/refarch/blob/main/refarch-tools/refarch-renovate/refarch-renovate-config.json5).
 
-If you want to change the default renovate-bot settings, you can change the `renovate.json5` file inside the root of your project
-and add or change settings. 
+These configurations ensure that a branch for each dependency upgrade is created for every project. For example, if two projects use `spotless-maven-plugin`, two separate branches will be created.
+
+To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
 
 ::: danger IMPORTANT
-Normally Renovate will Auto-Merge created MRs that have been approved. 
-To activate that behavior, the first PR needs to be merged manually
+Renovate will automatically merge created merge requests (MRs) that have been approved. To activate this feature, the first PR must be merged manually.
 :::
 
 ## Technologies
 
-In the following, the note worthy Technologies that are used for the Templates will be explained briefly.
+Key technologies used in the templates include:
 
 ### Vite
-For our Build Tool, [Vite](https://vite.dev/) is used with the corresponding Test Framework [Vitest](https://vitest.dev/)
+[Vite](https://vite.dev/) is used as the build tool, along with the testing framework [Vitest](https://vitest.dev/).
 
-### Patternlab
-When Using the refarch-webcomponent for development and integration inside the official website of munich, webcomponents should use [Patternlab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs) for UI-Components 
+### PatternLab
+For web component development and integration with the official Munich website, [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs) is utilized.
 
 ### Vue Dev Tools
-The [Vue Dev tools](https://devtools.vuejs.org/) are available inside the browser console and via the icon on the bottom of the screen.
+The [Vue Dev Tools](https://devtools.vuejs.org/) are available in the browser console and through an icon at the bottom of the screen.
 
 ### App Switcher
-The [App swichter](https://github.com/it-at-m/appswitcher-server/pkgs/container/appswitcher-server) can be found at the app-bar int he frontend. 
-To Change the icons inside, you can add them inside the Docker-compose file configuration
+The [App Switcher](https://github.com/it-at-m/appswitcher-server/pkgs/container/appswitcher-server) is accessible from the app bar in the frontend. Icons can be updated by modifying the Docker Compose file configuration.
 
-### Linting and Code-formatter
-#### Frontend
-For linting and Code-Formatting [Prettier](https://prettier.io/) and [EsLint](https://eslint.org/) is beeing used.
-#### Backend
-For Linting and code-Formatting [Spotless](https://github.com/diffplug/spotless) and [PMD](https://pmd.github.io/) is beeing used
+### Linting and Code Formatting
+- **Frontend**: [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) are used for linting and code formatting.
+- **Backend**: For linting and code formatting, [Spotless](https://github.com/diffplug/spotless) and [PMD](https://pmd.github.io/) are utilized.
 
 ### Flyway
-For Database Migrations [Flyway](https://documentation.red-gate.com/flyway/getting-started-with-flyway) is beeing used. It will run on the startup of the application. If you want to run it directly you can use the commands
+For database migrations, [Flyway](https://documentation.red-gate.com/flyway/getting-started-with-flyway) is employed. It runs at application startup. The following commands can also be used directly:
+
 ```
  - Clean database: mvn flyway:clean
  - Apply migrations: mvn flyway:migrate
