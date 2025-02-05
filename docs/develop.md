@@ -1,4 +1,4 @@
-# Development Documentation
+# Development
 
 ## CI/CD Configurations
 
