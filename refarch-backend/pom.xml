@@ -310,6 +310,8 @@
     </scm>
 
     <build>
+        <!-- Define the name of the jar -->
+        <finalName>application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -478,7 +480,7 @@
                      - Clean database: mvn flyway:clean
                      - Apply migrations: mvn flyway:migrate
                      - Reset and migrate: mvn flyway:clean flyway:migrate
-                     
+
                      Note: Use -Dflyway.cleanDisabled=false when running clean command
                 -->
                 <groupId>org.flywaydb</groupId>

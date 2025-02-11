@@ -144,6 +144,8 @@
     </dependencies>
 
     <build>
+        <!-- Define the name of the jar -->
+        <finalName>application</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
