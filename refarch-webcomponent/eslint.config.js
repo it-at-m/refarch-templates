@@ -18,6 +18,9 @@ export default defineConfigWithVueTs(
     ignores: ["dist", "target", "node_modules", "env.d.ts"],
   },
   {
+    linterOptions: {
+      reportUnusedDisableDirectives: "error",
+    },
     rules: {
       "no-console": ["error", { allow: ["debug"] }],
       "vue/component-name-in-template-casing": [
