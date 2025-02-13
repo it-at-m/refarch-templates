@@ -80,7 +80,7 @@ services:
     security_opt: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.72@sha256:48a3e0b9b98a087f5f651a5462330cf0aefd1101936bfbf67b3ee3f9815eb289
+    image: klg71/keycloakmigration:0.2.75@sha256:f799e2c32e424de1edaae31ce41d3e856197746b40de73db0a242df3743415d7
     depends_on:
       - keycloak
     environment:
