@@ -20,6 +20,7 @@ export default defineConfigWithVueTs(
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",
+      reportUnusedInlineConfigs: "error",
     },
     rules: {
       "no-console": ["error", { allow: ["debug"] }],
