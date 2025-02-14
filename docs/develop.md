@@ -23,7 +23,7 @@ Inside the `stack` folder, you will find a `docker-compose.yml` file that will s
 You can spin up the stack by using the integrated Docker features of your favorite IDE, by using a dedicated Docker UI
 or by executing the command `docker compose up` from within the `stack` folder.
 
-Stack components (as Docker Images);
+Stack components (as Docker Images):
 
 - [Keycloak](https://www.keycloak.org/): Keycloak instance as a local SSO provider
 - [Keycloak Migration](https://mayope.github.io/keycloakmigration/): Migration tool to set up the local SSO provider by executing scripts upon startup, configuration via `.yml` files in `stack/keycloak/migration`
@@ -133,7 +133,7 @@ Additionally, the following maven goals can be run manually:
 - Reset and migrate: `mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false`
 
 To maintain your migration files check the folder `db.migration` inside the `resources` folder of the Java project.
-For more information about how to work with Flyway, checkout it`s [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
+For more information about how to work with Flyway, checkout it's [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
 
 ### App Switcher
 
