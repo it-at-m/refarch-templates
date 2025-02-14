@@ -2,6 +2,10 @@
 
 The following explains the currently used practices and recommendations for organizing your projects in GitHub.
 
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 ## Labeling
 
 Labels are used for various purposes.

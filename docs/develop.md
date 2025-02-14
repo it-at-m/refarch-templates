@@ -1,19 +1,30 @@
 # Development
 
+We include various development tools to simplify the development process and make development more comfortable and error-resistant.
+Those tools will be further explained below.
+
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 ## CI/CD Configurations
 
 TBD
 
 ## CODEOWNERS
 
-The **CODEOWNERS** file is an essential tool in version control systems like GitHub. It specifies who is responsible for different parts of the project, ensuring that the right people are involved in code reviews.
+The **CODEOWNERS** file (found under the `.github` directory of the template) is an essential tool in version control systems like GitHub. 
 
-### How It Works
-
-- **Location**: The CODEOWNERS file resides in the `.github/` directory.
-- **Syntax**: Each line identifies a file or directory along with the owner(s) using their GitHub usernames or team names.
-
+It specifies who is responsible for different parts of the project, ensuring that the right people are involved in code reviews.
 When modifications are made to these files, the designated owners receive a review request automatically, enhancing code quality and accountability.
+
+Each line identifies a file or directory along with the owner(s) using their GitHub usernames or team names.
+
+::: danger IMPORTANT
+Please alter the CODEOWNERS file to list project members or team names for your own project.
+Otherwise the [RefArch maintainer team (only accessible for it-at-m members)](https://github.com/orgs/it-at-m/teams/refarch-maintainer) has to approve all your code changes.
+You definitely don't want that, as we are super nitpicky when it comes to code quality. ;)
+:::
 
 ## Pull Request Tooling
 
@@ -21,11 +32,25 @@ When a pull request (PR) is created, several tools help maintain code quality:
 
 ### Code Rabbit
 
-**Code Rabbit** is an AI-powered code reviewer that assists with PR assessments. The configuration file can be found at the root of the project in `.coderabbit.yaml`. More information is available [here](https://docs.coderabbit.ai/).
+**Code Rabbit** is an AI-powered code reviewer that assists with PR assessments. The configuration file can be found at the root of the templates in `.coderabbit.yaml`. 
+
+Our configuration enables automatic reviews (and follow-up reviews when changes to a PR have been made). Additionally, we set CodeRabbit in "nitpicky" mode to find all of those nasty bugs.
+Feel free to customize the configuration to your own needs. More information is available in the [official documentation](https://docs.coderabbit.ai/).
+
+::: info Information
+To make CodeRabbit work make sure that it has access to your GitHub repository. For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
+:::
 
 ### CodeQL
 
-**CodeQL** is a GitHub tool for discovering vulnerabilities in code. To use it, update the `.github/workflows/codeql.yml` file by adding Java projects to the `java-build-path` variable. More details can be found [here](https://codeql.github.com/).
+**CodeQL** is a GitHub tool for discovering vulnerabilities and code smells in code. More details can be found [here](https://codeql.github.com/).
+
+The template enables CodeQL for Pull Requests and configures CodeQL to only scan for Java and JavaScript/TypeScript/Vue files by default.
+For further information on how to change the configuration, please check out the documentation of the related custom [GitHub workflow](https://github.com/it-at-m/.github/blob/main/workflow-templates/codeql.yaml).
+
+::: danger IMPORTANT
+If you are using Java based projects inside your repository, your need to add those to the `java-build-path` variable pointing to the directory of the `pom.xml` files.
+:::
 
 ### Dependency Review
 
@@ -84,7 +109,14 @@ Not all IDEs are supported right now, please check out [supported editors](https
 
 ### App Switcher
 
-The [App Switcher](https://github.com/it-at-m/appswitcher-server/pkgs/container/appswitcher-server) is accessible from the app bar in the frontend. Icons can be updated by modifying the Docker Compose file configuration.
+The [App Switcher](https://github.com/it-at-m/appswitcher-server) is a feature accessible from the app bar in the frontend.
+
+While developing, this is especially useful to access useful development tools tied to the local Docker stack.
+This includes the KeyCloak management UI, pgAdmin to check the application database and a possibility to open Vue DevTools in a separate browser tab.
+
+::: tip Tip
+The configuration in the `application.yml` file (inside the `appswitcher-server` directory of the stack) can be modified to include additional tools required for your specific project setup.
+:::
 
 ### Linting and Code Formatting
 
