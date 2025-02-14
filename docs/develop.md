@@ -7,90 +7,34 @@ Those tools will be further explained below.
 Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
 :::
 
-## CI/CD Configurations
-
-TBD
-
-## CODEOWNERS
-
-The **CODEOWNERS** file (found under the `.github` directory of the template) is an essential tool in version control systems like GitHub. 
-
-It specifies who is responsible for different parts of the project, ensuring that the right people are involved in code reviews.
-When modifications are made to these files, the designated owners receive a review request automatically, enhancing code quality and accountability.
-
-Each line identifies a file or directory along with the owner(s) using their GitHub usernames or team names.
-
-::: danger IMPORTANT
-Please alter the CODEOWNERS file to list project members or team names for your own project.
-Otherwise the [RefArch maintainer team (only accessible for it-at-m members)](https://github.com/orgs/it-at-m/teams/refarch-maintainer) has to approve all your code changes.
-You definitely don't want that, as we are super nitpicky when it comes to code quality. ;)
-:::
-
-## Pull Request Tooling
-
-When a pull request (PR) is created, several tools help maintain code quality:
-
-### Code Rabbit
-
-**Code Rabbit** is an AI-powered code reviewer that assists with PR assessments. The configuration file can be found at the root of the templates in `.coderabbit.yaml`. 
-
-Our configuration enables automatic reviews (and follow-up reviews when changes to a PR have been made). Additionally, we set CodeRabbit in "nitpicky" mode to find all of those nasty bugs.
-Feel free to customize the configuration to your own needs. More information is available in the [official documentation](https://docs.coderabbit.ai/).
-
-::: info Information
-To make CodeRabbit work make sure that it has access to your GitHub repository.
-For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
-:::
-
-### CodeQL
-
-**CodeQL** is a GitHub tool for discovering vulnerabilities and code smells in code. More details can be found [here](https://codeql.github.com/).
-
-The template enables CodeQL for Pull Requests and configures CodeQL to only scan for Java and JavaScript/TypeScript/Vue files by default.
-For further information on how to change the configuration, please check out the documentation of the related custom [GitHub workflow](https://github.com/it-at-m/.github/blob/main/workflow-templates/codeql.yaml).
-
-::: danger IMPORTANT
-If you are using Java based projects inside your repository, your need to add those to the `java-build-path` variable pointing to the directory of the `pom.xml` files.
-:::
-
-### Dependency Review
-
-To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented.
-This is enabled by default when using the templates.
-
-The allowed licenses can be viewed [here](https://opensource.muenchen.de/licenses.html#integration-in-in-house-developments).
-
-### GitHub Rules
-
-It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval.
-More information about Rulesets can be found in the [official GitHub documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
-
-Also note that the tools mentioned above (CodeRabbit, CodeQL, Dependency Review) are optional by default and are not required to pass when a PR should be merged.
-We strongly encourage you to enable the status checks for those tools before being able to merge a PR. More information about status checks can be found [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks).
-Status checks are configurable as part of the rulesets.
-
-## Lifecycle Management (LCM) Tooling
-
-[Renovate](https://docs.renovatebot.com/) is used to keep your dependencies up to date. 
-
-The templates by default make use of a centralized configuration we provide for RefArch-based projects. More information can be found in the [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#renovate).
-
-To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
-
-::: info Information
-To make Renovate work make sure that it has access to your GitHub repository.
-For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
-:::
-
-::: danger IMPORTANT
-To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
-This PR then has to be merged manually once.
-After that's done Renovate will start opening PRs normally.
-:::
-
 ## Technologies
 
 Key technologies used in the templates include:
+
+### Docker
+
+[Docker](https://www.docker.com/) is used to run a local development stack including all necessary services.
+
+::: danger IMPORTANT
+When developing locally you need Docker installed on your system and the stack must always be running.
+:::
+
+Inside the `stack` folder, you will find a `docker-compose.yml` file that will spin up everything needed for local development.
+You can spin up the stack by using the integrated Docker features of your favorite IDE, by using a dedicated Docker UI
+or by executing the command `docker compose up` from within the `stack` folder.
+
+Stack components (as Docker Images);
+
+- [Keycloak](https://www.keycloak.org/): Keycloak instance as a local SSO provider
+- [Keycloak Migration](https://mayope.github.io/keycloakmigration/): Migration tool to set up the local SSO provider by executing scripts upon startup, configuration via `.yml` files in `stack/keycloak/migration`
+- [PostgreSQL](https://www.postgresql.org): Database instance for application data
+- [pgAdmin](https://www.pgadmin.org/): database management UI pre-configured to connect to the local PostgreSQL instance
+- [API Gateway](https://refarch.oss.muenchen.de/gateway): API gateway of the RefArch, configuration via environment variables in `docker-compose.yml`
+- [Appswitcher Server](https://github.com/it-at-m/appswitcher-server): Server component to access local development tools via the frontend UI
+
+::: info Information
+Some tools provide local Browser-based UIs. We encourage you to use the UI provided by App Switcher to open them.
+:::
 
 ### Vite
 
@@ -107,41 +51,7 @@ We use the following component libraries to speed up our frontend development an
 - Development of standalone web applications and SPAS: [Vuetify](https://vuetifyjs.com/en/)
 - Web Component Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
 
-### Vue Dev Tools
-
-The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when developing with Vue.js. Those include checking and editing component state, debugging the Pinia store, testing client-side routing, inspecting page elements and way more.
-
-The Vue Dev Tools are included as a development dependency inside the templates, so no further installation is required.
-
-A useful feature is the inspection of elements, which allows to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
-To make use of this feature a few steps have to be made on your machine.
-
-::: info  Information
-If you use Visual Studio Code, no further configuration has to be done. You can simply ignore the steps mentioned below.
-:::
-
-Steps to set up the IDE connection for Dev Tools:
-1. Make sure your IDE of choice can be accessed via your terminal environment (Some installers automatically add your IDE to the `PATH` variable, for some cases you might have to add it manually)
-2. Add a new environment variable for your shell environment called `LAUNCH_EDITOR` (depending on your operating system you can use files like `.bashrc` or the management feature of your OS)
-3. Set the value of `LAUNCH_EDITOR` to the name of your IDE executable (e.g. `idea`, `webstorm`, `codium`, `notepad++`)
-4. Make sure the environment variable is loaded (you might have to re-login into your user account depending on your OS)
-
-::: info Information
-Not all IDEs are supported right now, please check out [supported editors](https://github.com/webfansplz/vite-plugin-vue-inspector?tab=readme-ov-file#supported-editors) of the corresponding Vite plugin.
-:::
-
-### App Switcher
-
-The [App Switcher](https://github.com/it-at-m/appswitcher-server) is a feature accessible from the app bar in the frontend.
-
-While developing, this is especially useful to access useful development tools tied to the local Docker stack.
-This includes the KeyCloak management UI, pgAdmin to check the application database and a possibility to open Vue DevTools in a separate browser tab.
-
-::: tip Tip
-The configuration in the `application.yml` file (inside the `appswitcher-server` directory of the stack) can be modified to include additional tools required for your specific project setup.
-:::
-
-### Code Quality Tooling
+### Code Quality
 
 #### Frontend / WebComponent
 
@@ -181,6 +91,29 @@ The tools are configured through the respective configuration files or configura
 - PMD: `pom.xml` and using centralized configuration (more information in [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#pmd))
 - SpotBugs: `pom.xml` and `spotbugs-exclude-rules.xml` (configuration part of the templates)
 
+### Vue Dev Tools
+
+The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when developing with Vue.js. Those include checking and editing component state, debugging the Pinia store, testing client-side routing, inspecting page elements and way more.
+
+The Vue Dev Tools are included as a development dependency inside the templates, so no further installation is required.
+
+A useful feature is the inspection of elements, which allows to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
+To make use of this feature a few steps have to be made on your machine.
+
+::: info  Information
+If you use Visual Studio Code, no further configuration has to be done. You can simply ignore the steps mentioned below.
+:::
+
+Steps to set up the IDE connection for Dev Tools:
+1. Make sure your IDE of choice can be accessed via your terminal environment (Some installers automatically add your IDE to the `PATH` variable, for some cases you might have to add it manually)
+2. Add a new environment variable for your shell environment called `LAUNCH_EDITOR` (depending on your operating system you can use files like `.bashrc` or the management feature of your OS)
+3. Set the value of `LAUNCH_EDITOR` to the name of your IDE executable (e.g. `idea`, `webstorm`, `codium`, `notepad++`)
+4. Make sure the environment variable is loaded (you might have to re-login into your user account depending on your OS)
+
+::: info Information
+Not all IDEs are supported right now, please check out [supported editors](https://github.com/webfansplz/vite-plugin-vue-inspector?tab=readme-ov-file#supported-editors) of the corresponding Vite plugin.
+:::
+
 ### Database Migration
 
 [Flyway](https://documentation.red-gate.com/flyway) is used as our tool for database migration. 
@@ -193,3 +126,97 @@ Additionally, the following maven goals can be run manually:
 
 To maintain your migration files check the folder `db.migration` inside the `resources` folder of the Java project.
 For more information about how to work with Flyway, checkout it`s [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
+
+### App Switcher
+
+The [App Switcher](https://github.com/it-at-m/appswitcher-server) is a feature accessible from the app bar in the frontend.
+
+While developing, this is especially useful to access useful development tools tied to the local Docker stack.
+This includes the KeyCloak management UI, pgAdmin to check the application database and a possibility to open Vue DevTools in a separate browser tab.
+
+::: info Information
+The configuration in the `application.yml` file (inside the `appswitcher-server` directory of the stack) can be modified to include additional tools required for your specific project setup.
+:::
+
+## Lifecycle Management (LCM)
+
+[Renovate](https://docs.renovatebot.com/) is used to keep your dependencies up to date.
+
+The templates by default make use of a centralized configuration we provide for RefArch-based projects. More information can be found in the [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#renovate).
+
+To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
+
+::: info Information
+To make Renovate work make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
+:::
+
+::: danger IMPORTANT
+To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
+This PR then has to be merged manually once.
+After that's done Renovate will start opening PRs normally.
+:::
+
+## Pull Requests
+
+When a pull request (PR) is created, several tools help maintain code quality:
+
+### Code Rabbit
+
+**Code Rabbit** is an AI-powered code reviewer that assists with PR assessments. The configuration file can be found at the root of the templates in `.coderabbit.yaml`.
+
+Our configuration enables automatic reviews (and follow-up reviews when changes to a PR have been made). Additionally, we set CodeRabbit in "nitpicky" mode to find all of those nasty bugs.
+Feel free to customize the configuration to your own needs. More information is available in the [official documentation](https://docs.coderabbit.ai/).
+
+::: info Information
+To make CodeRabbit work make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
+:::
+
+### CodeQL
+
+**CodeQL** is a GitHub tool for discovering vulnerabilities and code smells in code. More details can be found [here](https://codeql.github.com/).
+
+The template enables CodeQL for Pull Requests and configures CodeQL to only scan for Java and JavaScript/TypeScript/Vue files by default.
+For further information on how to change the configuration, please check out the documentation of the related custom [GitHub workflow](https://github.com/it-at-m/.github/blob/main/workflow-templates/codeql.yaml).
+
+::: danger IMPORTANT
+If you are using Java based projects inside your repository, your need to add those to the `java-build-path` variable pointing to the directory of the `pom.xml` files.
+:::
+
+### Dependency Review
+
+To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented.
+This is enabled by default when using the templates.
+
+The allowed licenses can be viewed [here](https://opensource.muenchen.de/licenses.html#integration-in-in-house-developments).
+
+### GitHub Rules
+
+It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval.
+More information about Rulesets can be found in the [official GitHub documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
+
+::: danger IMPORTANT
+Note that the tools mentioned above (CodeRabbit, CodeQL, Dependency Review) are optional by default and are not required to pass when a PR should be merged.
+We strongly encourage you to enable the status checks for those tools before being able to merge a PR. More information about status checks can be found [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks).
+Status checks are configurable as part of the rulesets.
+:::
+
+## CI/CD Configurations
+
+TBD
+
+## CODEOWNERS
+
+The **CODEOWNERS** file (found under the `.github` directory of the template) is an essential tool in version control systems like GitHub.
+
+It specifies who is responsible for different parts of the project, ensuring that the right people are involved in code reviews.
+When modifications are made to these files, the designated owners receive a review request automatically, enhancing code quality and accountability.
+
+Each line identifies a file or directory along with the owner(s) using their GitHub usernames or team names.
+
+::: danger IMPORTANT
+Please alter the CODEOWNERS file to list project members or team names for your own project.
+Otherwise the [RefArch maintainer team (only accessible for it-at-m members)](https://github.com/orgs/it-at-m/teams/refarch-maintainer) has to approve all your code changes.
+You definitely don't want that, as we are super nitpicky when it comes to code quality. ;)
+:::
