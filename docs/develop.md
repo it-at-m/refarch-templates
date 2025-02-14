@@ -148,7 +148,7 @@ The configuration in the `application.yml` file (inside the `appswitcher-server`
 
 ## Lifecycle Management (LCM)
 
-[Renovate](https://docs.renovatebot.com/) is used to keep your dependencies up to date.
+[`Renovate`](https://docs.renovatebot.com/) is used to keep your dependencies up to date.
 
 The templates by default make use of a centralized configuration we provide for RefArch-based projects. More information can be found in the [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#renovate).
 
@@ -189,7 +189,7 @@ The template enables CodeQL for Pull Requests and configures CodeQL to only scan
 For further information on how to change the configuration, please check out the documentation of the related custom [GitHub workflow](https://github.com/it-at-m/.github/blob/main/workflow-templates/codeql.yaml).
 
 ::: danger IMPORTANT
-If you are using Java based projects inside your repository, your need to add those to the `java-build-path` variable pointing to the directory of the `pom.xml` files.
+If you are using Java-based projects inside your repository, you need to add those to the `java-build-path` variable pointing to the directory of the `pom.xml` files.
 :::
 
 ### Dependency Review
@@ -225,6 +225,6 @@ Each line identifies a file or directory along with the owner(s) using their Git
 
 ::: danger IMPORTANT
 Please alter the CODEOWNERS file to list project members or team names for your own project.
-Otherwise the [RefArch maintainer team (only accessible for it-at-m members)](https://github.com/orgs/it-at-m/teams/refarch-maintainer) has to approve all your code changes.
+Otherwise, the RefArch maintainers have to approve all your code changes.
 You definitely don't want that, as we are super nitpicky when it comes to code quality. ;)
 :::
