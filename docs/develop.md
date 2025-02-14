@@ -38,7 +38,8 @@ Our configuration enables automatic reviews (and follow-up reviews when changes 
 Feel free to customize the configuration to your own needs. More information is available in the [official documentation](https://docs.coderabbit.ai/).
 
 ::: info Information
-To make CodeRabbit work make sure that it has access to your GitHub repository. For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
+To make CodeRabbit work make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
 :::
 
 ### CodeQL
@@ -54,22 +55,37 @@ If you are using Java based projects inside your repository, your need to add th
 
 ### Dependency Review
 
-To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented. The allowed licenses can be viewed [here](https://opensource.muenchen.de/de/licenses.html#einbindung-in-eigenentwicklungen).
+To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented.
+This is enabled by default when using the templates.
+
+The allowed licenses can be viewed [here](https://opensource.muenchen.de/licenses.html#integration-in-in-house-developments).
 
 ### GitHub Rules
 
-It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval. These settings can be modified under `Settings > Rules > Rulesets`.
+It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval.
+More information about Rulesets can be found in the [official GitHub documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
 
-## LCM Tooling
+Also note that the tools mentioned above (CodeRabbit, CodeQL, Dependency Review) are optional by default and are not required to pass when a PR should be merged.
+We strongly encourage you to enable the status checks for those tools before being able to merge a PR. More information about status checks can be found [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/about-status-checks).
+Status checks are configurable as part of the rulesets.
 
-To keep Lifecycle Management (LCM) up to date, [Renovate](https://docs.renovatebot.com/) is used. The bot is configured globally with [custom settings](https://github.com/it-at-m/.github/tree/main/renovate-configs) and repository-specific settings [here](https://github.com/it-at-m/refarch/blob/main/refarch-tools/refarch-renovate/refarch-renovate-config.json5).
+## Lifecycle Management (LCM) Tooling
 
-These configurations ensure that a branch for each dependency upgrade is created for every project. For example, if two projects use `spotless-maven-plugin`, two separate branches will be created.
+[Renovate](https://docs.renovatebot.com/) is used to keep your dependencies up to date. 
+
+The templates by default make use of a centralized configuration we provide for RefArch-based projects. More information can be found in the [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#renovate).
 
 To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
 
+::: info Information
+To make Renovate work make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
+:::
+
 ::: danger IMPORTANT
-Renovate will automatically merge created merge requests (MRs) that have been approved. To activate this feature, the first PR must be merged manually.
+To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
+This PR then has to be merged manually once.
+After that's done Renovate will start opening PRs normally.
 :::
 
 ## Technologies
