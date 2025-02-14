@@ -41,6 +41,7 @@ Some tools provide local Browser-based UIs. We encourage you to use the UI provi
 [Vite](https://vite.dev/) is used as the build tool, along with the testing framework [Vitest](https://vitest.dev/).
 
 The following npm scripts are provided for working with those tools:
+
 - Start Vite development server: `npm run dev`
 - Run Vitest test execution: `npm run test`
 - Build the Vite project: `npm run build`
@@ -48,6 +49,7 @@ The following npm scripts are provided for working with those tools:
 ### Component libraries
 
 We use the following component libraries to speed up our frontend development and standardize the look and feel of our applications:
+
 - Development of standalone web applications and SPAS: [Vuetify](https://vuetifyjs.com/en/)
 - Web Component Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
 
@@ -59,6 +61,7 @@ We use the following component libraries to speed up our frontend development an
 Additionally, [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) is used for running type-checking when working with TypeScript.
 
 You can run those tools in combination by using the following npm scripts:
+
 - Lint your source code: `npm run lint`
 - Autofix issues: `npm run fix`
 
@@ -67,6 +70,7 @@ Not all issues are auto-fixable so you still might have some manual work to do a
 :::
 
 The tools are configured through the respective configuration files
+
 - Prettier: `.prettierrc.json` (points to a [centralized configuration](https://github.com/it-at-m/itm-prettier-codeformat))
 - ESLint: `eslint.config.js` (configuration part of the templates)
 
@@ -77,6 +81,7 @@ Additionally, [find-sec-bugs](https://github.com/find-sec-bugs/find-sec-bugs) is
 
 Those tools are configured inside the `pom.xml` files and automatically run when executing the respective Maven phases. (e.g. `mvn verify`)
 Alternatively you can also run the custom maven goals provided by those plugins:
+
 - Run Spotless formatting check: `mvn spotless:check`
 - Run Spotless formatting autofix: `mvn spotless:apply`
 - Run PMD lint check: `mvn pmd:check`
@@ -87,6 +92,7 @@ Issues reported by the PMD and SpotBugs are currently not auto-fixable so you st
 :::
 
 The tools are configured through the respective configuration files or configuration sections inside the `pom.xml`
+
 - Spotless: `pom.xml` and using a [centralized configuration](https://github.com/it-at-m/itm-java-codeformat)
 - PMD: `pom.xml` and using centralized configuration (more information in [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#pmd))
 - SpotBugs: `pom.xml` and `spotbugs-exclude-rules.xml` (configuration part of the templates)
@@ -100,11 +106,12 @@ The Vue Dev Tools are included as a development dependency inside the templates,
 A useful feature is the inspection of elements, which allows to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
 To make use of this feature a few steps have to be made on your machine.
 
-::: info  Information
+::: info Information
 If you use Visual Studio Code, no further configuration has to be done. You can simply ignore the steps mentioned below.
 :::
 
 Steps to set up the IDE connection for Dev Tools:
+
 1. Make sure your IDE of choice can be accessed via your terminal environment (Some installers automatically add your IDE to the `PATH` variable, for some cases you might have to add it manually)
 2. Add a new environment variable for your shell environment called `LAUNCH_EDITOR` (depending on your operating system you can use files like `.bashrc` or the management feature of your OS)
 3. Set the value of `LAUNCH_EDITOR` to the name of your IDE executable (e.g. `idea`, `webstorm`, `codium`, `notepad++`)
@@ -116,10 +123,11 @@ Not all IDEs are supported right now, please check out [supported editors](https
 
 ### Database Migration
 
-[Flyway](https://documentation.red-gate.com/flyway) is used as our tool for database migration. 
+[Flyway](https://documentation.red-gate.com/flyway) is used as our tool for database migration.
 
 It runs automatically when starting the backend application.
 Additionally, the following maven goals can be run manually:
+
 - Clean database: `mvn flyway:clean -Dflyway.cleanDisabled=false`
 - Apply migrations: `mvn flyway:migrate`
 - Reset and migrate: `mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false`
