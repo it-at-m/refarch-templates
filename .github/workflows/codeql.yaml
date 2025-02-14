@@ -1,0 +1,17 @@
+# Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
+name: "CodeQL Advanced"
+
+on:
+  # Runs on pull requests and on pushes to main (in order to keep the regular scanning by GitHub working)
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  codeql:
+    uses: it-at-m/.github/.github/workflows/codeql.yml@main
+    with:
+      analyze-java: true
+      analyze-javascript-typescript-vue: true
+      analyze-python: false
+      java-build-paths: "['./refarch-backend','./refarch-eai']"

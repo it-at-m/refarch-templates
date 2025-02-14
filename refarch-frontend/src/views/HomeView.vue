@@ -11,7 +11,7 @@
 
       <v-col class="mb-4">
         <h1 class="text-h3 font-weight-bold mb-3">
-          Willkommen beim RefArch-Kickstarter
+          Willkommen beim refarch-frontend von it@M
         </h1>
         <p>
           Das API-Gateway ist:
@@ -24,8 +24,9 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { VCol, VContainer, VImg, VRow } from "vuetify/components";
 
-import HealthService from "@/api/HealthService";
+import { checkHealth } from "@/api/health-client";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
 
@@ -33,7 +34,7 @@ const snackbarStore = useSnackbarStore();
 const status = ref("DOWN");
 
 onMounted(() => {
-  HealthService.checkHealth()
+  checkHealth()
     .then((content: HealthState) => (status.value = content.status))
     .catch((error) => {
       snackbarStore.showMessage(error);

@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  profile: "assertive"
+  review_status: true
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+  tools:
+    pmd:
+      enabled: false
+    eslint:
+      enabled: false

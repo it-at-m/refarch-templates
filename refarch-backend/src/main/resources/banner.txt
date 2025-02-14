@@ -1,17 +1,13 @@
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-  ____                                  _                  _                                             _              _
- |  _ \                                | |                | |                      /\                   | |            | |
- | |_) |   __ _   _ __   _ __    __ _  | | __  _   _    __| |   __ _   ______     /  \     _ __    ___  | |__     ___  | |_   _   _   _ __     ___
- |  _ <   / _` | | '__| | '__|  / _` | | |/ / | | | |  / _` |  / _` | |______|   / /\ \   | '__|  / __| | '_ \   / _ \ | __| | | | | | '_ \   / _ \
- | |_) | | (_| | | |    | |    | (_| | |   <  | |_| | | (_| | | (_| |           / ____ \  | |    | (__  | | | | |  __/ | |_  | |_| | | |_) | |  __/
- |____/   \__,_| |_|    |_|     \__,_| |_|\_\  \__,_|  \__,_|  \__,_|          /_/    \_\ |_|     \___| |_| |_|  \___|  \__|  \__, | | .__/   \___|
-                                                                                                                               __/ | | |
-                                                                                                                              |___/  |_|    by CCSE
+${spring.application.name}
 
- Du benutzt den RefArch-Archetype und willst it@M helfen, ihn weiter zu verbessern? 
+Application Version : ${info.application.version}
+Java Version        : ${info.build.java.version}
+Spring Boot Version : ${spring-boot.version}
+Spring Cloud Version: ${info.build.spring-cloud.version}
+About               : ${info.application.description}
 
- Gib uns dein Feedback und Verbesserungsvorschläge unter https://git.muenchen.de/ccse/refarch-archetype/refarch-overview/-/issues/new?issuable_template=Feedback
-
- Application Name    : ${spring.application.name}
- Spring Boot Version : ${spring-boot.formatted-version}
+This project is based on the reference architecture templates of it@M maintained under https://github.com/it-at-m/refarch-templates.
+Do you have suggestions for improvement? Please take a look at https://github.com/it-at-m/refarch-templates/issues/new/choose to open an issue.
+If you want to provide a PR please take a look at our Contribution Guidelines.
 ---------------------------------------------------------------------------------------------------------------------------------------------------

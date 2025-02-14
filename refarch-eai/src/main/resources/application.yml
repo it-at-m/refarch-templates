@@ -1,41 +1,54 @@
-camel:
-  springboot:
-    main-run-controller: true
-    tracing: false
-  servlet:
-    mapping:
-      context-path: /api/*
-
 spring:
   application:
     name: @project.artifactId@
+
+server:
+  shutdown: "graceful"
+  error:
+    whitelabel:
+      enabled: false
 
 management:
   endpoints:
     enabled-by-default: false
     web:
       exposure:
-        include: health,info
+        include: health, info, prometheus
+      path-mapping:
+        prometheus: metrics
   endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
     info:
       enabled: true
-    health:
+    prometheus:
       enabled: true
   info:
     env:
       enabled: true
     camel:
       enabled: false
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
 
 info:
   application:
     name: @project.artifactId@
     version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    camel.version: @camel-spring-boot-dependencies.version@
 
-logging:
-  level:
-    org:
-      springframework: INFO
+camel:
+  servlet:
+    mapping:
+      context-path: /api/*
 
 # Custom properties
 output: direct:foo

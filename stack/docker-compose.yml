@@ -1,16 +1,14 @@
-name: default-services
+name: refarch-stack
 
 services:
   postgres:
-    container_name: postgres
-    image: postgres:16.0-alpine3.18
+    image: postgres:16.4-alpine3.20@sha256:5660c2cbfea50c7a9127d17dc4e48543eedd3d7a41a595a2dfa572471e37e64c
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
     ports:
       - "5432:5432"
-    restart: &restart-policy on-failure:3
     healthcheck: &healthcheck
       test: ["CMD-SHELL", "pg_isready -d postgres -U admin"]
       interval: 30s
@@ -20,24 +18,31 @@ services:
     security_opt: &security_settings
       - no-new-privileges:true
 
+  # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
-    container_name: pg-admin
-    image: dpage/pgadmin4:8.10
+    image: dpage/pgadmin4:8.14@sha256:8a68677a97b8c8d1427dc915672a26d2c4a04376916a68256f53d669d6171be7
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
       - PGADMIN_LISTEN_PORT=5050
     ports:
       - "5050:5050"
-    restart: *restart-policy
+    depends_on:
+      - postgres
     healthcheck:
       <<: *healthcheck
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
     security_opt: *security_settings
+    volumes:
+      - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
+      - './pgadmin/pgpass:/pgadmin4/pgpass'
+    user: root # see https://github.com/pgadmin-org/pgadmin4/issues/6257
+    entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
 
   keycloak:
-    container_name: keycloak
-    image: quay.io/keycloak/keycloak:20.0.3
+    image: quay.io/keycloak/keycloak:20.0.5@sha256:054ef67eb7dae0129bbb9eb0e0797fd2392cd6d135094a6063ae7ff7773ef81f
     command:
       - start-dev --http-relative-path /auth
     depends_on:
@@ -56,30 +61,26 @@ services:
       - "8100:8100"
     networks:
       - keycloak
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: ["CMD-SHELL",  "curl http://localhost:8100/auth/health/live"]
     security_opt: *security_settings
 
   db-postgres-keycloak:
-    container_name: db-postgres-keycloak
-    image: postgres:16.3-alpine3.18
+    image: postgres:16.4-alpine3.20@sha256:5660c2cbfea50c7a9127d17dc4e48543eedd3d7a41a595a2dfa572471e37e64c
     environment:
       - POSTGRES_DB=keycloak
       - POSTGRES_USER=keycloak-user
       - POSTGRES_PASSWORD=keycloak-secret
     networks:
       - keycloak
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "pg_isready -d keycloak -U keycloak-user" ]
     security_opt: *security_settings
 
   init-keycloak:
-    container_name: init-keycloak
-    image: klg71/keycloakmigration:0.2.55
+    image: klg71/keycloakmigration:0.2.72@sha256:48a3e0b9b98a087f5f651a5462330cf0aefd1101936bfbf67b3ee3f9815eb289
     depends_on:
       - keycloak
     environment:
@@ -95,32 +96,55 @@ services:
     security_opt: *security_settings
 
   refarch-gateway:
-    container_name: refarch-gateway
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.0.0
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.4.2@sha256:068633218c65e0e60f8d583ab465553e977449c33b70054ae2c53f05fa5c3ad9
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
     ports:
       - "8083:8080"
     environment:
-    - SSO_ISSUER_URL=http://keycloak:8100/auth/realms/local_realm
-    - SSO_CLIENT_ID=local
-    - SSO_CLIENT_SECRET=client_secret
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://host.docker.internal:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/backend-service/**
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://kubernetes.docker.internal:8100/
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
+    - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
+    - SPRING_CLOUD_GATEWAY_ROUTES_2_ID=frontend
+    - SPRING_CLOUD_GATEWAY_ROUTES_2_URI=http://host.docker.internal:8081/
+    - SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0=Path=/**
     - SPRING_PROFILES_ACTIVE=hazelcast-local
+    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://kubernetes.docker.internal:8100/auth/realms/local_realm
+    - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
+    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
+    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET=client_secret
+    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE=profile, openid
     networks:
       - keycloak
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    restart: *restart-policy
     healthcheck:
       <<: *healthcheck
       test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
+    security_opt: *security_settings
+
+  appswitcher-server:
+    image: ghcr.io/it-at-m/appswitcher-server:1.2.0@sha256:d2049661ab6e0bb6895716c68326f37ab31b95fd7bafa50da74c684c91d26091
+    environment:
+      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
+      - THC_PATH=/actuator/health/liveness
+    ports:
+      - "8084:8080"
+    volumes:
+      - "./appswitcher-server/application.yml:/workspace/config/application.yml"
+      - "./appswitcher-server/static:/workspace/static"
+    healthcheck:
+      <<: *healthcheck
+      test: ["CMD-SHELL", "/workspace/health-check"]
     security_opt: *security_settings
 
 networks:
