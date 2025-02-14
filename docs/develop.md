@@ -101,9 +101,11 @@ The following npm scripts are provided for working with those tools:
 - Run Vitest test execution: `npm run test`
 - Build the Vite project: `npm run build`
 
-### PatternLab
+### Component libraries
 
-For web component development and integration with the official Munich website, [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs) is utilized as a component library.
+We use the following component libraries to speed up our frontend development and standardize the look and feel of our applications:
+- Development of standalone web applications and SPAS: [Vuetify](https://vuetifyjs.com/en/)
+- Web Component Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
 
 ### Vue Dev Tools
 
@@ -179,10 +181,15 @@ The tools are configured through the respective configuration files or configura
 - PMD: `pom.xml` and using centralized configuration (more information in [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#pmd))
 - SpotBugs: `pom.xml` and `spotbugs-exclude-rules.xml` (configuration part of the templates)
 
-### Flyway
+### Database Migration
 
-For database migrations, [Flyway](https://documentation.red-gate.com/flyway/getting-started-with-flyway) is employed. It runs at application startup. The following commands can also be used directly:
+[Flyway](https://documentation.red-gate.com/flyway) is used as our tool for database migration. 
 
-- Clean database: `mvn flyway:clean`
+It runs automatically when starting the backend application.
+Additionally, the following maven goals can be run manually:
+- Clean database: `mvn flyway:clean -Dflyway.cleanDisabled=false`
 - Apply migrations: `mvn flyway:migrate`
-- Reset and migrate: `mvn flyway:clean flyway:migrate`
+- Reset and migrate: `mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false`
+
+To maintain your migration files check the folder `db.migration` inside the `resources` folder of the Java project.
+For more information about how to work with Flyway, checkout it`s [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
