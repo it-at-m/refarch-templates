@@ -3,6 +3,10 @@
 The templates include various tools and best practices to help you with documenting your software project.
 Those will be further explained below.
 
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 ## README.md
 
 The `README.md` acts as an entrypoint to your GitHub repository and thus should have the most important information about your repository.
@@ -22,10 +26,6 @@ We encourage you to write your software documentation using Markdown (`.md`). Th
 If you need further information about Markdown itself, please check out this [guide](https://www.markdownguide.org/).
 
 By combining the use of Markdown with the Node-based tool [Vitepress](https://vitepress.dev/), we enable easy conversion of raw markdown files into aesthetically pleasing and easy to use static web pages.
-
-::: danger IMPORTANT
-Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
-:::
 
 In the [templates repository](https://github.com/it-at-m/refarch-templates), you will find a `docs` folder. This folder holds your markdown files and other configuration files for Vitepress itself.
 For more information on Vitepress and its configuration options, please check out its [Getting Started Guide](https://vitepress.dev/guide/getting-started).

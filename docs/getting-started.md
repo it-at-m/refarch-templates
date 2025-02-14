@@ -41,72 +41,13 @@ For example, if you want to work with the backend, you should copy the `refarch-
 If you want documentation, you should copy the `docs` folder.
 
 ::: danger IMPORTANT
-The `stack` folder must be copied to your project directory, as it contains essential components required by the templates.
+The `stack` folder must be copied to your project directory, as it contains essential configuration for the development stack required by the templates.
 :::
 
 Besides the code templates, `refarch-templates` provides lots of other configuration files which help to establish
 best practices in project development, documentation and organisation. Copy those over as well, if you want to use them.
 
 For further information on those topics please check out [Develop](./develop), [Document](./document) and [Organize](./organize).
-
-## Stack
-
-The following sections describe the included components for the local development stack.
-
-### Prerequisites
-
-- Docker
-
-### Starting the stack
-
-Inside the `stack` folder, you will find a `docker-compose.yml`
-file that will spin up everything needed for local development.
-
-You can spin up the stack by using the integrated Docker features of your favorite IDE, by using a dedicated Docker UI
-or by executing the command `docker compose up` from within the `stack` folder.
-
-::: danger IMPORTANT
-When developing locally, the stack must always be running.
-:::
-
-### Stack components
-
-#### Keycloak
-
-- **Website**: <https://www.keycloak.org/>
-- **Purpose**: Run a Keycloak instance as a local SSO provider
-
-#### Keycloak Migration
-
-- **Website**: <https://mayope.github.io/keycloakmigration/>
-- **Purpose**: Migration tool to set up the local SSO provider by executing scripts upon startup
-- **Configuration**: All necessary scripts are located in the
-  `stack/keycloak/migration` folder.
-  Extensions to Keycloak should be implemented through these scripts.
-
-#### PostgreSQL
-
-- **Website**: <https://www.postgresql.org>
-- **Purpose**: Run a PostgreSQL database instance locally
-
-#### pgAdmin
-
-- **Website**: <https://www.pgadmin.org/>
-- **Purpose**: Run a database management UI pre-configured to connect to the local PostgreSQL instance
-
-#### API gateway
-
-- **Website**: <https://refarch.oss.muenchen.de/gateway>
-- **Purpose**: Launch the API gateway of the RefArch in your local environment
-- **Configuration**: The API gateway behaviour can be adjusted by altering the respective environment variables
-  defined in `stack/docker-compose.yml` under the key `refarch-gateway.environment`
-
-#### Appswitcher Server
-
-- **Repository**: <https://github.com/it-at-m/appswitcher-server>
-- **Purpose**: Server component required for appswitcher-vue to access local development tools via the frontend UI
-- **Configuration**: Configure the AppSwitcher within the `stack/appswitcher-server`
-  folder.
 
 ## Backend & EAI
 
