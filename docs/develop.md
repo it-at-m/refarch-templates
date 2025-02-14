@@ -61,7 +61,26 @@ For web component development and integration with the official Munich website, 
 
 ### Vue Dev Tools
 
-The [Vue Dev Tools](https://devtools.vuejs.org/) are available in the browser console and through an icon at the bottom of the screen.
+The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when developing with Vue.js. Those include checking and editing component state, debugging the Pinia store, testing client-side routing, inspecting page elements and way more.
+
+The Vue Dev Tools are included as a development dependency inside the templates, so no further installation is required.
+
+A useful feature is the inspection of elements, which allows to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
+To make use of this feature a few steps have to be made on your machine.
+
+::: info  Information
+If you use Visual Studio Code, no further configuration has to be done. You can simply ignore the steps mentioned below.
+:::
+
+Steps to set up the IDE connection for Dev Tools:
+1. Make sure your IDE of choice can be accessed via your terminal environment (Some installers automatically add your IDE to the `PATH` variable, for some cases you might have to add it manually)
+2. Add a new environment variable for your shell environment called `LAUNCH_EDITOR` (depending on your operating system you can use files like `.bashrc` or the management feature of your OS)
+3. Set the value of `LAUNCH_EDITOR` to the name of your IDE executable (e.g. `idea`, `webstorm`, `codium`, `notepad++`)
+4. Make sure the environment variable is loaded (you might have to re-login into your user account depending on your OS)
+
+::: info Information
+Not all IDEs are supported right now, please check out [supported editors](https://github.com/webfansplz/vite-plugin-vue-inspector?tab=readme-ov-file#supported-editors) of the corresponding Vite plugin.
+:::
 
 ### App Switcher
 
