@@ -96,9 +96,14 @@ Key technologies used in the templates include:
 
 [Vite](https://vite.dev/) is used as the build tool, along with the testing framework [Vitest](https://vitest.dev/).
 
+The following npm scripts are provided for working with those tools:
+- Start Vite development server: `npm run dev`
+- Run Vitest test execution: `npm run test`
+- Build the Vite project: `npm run build`
+
 ### PatternLab
 
-For web component development and integration with the official Munich website, [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs) is utilized.
+For web component development and integration with the official Munich website, [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs) is utilized as a component library.
 
 ### Vue Dev Tools
 
@@ -134,10 +139,45 @@ This includes the KeyCloak management UI, pgAdmin to check the application datab
 The configuration in the `application.yml` file (inside the `appswitcher-server` directory of the stack) can be modified to include additional tools required for your specific project setup.
 :::
 
-### Linting and Code Formatting
+### Code Quality Tooling
 
-- **Frontend**: [Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) are used for linting and code formatting.
-- **Backend**: For linting and code formatting, [Spotless](https://github.com/diffplug/spotless) and [PMD](https://pmd.github.io/) are utilized.
+#### Frontend / WebComponent
+
+[Prettier](https://prettier.io/) and [ESLint](https://eslint.org/) are used for linting and code formatting JavaScript, TypeScript and Vue-based code.
+Additionally, [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) is used for running type-checking when working with TypeScript.
+
+You can run those tools in combination by using the following npm scripts:
+- Lint your source code: `npm run lint`
+- Autofix issues: `npm run fix`
+
+::: info Information
+Not all issues are auto-fixable so you still might have some manual work to do after running the command.
+:::
+
+The tools are configured through the respective configuration files
+- Prettier: `.prettierrc.json` (points to a [centralized configuration](https://github.com/it-at-m/itm-prettier-codeformat))
+- ESLint: `eslint.config.js` (configuration part of the templates)
+
+#### Backend / EAI
+
+[Spotless](https://github.com/diffplug/spotless), [PMD](https://pmd.github.io/) and [SpotBugs](https://spotbugs.github.io/) are used for code formatting and linting Java-based code.
+Additionally, [find-sec-bugs](https://github.com/find-sec-bugs/find-sec-bugs) is used to check for vulnerabilities inside your code.
+
+Those tools are configured inside the `pom.xml` files and automatically run when executing the respective Maven phases. (e.g. `mvn verify`)
+Alternatively you can also run the custom maven goals provided by those plugins:
+- Run Spotless formatting check: `mvn spotless:check`
+- Run Spotless formatting autofix: `mvn spotless:apply`
+- Run PMD lint check: `mvn pmd:check`
+- Run SpotBugs lint check: `mvn spotbugs:check`
+
+::: info Information
+Issues reported by the PMD and SpotBugs are currently not auto-fixable so you still have some manual work to do.
+:::
+
+The tools are configured through the respective configuration files or configuration sections inside the `pom.xml`
+- Spotless: `pom.xml` and using a [centralized configuration](https://github.com/it-at-m/itm-java-codeformat)
+- PMD: `pom.xml` and using centralized configuration (more information in [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#pmd))
+- SpotBugs: `pom.xml` and `spotbugs-exclude-rules.xml` (configuration part of the templates)
 
 ### Flyway
 
