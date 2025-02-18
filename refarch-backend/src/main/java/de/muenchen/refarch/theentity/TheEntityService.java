@@ -21,26 +21,26 @@ public class TheEntityService {
 
     private final TheEntityRepository theEntityRepository;
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_READ_THEENTITY)
+    @PreAuthorize(Authorities.HAS_ROLE_READER)
     public TheEntity getTheEntity(final UUID theEntityId) {
         log.info("Get TheEntity with ID {}", theEntityId);
         return getEntityOrThrowException(theEntityId);
     }
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_READ_THEENTITY)
+    @PreAuthorize(Authorities.HAS_ROLE_READER)
     public Page<TheEntity> getAllEntities(final int pageNumber, final int pageSize) {
         log.info("Get all TheEntity with at Page {} with a PageSize of {}", pageNumber, pageSize);
         final Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
         return theEntityRepository.findAll(pageRequest);
     }
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
+    @PreAuthorize(Authorities.HAS_ROLE_WRITER)
     public TheEntity createTheEntity(final TheEntity entity) {
         log.debug("Create TheEntity {}", entity);
         return theEntityRepository.save(entity);
     }
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_WRITE_THEENTITY)
+    @PreAuthorize(Authorities.HAS_ROLE_WRITER)
     public TheEntity updateTheEntity(final TheEntity entity, final UUID theEntityId) {
         final TheEntity foundEntity = getEntityOrThrowException(theEntityId);
         foundEntity.setTextAttribute(entity.getTextAttribute());
@@ -48,7 +48,7 @@ public class TheEntityService {
         return theEntityRepository.save(foundEntity);
     }
 
-    @PreAuthorize(Authorities.HAS_AUTHORITY_DELETE_THEENTITY)
+    @PreAuthorize(Authorities.HAS_ROLE_WRITER)
     public void deleteTheEntity(final UUID theEntityId) {
         log.debug("Delete TheEntity with ID {}", theEntityId);
         theEntityRepository.deleteById(theEntityId);

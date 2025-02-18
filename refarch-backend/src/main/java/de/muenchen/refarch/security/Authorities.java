@@ -9,12 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * in the annotation e.g. {@link PreAuthorize}.
  */
 public final class Authorities {
-    public static final String HAS_AUTHORITY_READ_THEENTITY = "hasAuthority(READ_THEENTITY)";
-    public static final String HAS_AUTHORITY_WRITE_THEENTITY = "hasAuthority(WRITE_THEENTITY)";
-    public static final String HAS_AUTHORITY_DELETE_THEENTITY = "hasAuthority(DELETE_THEENTITY)";
+    public static final String HAS_ROLE_READER = "hasRole(\"reader\")";
+    public static final String HAS_ROLE_WRITER = "hasRole(\"writer\")";
 
     private Authorities() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
-    // add your authorities here and also add these new authorities to sso-authorisation.json.
 }

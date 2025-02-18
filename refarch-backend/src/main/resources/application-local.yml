@@ -27,7 +27,7 @@ spring:
 # Define the local keycloak configuration here
 # Deduplication-only property
 sso:
-  url: http://localhost:8100
+  url: http://kubernetes.docker.internal:8100
   realm: local_realm
   client: local
 
