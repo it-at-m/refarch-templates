@@ -47,8 +47,8 @@ Issue forms are currently a GitHub preview feature and thus subject to change in
 
 ## Pull Request Template
 
-The template provides a pull request template (in `.github/pull_request_template.md`) containing a checklist of tasks that should be fulfilled by the PR contributor.
-This ensures a uniform review process, simplified organization and allows to maintain a high code quality.
+The template provides a pull request template (in `.github/pull_request_template.md`) containing a checklist of tasks that should be fulfilled by the PR creator.
+This ensures a uniform review process, simplifies organization, and allows maintaining a high code quality.
 
 Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for further information.
 
