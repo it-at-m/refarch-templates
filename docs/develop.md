@@ -134,7 +134,7 @@ Additionally, the following maven goals can be run manually:
 - Apply migrations: `mvn flyway:migrate`
 - Reset and migrate: `mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false`
 
-To maintain your migration files check the folder `db.migration` inside the `resources` folder of the Java project.
+To maintain your migration files, check the folder `db.migration` inside the `resources` folder of the Java project.
 For more information about how to work with Flyway, checkout its [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
 
 ### App Switcher
@@ -157,7 +157,7 @@ The templates by default make use of a centralized configuration we provide for 
 To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
 
 ::: info Information
-To make Renovate work make sure that it has access to your GitHub repository.
+To make Renovate work, make sure that it has access to your GitHub repository.
 For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
 :::
 
@@ -180,11 +180,11 @@ Feel free to customize the configuration to your own needs. More information is 
 
 ::: info Information
 To make CodeRabbit work, make sure that it has access to your GitHub repository.
-For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
+For projects in the `it-at-m` organization, CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
 :::
 
 ::: danger IMPORTANT
-Code Rabbit is free to use for open-source projects. If you are developing a project with no public visibility you might need to remove the `.coderabbit.yaml` file.
+Code Rabbit is free to use for open-source projects. If you are developing a project with no public visibility, you might need to remove the `.coderabbit.yaml` file.
 :::
 
 ### CodeQL
@@ -219,7 +219,7 @@ Status checks are configurable as part of the rulesets.
 ## CI/CD Configurations
 
 The `.github/workflows` folder contains various GitHub workflow files. Those reference centralized actions to simplify different parts of the CI/CD process.
-It also helps to keep Lifecycle Management as simple as possible as no direct dependency on third party actions exists.
+It also helps to keep Lifecycle Management as simple as possible as no direct dependency on third-party actions exists.
 
 More information about the centralized actions can be found in the [lhm_actions documentation](https://github.com/it-at-m/lhm_actions/blob/main/docs/actions.md).
 
