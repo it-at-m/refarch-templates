@@ -16,7 +16,7 @@ Key technologies used in the templates include:
 [Docker](https://www.docker.com/) is used to run a local development stack including all necessary services.
 
 ::: danger IMPORTANT
-When developing locally you need Docker installed on your system and the stack must always be running.
+When developing locally, you need Docker installed on your system and the stack must always be running.
 :::
 
 Inside the `stack` folder, you will find a `docker-compose.yml` file that will spin up everything needed for local development.
@@ -44,14 +44,14 @@ The following npm scripts are provided for working with those tools:
 
 - Start Vite development server: `npm run dev`
 - Run Vitest test execution: `npm run test`
-- Build the Vite project: `npm run build`
+- Build the Vite project (for production): `npm run build`
 
 ### Component libraries
 
-We use the following component libraries to speed up our frontend development and standardize the look and feel of our applications:
+We use the following component libraries to accelerate our frontend development and standardize the look and feel of our applications:
 
 - Development of standalone web applications and SPAs: [Vuetify](https://vuetifyjs.com/en/)
-- WebComponent Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
+- WebComponent development for integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
 
 ### Code Quality
 
@@ -66,7 +66,7 @@ You can run those tools in combination by using the following npm scripts:
 - Autofix issues: `npm run fix`
 
 ::: info Information
-Not all issues are auto-fixable so you still might have some manual work to do after running the command.
+Not all issues are auto-fixable, so you still might have some manual work to do after running the command.
 :::
 
 The tools are configured through the respective configuration files
@@ -85,7 +85,9 @@ Alternatively you can also run the custom maven goals provided by those plugins:
 - Run Spotless formatting check: `mvn spotless:check`
 - Run Spotless formatting autofix: `mvn spotless:apply`
 - Run PMD lint check: `mvn pmd:check`
-- Run SpotBugs lint check: `mvn spotbugs:check`
+- Run PMD CPD ([Copy/Paste Detector](https://pmd.github.io/pmd/pmd_userdocs_cpd.html)) check: `mvn pmd:cpd-check`
+- Run SpotBugs lint check: `mvn spotbugs:check`  
+  (**Note**: Requires project compilation before execution when code changes were made)
 
 ::: info Information
 Issues reported by the PMD and SpotBugs are currently not auto-fixable so you still have some manual work to do.
@@ -103,8 +105,8 @@ The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when de
 
 The Vue Dev Tools are included as a development dependency inside the templates, so no further installation is required.
 
-A useful feature is the inspection of elements, which allows to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
-To make use of this feature a few steps have to be made on your machine.
+A useful feature is the inspection of elements, which allows you to click components of your webpage inside your Browser-rendered application and open the relevant part right in your IDE.
+To make use of this feature, a few steps have to be made on your machine.
 
 ::: info Information
 If you use Visual Studio Code, no further configuration has to be done. You can simply ignore the steps mentioned below.
@@ -140,7 +142,7 @@ For more information about how to work with Flyway, checkout its [Getting Starte
 The [App Switcher](https://github.com/it-at-m/appswitcher-server) is a feature accessible from the app bar in the frontend.
 
 While developing, this is especially useful to access useful development tools tied to the local Docker stack.
-This includes the KeyCloak management UI, pgAdmin to check the application database and a possibility to open Vue DevTools in a separate browser tab.
+This includes the Keycloak management UI, pgAdmin to check the application database and a possibility to open Vue DevTools in a separate browser tab.
 
 ::: info Information
 The configuration in the `application.yml` file (inside the `appswitcher-server` directory of the stack) can be modified to include additional tools required for your specific project setup.
@@ -177,12 +179,12 @@ Our configuration enables automatic reviews (and follow-up reviews when changes 
 Feel free to customize the configuration to your own needs. More information is available in the [official documentation](https://docs.coderabbit.ai/).
 
 ::: info Information
-To make CodeRabbit work make sure that it has access to your GitHub repository.
+To make CodeRabbit work, make sure that it has access to your GitHub repository.
 For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
 :::
 
 ::: danger IMPORTANT
-Code Rabbit is free to use for open source projects. If you are developing a project with no public visibility you might need to remove the `.coderabbit.yaml` file.
+Code Rabbit is free to use for open-source projects. If you are developing a project with no public visibility you might need to remove the `.coderabbit.yaml` file.
 :::
 
 ### CodeQL
@@ -216,7 +218,14 @@ Status checks are configurable as part of the rulesets.
 
 ## CI/CD Configurations
 
-TBD
+The `.github/workflows` folder contains various GitHub workflow files. Those reference centralized actions to simplify different parts of the CI/CD process.
+It also helps to keep Lifecycle Management as simple as possible as no direct dependency on third party actions exists.
+
+More information about the centralized actions can be found in the [lhm_actions documentation](https://github.com/it-at-m/lhm_actions/blob/main/docs/actions.md).
+
+::: danger IMPORTANT
+Note that the CI/CD setup of the templates is in a Work-In-Progress state, so its subject to change in the near future.
+:::
 
 ## CODEOWNERS
 
