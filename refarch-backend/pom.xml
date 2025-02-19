@@ -474,14 +474,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- Flyway Maven plugin for local database management
-                     Usage:
-                     - Clean database: mvn flyway:clean
-                     - Apply migrations: mvn flyway:migrate
-                     - Reset and migrate: mvn flyway:clean flyway:migrate
-                     
-                     Note: Use -Dflyway.cleanDisabled=false when running clean command
-                -->
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
             </plugin>
