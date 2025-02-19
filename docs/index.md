@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: Reference architecture (RefArch)
       link: https://refarch.oss.muenchen.de
+    - theme: alt
+      text: Contribute to the project
+      link: /contribute
 
 features:
   - icon: 🚀
