@@ -1,7 +1,7 @@
 # Development
 
 We include various development tools to simplify the development process and make development more comfortable and error-resistant.
-Those tools will be further explained below.
+Those tools are further explained below.
 
 ::: danger IMPORTANT
 Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
@@ -21,15 +21,15 @@ When developing locally you need Docker installed on your system and the stack m
 
 Inside the `stack` folder, you will find a `docker-compose.yml` file that will spin up everything needed for local development.
 You can spin up the stack by using the integrated Docker features of your favorite IDE, by using a dedicated Docker UI
-or by executing the command `docker compose up` from within the `stack` folder.
+or by executing the command `docker compose up -d` from within the `stack` folder.
 
 Stack components (as Docker Images):
 
 - [Keycloak](https://www.keycloak.org/): Keycloak instance as a local SSO provider
-- [Keycloak Migration](https://mayope.github.io/keycloakmigration/): Migration tool to set up the local SSO provider by executing scripts upon startup, configuration via `.yml` files in `stack/keycloak/migration`
+- [Keycloak Migration](https://mayope.github.io/keycloakmigration/): Migration tool to set up the local SSO provider by executing scripts upon startup, configured via `.yml` files in `stack/keycloak/migration`
 - [PostgreSQL](https://www.postgresql.org): Database instance for application data
-- [pgAdmin](https://www.pgadmin.org/): database management UI pre-configured to connect to the local PostgreSQL instance
-- [API Gateway](https://refarch.oss.muenchen.de/gateway): API gateway of the RefArch, configuration via environment variables in `docker-compose.yml`
+- [pgAdmin](https://www.pgadmin.org/): Database management UI pre-configured to connect to the local PostgreSQL instance
+- [API Gateway](https://refarch.oss.muenchen.de/gateway): API gateway of the RefArch, configured via [environment variables](https://refarch.oss.muenchen.de/gateway#configuration) in `docker-compose.yml`
 - [Appswitcher Server](https://github.com/it-at-m/appswitcher-server): Server component to access local development tools via the frontend UI
 
 ::: info Information
@@ -50,8 +50,8 @@ The following npm scripts are provided for working with those tools:
 
 We use the following component libraries to speed up our frontend development and standardize the look and feel of our applications:
 
-- Development of standalone web applications and SPAS: [Vuetify](https://vuetifyjs.com/en/)
-- Web Component Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
+- Development of standalone web applications and SPAs: [Vuetify](https://vuetifyjs.com/en/)
+- WebComponent Development for Integration with [official Munich website](https://www.muenchen.de/): [PatternLab](https://it-at-m.github.io/muc-patternlab-vue/?path=/docs/getting-started--docs)
 
 ### Code Quality
 
@@ -99,7 +99,7 @@ The tools are configured through the respective configuration files or configura
 
 ### Vue Dev Tools
 
-The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when developing with Vue.js. Those include checking and editing component state, debugging the Pinia store, testing client-side routing, inspecting page elements and way more.
+The [Vue Dev Tools](https://devtools.vuejs.org/) provide useful features when developing with Vue.js. Those include checking and editing component state, debugging the [Pinia](https://pinia.vuejs.org/) store, testing client-side routing, inspecting page elements and way more.
 
 The Vue Dev Tools are included as a development dependency inside the templates, so no further installation is required.
 
@@ -133,7 +133,7 @@ Additionally, the following maven goals can be run manually:
 - Reset and migrate: `mvn flyway:clean flyway:migrate -Dflyway.cleanDisabled=false`
 
 To maintain your migration files check the folder `db.migration` inside the `resources` folder of the Java project.
-For more information about how to work with Flyway, checkout it's [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
+For more information about how to work with Flyway, checkout its [Getting Started guide](https://documentation.red-gate.com/flyway/getting-started-with-flyway)
 
 ### App Switcher
 
@@ -148,7 +148,7 @@ The configuration in the `application.yml` file (inside the `appswitcher-server`
 
 ## Lifecycle Management (LCM)
 
-[`Renovate`](https://docs.renovatebot.com/) is used to keep your dependencies up to date.
+[Renovate](https://docs.renovatebot.com/) is used to keep your dependencies up to date.
 
 The templates by default make use of a centralized configuration we provide for RefArch-based projects. More information can be found in the [RefArch documentation](https://refarch.oss.muenchen.de/tools.html#renovate).
 
@@ -162,7 +162,7 @@ For projects in the `it-at-m` organization Renovate automatically has access and
 ::: danger IMPORTANT
 To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
 This PR then has to be merged manually once.
-After that's done Renovate will start opening PRs normally.
+After that's done Renovate will start opening PRs automatically.
 :::
 
 ## Pull Requests
@@ -181,6 +181,10 @@ To make CodeRabbit work make sure that it has access to your GitHub repository.
 For projects in the `it-at-m` organization CodeRabbit automatically has access and is enabled when the configuration file is found in your repository.
 :::
 
+::: danger IMPORTANT
+Code Rabbit is free to use for open source projects. If you are developing a project with no public visibility you might need to remove the `.coderabbit.yaml` file.
+:::
+
 ### CodeQL
 
 **CodeQL** is a GitHub tool for discovering vulnerabilities and code smells in code. More details can be found [here](https://codeql.github.com/).
@@ -195,11 +199,11 @@ If you are using Java-based projects inside your repository, you need to add tho
 ### Dependency Review
 
 To ensure that only dependencies with approved licenses are included, a [global check](https://github.com/it-at-m/.github/blob/main/workflow-configs/dependency_review.yaml) is implemented.
-This is enabled by default when using the templates.
+This is enabled by default when using the templates. To learn more about the Dependency Review feature itself, please check the official [GitHub documentation](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review).
 
 The allowed licenses can be viewed [here](https://opensource.muenchen.de/licenses.html#integration-in-in-house-developments).
 
-### GitHub Rules
+### GitHub Rulesets
 
 It is recommended to review the rulesets for pushing and merging in the GitHub repository. Depending on the project's branching strategy, some branches should be protected to prevent force pushes and merging without approval.
 More information about Rulesets can be found in the [official GitHub documentation](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository).
@@ -228,3 +232,5 @@ Please alter the CODEOWNERS file to list project members or team names for your 
 Otherwise, the RefArch maintainers have to approve all your code changes.
 You definitely don't want that, as we are super nitpicky when it comes to code quality. ;)
 :::
+
+To learn more about the CODEOWNERS file, please check the official [GitHub documentation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners).

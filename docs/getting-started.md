@@ -41,7 +41,7 @@ For example, if you want to work with the backend, you should copy the `refarch-
 If you want documentation, you should copy the `docs` folder.
 
 ::: danger IMPORTANT
-The `stack` folder must be copied to your project directory, as it contains essential configuration for the development stack required by the templates.
+The `stack` folder must be copied to your project directory, as it contains the [development stack](./develop#docker) required by the templates.
 :::
 
 Besides the code templates, `refarch-templates` provides lots of other configuration files which help to establish

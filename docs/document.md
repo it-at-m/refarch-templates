@@ -1,7 +1,7 @@
 # Document
 
 The templates include various tools and best practices to help you with documenting your software project.
-Those will be further explained below.
+Those are further explained below.
 
 ::: danger IMPORTANT
 Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
