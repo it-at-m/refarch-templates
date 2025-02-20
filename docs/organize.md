@@ -45,6 +45,17 @@ Please check the official [GitHub documentation](https://docs.github.com/en/comm
 Issue forms are currently a GitHub preview feature and thus subject to change in the future.
 :::
 
+## Pull Request Template
+
+The template provides a pull request template (in `.github/pull_request_template.md`) containing a checklist of tasks that should be fulfilled by the PR creator.
+This ensures a uniform review process, simplifies organization, and allows maintaining a high code quality.
+
+Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for further information.
+
+::: info Information
+Note that not all checkpoint items might be relevant for your project, so you have to adjust the template to your own needs.
+:::
+
 ## GitHub Projects
 
 For the RefArch, we currently use [GitHub Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects) for project management.
