@@ -4,6 +4,7 @@
 [milestones]: https://github.com/it-at-m/refarch-templates/milestones
 [project-board]: https://github.com/orgs/it-at-m/projects/16
 [documentation]: https://refarch-templates.oss.muenchen.de/
+[contribution-documentation]: https://refarch-templates.oss.muenchen.de/contribute.html
 [itm-opensource]: https://opensource.muenchen.de/
 [license]: ../LICENSE
 [code-of-conduct]: ./CODE_OF_CONDUCT.md
@@ -52,11 +53,7 @@ We often also plan our issues in [milestones][milestones].
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please [open an issue][new-issue] and fill out the appropriate issue form with as much information as possible.
-If you want to work on a solution, fork the repo and create a pull request.
-Don't forget to give the project a star! Thanks again!
-
-More about this in the [CODE_OF_CONDUCT][code-of-conduct] file.
+To learn more about how you can contribute, please read our [contribution documentation][contribution-documentation].
 
 ## License
 

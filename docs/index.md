@@ -11,8 +11,14 @@ hero:
       text: Getting Started
       link: /getting-started
     - theme: alt
-      text: Reference architecture (RefArch)
+      text: ⤴ Reference architecture (RefArch)
       link: https://refarch.oss.muenchen.de
+    - theme: alt
+      text: ⤴ CI/CD
+      link: https://github.com/it-at-m/lhm_actions/blob/main/docs/actions.md
+    - theme: alt
+      text: Contribute to the project
+      link: /contribute
 
 features:
   - icon: 🚀
