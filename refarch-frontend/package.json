@@ -10,7 +10,7 @@
     "dev": "vite",
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build",
-    "lint": "prettier . --check && eslint . && vue-tsc --noEmit",
+    "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
