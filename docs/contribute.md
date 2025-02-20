@@ -13,7 +13,7 @@ Thank you for your interest in contributing to our project! We welcome contribut
 
 ## Project Overview
 
-Our project is split into two separate repositories. Depending on the issue you have or the feature you want to provide you need to use either the one or the other:
+Our project is split into two separate repositories. Depending on the issue you have or the feature you want to contribute, you need to use either the one or the other:
 
 - [refarch-templates][repo-link]: Provides starter files for creating a new project
 - [refarch](https://github.com/it-at-m/refarch): Provides ready to use components (like API Gateway), integrations, libraries and other tools
