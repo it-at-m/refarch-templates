@@ -1,4 +1,4 @@
-# Development
+# Develop
 
 We include various development tools to simplify the development process and make development more comfortable and error-resistant.
 Those tools are further explained below.
