@@ -52,6 +52,7 @@ We often also plan our issues in [milestones][milestones].
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
 To learn more about how you can contribute, please read our [contribution documentation][contribution-documentation].
 
 ## License
