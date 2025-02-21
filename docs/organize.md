@@ -95,7 +95,7 @@ To enable it, you need to go to the [GitHub site](https://probot.github.io/apps/
 
 ## Automatic Labeling
 
-To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr_labeler.yml` with custom configuration in `.github/labeler.yml`.
+To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr-labeler.yml` with custom configuration in `.github/labeler.yml`.
 Make sure to adjust the configuration file to your specific project needs.
 
 Labeling depends on the branch prefix or your branch name.
