@@ -113,6 +113,14 @@ After getting the documentation template (`docs` directory), you will need to ma
 1. Change the artifact `name` inside the `package.json` file (e.g. from `refarch-templates-docs` to `myapp-docs`).
 2. Download dependencies and generate a new `package-lock.json` file by executing the command `npm install`.
 
+## CI/CD
+
+To make the [predefined CI/CD configurations](/develop#ci-cd-configurations) work, you need to adjust the content of the `.yml` files inside the `.github/workflows` directory to the specific folder structure of your project.
+
+::: info Information
+For example, you should replace occurrences of `refarch-backend` with `myapp-backend`.
+:::
+
 ## Next steps
 
 If you finished the template configurations for all required components your project needs

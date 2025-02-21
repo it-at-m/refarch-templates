@@ -46,6 +46,12 @@ The following npm scripts are provided for working with those tools:
 - Run Vitest test execution: `npm run test`
 - Build the Vite project (for production): `npm run build`
 
+::: danger IMPORTANT
+When you experience a refresh loop while developing with the Vite development server, please make sure to re-login via the running API Gateway.
+To avoid this problem, we recommend accessing the development server using the API Gateway as a proxy.
+Benefits like Hot Module Reloading (HMR) still work when tunneling.
+:::
+
 ### Component libraries
 
 We use the following component libraries to accelerate our frontend development and standardize the look and feel of our applications:
