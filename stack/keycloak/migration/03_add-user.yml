@@ -8,10 +8,20 @@ changes:
       firstName: user
       enabled: true
       emailVerified: true
-      email: user@user.com
+      email: user@example.com
       attributes:
         user_name:
           - user
+        lhmObjectID:
+          - user
+        telephoneNumber:
+          # equivalent of example.com
+          - "089-99998000"
+        department:
+          - "ACME"
+        memberof:
+          - "CN=acme-group-1,OU=ACME,DC=example,DC=com"
+          - "CN=acme-group-2,OU=ACME,DC=example,DC=com"
   - updateUserPassword:
       name: user
       password: "user"
