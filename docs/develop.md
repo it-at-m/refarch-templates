@@ -218,8 +218,6 @@ The templates provide a workflow for validating checklist status in a PR descrip
 
 The templates by default ship with a [PR template](./organize.html#pull-request-template), which makes use of a checklist.
 
-
-
 ::: info Information
 If some of the PR checklist items are not relevant for your PR, you should adjust the checklist inside the PR description to the specific PR changes.
 If you want to disable the feature completely, you need to remove the file `.github/workflows/pr-checklist.yml`.
