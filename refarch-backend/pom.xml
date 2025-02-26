@@ -33,8 +33,8 @@
         <spotless-maven-plugin.version>2.34.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.8.6.6</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
+        <spotbugs-maven-plugin.version>4.9.1.0</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.9.1</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
@@ -456,6 +456,7 @@
                 <configuration>
                     <effort>Max</effort>
                     <excludeFilterFile>spotbugs-exclude-rules.xml</excludeFilterFile>
+                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs-results</spotbugsXmlOutputDirectory> <!-- required to ensure only the artifact jar is on top level when building -->
                     <plugins>
                         <plugin>
                             <groupId>com.h3xstream.findsecbugs</groupId>
@@ -473,14 +474,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- Flyway Maven plugin for local database management
-                     Usage:
-                     - Clean database: mvn flyway:clean
-                     - Apply migrations: mvn flyway:migrate
-                     - Reset and migrate: mvn flyway:clean flyway:migrate
-                     
-                     Note: Use -Dflyway.cleanDisabled=false when running clean command
-                -->
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
             </plugin>

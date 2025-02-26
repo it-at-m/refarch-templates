@@ -1,6 +1,7 @@
 package de.muenchen.refarch.configuration.nfcconverter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletInputStream;
 import jakarta.servlet.http.Cookie;
@@ -185,7 +186,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return getOriginalRequest().getParts();
     }
 
-    @SuppressFBWarnings
+    @SuppressFBWarnings(value = "DM_DEFAULT_ENCODING", matchType = SuppressMatchType.EXACT)
     @Override
     public ServletInputStream getInputStream() throws IOException {
 

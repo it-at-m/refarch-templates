@@ -12,12 +12,12 @@
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "node ./processes/post-build.js",
     "preview": "vite preview",
-    "lint": "prettier . --check && eslint . && vue-tsc --noEmit",
+    "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
     "@muenchen/muc-patternlab-vue": "3.0.0",
-    "@vueuse/core": "12.5.0",
+    "@vueuse/core": "12.7.0",
     "vue": "3.5.13"
   },
   "devDependencies": {
@@ -34,9 +34,9 @@
     "jsdom": "26.0.0",
     "prettier": "3.5.1",
     "typescript": "5.7.3",
-    "vite": "6.1.0",
+    "vite": "6.1.1",
     "vite-plugin-vue-devtools": "7.7.2",
-    "vitest": "3.0.5",
-    "vue-tsc": "2.2.0"
+    "vitest": "3.0.6",
+    "vue-tsc": "2.2.2"
   }
 }

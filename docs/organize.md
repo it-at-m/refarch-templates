@@ -2,6 +2,10 @@
 
 The following explains the currently used practices and recommendations for organizing your projects in GitHub.
 
+::: danger IMPORTANT
+Please make sure you worked through the corresponding [Getting Started](./getting-started#documentation) instructions before proceeding.
+:::
+
 ## Labeling
 
 Labels are used for various purposes.
@@ -39,6 +43,17 @@ Please check the official [GitHub documentation](https://docs.github.com/en/comm
 
 ::: danger IMPORTANT
 Issue forms are currently a GitHub preview feature and thus subject to change in the future.
+:::
+
+## Pull Request Template
+
+The template provides a pull request template (in `.github/pull_request_template.md`) containing a checklist of tasks that should be fulfilled by the PR creator.
+This ensures a uniform review process, simplifies organization, and allows maintaining a high code quality.
+
+Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for further information.
+
+::: info Information
+Note that not all checkpoint items might be relevant for your project, so you have to adjust the template to your own needs.
 :::
 
 ## GitHub Projects
@@ -80,7 +95,7 @@ To enable it, you need to go to the [GitHub site](https://probot.github.io/apps/
 
 ## Automatic Labeling
 
-To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr_labeler.yml` with custom configuration in `.github/labeler.yml`.
+To automatically label pull requests, the template provides out-of-the-box configuration for a [Labeler Action](https://github.com/actions/labeler) through the workflow file in `.github/workflows/pr-labeler.yml` with custom configuration in `.github/labeler.yml`.
 Make sure to adjust the configuration file to your specific project needs.
 
 Labeling depends on the branch prefix or your branch name.

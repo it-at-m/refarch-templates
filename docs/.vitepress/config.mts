@@ -23,13 +23,16 @@ const vitepressConfig = defineConfig({
         text: "Docs",
         items: [
           { text: "Getting Started", link: "/getting-started" },
+          { text: "Develop", link: "/develop" },
           { text: "Document", link: "/document" },
           { text: "Organize", link: "/organize" },
         ],
       },
+      { text: "Contribute", link: "/contribute" },
     ],
     sidebar: [
       { text: "Getting Started", link: "/getting-started" },
+      { text: "Develop", link: "/develop" },
       { text: "Document", link: "/document" },
       { text: "Organize", link: "/organize" },
     ],
