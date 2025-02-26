@@ -52,7 +52,7 @@ This ensures a uniform review process, simplifies organization, and allows maint
 
 Please check the official [GitHub documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository) for further information.
 
-In combination with [Require PR checklist](./develop.html#require-pr-checklist) the templates are able to enforce a careful examination of each PR checklist item.
+In combination with [Require PR checklist](./develop.html#require-pr-checklist) the templates can enforce a careful examination of each PR checklist item.
 
 ::: info Information
 Note that not all checkpoint items might be relevant for your project, so you have to adjust the template to your own needs.

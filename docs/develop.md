@@ -214,9 +214,11 @@ The allowed licenses can be viewed [here](https://opensource.muenchen.de/license
 
 ### Require PR checklist
 
-The templates by default provide a workflow for validating the status of checklists inside of a PR description. To be able to merge a PR all checklist items have to be ticked off by the PR creator.
+The templates provide a workflow for validating checklist status in a PR description. To merge a PR, all checklist items must be ticked off by the PR creator.
 
 The templates by default ship with a [PR template](./organize.html#pull-request-template), which makes use of a checklist.
+
+
 
 ::: info Information
 If some of the PR checklist items are not relevant for your PR, you should adjust the checklist inside the PR description to the specific PR changes.
