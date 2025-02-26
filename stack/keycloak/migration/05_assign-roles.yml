@@ -10,7 +10,3 @@ changes:
       user: writer
       role: writer
       clientId: local
-  - assignRole:
-      user: writer
-      role: reader
-      clientId: local

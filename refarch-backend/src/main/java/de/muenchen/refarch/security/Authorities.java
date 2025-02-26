@@ -1,16 +1,20 @@
 package de.muenchen.refarch.security;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
  * Each possible authority in this project is represented by an enum.
- * The enums are used within the {@link PagingAndSortingRepository}
+ * The enums are used within the {@link org.springframework.stereotype.Controller} or
+ * {@link org.springframework.stereotype.Service} classes.
  * in the annotation e.g. {@link PreAuthorize}.
  */
+@SuppressWarnings("PMD.DataClass")
 public final class Authorities {
-    public static final String HAS_ROLE_READER = "hasRole(\"reader\")";
-    public static final String HAS_ROLE_WRITER = "hasRole(\"writer\")";
+    public static final String THEENTITY_GET = "hasAnyRole('reader', 'writer')";
+    public static final String THEENTITY_GET_ALL = "hasAnyRole('reader', 'writer')";
+    public static final String THEENTITY_CREATE = "hasAnyRole('writer')";
+    public static final String THEENTITY_UPDATE = "hasAnyRole('writer')";
+    public static final String THEENTITY_DELETE = "hasAnyRole('writer')";
 
     private Authorities() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
