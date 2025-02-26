@@ -16,7 +16,8 @@ Key technologies used in the templates include:
 [Docker](https://www.docker.com/) is used to run a local development stack including all necessary services.
 
 ::: danger IMPORTANT
-When developing locally, you need Docker installed on your system and the stack must always be running.
+If you are developing locally, you will need to have Docker installed on your system and the stack running at all times.
+Also make sure you have `kubernetes.docker.internal` in your hosts file. This should normally be done automatically by the Docker installation.
 :::
 
 Inside the `stack` folder, you will find a `docker-compose.yml` file that will spin up everything needed for local development.
