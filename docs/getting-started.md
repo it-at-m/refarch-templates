@@ -77,11 +77,13 @@ Congratulations, the Backend/EAI is now ready to use.
 
 By default, the template supports two Maven profiles:
 
-- `local`: Contains the necessary configurations for running the application.
-  locally, including settings for ports, SSO, and the database
+- `local`: Contains the necessary configurations for running the application locally, including settings for ports, SSO, and the database.
 - `no-security`: Configured to operate without security measures for development.
   or testing purposes.
-- `json-logging`: Switches logging from textual to JSON output (only relevant when deployed).
+
+::: info Information
+When running with the `local` profile, text-based logging is used (instead of JSON-based logging). This makes debugging easier during development.
+:::
 
 ## Frontend & Web Components
 

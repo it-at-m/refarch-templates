@@ -1,6 +1,5 @@
 package de.muenchen.refarch.configuration;
 
-import static de.muenchen.refarch.TestConstants.SPRING_JSON_LOGGING_PROFILE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.PrintWriter;
@@ -23,16 +22,14 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ActiveProfiles;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
-@ActiveProfiles(SPRING_JSON_LOGGING_PROFILE)
 @ExtendWith(OutputCaptureExtension.class)
 @Slf4j
 @Disabled("run manually on logback config changes")
-class LogbackJsonLoggingConfigurationTest {
+class LogbackJsonLoggingTest {
 
     private static final String EXCEPTION_MESSAGE = "EXC_MESSAGE";
     private static final Pattern STACKTRACE_PATTERN = Pattern.compile("stack_trace\":\"([^\"]*)\"");
