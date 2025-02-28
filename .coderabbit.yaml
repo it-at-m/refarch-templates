@@ -10,3 +10,6 @@ reviews:
       enabled: false
     eslint:
       enabled: false
+  finishing_touches:
+    docstrings:
+      enabled: false # needs to be disabled as it collides with the PR require checklist functionality (workflow in .github/workflows/pr-checklist.yml)
