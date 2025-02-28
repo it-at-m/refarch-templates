@@ -6,47 +6,20 @@
         <h3>Weiterführende Links sind hier zu finden:</h3>
         <div>
           <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Barrakuda"
+            href="https://refarch-templates.oss.muenchen.de/"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Barrakuda-Doku</a
+            >Doku RefArch-Templates</a
           >
         </div>
         <div>
           <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_API-Gateway"
+            href="https://refarch.oss.muenchen.de/"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Doku Archetype API-Gateway</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_Backend"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >Doku Archetype Backend</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://git.muenchen.de/ccse/refarch-archetype"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >Git-Repo Archetypes</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/JavaScript-Themen"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >Javascript-Wiki</a
+            >Doku RefArch</a
           >
         </div>
       </v-col>
