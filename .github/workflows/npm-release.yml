@@ -19,10 +19,9 @@ on:  # yamllint disable-line rule:truthy
         options:
           - refarch-frontend # Add or modify frontend paths according to your project structure
       skip-deployment:
-       default: true
-       type: boolean
-       description: skip deployment to npm registry     
-
+        default: true
+        type: boolean
+        description: "skip deployment to npm registry"
 jobs:
   release:
     name: release
