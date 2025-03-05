@@ -3,14 +3,14 @@ spring:
     name: @project.artifactId@
 
 server:
-  shutdown: "graceful"
   error:
     whitelabel:
       enabled: false
 
 management:
   endpoints:
-    enabled-by-default: false
+    access:
+      default: none
     web:
       exposure:
         include: health, info, prometheus
@@ -18,13 +18,13 @@ management:
         prometheus: metrics
   endpoint:
     health:
-      enabled: true
+      access: read_only
       probes:
         enabled: true
     info:
-      enabled: true
+      access: read_only
     prometheus:
-      enabled: true
+      access: read_only
   info:
     env:
       enabled: true
