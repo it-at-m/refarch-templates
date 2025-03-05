@@ -59,7 +59,7 @@ Benefits like Hot Module Reloading (HMR) still work when tunneling.
 
 The following maven commands are useful when working locally:
 
-- Compile the application and execute tests: `mvn clean install`  
+- Compile the application and execute tests: `mvn clean verify`  
   (add `-DskipTests` to skip test execution)
 - Run the application: `mvn spring-boot:run`
 
