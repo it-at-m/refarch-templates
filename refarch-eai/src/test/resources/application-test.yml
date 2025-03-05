@@ -1,6 +1,7 @@
 management:
   endpoints:
-    enabled-by-default: false
+    access:
+      default: none
 
 logging:
   level:
@@ -8,7 +9,7 @@ logging:
       springframework: INFO
 
 camel:
-  springboot:
+  main:
     tracing: false
 
 # Custom properties
