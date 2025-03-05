@@ -33,7 +33,7 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     outputs:
       ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
-      ARTIFACT_VERSION: ${{steps.node-release.outputs.VERSION}}
+      ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
     steps:
       - id: npm_release
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@0adbb607339cb32296289c8c319970b9ef2121cb # v1.0.2
