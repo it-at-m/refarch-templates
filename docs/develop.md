@@ -60,7 +60,7 @@ Benefits like Hot Module Reloading (HMR) still work when tunneling.
 The following maven commands are useful when working locally:
 
 - Compile the application and execute tests: `mvn clean install`  
-(add `-DskipTests` to skip test execution)
+  (add `-DskipTests` to skip test execution)
 - Run the application: `mvn spring-boot:run`
 
 ::: info Information
@@ -68,13 +68,13 @@ Instead of running and compiling the application using the commands above, you c
 :::
 
 By default, two different Spring profiles are provided to run the application:
+
 - `local`: Uses the local Docker stack to run the application and provides useful logging information while developing
 - `no-security`: Disables all security mechanisms
 
 ::: info Information
 To set the profile when running from the command line, add `-Dspring-boot.run.profiles=local` as a command parameter. You can also use the features of your IDE.
 :::
-
 
 ### Component libraries
 
