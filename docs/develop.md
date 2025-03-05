@@ -164,12 +164,15 @@ The templates by default make use of a centralized configuration we provide for 
 To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
 
 ::: info Information
-To make Renovate work, make sure that it has access to your GitHub repository.
-For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
+By default Renovate creates grouped PRs for dependency bumps. This means that if a particular dependency is found in multiple package manager files, the bump will be applied to all occurrences.
+If you want Renovate to create separate PRs depending on the subfolder, you should add <code v-pre>"additionalBranchPrefix": "{{parentDir}}-"</code> to your Renovate configuration.
+Check the official [Renovate documentation](https://docs.renovatebot.com/configuration-options/#additionalbranchprefix) for further information and configuration options.
 :::
 
 ::: danger IMPORTANT
-To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
+To make Renovate work, make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization Renovate has access by default and is enabled when the configuration file is found in your repository.
+However, to finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
 This PR then has to be merged manually once.
 After that's done Renovate will start opening PRs automatically.
 :::
