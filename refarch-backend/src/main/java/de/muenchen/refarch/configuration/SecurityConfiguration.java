@@ -15,6 +15,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * The central class for configuration of all security aspects.
+ * Automatically used when not running with profile `no-security`.
+ * Configures all endpoints to require authentication via access token.
+ * (except the Spring Boot Actuator endpoints)
+ * Additionally it configures the use of the {@link UserInfoAuthoritiesService}.
  */
 @RequiredArgsConstructor
 @Configuration
