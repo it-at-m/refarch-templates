@@ -39,7 +39,7 @@ Some tools provide local Browser-based UIs. We encourage you to use the UI provi
 
 ### Vite
 
-[Vite](https://vite.dev/) is used as the build tool, along with the testing framework [Vitest](https://vitest.dev/).
+[Vite](https://vite.dev/) is used as the build tool for JavaScript-based projects, along with the testing framework [Vitest](https://vitest.dev/).
 
 The following npm scripts are provided for working with those tools:
 
@@ -52,6 +52,25 @@ When you experience a refresh loop while developing with the Vite development se
 To avoid this problem, we recommend accessing the development server using the API Gateway as a proxy.
 Benefits like Hot Module Reloading (HMR) still work when tunneling.
 :::
+
+### Maven
+
+[Maven](https://maven.apache.org/) is used as the build tool for Java-based projects.
+
+The following maven commands are useful when working locally:
+
+- Compile the application and execute tests: `mvn clean verify`  
+  (add `-DskipTests` to skip test execution)
+- Run the application: `mvn spring-boot:run -Dspring-boot.run.profiles=local`
+
+::: info Information
+Instead of compiling and running the application using the commands above, you can also use the features of your IDE directly.
+:::
+
+By default, two different Spring profiles are provided to run the application:
+
+- `local`: Uses the local Docker stack to run the application and provides useful logging information while developing
+- `no-security`: Disables all security mechanisms
 
 ### Component libraries
 
@@ -164,12 +183,15 @@ The templates by default make use of a centralized configuration we provide for 
 To modify the default Renovate settings, the `renovate.json5` file in the project's root directory can be edited.
 
 ::: info Information
-To make Renovate work, make sure that it has access to your GitHub repository.
-For projects in the `it-at-m` organization Renovate automatically has access and is enabled when the configuration file is found in your repository.
+By default Renovate creates grouped PRs for dependency bumps. This means that if a particular dependency is found in multiple package manager files, the bump will be applied to all occurrences.
+If you want Renovate to create separate PRs by subfolder, add <code v-pre>"additionalBranchPrefix": "{{parentDir}}-"</code> to your Renovate configuration.
+Check the official [Renovate documentation](https://docs.renovatebot.com/configuration-options/#additionalbranchprefix) for further information and configuration options.
 :::
 
 ::: danger IMPORTANT
-To finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
+To make Renovate work, make sure that it has access to your GitHub repository.
+For projects in the `it-at-m` organization, Renovate has access by default and is enabled when the configuration file is found in your repository.
+However, to finish the onboarding process of Renovate, you need to open a PR for a dependency update found by Renovate through the "Dependency Dashboard" issue.
 This PR then has to be merged manually once.
 After that's done Renovate will start opening PRs automatically.
 :::
