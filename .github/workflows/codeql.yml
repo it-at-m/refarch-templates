@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Checkout repository
         id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.3
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@code-ql
         with:
           filters: |
             java:
