@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: build_docs
-        uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@hupling-patch-1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@main
 # (Line 12 is intentionally left blank with no trailing spaces)
