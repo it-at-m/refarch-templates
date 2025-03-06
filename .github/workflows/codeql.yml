@@ -41,10 +41,8 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - name: Checkout repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.3
-      - name: Check changed files and directories
-        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         id: filter
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.3
         with:
           filters: |
             java:
