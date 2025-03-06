@@ -23,7 +23,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the contained
+ * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the
  * "Authorities" contained there.
  */
 @Slf4j
