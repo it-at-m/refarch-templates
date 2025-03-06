@@ -18,6 +18,10 @@ on:  # yamllint disable-line rule:truthy
         default: refarch-frontend
         options:
           - refarch-frontend # Add or modify frontend paths according to your project structure
+      skip-deployment:
+        default: true
+        type: boolean
+        description: "skip deployment to npm registry"
 jobs:
   release:
     name: release
@@ -28,7 +32,7 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     outputs:
-      ARTIFACT_NAME: ${{ steps.npm_release.outputs.ARTIFACT_NAME }}
+      ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
     steps:
       - id: npm_release
@@ -36,6 +40,16 @@ jobs:
         with:
           app-path: ${{inputs.app-path}}
           releaseVersion: ${{inputs.release-version}}
+      - id: node
+        uses: it-at-m/.github/.github/actions/action-npm-build@main
+        with:
+          app-path: "${{ inputs.app-path }}"
+      - if: "${{ !inputs.skip-deployment }}"
+        shell: bash
+        working-directory: ./${{inputs.app-path}}
+        run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ inputs.npm-token }} # Centralized token in it-at-m GitHub organization
 
   build-image:
     runs-on: ubuntu-latest
