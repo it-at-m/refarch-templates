@@ -69,7 +69,7 @@ jobs:
       matrix:
         build-path: ['./refarch-backend','./refarch-eai'] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@main
         if: env.analyze-java && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true')
         with:
           codeql-language: java-kotlin
@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check-changes
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@main
         if: env.analyze-javascript-typescript-vue && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true')
         with:
           codeql-language: javascript-typescript
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: check-changes
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@main
         if: env.analyze-python && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true')
         with:
           codeql-language: python
