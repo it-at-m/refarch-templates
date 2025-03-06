@@ -1,5 +1,21 @@
 # Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
 name: "CodeQL Advanced"
+env:
+      # Whether to analyze Java code or not (only set to true if repo has Java source code)
+      analyze-java: true
+      # Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
+      java-buildmode: "autobuild" 
+      # Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
+      java-version: "21"
+      # JSON array formatted as string, contains the paths to the java projects to build
+      java-build-paths: "['./refarch-backend','./refarch-eai']"
+      # Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
+      analyze-javascript-typescript-vue: true
+      # Whether to analyze Python code or not (only set to true if repo has Python source code)
+      analyze-python: false
+      # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
+      analysis-query: security-and-quality
+      
 
 on:
   # Runs on pull requests and on pushes to main (in order to keep the regular scanning by GitHub working)
@@ -7,11 +23,79 @@ on:
   push:
     branches: [main]
 
+permissions:
+  pull-requests: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  codeql:
-    uses: it-at-m/.github/.github/workflows/codeql.yml@main
-    with:
-      analyze-java: true
-      analyze-javascript-typescript-vue: true
-      analyze-python: false
-      java-build-paths: "['./refarch-backend','./refarch-eai']"
+  check-changes:
+    name: Check changed files and directories
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      java: ${{ steps.filter.outputs.java }}
+      javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
+      python: ${{ steps.filter.outputs.python }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Check changed files and directories
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            java:
+              - '**/*.java'
+            javascript-typescript-vue:
+              - '**/*.js'
+              - '**/*.cjs'
+              - '**/*.mjs'
+              - '**/*.ts'
+              - '**/*.cts'
+              - '**/*.mts'
+              - '**/*.vue'
+            python:
+              - '**/*.py'
+  codeql-java:
+    name: Analyze Java source files
+    runs-on: ubuntu-latest
+    needs: check-changes
+    
+    if: inputs.analyze-java && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true')
+    strategy:
+      fail-fast: false
+      matrix:
+        build-path: ${{ fromJSON(inputs.java-build-paths) }}
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.0
+        with:
+          codeql-language: java-kotlin
+          codeql-buildmode: ${{ inputs.java-buildmode }}
+          codeql-query: ${{ inputs.analysis-query }}
+          java-version: ${{ inputs.java-version }}
+          path: ${{ matrix.build-path }}
+  codeql-javascript-typescript-vue:
+    name: Analyze JavaScript/TypeScript/Vue source files
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: inputs.analyze-javascript-typescript-vue && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true')
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.0
+        with:
+          codeql-language: javascript-typescript
+          codeql-query: ${{ inputs.analysis-query }}
+  codeql-python:
+    name: Analyze Python source files
+    runs-on: ubuntu-latest
+    needs: check-changes
+    if: inputs.analyze-python && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true')
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@1.0.0
+        with:
+          codeql-language: python
+          codeql-query: ${{ inputs.analysis-query }}
