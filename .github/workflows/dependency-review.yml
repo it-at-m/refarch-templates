@@ -1,4 +1,4 @@
-name: dependency-review
+name: Dependency Review
 
 on:
   pull_request:
@@ -7,5 +7,4 @@ jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
-      - id: build_docs
-        uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@v1.0.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@v1.0.4
