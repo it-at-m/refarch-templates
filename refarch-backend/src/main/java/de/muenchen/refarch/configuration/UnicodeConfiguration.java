@@ -23,7 +23,7 @@ public class UnicodeConfiguration {
 
     private static final String NFC_FILTER_NAME = "nfcRequestFilter";
 
-    private static final String NFC_WHITE_LIST = "text/plain; application/json; text/html";
+    private static final String NFC_WHITE_LIST = "text/plain; application/json; application/hal+json; text/html";
 
     private static final String[] NFC_URLS = ArrayUtils.toArray("/*");
 
