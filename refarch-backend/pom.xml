@@ -46,11 +46,8 @@
 
         <!-- Utility -->
         <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-csv.version>1.13.0</commons-csv.version>
         <commons-io.version>2.18.0</commons-io.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
         <commons-text.version>1.13.0</commons-text.version>
-        <commons-validator.version>1.9.0</commons-validator.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.1.0</refarch-tools.version>
 
@@ -98,6 +95,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
         <!-- Caching -->
         <dependency>
@@ -132,22 +133,16 @@
             <groupId>org.springframework.hateoas</groupId>
             <artifactId>spring-hateoas</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId> <!-- Wird für Test mitgeliefert -->
-        </dependency>
 
         <!-- Database -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        <!-- Hibernate Model Gen for type safe criterias -->
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>
-        <!-- Database migrations -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
@@ -172,12 +167,6 @@
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
             <version>${spotbugs-annotations.version}</version>
-        </dependency>
-
-        <!-- Validation -->
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
         </dependency>
 
         <!-- Testing -->
@@ -210,6 +199,10 @@
         <!-- Logging -->
         <dependency>
             <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing-bridge-brave</artifactId>
         </dependency>
         <dependency>
@@ -228,7 +221,7 @@
             <artifactId>spring-data-rest-hal-explorer</artifactId>
         </dependency>
 
-        <!-- apache commons -->
+        <!-- Apache Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
@@ -236,18 +229,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>${commons-csv.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>${commons-text.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-validator</groupId>
-            <artifactId>commons-validator</artifactId>
-            <version>${commons-validator.version}</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <!-- Configuration Processor -->
