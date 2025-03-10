@@ -37,6 +37,6 @@
     "vite": "6.2.0",
     "vite-plugin-vue-devtools": "7.7.2",
     "vitest": "3.0.8",
-    "vue-tsc": "2.2.4"
+    "vue-tsc": "2.2.8"
   }
 }
