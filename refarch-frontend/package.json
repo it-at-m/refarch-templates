@@ -20,7 +20,7 @@
     "pinia": "3.0.1",
     "vue": "3.5.13",
     "vue-router": "4.5.0",
-    "vuetify": "3.7.14"
+    "vuetify": "3.7.15"
   },
   "devDependencies": {
     "@mdi/js": "7.4.47",
