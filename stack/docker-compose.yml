@@ -133,7 +133,7 @@ services:
     security_opt: *security_settings
 
   appswitcher-server:
-    image: ghcr.io/it-at-m/appswitcher-server:1.2.0@sha256:d2049661ab6e0bb6895716c68326f37ab31b95fd7bafa50da74c684c91d26091
+    image: ghcr.io/it-at-m/appswitcher-server:1.2.1@sha256:cde8f669f8d23a5b3235f55319849a2822ed3c8f100bdbed1048cd37b7be6c6b
     environment:
       - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
       - THC_PATH=/actuator/health/liveness
