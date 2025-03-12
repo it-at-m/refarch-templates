@@ -1,6 +1,10 @@
 spring:
   application:
     name: @project.artifactId@
+  data:
+    web:
+      pageable:
+        serialization-mode: via_dto
   jpa:
     hibernate:
       # schema is managed by Flyway, only validate
