@@ -101,13 +101,17 @@ public class RequestResponseLoggingFilter implements Filter {
      * @return True if logging should be done otherwise false.
      */
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
-        final boolean isAllowedPath = securityProperties.getLoggingIgnoreListAsMatchers().stream().noneMatch(matcher -> matcher.matches(httpServletRequest));
-        final boolean isAllowedMethod = switch (securityProperties.getLoggingMode()) {
+        // check ignored paths
+        final boolean isIgnoredPath = securityProperties.getLoggingIgnoreListAsMatchers().stream().anyMatch(matcher -> matcher.matches(httpServletRequest));
+        if (isIgnoredPath) {
+            return false;
+        }
+        // check logging mode
+        return switch (securityProperties.getLoggingMode()) {
         case LoggingMode.ALL -> true;
         case LoggingMode.CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
         default -> false;
         };
-        return isAllowedPath && isAllowedMethod;
     }
 
 }
