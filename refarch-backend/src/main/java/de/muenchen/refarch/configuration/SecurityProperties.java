@@ -1,13 +1,10 @@
 package de.muenchen.refarch.configuration;
 
 import de.muenchen.refarch.security.RequestResponseLoggingFilter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.stream.Collectors;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -21,16 +18,12 @@ import java.util.List;
 @ConfigurationProperties(prefix = "security")
 @Validated
 @Profile("!no-security")
-@NoArgsConstructor
+@Data
 public class SecurityProperties {
-
     /**
      * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
     @NotNull
-    @Setter
-    @Getter
-    @SuppressWarnings("PMD.UnusedAssignment")
     private RequestResponseLoggingFilter.LoggingMode loggingMode = RequestResponseLoggingFilter.LoggingMode.NONE;
 
     /**
@@ -38,51 +31,23 @@ public class SecurityProperties {
      * authorities), see also {@link UserInfoAuthoritiesService}
      */
     @NotBlank
-    @Setter
-    @Getter
     private String userInfoUri;
 
     /**
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
     @NotNull
-    @SuppressWarnings("PMD.UnusedAssignment")
-    private List<String> loggingIgnoreList = List.of("/actuator/**");
+    private List<AntPathRequestMatcher> loggingIgnoreList = List.of(AntPathRequestMatcher.antMatcher("/actuator/**"));
 
-    /**
-     * Internal matcher representation of the provided {@link #loggingIgnoreList}
-     */
-    private List<AntPathRequestMatcher> loggingIgnoreListAsMatchers = null;
-
-    @SuppressWarnings("unused")
-    public SecurityProperties(final RequestResponseLoggingFilter.LoggingMode loggingMode, final String userInfoUri, final List<String> loggingIgnoreList) {
-        this.loggingMode = loggingMode;
-        this.userInfoUri = userInfoUri;
-        this.loggingIgnoreList = loggingIgnoreList;
-    }
-
-    /**
-     * Sets the logging ignore list and updates the internal matcher representation
-     *
-     * @param loggingIgnoreList ignore list to set
-     */
-    @SuppressWarnings("PMD.NullAssignment")
-    public void setLoggingIgnoreList(final List<String> loggingIgnoreList) {
-        this.loggingIgnoreList = loggingIgnoreList;
-        this.loggingIgnoreListAsMatchers = null;
-    }
-
-    /**
-     * Getter for the internal matcher representation implemented as singleton
-     *
-     * @return matcher representations
-     */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", matchType = SuppressMatchType.EXACT)
     public List<AntPathRequestMatcher> getLoggingIgnoreListAsMatchers() {
-        if (loggingIgnoreListAsMatchers == null) {
-            loggingIgnoreListAsMatchers = loggingIgnoreList.stream().map(AntPathRequestMatcher::antMatcher).toList();
-        }
-        return loggingIgnoreListAsMatchers;
+        return loggingIgnoreList;
     }
 
+    public List<String> getLoggingIgnoreList() {
+        return loggingIgnoreList.stream().map(AntPathRequestMatcher::toString).collect(Collectors.toList());
+    }
+
+    public void setLoggingIgnoreList(final List<String> patterns) {
+        this.loggingIgnoreList = patterns.stream().map(AntPathRequestMatcher::new).collect(Collectors.toList());
+    }
 }
