@@ -1,6 +1,7 @@
 package de.muenchen.refarch.configuration;
 
 import de.muenchen.refarch.security.RequestResponseLoggingFilter;
+import de.muenchen.refarch.security.RequestResponseLoggingFilter.LoggingMode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
@@ -26,7 +27,7 @@ public class SecurityProperties {
      * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
     @NotNull
-    private RequestResponseLoggingFilter.LoggingMode loggingMode = RequestResponseLoggingFilter.LoggingMode.NONE;
+    private LoggingMode loggingMode = LoggingMode.NONE;
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
