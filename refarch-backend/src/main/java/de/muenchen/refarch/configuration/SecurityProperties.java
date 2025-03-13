@@ -1,6 +1,8 @@
 package de.muenchen.refarch.configuration;
 
 import de.muenchen.refarch.security.RequestResponseLoggingFilter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.stream.Collectors;
@@ -39,6 +41,7 @@ public class SecurityProperties {
     @NotNull
     private List<AntPathRequestMatcher> loggingIgnoreList = List.of(AntPathRequestMatcher.antMatcher("/actuator/**"));
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", matchType = SuppressMatchType.EXACT)
     public List<AntPathRequestMatcher> getLoggingIgnoreListAsMatchers() {
         return loggingIgnoreList;
     }
