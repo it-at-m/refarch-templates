@@ -30,7 +30,7 @@
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.7.0",
     "eslint": "9.21.0",
-    "eslint-plugin-vue": "9.33.0",
+    "eslint-plugin-vue": "10.0.0",
     "jsdom": "26.0.0",
     "prettier": "3.5.3",
     "typescript": "5.8.2",
