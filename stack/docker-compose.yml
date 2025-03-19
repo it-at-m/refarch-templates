@@ -42,45 +42,26 @@ services:
     entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
 
   keycloak:
-    image: quay.io/keycloak/keycloak:20.0.5@sha256:054ef67eb7dae0129bbb9eb0e0797fd2392cd6d135094a6063ae7ff7773ef81f
+    image: keycloak/keycloak:26.1.4
     command:
-      - start-dev --http-relative-path /auth
-    depends_on:
-      - db-postgres-keycloak
+      - start-dev
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_HOSTNAME_STRICT=false
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
       - KC_HEALTH_ENABLED=true
       - KC_HTTP_PORT=8100
-      - DB=postgres
-      - DB_URL=jdbc:postgresql://db-postgres-keycloak:5432/keycloak
-      - DB_USERNAME=keycloak-user
-      - DB_PASSWORD=keycloak-secret
+      - KC_HTTP_RELATIVE_PATH=/auth
     ports:
       - "8100:8100"
     networks:
       - keycloak
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL",  "curl http://localhost:8100/auth/health/live"]
-    security_opt: *security_settings
-
-  db-postgres-keycloak:
-    image: postgres:16.4-alpine3.20@sha256:5660c2cbfea50c7a9127d17dc4e48543eedd3d7a41a595a2dfa572471e37e64c
-    environment:
-      - POSTGRES_DB=keycloak
-      - POSTGRES_USER=keycloak-user
-      - POSTGRES_PASSWORD=keycloak-secret
-    networks:
-      - keycloak
-    healthcheck:
-      <<: *healthcheck
-      test: [ "CMD-SHELL", "pg_isready -d keycloak -U keycloak-user" ]
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then exit 0;else exit 1;fi;"]
     security_opt: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.72@sha256:48a3e0b9b98a087f5f651a5462330cf0aefd1101936bfbf67b3ee3f9815eb289
+    image: klg71/keycloakmigration:0.2.80
     depends_on:
       - keycloak
     environment:
@@ -88,6 +69,7 @@ services:
       ADMIN_PASSWORD: admin
       BASEURL: http://keycloak:8100/auth
       WAIT_FOR_KEYCLOAK: 'true'
+      FAIL_ON_UNDEFINED_VARIABLES: 'true'
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
       - './keycloak/migration:/migration'
