@@ -1,6 +1,10 @@
 spring:
   application:
     name: @project.artifactId@
+  data:
+    web:
+      pageable:
+        serialization-mode: via_dto
   jpa:
     hibernate:
       # schema is managed by Flyway, only validate
@@ -8,15 +12,6 @@ spring:
   flyway:
     locations:
       - classpath:db/migration/schema
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          audiences:
-          # adds audience verification - https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_supplying_audiences
-          # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
-          # TODO - should be the clientId of the actual project
-          - refarch
 
 server:
   error:
