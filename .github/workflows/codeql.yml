@@ -41,8 +41,10 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - name: Checkout repository
-        id: filter
         uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@codeql
+      - name: Path Filter
+        id: filter
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@codeql
         with:
           filters: |
             java:
