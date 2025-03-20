@@ -36,12 +36,12 @@ jobs:
       ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
     steps:
       - id: npm_release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@0adbb607339cb32296289c8c319970b9ef2121cb # v1.0.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@main
         with:
           app-path: ${{inputs.app-path}}
           releaseVersion: ${{inputs.release-version}}
       - id: node
-        uses: it-at-m/.github/.github/actions/action-npm-build@main
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@main
         with:
           app-path: "${{ inputs.app-path }}"
       - if: "${{ !inputs.skip-deployment }}"
