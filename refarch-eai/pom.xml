@@ -25,7 +25,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.10.1</camel-spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>4.10.2</camel-spring-boot-dependencies.version>
 
         <!-- Logging -->
         <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
@@ -34,8 +34,8 @@
         <spotless-maven-plugin.version>2.34.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.1.0</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.9.2</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
@@ -95,10 +95,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-spring-junit5</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-mock-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -21,6 +21,8 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/certs
+          # adds audience verification - https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_supplying_audiences
+          # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
           audiences:
             - ${sso.client}
 
@@ -32,6 +34,5 @@ sso:
   client: local
 
 security:
-  # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
-  requestLogging: all
-  userInfoUri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo
+  user-info-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo
+  logging-mode: all
