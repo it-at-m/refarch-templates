@@ -1,6 +1,6 @@
 name: Npm Release
 
-on: # yamllint disable-line rule:truthy
+on:
   workflow_dispatch:
     inputs:
       release-version:
