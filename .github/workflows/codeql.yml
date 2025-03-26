@@ -40,7 +40,7 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - name: Checkout repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@codeql
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@main
       - name: Path Filter
         id: filter
         uses: it-at-m/lhm_actions/action-templates/actions/action-filter@codeql
