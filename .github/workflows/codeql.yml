@@ -43,7 +43,7 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@main
       - name: Path Filter
         id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@codeql
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@main
   codeql-java:
     name: Analyze Java source files
     runs-on: ubuntu-latest
