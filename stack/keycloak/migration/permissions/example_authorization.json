@@ -1,0 +1,72 @@
+{
+  "allowRemoteResourceManagement": false,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "REFARCH_THEENTITY_READ",
+      "type": "local-backend-service",
+      "scopes": []
+    },
+    {
+      "name": "REFARCH_THEENTITY_WRITE",
+      "type": "local-backend-service",
+      "scopes": []
+    },
+    {
+      "name": "REFARCH_THEENTITY_DELETE",
+      "type": "local-backend-service",
+      "scopes": []
+    }
+  ],
+  "policies": [
+    {
+      "name": "rolepolicy_writer",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "roles": "[{\"id\":\"local/writer\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "rolepolicy_reader",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "roles": "[{\"id\":\"local/reader\",\"required\":false}]"
+      }
+    },
+    {
+      "name": "permission_REFARCH_THEENTITY_DELETE",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"REFARCH_THEENTITY_DELETE\"]",
+        "applyPolicies": "[\"rolepolicy_writer\"]"
+      }
+    },
+    {
+      "name": "permission_REFARCH_THEENTITY_WRITE",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"REFARCH_THEENTITY_WRITE\"]",
+        "applyPolicies": "[\"rolepolicy_writer\"]"
+      }
+    },
+    {
+      "name": "permission_REFARCH_THEENTITY_READ",
+      "type": "resource",
+      "logic": "POSITIVE",
+      "decisionStrategy": "AFFIRMATIVE",
+      "config": {
+        "resources": "[\"REFARCH_THEENTITY_READ\"]",
+        "applyPolicies": "[\"rolepolicy_writer\",\"rolepolicy_reader\"]"
+      }
+    }
+  ],
+  "scopes": []
+}
