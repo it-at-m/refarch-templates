@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "Documentation Template"
-  text: "Starter files for RefArch applications"
-  tagline: "This is the default boilerplate for the RefArch templates documentations"
+  name: "RefArch Docs Template"
+  text: "Starter files for Vitepress-based documentation"
+  tagline: "This is the default template for writing documentation in RefArch applications"
   actions:
     - theme: brand
       text: Example

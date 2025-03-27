@@ -3,7 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 const vitepressConfig = defineConfig({
-  title: "RefArch Documentation Template",
+  title: "RefArch Docs Template",
   description: "Documentation template from the RefArch Templates",
   head: [
     [
@@ -49,6 +49,11 @@ const vitepressConfig = defineConfig({
       provider: "local",
     },
   },
+  markdown: {
+    image: {
+      lazyLoading: true
+    }
+  }
 });
 
 export default withMermaid(vitepressConfig);
