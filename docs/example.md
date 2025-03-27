@@ -42,7 +42,7 @@ _This text will be italic_
 
 ### 4. Links
 
-- [Internal link](../index.md)
+- [Internal link](./index.md)
 - [External link](https://refarch.oss.muenchen.de)
 
 ### 5. Images
