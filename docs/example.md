@@ -4,7 +4,7 @@ This is a simple demo page to show the capabilities of using markdown to write d
 
 ## Markdown (H2)
 
-Markdown is a lightweight markup language with plain text formatting syntax. 
+Markdown is a lightweight markup language with plain text formatting syntax.
 Markdown is a simple yet powerful way to format text. It is widely used in documentation, readme files, and various other applications.
 Below are some of the key features of Markdown.
 
@@ -13,14 +13,16 @@ More information on Markdown can be found in the [Markdown Guide](https://www.ma
 ### 1. Headers (H3)
 
 #### This is an H4
+
 ##### This is an H5
+
 ###### This is an H6
 
 ### 2. Emphasis
 
-*This text will be italic*  
+_This text will be italic_  
 **This text will be bold**  
-***This text will be both italic and bold***
+**_This text will be both italic and bold_**
 
 ### 3. Lists
 
@@ -28,8 +30,8 @@ More information on Markdown can be found in the [Markdown Guide](https://www.ma
 
 - Item 1
 - Item 2
-    - Subitem 2.1
-    - Subitem 2.2
+  - Subitem 2.1
+  - Subitem 2.2
 - Item 3
 
 #### Ordered List
@@ -63,7 +65,7 @@ This is some `inline code`.
 #### Code Blocks
 
 ```python
-def hello_world(): 
+def hello_world():
     print("Hello, World!")
 ```
 
@@ -74,7 +76,7 @@ def hello_world():
 ### 9. Tables
 
 | Header 1 | Header 2 | Header 3 |
-|----------|----------|----------|
+| -------- | -------- | -------- |
 | Row 1    | Data 1   | Data 2   |
 | Row 2    | Data 3   | Data 4   |
 

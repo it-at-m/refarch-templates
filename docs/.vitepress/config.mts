@@ -51,9 +51,9 @@ const vitepressConfig = defineConfig({
   },
   markdown: {
     image: {
-      lazyLoading: true
-    }
-  }
+      lazyLoading: true,
+    },
+  },
 });
 
 export default withMermaid(vitepressConfig);
