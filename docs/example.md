@@ -1,11 +1,11 @@
 # Example (H1)
 
-This is a simple demo page to show the capabilities of using markdown to write documentation and using Mermaid to render diagrams.
+This is a simple demo page to show the capabilities of using Markdown to write documentation and using Mermaid to render diagrams.
 
 ## Markdown (H2)
 
-Markdown is a lightweight markup language with plain text formatting syntax.
-Markdown is a simple yet powerful way to format text. It is widely used in documentation, readme files, and various other applications.
+Markdown is a lightweight markup language with plain text formatting syntax and provides a simple yet powerful way to format text. 
+It is widely used in documentation, readme files, and various other applications.
 Below are some of the key features of Markdown.
 
 More information on Markdown can be found in the [Markdown Guide](https://www.markdownguide.org/).
