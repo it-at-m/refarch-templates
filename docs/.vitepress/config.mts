@@ -3,8 +3,8 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 const vitepressConfig = defineConfig({
-  title: "RefArch Templates",
-  description: "Documentation for the RefArch Templates",
+  title: "RefArch Docs Template",
+  description: "Documentation template from the RefArch Templates",
   head: [
     [
       "link",
@@ -22,36 +22,36 @@ const vitepressConfig = defineConfig({
       {
         text: "Docs",
         items: [
-          { text: "Getting Started", link: "/getting-started" },
-          { text: "Develop", link: "/develop" },
-          { text: "Document", link: "/document" },
-          { text: "Organize", link: "/organize" },
+          { text: "Example", link: "/example" },
+          { text: "External link", link: "https://refarch.oss.muenchen.de" },
         ],
       },
-      { text: "Contribute", link: "/contribute" },
     ],
     sidebar: [
-      { text: "Getting Started", link: "/getting-started" },
-      { text: "Develop", link: "/develop" },
-      { text: "Document", link: "/document" },
-      { text: "Organize", link: "/organize" },
+      { text: "Example", link: "/example" },
+      { text: "External link", link: "https://refarch.oss.muenchen.de" },
     ],
     socialLinks: [
       { icon: "github", link: "https://github.com/it-at-m/refarch-templates" },
     ],
-    outline: {
-      level: "deep",
-    },
     editLink: {
       pattern:
         "https://github.com/it-at-m/refarch-templates/blob/main/docs/:path",
       text: "View this page on GitHub",
     },
+    footer: {
+      message: `<a href="https://opensource.muenchen.de/impress.html">Impress and Contact</a>`,
+    },
+    outline: {
+      level: "deep",
+    },
     search: {
       provider: "local",
     },
-    footer: {
-      message: `<a href="https://opensource.muenchen.de/impress.html">Impress and Contact</a>`,
+  },
+  markdown: {
+    image: {
+      lazyLoading: true,
     },
   },
 });
