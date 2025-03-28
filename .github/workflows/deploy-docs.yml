@@ -3,6 +3,8 @@ name: Deploy documentation website
 on:
   # Runs on pushes to any branch when changes are made to docs or workflow
   push:
+    branches:
+      - main
     paths:
       - "docs/**"
       - ".github/workflows/deploy-docs.yml"
