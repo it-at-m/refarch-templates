@@ -4,7 +4,7 @@ This is a simple demo page to show the capabilities of using Markdown to write d
 
 ## Markdown (H2)
 
-Markdown is a lightweight markup language with plain text formatting syntax and provides a simple yet powerful way to format text. 
+Markdown is a lightweight markup language with plain text formatting syntax and provides a simple yet powerful way to format text.
 It is widely used in documentation, readme files, and various other applications.
 Below are some of the key features of Markdown.
 
