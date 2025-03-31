@@ -10,6 +10,7 @@
 
 # Package Files #
 *.jar
+!/stack/keycloak/plugins/*.jar
 *.war
 *.nar
 *.ear

@@ -13,7 +13,7 @@ changes:
   # Maps user client roles of current client into a claim "authorities"
   - addClientMapper:
       clientId: local
-      name: userClientAuthorities
+      name: userClientRolesAuthorities
       protocolMapper: oidc-usermodel-client-role-mapper
       config:
         access.token.claim: true

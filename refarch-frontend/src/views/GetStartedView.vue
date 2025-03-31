@@ -6,7 +6,7 @@
         <h3>Weiterführende Links sind hier zu finden:</h3>
         <div>
           <a
-            href="https://refarch-templates.oss.muenchen.de/"
+            href="https://refarch.oss.muenchen.de/templates"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
