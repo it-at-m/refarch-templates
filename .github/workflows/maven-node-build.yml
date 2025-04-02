@@ -21,19 +21,19 @@ jobs:
           - app-path: refarch-webcomponent
 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7757eb7f3c158d5f7935b08ff581b395a89d39ee # v1.0.6
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
       - if: ${{hashFiles(format('./{0}/package.json', matrix.app-path))!=null}}
         id: node
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@7757eb7f3c158d5f7935b08ff581b395a89d39ee # v1.0.6
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
           app-path: "${{ matrix.app-path }}"
       - if: ${{hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null}}
         id: maven
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@7757eb7f3c158d5f7935b08ff581b395a89d39ee # v1.0.6
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
           app-path: "${{ matrix.app-path }}"
       - if: github.ref == 'refs/heads/main'
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@7757eb7f3c158d5f7935b08ff581b395a89d39ee # v1.0.6
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
           path: "${{  matrix.app-path }}"
           image-name: "${{  matrix.app-path }}"
