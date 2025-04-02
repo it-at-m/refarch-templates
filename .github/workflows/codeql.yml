@@ -40,10 +40,10 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - name: Checkout repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@v1.0.7
+        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
       - name: Path Filter
         id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@v1.0.7
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
   codeql-java:
     name: Analyze Java source files
     runs-on: ubuntu-latest
