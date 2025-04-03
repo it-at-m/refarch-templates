@@ -1,4 +1,4 @@
-name: Npm Release
+name: Release NPM
 
 on:
   workflow_dispatch:
@@ -33,20 +33,20 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     outputs:
       ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
-      ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
+      ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
     steps:
       - id: npm_release
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
-          app-path: ${{inputs.app-path}}
-          releaseVersion: ${{inputs.release-version}}
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
       - id: node
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
-          app-path: "${{ inputs.app-path }}"
-      - if: "${{ !inputs.skip-deployment }}"
+          app-path: ${{ inputs.app-path }}
+      - if: ${{ !inputs.skip-deployment }}
         shell: bash
-        working-directory: ./${{inputs.app-path}}
+        working-directory: ./${{ inputs.app-path }}
         run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ inputs.npm-token }} # Centralized token in it-at-m GitHub organization
@@ -57,8 +57,8 @@ jobs:
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
-          path: "${{ inputs.app-path }}"
-          image-name: "${{ inputs.app-path }}"
+          path: ${{ inputs.app-path }}
+          image-name: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
@@ -70,7 +70,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
-        id: create_release
         uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}

@@ -1,12 +1,12 @@
 # Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
-name: "CodeQL Advanced"
+name: CodeQL Advanced
 env:
   # Whether to analyze Java code or not (only set to true if repo has Java source code)
   analyze-java: true
   # Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
-  java-buildmode: "autobuild"
+  java-buildmode: autobuild
   # Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
-  java-version: "21"
+  java-version: 21
   # Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
   analyze-javascript-typescript-vue: true
   # Whether to analyze Python code or not (only set to true if repo has Python source code)
