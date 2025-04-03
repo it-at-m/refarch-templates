@@ -1,0 +1,2 @@
+# All text files (* text=auto) should use the Unix line break (eol=lf) when commiting
+* text=auto eol=lf

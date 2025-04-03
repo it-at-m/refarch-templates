@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -24,8 +23,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Service, der einen OIDC /userinfo Endpoint aufruft (mit JWT Bearer Auth) und dort die enthaltenen
- * "Authorities" extrahiert.
+ * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the
+ * "Authorities" contained there.
  */
 @Slf4j
 public class UserInfoAuthoritiesService {
@@ -40,12 +39,12 @@ public class UserInfoAuthoritiesService {
     private final Cache cache;
 
     /**
-     * Erzeugt eine neue Instanz.
+     * Creates a new instance
      *
-     * @param userInfoUri userinfo Endpoint URI
-     * @param restTemplateBuilder ein {@link RestTemplateBuilder}
+     * @param userInfoUri userinfo endpoint URI
+     * @param restTemplateBuilder a {@link RestTemplateBuilder}
      */
-    public UserInfoAuthoritiesService(String userInfoUri, RestTemplateBuilder restTemplateBuilder) {
+    public UserInfoAuthoritiesService(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
         this.userInfoUri = userInfoUri;
         this.restTemplate = restTemplateBuilder.build();
         this.cache = new CaffeineCache(NAME_AUTHENTICATION_CACHE,
@@ -56,23 +55,23 @@ public class UserInfoAuthoritiesService {
     }
 
     /**
-     * Ruft den /userinfo Endpoint und extrahiert {@link GrantedAuthority}s aus dem "authorities"
-     * Claim.
+     * Calls the /userinfo endpoint and extracts {@link GrantedAuthority}s from the "authorities" claim.
      *
-     * @param jwt der JWT
-     * @return die {@link GrantedAuthority}s gem. Claim "authorities" des /userinfo Endpoints
+     * @param jwt the JWT
+     * @return the {@link GrantedAuthority}s according to claim "authorities" of /userinfo endpoint
      */
-    public Collection<SimpleGrantedAuthority> loadAuthorities(Jwt jwt) {
-        ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
+    public Collection<SimpleGrantedAuthority> loadAuthorities(final Jwt jwt) {
+        final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
         if (valueWrapper != null) {
             // value present in cache
             @SuppressWarnings("unchecked")
-            Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) valueWrapper.get();
+            final Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) valueWrapper.get();
             log.debug("Resolved authorities (from cache): {}", authorities);
             return authorities;
         }
 
         log.debug("Fetching user-info for token subject: {}", jwt.getSubject());
+        @SuppressWarnings("PMD.LooseCoupling")
         final HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwt.getTokenValue());
         final HttpEntity<String> entity = new HttpEntity<>(headers);
@@ -80,11 +79,11 @@ public class UserInfoAuthoritiesService {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         try {
             @SuppressWarnings("unchecked")
-            Map<String, Object> map = restTemplate.exchange(this.userInfoUri, HttpMethod.GET, entity,
+            final Map<String, Object> map = restTemplate.exchange(this.userInfoUri, HttpMethod.GET, entity,
                     Map.class).getBody();
 
             log.debug("Response from user-info Endpoint: {}", map);
-            if (map.containsKey(CLAIM_AUTHORITIES)) {
+            if (map != null && map.containsKey(CLAIM_AUTHORITIES)) {
                 authorities = asAuthorities(map.get(CLAIM_AUTHORITIES));
             }
             log.debug("Resolved Authorities (from /userinfo Endpoint): {}", authorities);
@@ -98,18 +97,19 @@ public class UserInfoAuthoritiesService {
         return authorities;
     }
 
-    private static List<SimpleGrantedAuthority> asAuthorities(Object object) {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        if (object instanceof Collection) {
-            Collection<?> collection = (Collection<?>) object;
-            object = collection.toArray(new Object[0]);
+    private static List<SimpleGrantedAuthority> asAuthorities(final Object object) {
+        final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        Object authoritiesObject = object;
+        if (authoritiesObject instanceof Collection) {
+            final Collection<?> collection = (Collection<?>) authoritiesObject;
+            authoritiesObject = collection.toArray(new Object[0]);
         }
-        if (ObjectUtils.isArray(object)) {
+        if (ObjectUtils.isArray(authoritiesObject)) {
             authorities.addAll(
-                    Stream.of(((Object[]) object))
+                    Stream.of((Object[]) authoritiesObject)
                             .map(Object::toString)
                             .map(SimpleGrantedAuthority::new)
-                            .collect(Collectors.toList()));
+                            .toList());
         }
         return authorities;
     }

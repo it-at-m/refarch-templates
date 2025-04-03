@@ -1,40 +1,56 @@
 spring:
-  application.name: @project.artifactId@
-  banner.location: banner.txt
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          audiences:
-          # adds audience verification - https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html#_supplying_audiences
-          # TODO - should be the clientId of the actual project
-          - refarch
+  application:
+    name: @project.artifactId@
+  data:
+    web:
+      pageable:
+        serialization-mode: via_dto
+  jpa:
+    hibernate:
+      # schema is managed by Flyway, only validate
+      ddl-auto: validate
+  flyway:
+    locations:
+      - classpath:db/migration/schema
 
 server:
-  shutdown: "graceful"
-  port: 8080
   error:
-    include-exception: false
-    include-stacktrace: never
     whitelabel:
       enabled: false
 
 # Config for spring actuator endpoints
 management:
-  server.port: ${server.port}
   endpoints:
-    enabled-by-default: false
+    access:
+      default: none
     web:
       exposure:
-        include: health, info, prometheus, livenessstate, readinessstate
+        include: health, info, prometheus
       path-mapping:
         prometheus: metrics
   endpoint:
-    health.enabled: true
-    info.enabled: true
-    prometheus.enabled: true
+    health:
+      access: read_only
+      probes:
+        enabled: true
+    info:
+      access: read_only
+    prometheus:
+      access: read_only
   info:
     env:
       enabled: true
-info.application.name: @project.artifactId@
-info.application.version: @project.version@
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+info:
+  application:
+    name: @project.artifactId@
+    version: @project.version@
+    description: @project.description@
+  build:
+    java.version: @java.version@
+    spring-cloud.version: @spring-cloud-dependencies.version@

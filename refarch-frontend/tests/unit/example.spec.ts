@@ -1,6 +1,6 @@
 import { shallowMount } from "@vue/test-utils";
 import { createPinia } from "pinia";
-import { beforeAll, beforeEach, describe, expect, it } from "vitest";
+import { beforeAll, beforeEach, describe, expect, test } from "vitest";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
@@ -24,7 +24,7 @@ describe("TheSnackbar.vue", () => {
     });
   });
 
-  it("renders props.message when passed", () => {
+  test("renders props.message when passed", () => {
     const message = "Hello_World";
     const wrapper = shallowMount(TheSnackbar, {
       global: {

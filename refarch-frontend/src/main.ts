@@ -1,7 +1,9 @@
 import { createApp } from "vue";
 
+import App from "@/App.vue";
 import { registerPlugins } from "@/plugins";
-import App from "./App.vue";
+
+import "unfonts.css";
 
 const app = createApp(App);
 

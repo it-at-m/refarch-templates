@@ -7,7 +7,7 @@
           cols="3"
           class="d-flex align-center justify-start"
         >
-          <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+          <v-app-bar-nav-icon @click.stop="toggleDrawer()" />
           <router-link to="/">
             <v-toolbar-title class="font-weight-bold">
               <span class="text-white">RefArch-</span>
@@ -21,14 +21,14 @@
           class="d-flex align-center justify-center"
         >
           <v-text-field
-            id="suchfeld"
+            id="searchField"
             v-model="query"
             flat
             variant="solo-inverted"
             hide-details
             label="Suche"
             clearable
-            prepend-inner-icon="mdi-magnify"
+            :prepend-inner-icon="mdiMagnify"
             theme="dark"
             @keyup.enter="search"
           />
@@ -41,12 +41,13 @@
             v-if="appswitcherBaseUrl"
             :base-url="appswitcherBaseUrl"
             :tags="['global']"
+            :icon="mdiApps"
           />
           <v-btn
             variant="text"
             icon
           >
-            <lhm-avatar
+            <ad2-image-avatar
               v-if="userStore.getUser !== null"
               :username="userStore.getUser.username"
             />
@@ -74,46 +75,55 @@
 </template>
 
 <script setup lang="ts">
-import type { Info } from "@/api/InfoService";
-
+import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
+import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
+import {
+  VApp,
+  VAppBar,
+  VAppBarNavIcon,
+  VBtn,
+  VCol,
+  VContainer,
+  VFadeTransition,
+  VList,
+  VListItem,
+  VListItemTitle,
+  VMain,
+  VNavigationDrawer,
+  VRow,
+  VTextField,
+  VToolbarTitle,
+} from "vuetify/components";
 
-import InfoService from "@/api/InfoService";
-import UserService from "@/api/UserService";
+import { getUser } from "@/api/user-client";
+import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { ROUTES_GETSTARTED } from "@/Constants";
+import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
-import LhmAvatar from "./components/common/LhmAvatar.vue";
 
-const drawer = ref(true);
 const query = ref<string>("");
-const appswitcherBaseUrl = ref<string | null>(null);
+const appswitcherBaseUrl = APPSWITCHER_URL;
 
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
+const [drawer, toggleDrawer] = useToggle();
 
 onMounted(() => {
   loadUser();
-  InfoService.getInfo()
-    .then((content: Info) => {
-      appswitcherBaseUrl.value = content.appswitcher.url;
-    })
-    .catch((error) => {
-      snackbarStore.showMessage(error);
-    });
 });
 
 /**
- * Lädt UserInfo vom Backend und setzt diese im Store.
+ * Loads UserInfo from the backend and sets it in the store.
  */
 function loadUser(): void {
-  UserService.getUser()
+  getUser()
     .then((user: User) => userStore.setUser(user))
     .catch(() => {
-      // Keine Userinfo gekriegt, also Fallback
+      // No user info received, so fallback
       if (import.meta.env.DEV) {
         userStore.setUser(UserLocalDevelopment());
       } else {
@@ -122,7 +132,10 @@ function loadUser(): void {
     });
 }
 
-//Navigiert zur Seite mit den Suchergebnissen und sendet ein Event zum Auslösen weiterer Suchen.
+/**
+ * Navigates to the page with the search results and sends an event to trigger further searches.
+ */
+
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.showMessage({

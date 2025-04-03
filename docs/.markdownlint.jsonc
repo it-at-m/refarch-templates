@@ -1,0 +1,10 @@
+// Configuration file to exclude or reconfigure markdownlint rules, see https://github.com/igorshubovych/markdownlint-cli?tab=readme-ov-file#configuration for more information
+// By default, all rules are active.
+{
+  "default": true,
+  "no-duplicate-heading": {
+    "siblings_only": true,
+  },
+  "line-length": false,
+  "no-inline-html": false,
+}

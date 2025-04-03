@@ -3,40 +3,34 @@ package de.muenchen.refarch.configuration.nfcconverter;
 import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.Reader;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 /**
  * <p>
- * Wrapper für Reader der eine NFC-Konvertierung durchführt.
+ * Wrapper for readers that performs an NFC conversion.
  * </p>
  *
- * <p>
- * <strong>Achtung:</strong>
+ * <strong>Please note:</strong>
  * <ul>
- * <li>Bei Java-Readern und -Writern kann gefahrlos eine NFC-Konvertierung
- * durchgeführt werden, da dort Zeichen verarbeitet werden.</li>
- * <li>Dieser Reader liest bei vor dem Lesen des ersten Zeichens denn vollständig Text des
- * gewrappten Readers in einern internen Buffer und führt darauf die NFC-Normalisierung
- * durch. Grund ist, dass NFC-Konvertierung kann nicht auf Basis von einzelnen Zeichen
- * durchgeführt werden kann. Dies kann zu erhöhter Latenz führen.</li>
+ * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
+ * processed there.</li>
+ * <li>Before reading the first character, this reader reads the complete text of the wrapped reader
+ * into an internal buffer and performs NFC normalization on it.
+ * The reason is that NFC conversion cannot be performed on a character-by-character basis.</li>
  * </ul>
- * </p>
  */
 @Slf4j
+@RequiredArgsConstructor
 public class NfcReader extends Reader {
 
     private final Reader original;
 
     private CharArrayReader converted;
 
-    public NfcReader(final Reader original) {
-        this.original = original;
-        this.converted = null;
-    }
-
     private void convert() {
-
         if (converted != null) {
             return;
         }
@@ -46,7 +40,6 @@ public class NfcReader extends Reader {
             final String nfdContent = IOUtils.toString(original);
             final String nfcConvertedContent = NfcHelper.nfcConverter(nfdContent);
             converted = new CharArrayReader(nfcConvertedContent.toCharArray());
-
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -59,7 +52,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public int read(char[] cbuf, int off, int len) throws IOException {
+    public int read(final char[] cbuf, final int off, final int len) throws IOException {
         convert();
         return converted.read(cbuf, off, len);
     }
@@ -70,7 +63,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public long skip(long n) throws IOException {
+    public long skip(final long n) throws IOException {
         convert();
         return converted.skip(n);
     }
@@ -88,7 +81,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public void mark(int readAheadLimit) throws IOException {
+    public void mark(final int readAheadLimit) throws IOException {
         convert();
         converted.mark(readAheadLimit);
     }
