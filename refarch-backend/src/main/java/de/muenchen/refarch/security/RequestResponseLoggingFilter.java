@@ -1,5 +1,6 @@
 package de.muenchen.refarch.security;
 
+import de.muenchen.refarch.configuration.SecurityProperties;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -11,9 +12,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 
@@ -23,19 +27,36 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 @Slf4j
+@RequiredArgsConstructor
+@ToString
+@Profile("!no-security")
 public class RequestResponseLoggingFilter implements Filter {
 
-    private static final String REQUEST_LOGGING_MODE_ALL = "all";
-
-    private static final String REQUEST_LOGGING_MODE_CHANGING = "changing";
-
-    private static final List<String> CHANGING_METHODS = Arrays.asList("POST", "PUT", "PATCH", "DELETE");
+    private static final List<String> CHANGING_METHODS = Arrays.asList(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
+            HttpMethod.DELETE.name());
 
     /**
      * The property or a zero length string if no property is available.
      */
-    @Value("${security.logging.requests:}")
-    private String requestLoggingMode;
+    private final SecurityProperties securityProperties;
+
+    /**
+     * Logging mode to use for incoming HTTP requests
+     */
+    public enum LoggingMode {
+        /**
+         * Logs all requests
+         */
+        ALL,
+        /**
+         * Logs only changing requests, see {@link RequestResponseLoggingFilter#CHANGING_METHODS}
+         */
+        CHANGING,
+        /**
+         * Logs no requests
+         */
+        NONE
+    }
 
     /**
      * {@inheritDoc}
@@ -48,7 +69,6 @@ public class RequestResponseLoggingFilter implements Filter {
     /**
      * The method logs the username extracted out of the {@link SecurityContext},
      * the kind of HTTP-Request, the targeted URI and the response http status code.
-     *
      * {@inheritDoc}
      */
     @Override
@@ -81,9 +101,13 @@ public class RequestResponseLoggingFilter implements Filter {
      * @return True if logging should be done otherwise false.
      */
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
-        return REQUEST_LOGGING_MODE_ALL.equals(requestLoggingMode)
-                || (REQUEST_LOGGING_MODE_CHANGING.equals(requestLoggingMode)
-                        && CHANGING_METHODS.contains(httpServletRequest.getMethod()));
+        final boolean isLoggingMode = switch (securityProperties.getLoggingMode()) {
+        case LoggingMode.ALL -> true;
+        case LoggingMode.CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
+        default -> false;
+        };
+
+        return isLoggingMode && securityProperties.getLoggingIgnoreListAsMatchers().stream().noneMatch(matcher -> matcher.matches(httpServletRequest));
     }
 
 }

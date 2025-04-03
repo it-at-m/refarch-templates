@@ -23,8 +23,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Service, der einen OIDC /userinfo Endpoint aufruft (mit JWT Bearer Auth) und dort die enthaltenen
- * "Authorities" extrahiert.
+ * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the
+ * "Authorities" contained there.
  */
 @Slf4j
 public class UserInfoAuthoritiesService {
@@ -39,10 +39,10 @@ public class UserInfoAuthoritiesService {
     private final Cache cache;
 
     /**
-     * Erzeugt eine neue Instanz.
+     * Creates a new instance
      *
-     * @param userInfoUri userinfo Endpoint URI
-     * @param restTemplateBuilder ein {@link RestTemplateBuilder}
+     * @param userInfoUri userinfo endpoint URI
+     * @param restTemplateBuilder a {@link RestTemplateBuilder}
      */
     public UserInfoAuthoritiesService(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
         this.userInfoUri = userInfoUri;
@@ -55,11 +55,10 @@ public class UserInfoAuthoritiesService {
     }
 
     /**
-     * Ruft den /userinfo Endpoint und extrahiert {@link GrantedAuthority}s aus dem "authorities"
-     * Claim.
+     * Calls the /userinfo endpoint and extracts {@link GrantedAuthority}s from the "authorities" claim.
      *
-     * @param jwt der JWT
-     * @return die {@link GrantedAuthority}s gem. Claim "authorities" des /userinfo Endpoints
+     * @param jwt the JWT
+     * @return the {@link GrantedAuthority}s according to claim "authorities" of /userinfo endpoint
      */
     public Collection<SimpleGrantedAuthority> loadAuthorities(final Jwt jwt) {
         final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
@@ -84,7 +83,7 @@ public class UserInfoAuthoritiesService {
                     Map.class).getBody();
 
             log.debug("Response from user-info Endpoint: {}", map);
-            if (map.containsKey(CLAIM_AUTHORITIES)) {
+            if (map != null && map.containsKey(CLAIM_AUTHORITIES)) {
                 authorities = asAuthorities(map.get(CLAIM_AUTHORITIES));
             }
             log.debug("Resolved Authorities (from /userinfo Endpoint): {}", authorities);

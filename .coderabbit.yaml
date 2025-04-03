@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  profile: "assertive"
+  review_status: true
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+  tools:
+    pmd:
+      enabled: false
+    eslint:
+      enabled: false
+  finishing_touches:
+    docstrings:
+      enabled: false # needs to be disabled as it collides with the PR require checklist functionality (workflow in .github/workflows/pr-checklist.yml)

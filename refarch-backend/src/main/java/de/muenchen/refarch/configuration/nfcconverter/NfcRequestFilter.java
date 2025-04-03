@@ -17,23 +17,20 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * <p>
- * Spring-Filter, der eine NFC-Normalisierung aller <em>sicher textuellen</em> Inhalte durchführt.
+ * Spring filter that performs an NFC normalization of all <em>safe textual</em> content.
  * </p>
  *
- * <strong>Achtung:</strong>
+ * <strong>Please note:</strong>
  * <ul>
- * <li>Alle Datenströme die in Zusammenhang mit Multipart-Requests stehen werden nicht nach NFC
- * normalisiert.
- * Grund ist, dass hier binäre Datenströme übergeben werden und diese i.d.R. nicht einfacher Text
- * sind.
- * Falls notwendig bzw. sinnvoll kann bzw. muss die Anwendungslogik oder eine geeignete Bibliothek
- * ggf. eine NFC-Normalisierung durchgeführt werden.
- * <li>NFC-Normalisierung kann nur auf der Zeichenebene durchgeführt werden und für die
- * Konvertierung von
- * binären Datenströmen ist die Kenntnis des Datenformats notwendig, was die Kenntnis des
- * verwendeten Charsets
- * impliziert. Dies lässt die NFC-Normalisierung in einem generischen Filter sinnvoll erscheinen.
- * </li>
+ * <li>All data streams associated with multipart requests are not normalized according to NFC.
+ * The reason for this is that binary data streams are transferred here and these are generally not
+ * simple text.
+ * If necessary or useful, the application logic or a suitable library can or must carry out NFC
+ * normalization.</li>
+ * <li>NFC normalization can only be performed at the character level
+ * and the conversion of binary data streams requires knowledge of the data format,
+ * which implies knowledge of the charset used.
+ * This makes NFC normalization in a generic filter seem sensible.</li>
  * </ul>
  *
  * @see java.text.Normalizer
@@ -45,7 +42,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class NfcRequestFilter extends OncePerRequestFilter {
 
     /**
-     * Name des Properties für Konfiguration der White-List für Content-Types.
+     * Name of the property for configuring the white list for content types.
      *
      * @see #getContentTypes()
      * @see #setContentTypes(String)
@@ -55,14 +52,14 @@ public class NfcRequestFilter extends OncePerRequestFilter {
     private final Set<String> contentTypes = new HashSet<>();
 
     /**
-     * @return Das Property <em>contentTypes</em>
+     * @return The property <em>contentTypes</em>
      */
     public String getContentTypes() {
         return String.join("; ", this.contentTypes);
     }
 
     /**
-     * @param contentTypes Das Property <em>contentTypes</em>
+     * @param contentTypes The property <em>contentTypes</em>
      */
     @Autowired(required = false)
     public void setContentTypes(final String contentTypes) {
@@ -88,7 +85,7 @@ public class NfcRequestFilter extends OncePerRequestFilter {
 
         final String contentType = request.getContentType();
         log.debug("ContentType for request with URI: \"{}\"", contentType);
-        if (contentTypes != null && contentTypes.contains(contentType)) {
+        if (contentTypes.contains(contentType)) {
             log.debug("Processing request {}.", request.getRequestURI());
             filterChain.doFilter(new NfcRequest(request, contentTypes), response);
         } else {

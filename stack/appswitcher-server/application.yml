@@ -1,0 +1,19 @@
+appswitcher.apps:
+  vue-devtools:
+    display-name: Vue Devtools
+    url: http://localhost:8081/__devtools__/
+    image-url: http://localhost:8084/logos/Vue.png
+    tags:
+      - global
+  pgadmin:
+    display-name: pgAdmin
+    url: http://localhost:5050
+    image-url: http://localhost:8084/logos/PostgreSQL.png
+    tags:
+      - global
+  keycloak:
+    display-name: Keycloak
+    url: http://localhost:8100/auth/admin
+    image-url: http://localhost:8084/logos/Keycloak.png
+    tags:
+      - global

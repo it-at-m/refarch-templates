@@ -1,42 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "assigneesFromCodeOwners": true,
   "extends": [
-    // Custom Manager Presets (https://docs.renovatebot.com/presets-customManagers/)
-    "customManagers:dockerfileVersions", // manages _VERSION variables in Dockerfile
-    "customManagers:githubActionsVersions", // manages _VERSION variables in GitHub Action workflows
-    "customManagers:mavenPropertyVersions", // updates versions defined in maven properties ending with .version
-
-    // Default Presets (https://docs.renovatebot.com/presets-default/)
-    ":approveMajorUpdates", // major dependency updates need to be approved via dashboard before PR is created
-    ":disableRateLimiting", // allows unlimited creation of PRs
-    ":docker", // updating Dockerfile and docker-compose files
-    ":label(Type: Dependency)", // custom label for PRs created by Renovatebot
-    ":enableVulnerabilityAlertsWithLabel(Type: Security)", // custom label for security PRs created by Renovatebot
-    ":npm", // updating package.json and package-lock.json
-    ":pinAllExceptPeerDependencies", // do version pinning except for peer dependencies
-    ":prNotPending", // wait until branch succeeds or fails before creating the PR
-    ":rebaseStalePrs", // rebase Renovate PR branched when base branch is updated
-    ":semanticCommits", // enabled semantic commits in PR titles
-    ":separateMultipleMajorReleases", // separate major updates of dependencies into separate PRs
-    ":timezone(Europe/Berlin)", // sets correct timezone for schedule based operations
-
-    // Docker Presets (https://docs.renovatebot.com/presets-docker/)
-    "docker:enableMajor", // enables updading of major versions for docker images
-
-    // Full Config Presets (https://docs.renovatebot.com/presets-config/)
-    "config:best-practices", // enables best practices by the Renovate team
-
-    // Helper Presets (https://docs.renovatebot.com/presets-helpers/)
-    "helpers:pinGitHubActionDigestsToSemver", // enabled pinning the action digest with a semantic version comment
-
-    // npm Presets (https://docs.renovatebot.com/presets-npm/)
-    "npm:unpublishSafe", // used to make sure updates are only done after the npm package is "stable" (at least for 3 days)
-
-    // Schedule presets (https://docs.renovatebot.com/presets-schedule/)
-    "schedule:weekly", // renovatebot will search weekly for available dependency updates
-
-    // Security presets (https://docs.renovatebot.com/presets-security/)
-    "security:openssf-scorecard", // showw OpenSSF badge on pull requests to evaluate security health metrics for dependencies
+    "github>it-at-m/refarch//refarch-tools/refarch-renovate/refarch-renovate-config.json5",
   ]
 }

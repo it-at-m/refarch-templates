@@ -3,23 +3,24 @@
 layout: home
 
 hero:
-  name: "Refarch Vitepress init"
-  text: "Documentation for the RefArch"
-  tagline: My great project tagline
+  name: "RefArch Docs Template"
+  text: "Starter files for Vitepress-based documentation"
+  tagline: "This is the default template for writing documentation in RefArch applications"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Example
+      link: /example
     - theme: alt
-      text: API Examples
-      link: /api-examples
-
+      text: ⤴ External link
+      link: https://refarch.oss.muenchen.de
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 1️⃣
+    title: Title 1
+    details: Add some interesting information here
+  - icon: 2️⃣
+    title: Title 2
+    details: Add some interesting information here
+  - icon: 3️⃣
+    title: Title 3
+    details: Add some interesting information here
 ---
-

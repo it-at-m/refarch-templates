@@ -2,40 +2,54 @@
 import { fileURLToPath, URL } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
-import ViteFonts from "unplugin-fonts/vite";
-// Utilities
+import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
+import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue({
-      template: { transformAssetUrls },
-    }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-    vuetify({
-      autoImport: true,
-    }),
-    ViteFonts({
-      google: {
-        families: [
-          {
-            name: "Roboto",
-            styles: "wght@100;300;400;500;700;900",
-          },
-        ],
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === "development";
+  return {
+    plugins: [
+      vue({
+        template: { transformAssetUrls },
+        features: {
+          optionsAPI: isDevelopment,
+        },
+      }),
+      vuetify({
+        autoImport: false,
+      }),
+      UnpluginFonts({
+        fontsource: {
+          families: [
+            {
+              name: "Roboto",
+              weights: [100, 300, 400, 500, 700, 900],
+              subset: "latin",
+            },
+          ],
+        },
+      }),
+      vueDevTools(),
+    ],
+    server: {
+      host: true,
+      port: 8081,
+      proxy: {
+        "/api": "http://localhost:8083",
+        "/actuator": "http://localhost:8083",
       },
-    }),
-  ],
-  define: { "process.env": {} },
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
+      allowedHosts: ["host.docker.internal"], // required to use frontend behind proxy (e.g. API Gateway)
+      headers: {
+        "x-frame-options": "SAMEORIGIN", // required to use devtools behind proxy (e.g. API Gateway)
+      },
     },
-    extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
-  },
-  server: {
-    port: 8081,
-  },
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+  };
 });

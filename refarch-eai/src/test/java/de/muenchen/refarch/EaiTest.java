@@ -18,7 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
  **/
 @SpringBootTest
 @CamelSpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles(TestConstants.SPRING_TEST_PROFILE)
 class EaiTest {
 
     @SuppressWarnings("unused") // field is auto-injected by camel
@@ -31,7 +31,7 @@ class EaiTest {
 
     @Test
     void sendToMockTest() throws InterruptedException {
-        var message = "Hello Test !";
+        final String message = "Hello Test !";
         output.expectedMessageCount(1);
 
         producer.sendBody(message);

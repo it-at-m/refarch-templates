@@ -9,13 +9,13 @@ import de.muenchen.refarch.configuration.nfcconverter.NfcRequestFilter;
 
 /**
  * <p>
- * <em>Beispiel</em> für Konfiguration des NFC Request-Filters
+ * <em>Example</em> of configuration of the NFC request filter
  * </p>
  * <ul>
- * <li>Es werden alle Requests gefiltert, die an URIs unter <em>/*</em> geschickt werden.</li>
- * <li>Filter ist in Bean <em>nfcRequestFilter</em> enthalten.</li>
- * <li>Es werden nur Requests mit den Content-Types <em>text/plain</em>; <em>application/json</em>
- * und <em>text/html</em> gefiltert.</li>
+ * <li>All requests that are sent to URIs under <em>/*</em> are filtered.</li>
+ * <li>Filter is contained in bean <em>nfcRequestFilter</em>.</li>
+ * <li>Only requests with Content-Types <em>text/plain</em>; <em>application/json</em>
+ * and <em>text/html</em> are filtered.</li>
  * </ul>
  */
 @Configuration
@@ -36,14 +36,10 @@ public class UnicodeConfiguration {
         registration.setOrder(Ordered.LOWEST_PRECEDENCE);
         registration.setAsyncSupported(false);
 
-        //
-        // Setzen der URLs, auf die Filter anzuwenden ist.
-        //
+        // Set the URLs to which filters are to be applied.
         registration.addUrlPatterns(NFC_URLS);
 
-        //
-        // Setzen der White-List von ContentTypes für
-        //
+        // Setting the white list of ContentTypes
         registration.addInitParameter(NfcRequestFilter.CONTENTTYPES_PROPERTY, NFC_WHITE_LIST);
 
         return registration;

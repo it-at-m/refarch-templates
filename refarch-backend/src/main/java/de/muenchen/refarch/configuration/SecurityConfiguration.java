@@ -1,7 +1,6 @@
 package de.muenchen.refarch.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +15,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * The central class for configuration of all security aspects.
+ * Automatically used when not running with profile `no-security`.
+ * Configures all endpoints to require authentication via access token.
+ * (except the Spring Boot Actuator endpoints)
+ * Additionally it configures the use of the {@link UserInfoAuthoritiesService}.
  */
+@RequiredArgsConstructor
 @Configuration
 @Profile("!no-security")
 @EnableWebSecurity
@@ -24,11 +28,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Import(RestTemplateAutoConfiguration.class)
 public class SecurityConfiguration {
 
-    @Autowired
-    private RestTemplateBuilder restTemplateBuilder;
+    private final RestTemplateBuilder restTemplateBuilder;
 
-    @Value("${security.oauth2.resource.user-info-uri}")
-    private String userInfoUri;
+    private final SecurityProperties securityProperties;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -49,7 +51,7 @@ public class SecurityConfiguration {
                         .authenticated())
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer
                         .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(new JwtUserInfoAuthenticationConverter(
-                                new UserInfoAuthoritiesService(userInfoUri, restTemplateBuilder)))));
+                                new UserInfoAuthoritiesService(securityProperties.getUserInfoUri(), restTemplateBuilder)))));
 
         return http.build();
     }
