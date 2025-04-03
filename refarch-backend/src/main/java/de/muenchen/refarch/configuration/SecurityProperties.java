@@ -6,14 +6,13 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
 
 /**
  * Properties class that holds configuration data relevant for security mechanisms
