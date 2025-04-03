@@ -1,12 +1,12 @@
 # Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
-name: "CodeQL Advanced"
+name: CodeQL Advanced
 env:
   # Whether to analyze Java code or not (only set to true if repo has Java source code)
   analyze-java: true
   # Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
-  java-buildmode: "autobuild"
+  java-buildmode: autobuild
   # Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
-  java-version: "21"
+  java-version: 21
   # Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
   analyze-javascript-typescript-vue: true
   # Whether to analyze Python code or not (only set to true if repo has Python source code)
@@ -54,7 +54,7 @@ jobs:
         build-path: ["./refarch-backend", "./refarch-eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
-        if: env.analyze-java && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true')
+        if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true') }}
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -67,7 +67,7 @@ jobs:
     needs: check-changes
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
-        if: env.analyze-javascript-typescript-vue && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true')
+        if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true') }}
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -77,7 +77,7 @@ jobs:
     needs: check-changes
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
-        if: env.analyze-python && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true')
+        if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true') }}
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}

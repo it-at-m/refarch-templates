@@ -1,4 +1,4 @@
-name: release-maven-image
+name: Release Maven
 
 on:
   workflow_dispatch:
@@ -6,11 +6,11 @@ on:
       releaseVersion:
         description: "Version to use when preparing a release (e.g., 1.2.3)"
         required: true
-        default: "0.0.1"
+        default: 0.0.1
       developmentVersion:
         description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
         required: true
-        default: "0.0.2-SNAPSHOT"
+        default: 0.0.2-SNAPSHOT
       app-path:
         type: choice
         description: Service-Name
@@ -31,9 +31,9 @@ jobs:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
-          app-path: "/${{ github.event.inputs.app-path }}"
-          releaseVersion: "${{ github.event.inputs.releaseVersion }}"
-          developmentVersion: "${{ github.event.inputs.developmentVersion }}"
+          app-path: /${{ github.event.inputs.app-path }}
+          releaseVersion: ${{ github.event.inputs.releaseVersion }}
+          developmentVersion: ${{ github.event.inputs.developmentVersion }}
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           CENTRAL_PASSWORD: ${{ secrets.sonatype_password  }}
@@ -45,8 +45,8 @@ jobs:
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
-          path: "${{ github.event.inputs.app-path }}"
-          image-name: "${{ github.event.inputs.app-path }}"
+          path: ${{ github.event.inputs.app-path }}
+          image-name: ${{ github.event.inputs.app-path }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
           registry-username: ${{ github.actor }}
@@ -61,5 +61,5 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@533797a90b5644c4b4e42c8945bbcc5c7c75415d # v1.0.7
         with:
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
-          tag-name: ${{needs.release-maven.outputs.MVN_ARTIFACT_ID}}-${{ github.event.inputs.releaseVersion }}
+          tag-name: ${{ needs.release-maven.outputs.MVN_ARTIFACT_ID }}-${{ github.event.inputs.releaseVersion }}
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
