@@ -31,7 +31,7 @@
         <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.34.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
@@ -47,6 +47,11 @@
 
         <!-- Utility -->
         <refarch-tools.version>1.1.0</refarch-tools.version>
+
+        <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
+        <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
 
     <scm>
@@ -219,6 +224,12 @@
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                            <p2Mirrors>
+                                <p2Mirror>
+                                    <prefix>https://download.eclipse.org</prefix>
+                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                                </p2Mirror>
+                            </p2Mirrors>
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
