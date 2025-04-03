@@ -233,13 +233,8 @@
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
-                        <trimTrailingWhitespace/>
-                        <endWithNewline/>
-                        <importOrder>
-                            <semanticSort>true</semanticSort> <!-- Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case) -->
-                        </importOrder>
+                        <importOrder />
                         <removeUnusedImports />
-                        <formatAnnotations />
                     </java>
                 </configuration>
                 <executions>
