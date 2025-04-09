@@ -28,7 +28,7 @@
         <camel-spring-boot-dependencies.version>4.10.3</camel-spring-boot-dependencies.version>
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
