@@ -1,0 +1,13 @@
+# Workflow for scanning GitHub workflows with actionlint
+name: Actionlint
+
+on:
+  # Runs on pull requests
+  pull_request:
+
+jobs:
+  actionlint:
+    name: Run actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint@9c0be5d7c2363ff1f85a6c85395d77035bdd5f82
