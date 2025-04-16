@@ -9,7 +9,7 @@ jobs:
     name: Run docker compose healthcheck
     runs-on: ubuntu-latest
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck@836753970e7c665cb7934d6533c120a1112e02e3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck@2bbe9099721377103aaaaae356bd20e5df0692b6
         with:
           skip-exited: true # required for keycloakmigration init container
           compose-file-path: "./stack/"
