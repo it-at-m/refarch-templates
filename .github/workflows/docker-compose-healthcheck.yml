@@ -11,5 +11,5 @@ jobs:
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-docker-compose-healthcheck@7b4aefdf6c40efff2059d37f8d2e3656be1c5b73 # v1.0.8
         with:
-          compose-file: "./stack/docker-compose.yml"
+          compose-file: "stack/docker-compose.yml"
           skip-exited: true
