@@ -3,8 +3,8 @@
 [new-issue]: https://github.com/it-at-m/refarch-templates/issues/new/choose
 [milestones]: https://github.com/it-at-m/refarch-templates/milestones
 [project-board]: https://github.com/orgs/it-at-m/projects/16
-[documentation]: https://refarch-templates.oss.muenchen.de/
-[contribution-documentation]: https://refarch-templates.oss.muenchen.de/contribute.html
+[documentation]: https://refarch.oss.muenchen.de/templates
+[contribution-documentation]: https://refarch.oss.muenchen.de/contribute
 [itm-opensource]: https://opensource.muenchen.de/
 [license]: ../LICENSE
 [code-of-conduct]: ./CODE_OF_CONDUCT.md
@@ -14,10 +14,10 @@
 [refarch-code]: https://github.com/it-at-m/refarch
 [spring-documentation]: https://spring.io/ 
 [vuejs-documentation]:  https://vuejs.org/
-[getting-started-documentation]: https://refarch-templates.oss.muenchen.de/getting-started.html
-[develop-documentation]: https://refarch-templates.oss.muenchen.de/develop.html
-[document-documentation]: https://refarch-templates.oss.muenchen.de/document.html
-[organize-documentation]: https://refarch-templates.oss.muenchen.de/organize.html
+[getting-started-documentation]: https://refarch.oss.muenchen.de/templates/getting-started
+[develop-documentation]: https://refarch.oss.muenchen.de/templates/develop
+[document-documentation]: https://refarch.oss.muenchen.de/templates/document
+[organize-documentation]: https://refarch.oss.muenchen.de/templates/organize
 
 <!-- Shields.io links -->
 [documentation-shield]: https://img.shields.io/badge/documentation-blue?style=for-the-badge

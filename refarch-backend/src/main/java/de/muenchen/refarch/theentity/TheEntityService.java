@@ -1,5 +1,7 @@
 package de.muenchen.refarch.theentity;
 
+import static de.muenchen.refarch.common.ExceptionMessageConstants.MSG_NOT_FOUND;
+
 import de.muenchen.refarch.common.NotFoundException;
 import de.muenchen.refarch.security.Authorities;
 import java.util.UUID;
@@ -10,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-
-import static de.muenchen.refarch.common.ExceptionMessageConstants.MSG_NOT_FOUND;
 
 @Service
 @Slf4j

@@ -1,11 +1,17 @@
 package de.muenchen.refarch.configuration;
 
+import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
+import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import de.muenchen.refarch.MicroServiceApplication;
 import de.muenchen.refarch.TestConstants;
 import de.muenchen.refarch.theentity.TheEntity;
 import de.muenchen.refarch.theentity.TheEntityRepository;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,13 +22,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-
-import java.net.URI;
-
-import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
-import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @SpringBootTest(

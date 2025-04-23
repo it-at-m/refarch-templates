@@ -8,4 +8,4 @@ jobs:
   pr-checklist:
     runs-on: ubuntu-latest
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-checklist@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9

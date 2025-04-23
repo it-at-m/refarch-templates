@@ -1,6 +1,6 @@
-name: Npm Release
+name: Release NPM
 
-on:  # yamllint disable-line rule:truthy
+on:
   workflow_dispatch:
     inputs:
       release-version:
@@ -18,6 +18,10 @@ on:  # yamllint disable-line rule:truthy
         default: refarch-frontend
         options:
           - refarch-frontend # Add or modify frontend paths according to your project structure
+      skip-deployment:
+        default: true
+        type: boolean
+        description: "skip deployment to npm registry"
 jobs:
   release:
     name: release
@@ -28,23 +32,33 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     outputs:
-      ARTIFACT_NAME: ${{ steps.npm_release.outputs.ARTIFACT_NAME }}
-      ARTIFACT_VERSION: ${{steps.npm_release.outputs.ARTIFACT_VERSION}}
+      ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
+      ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
     steps:
       - id: npm_release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9
         with:
-          app-path: ${{inputs.app-path}}
-          releaseVersion: ${{inputs.release-version}}
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
+      - id: node
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9
+        with:
+          app-path: ${{ inputs.app-path }}
+      - if: ${{ !inputs.skip-deployment }}
+        shell: bash
+        working-directory: ./${{ inputs.app-path }}
+        run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
 
   build-image:
     runs-on: ubuntu-latest
     needs: release
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9
         with:
-          path: "${{ inputs.app-path }}"
-          image-name: "${{ inputs.app-path }}"
+          path: ${{ inputs.app-path }}
+          image-name: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
@@ -56,8 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
-        id: create_release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           tag-name: ${{ needs.release.outputs.ARTIFACT_VERSION }}

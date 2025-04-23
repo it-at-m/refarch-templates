@@ -3,6 +3,12 @@ name: Deploy documentation website
 on:
   # Runs on pushes to any branch when changes are made to docs or workflow
   push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/deploy-docs.yml"
+  pull_request:
     paths:
       - "docs/**"
       - ".github/workflows/deploy-docs.yml"
@@ -13,19 +19,12 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
       - id: build_docs
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9
       - id: deploy_docs
         # Only deploy documentation from the main branch to prevent unauthorized changes
-
-        uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@6b19f8dd2bee160bee82bde4fa04ac9f6c1d5e1e # v1.0.5
+        uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@7863642bb665a1d1994b2c2645db6e64a1a694ad # v1.0.9

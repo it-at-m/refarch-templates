@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <version>3.4.4</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
@@ -25,13 +25,13 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.10.2</camel-spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>4.11.0</camel-spring-boot-dependencies.version>
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.34.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
@@ -39,7 +39,7 @@
         <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
         <!-- Release -->
@@ -47,6 +47,11 @@
 
         <!-- Utility -->
         <refarch-tools.version>1.1.0</refarch-tools.version>
+
+        <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
+        <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
 
     <scm>
@@ -219,9 +224,17 @@
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                            <p2Mirrors>
+                                <p2Mirror>
+                                    <prefix>https://download.eclipse.org</prefix>
+                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                                </p2Mirror>
+                            </p2Mirrors>
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
+                        <importOrder />
+                        <removeUnusedImports />
                     </java>
                 </configuration>
                 <executions>
