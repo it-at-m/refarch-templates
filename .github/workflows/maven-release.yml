@@ -52,6 +52,7 @@ jobs:
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
+            type=raw,value=latest
 
   create-github-release:
     needs: release-maven
