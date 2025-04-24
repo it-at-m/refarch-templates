@@ -1,5 +1,7 @@
 package de.muenchen.refarch.configuration.nfcconverter;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.text.Normalizer;
@@ -94,8 +96,17 @@ public class NfcHelper {
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
+    @SuppressFBWarnings(
+            value = { "HTTPONLY_COOKIE", "INSECURE_COOKIE" },
+            justification = "conversion only alters string based types, other attributes are copied from the original cookie",
+            matchType = SuppressMatchType.EXACT
+    )
     public static Cookie nfcConverter(final Cookie original) {
         final Cookie nfcCookie = new Cookie(nfcConverter(original.getName()), nfcConverter(original.getValue()));
+        nfcCookie.setHttpOnly(original.isHttpOnly());
+        nfcCookie.setSecure(original.getSecure());
+        nfcCookie.setMaxAge(original.getMaxAge());
+        nfcCookie.getAttributes().forEach((key, value) -> nfcCookie.setAttribute(nfcConverter(key), nfcConverter(value)));
         if (original.getDomain() != null) {
             nfcCookie.setDomain(nfcConverter(original.getDomain()));
         }
