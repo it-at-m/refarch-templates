@@ -96,6 +96,7 @@ public class NfcHelper {
      * @see #nfcConverter(String)
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
+    @SuppressFBWarnings(value = { "HTTPONLY_COOKIE", "INSECURE_COOKIE" }, justification = "conversion only alters string based types, other attributes are copied from the original cookie", matchType = SuppressMatchType.EXACT)
     public static Cookie nfcConverter(final Cookie original) {
         final Cookie nfcCookie = new Cookie(nfcConverter(original.getName()), nfcConverter(original.getValue()));
         nfcCookie.setHttpOnly(original.isHttpOnly());
