@@ -5,4 +5,4 @@
 /.github/CODEOWNERS @it-at-m/refarch-admin
 
 # Work from SPS-Team
-/.github/workflows @it-at-m/sps
+/.github/workflows @it-at-m/sps @it-at-m/refarch-maintainer
