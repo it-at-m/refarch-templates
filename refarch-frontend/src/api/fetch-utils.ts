@@ -1,9 +1,6 @@
 import { ApiError } from "@/api/ApiError";
 import { STATUS_INDICATORS } from "@/constants";
 
-/**
- * Returns a default GET-Config for fetch
- */
 export function getConfig(): RequestInit {
   return {
     headers: getHeaders(),
@@ -13,10 +10,6 @@ export function getConfig(): RequestInit {
   };
 }
 
-/**
- * Returns a default POST-Config for fetch
- * @param body Optional body to be transferred
- */
 // eslint-disable-next-line
 export function postConfig(body: any): RequestInit {
   return {
@@ -29,11 +22,6 @@ export function postConfig(body: any): RequestInit {
   };
 }
 
-/**
- * Returns a default PUT-Config for fetch
- * If available, the version of the entity to be updated is included in this as an "If-Match" header.
- * @param body Optional body to be transferred
- */
 // eslint-disable-next-line
 export function putConfig(body: any): RequestInit {
   const headers = getHeaders();
@@ -50,11 +38,6 @@ export function putConfig(body: any): RequestInit {
   };
 }
 
-/**
- * Returns a default PATCH-Config for fetch
- * If available, the version of the entity to be updated is included in this as an "If-Match" header.
- * @param body Optional body to be transferred
- */
 // eslint-disable-next-line
 export function patchConfig(body: any): RequestInit {
   const headers = getHeaders();
@@ -102,12 +85,6 @@ export function defaultResponseHandler(
   }
 }
 
-/**
- * Default catch handler for all service requests.
- * Currently only throws an ApiError
- * @param error The error object from fetch command
- * @param errorMessage The error message to be included in the ApiError object.
- */
 export function defaultCatchHandler(
   error: Error,
   errorMessage = "Es ist ein unbekannter Fehler aufgetreten."
@@ -118,10 +95,6 @@ export function defaultCatchHandler(
   });
 }
 
-/**
- * Builds the headers for the request.
- * @returns {Headers}
- */
 function getHeaders(): Headers {
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -133,10 +106,6 @@ function getHeaders(): Headers {
   return headers;
 }
 
-/**
- * Returns the XSRF-TOKEN.
- * @returns {string|string}
- */
 function getXSRFToken(): string {
   const help = document.cookie.match(
     "(^|;)\\s*" + "XSRF-TOKEN" + "\\s*=\\s*([^;]+)"

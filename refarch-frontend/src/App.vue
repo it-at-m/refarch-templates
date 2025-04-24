@@ -116,9 +116,6 @@ onMounted(() => {
   loadUser();
 });
 
-/**
- * Loads UserInfo from the backend and sets it in the store.
- */
 function loadUser(): void {
   getUser()
     .then((user: User) => userStore.setUser(user))
@@ -131,10 +128,6 @@ function loadUser(): void {
       }
     });
 }
-
-/**
- * Navigates to the page with the search results and sends an event to trigger further searches.
- */
 
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
