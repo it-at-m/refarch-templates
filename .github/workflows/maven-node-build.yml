@@ -40,3 +40,5 @@ jobs:
           artifact-name: ${{ join(steps.*.outputs.artifact-name) }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
+          image-tags: |
+            type=raw,value=dev
