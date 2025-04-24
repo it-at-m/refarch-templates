@@ -31,7 +31,7 @@ jobs:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@4a2877144098dc4e26cf87c63022b461fd9d258e # v1.0.11
         with:
-          app-path: /${{ github.event.inputs.app-path }}
+          app-path: ${{ github.event.inputs.app-path }}
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
