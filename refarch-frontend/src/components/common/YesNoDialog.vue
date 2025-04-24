@@ -53,17 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import {
-  VBtn,
-  VCard,
-  VCardActions,
-  VCardText,
-  VCardTitle,
-  VDialog,
-  VIcon,
-  VSpacer,
-} from "vuetify/components";
-
 /**
  * The YesNo dialog is a generic dialog for yes/no queries to the user.
  * For example, it can be used to confirm the deletion of an entity.

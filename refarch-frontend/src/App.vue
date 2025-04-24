@@ -79,23 +79,6 @@ import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
-import {
-  VApp,
-  VAppBar,
-  VAppBarNavIcon,
-  VBtn,
-  VCol,
-  VContainer,
-  VFadeTransition,
-  VList,
-  VListItem,
-  VListItemTitle,
-  VMain,
-  VNavigationDrawer,
-  VRow,
-  VTextField,
-  VToolbarTitle,
-} from "vuetify/components";
 
 import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
