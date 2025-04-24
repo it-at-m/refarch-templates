@@ -73,4 +73,4 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@46b6386452cc211662bb4dc5fc3db6e90868efb2 # v1.0.12
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
-          tag-name: ${{ needs.release.outputs.ARTIFACT_VERSION }}
+          tag-name: ${{ inputs.app-path }}-${{ needs.release.outputs.ARTIFACT_VERSION }}
