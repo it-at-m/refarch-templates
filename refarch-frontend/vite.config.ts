@@ -18,9 +18,7 @@ export default defineConfig(({ mode }) => {
           optionsAPI: isDevelopment,
         },
       }),
-      vuetify({
-        autoImport: false,
-      }),
+      vuetify(),
       UnpluginFonts({
         fontsource: {
           families: [

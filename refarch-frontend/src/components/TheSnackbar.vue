@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { VBtn, VSnackbar } from "vuetify/components";
 
 import { SNACKBAR_DEFAULT_TIMEOUT, STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
