@@ -9,4 +9,4 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler@46b6386452cc211662bb4dc5fc3db6e90868efb2 # v1.0.12
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler@e76e0bde64af98eb44ccd5b6e048ce5d82f4acc4 # v1.0.13
