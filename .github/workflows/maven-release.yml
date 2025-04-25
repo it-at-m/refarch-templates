@@ -31,7 +31,7 @@ jobs:
       - id: maven-release-step
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@46b6386452cc211662bb4dc5fc3db6e90868efb2 # v1.0.12
         with:
-          app-path: /${{ github.event.inputs.app-path }}
+          app-path: ${{ github.event.inputs.app-path }}
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
@@ -52,6 +52,7 @@ jobs:
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
+            type=raw,value=latest
 
   create-github-release:
     needs: release-maven
@@ -61,5 +62,5 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@46b6386452cc211662bb4dc5fc3db6e90868efb2 # v1.0.12
         with:
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
-          tag-name: ${{ needs.release-maven.outputs.MVN_ARTIFACT_ID }}-${{ github.event.inputs.releaseVersion }}
+          tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
