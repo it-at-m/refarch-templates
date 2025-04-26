@@ -161,10 +161,11 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <!-- defined via parent -->
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+					<showDeprecation>true</showDeprecation>
+					<failOnWarning>true</failOnWarning>
                 </configuration>
             </plugin>
 
