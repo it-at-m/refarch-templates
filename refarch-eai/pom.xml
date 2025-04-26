@@ -153,20 +153,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <release>${java.version}</release>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
-					<showDeprecation>true</showDeprecation>
-					<failOnWarning>true</failOnWarning>
-                </configuration>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<configuration>
+							<source>${java.version}</source>
+							<target>${java.version}</target>
+							<release>${java.version}</release>
+							<annotationProcessorPaths>
+								<path>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+									<version>${lombok.version}</version>
+								</path>
+							</annotationProcessorPaths>
+							<showDeprecation>true</showDeprecation>
+							<failOnWarning>true</failOnWarning>
+						</configuration>
+					</execution>
+				</executions>
             </plugin>
 
             <!-- Testing -->
