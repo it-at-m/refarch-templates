@@ -9,6 +9,6 @@ public interface TheEntityMapper {
 
     TheEntityResponseDTO toDTO(TheEntity theEntity);
 
-	@Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", ignore = true)
     TheEntity toEntity(TheEntityRequestDTO theEntityRequestDTO);
 }
