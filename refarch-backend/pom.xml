@@ -279,8 +279,8 @@
 									-Amapstruct.defaultComponentModel=spring
 								</compilerArg>
 							</compilerArgs>
-							<showDeprecation>true</showDeprecation>
-							<failOnWarning>true</failOnWarning>
+                            <showDeprecation>true</showDeprecation>
+                            <failOnWarning>true</failOnWarning>
 						</configuration>
 					</execution>
 				</executions>

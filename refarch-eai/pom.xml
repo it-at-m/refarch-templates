@@ -167,8 +167,8 @@
 									<version>${lombok.version}</version>
 								</path>
 							</annotationProcessorPaths>
-							<showDeprecation>true</showDeprecation>
-							<failOnWarning>true</failOnWarning>
+                            <showDeprecation>true</showDeprecation>
+                            <failOnWarning>true</failOnWarning>
 						</configuration>
 					</execution>
 				</executions>
