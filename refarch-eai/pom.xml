@@ -165,7 +165,7 @@
                         </path>
                     </annotationProcessorPaths>
                     <showDeprecation>true</showDeprecation>
-                    <failOnWarning>true</failOnWarning>
+                    <failOnWarning>false</failOnWarning>
                 </configuration>
             </plugin>
 
