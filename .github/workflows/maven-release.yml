@@ -37,7 +37,7 @@ jobs:
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           CENTRAL_PASSWORD: ${{ secrets.sonatype_password  }}
-          GDG_PRIVATE_KEY: ${{  secrets.gpg_private_key }}
+          GPG_PRIVATE_KEY: ${{  secrets.gpg_private_key }}
 
   build-image:
     runs-on: ubuntu-latest
