@@ -36,7 +36,7 @@ jobs:
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
-          CENTRAL_PASSWORD: ${{ secrets.sonatype_password  }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
           GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
 
   build-image:
