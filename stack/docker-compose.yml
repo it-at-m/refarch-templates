@@ -36,8 +36,8 @@ services:
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
     security_opt: *security_settings
     volumes:
-      - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
-      - './pgadmin/pgpass:/pgadmin4/pgpass'
+      - "./pgadmin/servers.json:/pgadmin4/servers.json:ro"
+      - "./pgadmin/pgpass:/pgadmin4/pgpass"
     user: root # see https://github.com/pgadmin-org/pgadmin4/issues/6257
     entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
 
@@ -59,7 +59,11 @@ services:
       - keycloak
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then exit 0;else exit 1;fi;"]
+      test:
+        [
+          "CMD-SHELL",
+          "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then exit 0;else exit 1;fi;",
+        ]
     security_opt: *security_settings
 
   init-keycloak:
@@ -70,11 +74,11 @@ services:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
       BASEURL: http://keycloak:8100/auth
-      WAIT_FOR_KEYCLOAK: 'true'
-      FAIL_ON_UNDEFINED_VARIABLES: 'true'
+      WAIT_FOR_KEYCLOAK: "true"
+      FAIL_ON_UNDEFINED_VARIABLES: "true"
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
-      - './keycloak/migration:/migration'
+      - "./keycloak/migration:/migration"
     networks:
       - keycloak
     security_opt: *security_settings
@@ -87,37 +91,37 @@ services:
     ports:
       - "8083:8080"
     environment:
-    - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
-    - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://kubernetes.docker.internal:8100/
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_ID=frontend
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_URI=http://host.docker.internal:8081/
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0=Path=/**
-    - SPRING_PROFILES_ACTIVE=hazelcast-local
-    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://kubernetes.docker.internal:8100/auth/realms/local_realm
-    - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET=client_secret
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE=profile, openid
+      - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
+      - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://kubernetes.docker.internal:8100/
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
+      - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+      - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
+      - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
+      - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
+      - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
+      - SPRING_CLOUD_GATEWAY_ROUTES_2_ID=frontend
+      - SPRING_CLOUD_GATEWAY_ROUTES_2_URI=http://host.docker.internal:8081/
+      - SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0=Path=/**
+      - SPRING_PROFILES_ACTIVE=hazelcast-local
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://kubernetes.docker.internal:8100/auth/realms/local_realm
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET=client_secret
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE=profile, openid
     networks:
       - keycloak
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
       <<: *healthcheck
-      test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
+      test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
     security_opt: *security_settings
 
   appswitcher-server:
-    image: ghcr.io/it-at-m/appswitcher-server:1.2.3@sha256:8a6b7f111e003b2885047c73ec04940c358c589fe3c833362093b9a4334480c6
+    image: ghcr.io/it-at-m/appswitcher-server-native:1.3.0@sha256:888d2f1c8ddd59e2e9e84a833cf41cf380cc69e7e54cc10b5bd78378b666a067
     environment:
       - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
       - THC_PATH=/actuator/health/liveness
