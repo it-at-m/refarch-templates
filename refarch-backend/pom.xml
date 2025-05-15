@@ -323,6 +323,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
+                    <outputFileName>openapi.json</outputFileName>
+                    <outputDir>home/springdoc/maven-output</outputDir>
+                    <skip>false</skip>
+                    <failOnError>true</failOnError>
+                    <headers>
+                        <header1key>header1value</header1key>
+                        <header2key>header2value</header2key>
+                    </headers>
+                </configuration>
+            </plugin>
 
             <!-- Testing -->
             <plugin>
