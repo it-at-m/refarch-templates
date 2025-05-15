@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "engines": {
     "node": ">=22.14 <=22"
   },
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vue-tsc --build --noCheck && vite build",
+    "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
+    "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json  --validate",
     "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
@@ -23,6 +25,7 @@
     "vuetify": "3.8.4"
   },
   "devDependencies": {
+    "@cyclonedx/cyclonedx-npm": "3.0.0",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.1",
