@@ -23,6 +23,7 @@
     "vuetify": "3.8.4"
   },
   "devDependencies": {
+    "@cyclonedx/cyclonedx-npm": "3.0.0",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.1",
