@@ -16,6 +16,11 @@
     <name>refarch_eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
     <url>https://github.com/it-at-m/refarch-templates</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+        </license>
+    </licenses>
 
     <properties>
         <!-- Compilation -->
@@ -166,6 +171,13 @@
                     </annotationProcessorPaths>
                     <showDeprecation>true</showDeprecation>
                     <failOnWarning>false</failOnWarning>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <configuration>
+                    <skipNotDeployed>false</skipNotDeployed>
                 </configuration>
             </plugin>
 
