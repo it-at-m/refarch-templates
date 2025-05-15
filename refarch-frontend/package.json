@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "engines": {
     "node": ">=22.14 <=22"
   },
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vue-tsc --build --noCheck && vite build",
+    "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
+    "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json  --validate",
     "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
     "fix": "prettier . --write && eslint . --fix"
   },
