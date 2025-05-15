@@ -25,7 +25,11 @@ management:
       default: none
     web:
       exposure:
-        include: health, info, prometheus, sbom
+        include:
+          - health
+          - info
+          - prometheus
+          - sbom
       path-mapping:
         prometheus: metrics
   endpoint:
