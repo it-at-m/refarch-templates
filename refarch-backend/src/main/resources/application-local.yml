@@ -26,6 +26,11 @@ spring:
           audiences:
             - ${sso.client}
 
+# Enable swagger-ui
+springdoc:
+  swagger-ui:
+    enabled: true
+
 # Define the local keycloak configuration here
 # Deduplication-only property
 sso:
