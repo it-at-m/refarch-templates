@@ -44,6 +44,10 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher.antMatcher("/actuator/health/liveness"),
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
                         AntPathRequestMatcher.antMatcher("/actuator/health/readiness"),
+                        // allow access to SBOM overview
+                        AntPathRequestMatcher.antMatcher("/actuator/sbom"),
+                        // allow access to SBOM application data
+                        AntPathRequestMatcher.antMatcher("/actuator/sbom/application"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
                         AntPathRequestMatcher.antMatcher("/actuator/metrics"))
                         .permitAll())
