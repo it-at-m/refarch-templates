@@ -72,6 +72,19 @@ export function patchConfig(body: any): RequestInit {
 }
 
 /**
+ * Returns a default DELETE-Config for fetch
+ */
+export function deleteConfig(): RequestInit {
+  return {
+    method: "DELETE",
+    headers: getHeaders(),
+    mode: "cors",
+    credentials: "same-origin",
+    redirect: "manual",
+  };
+}
+
+/**
  * Covers the default handling of a response. This includes:
  *
  * - Error with missing authorizations --> HTTP 403
