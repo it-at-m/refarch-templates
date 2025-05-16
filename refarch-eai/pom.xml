@@ -13,7 +13,8 @@
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-eai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>refarch_eai</name>
+
+    <name>refarch-eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
     <url>https://github.com/it-at-m/refarch-templates</url>
     <licenses>
@@ -23,6 +24,19 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <scm>
+        <url>https://github.com/it-at-m/refarch-templates.git</url>
+        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <developers>
+        <developer>
+            <organization>it@M</organization>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+        </developer>
+    </developers>
 
     <properties>
         <!-- Compilation -->
@@ -60,12 +74,6 @@
         <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
         <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
-
-    <scm>
-        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
-        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -178,9 +186,13 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <configuration>
-                    <skipNotDeployed>false</skipNotDeployed>
-                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <skipNotDeployed>false</skipNotDeployed>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Testing -->
@@ -324,5 +336,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
