@@ -336,15 +336,10 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <apiDocsUrl>http://localhost:8080/v3/api-docs</apiDocsUrl>
-                    <outputFileName>openapi.json</outputFileName>
-                    <outputDir>home/springdoc/maven-output</outputDir>
+                    <apiDocsUrl>http://localhost:39146/v3/api-docs.yaml</apiDocsUrl>
+                    <outputFileName>backend-openapi-spec.yaml</outputFileName>
                     <skip>false</skip>
                     <failOnError>true</failOnError>
-                    <headers>
-                        <header1key>header1value</header1key>
-                        <header2key>header2value</header2key>
-                    </headers>
                 </configuration>
             </plugin>
 
