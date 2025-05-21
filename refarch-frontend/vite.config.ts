@@ -1,4 +1,4 @@
-import { dirname, resolve } from 'node:path';
+import { dirname, resolve } from "node:path";
 import { fileURLToPath, URL } from "node:url";
 
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
       VueI18nPlugin({
         include: resolve(
           dirname(fileURLToPath(import.meta.url)),
-          './src/locales/**',
+          "./src/locales/*.yaml"
         ),
       }),
     ],

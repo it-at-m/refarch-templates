@@ -29,18 +29,12 @@ export default defineConfigWithVueTs(
         "kebab-case",
         { registeredComponentsOnly: false },
       ],
-      "@intlify/vue-i18n/no-raw-text": ["warn"], // encourage usage of i18n for static text
-      "@intlify/vue-i18n/key-format-style": ["error", "camelCase"], // enforce camelCase for message keys
+      // Enforce i18n best practices manually as no stylistic ruleset exists yet
+      "@intlify/vue-i18n/key-format-style": ["error"], // enforce camelCase for message keys
       "@intlify/vue-i18n/no-duplicate-keys-in-locale": ["error"],
-      "@intlify/vue-i18n/no-unused-keys": [
-        "error",
-        {
-          src: "./src",
-          extensions: [".ts", ".vue"],
-          ignores: [],
-          enableFix: false,
-        },
-      ],
+      "@intlify/vue-i18n/no-missing-keys-in-other-locales": ["error"],
+      "@intlify/vue-i18n/no-unknown-locale": ["error"],
+      "@intlify/vue-i18n/no-unused-keys": ["error"],
     },
     settings: {
       "vue-i18n": {
