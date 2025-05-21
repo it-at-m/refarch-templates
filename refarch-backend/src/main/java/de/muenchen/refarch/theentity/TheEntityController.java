@@ -44,7 +44,8 @@ public class TheEntityController {
     @GetMapping
     @Operation(summary = "Retrieve entities with pagination", description = "Fetches a paginated list of entities based on the provided page number and size.")
     @ResponseStatus(HttpStatus.OK)
-    public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,  @RequestParam(defaultValue = "10") final int pageSize) {
+    public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,
+            @RequestParam(defaultValue = "10") final int pageSize) {
         final Page<TheEntity> pageWithEntity = theEntityService.getAllEntities(pageNumber, pageSize);
         final List<TheEntityResponseDTO> theEntityRequestDTOList = pageWithEntity.getContent().stream().map(theEntityMapper::toDTO).toList();
         return new PageImpl<>(theEntityRequestDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());
@@ -61,7 +62,7 @@ public class TheEntityController {
     @Operation(summary = "Update an existing entity", description = "Updates the details of an existing entity using the provided UUID and entity details.")
     @ResponseStatus(HttpStatus.OK)
     public TheEntityResponseDTO updateTheEntity(@Valid @RequestBody final TheEntityRequestDTO theEntityRequestDTO,
-                                                @PathVariable("theEntityId") final UUID theEntityId) {
+            @PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
