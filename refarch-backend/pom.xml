@@ -321,7 +321,8 @@
                 </executions>
                 <configuration>
                     <apiDocsUrl>http://localhost:39146/v3/api-docs.yaml</apiDocsUrl>
-                    <outputFileName>backend-openapi-spec.yaml</outputFileName>
+                    <outputFileName>${project.name}-spec.yaml</outputFileName>
+                    <outputDir>../api</outputDir>
                     <skip>false</skip>
                     <failOnError>true</failOnError>
                 </configuration>
