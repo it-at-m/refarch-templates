@@ -1,0 +1,39 @@
+{
+  "common": {
+    "yes": "Ja",
+    "no": "Nein",
+    "actions": {
+      "close": "Schließen"
+    },
+    "messages": {}
+  },
+  "app": {
+    "name": {
+      "part1": "RefArch-",
+      "part2": "Kick",
+      "part3": "Starter",
+      "full": "@:app.name.part1@:app.name.part2@:app.name.part3"
+    }
+  },
+  "components": {},
+  "views": {
+    "home": {
+      "header": "Willkommen beim @:app.name.full von it{'@'}M",
+      "apiGatewayStatus": "Das API-Gateway ist:"
+    },
+    "getStarted": {
+      "navText": "Get started",
+      "docsHeader": "Dokumentation",
+      "docsSubtext": "Weiterführende Links sind hier zu finden:",
+      "docsLinks": {
+        "templates": "Dokumentation RefArch-Templates",
+        "main": "Dokumentation RefArch"
+      },
+      "saveLeave": {
+        "title": "Wirklich verlassen?",
+        "text": "Wollen Sie wirklich nicht die Dokumentation anschauen?"
+      }
+    }
+  },
+  "domain": {}
+}
