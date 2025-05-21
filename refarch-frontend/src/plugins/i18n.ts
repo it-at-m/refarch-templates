@@ -1,14 +1,22 @@
-import type { I18nOptions } from "vue-i18n";
-
-/*
- * All i18n resources specified in the plugin `include` option can be loaded
- * at once using the import syntax
- */
-import messages from "@intlify/unplugin-vue-i18n/messages";
 import { createI18n } from "vue-i18n";
+import { de as deVuetify } from "vuetify/locale";
 
-const datetimeFormats: I18nOptions["datetimeFormats"] = {
+import deApp from "@/locales/de.json";
+
+type MessageSchema = typeof deApp;
+type Locales = "de";
+
+const messages = {
   de: {
+    $vuetify: {
+      ...deVuetify,
+    },
+    ...deApp,
+  },
+};
+
+const datetimeFormats = {
+  "de": {
     // TT.MM.JJJJ
     short: {
       year: "numeric",
@@ -35,10 +43,11 @@ const datetimeFormats: I18nOptions["datetimeFormats"] = {
   },
 };
 
-export default createI18n({
+export default createI18n<[MessageSchema], Locales>({
   legacy: false,
   locale: "de",
   fallbackLocale: "de",
   messages,
+  // @ts-ignore false positive for type mismatch (no tsc compilation error)
   datetimeFormats,
 });
