@@ -16,7 +16,7 @@ const messages = {
 };
 
 const datetimeFormats = {
-  "de": {
+  de: {
     // TT.MM.JJJJ
     short: {
       year: "numeric",
@@ -48,6 +48,6 @@ export default createI18n<[MessageSchema], Locales>({
   locale: "de",
   fallbackLocale: "de",
   messages,
-  // @ts-ignore false positive for type mismatch (no tsc compilation error)
+  // @ts-expect-error false positive for type mismatch (no tsc compilation error)
   datetimeFormats,
 });

@@ -32,6 +32,6 @@ export default createVuetify({
     },
   },
   locale: {
-    adapter: createVueI18nAdapter(({ i18n, useI18n } as VueI18nAdapterParams)),
+    adapter: createVueI18nAdapter({ i18n, useI18n } as VueI18nAdapterParams),
   },
 });

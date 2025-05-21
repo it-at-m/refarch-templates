@@ -26,7 +26,7 @@
             flat
             variant="solo-inverted"
             hide-details
-            label="Suche"
+            :label="t('app.search')"
             clearable
             :prepend-inner-icon="mdiMagnify"
             theme="dark"
@@ -132,9 +132,3 @@ async function search(): Promise<void> {
   }
 }
 </script>
-
-<style>
-.main {
-  background-color: white;
-}
-</style>
