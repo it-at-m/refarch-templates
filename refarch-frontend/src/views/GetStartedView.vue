@@ -8,47 +8,20 @@
         <h3>{{ t("views.getStarted.dokuSubtext") }}</h3>
         <div>
           <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Barrakuda"
+            href="https://refarch.oss.muenchen.de/templates"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >{{ t("views.getStarted.dokuLinks.barrakuda") }}</a
+            >Doku RefArch-Templates</a
           >
         </div>
         <div>
           <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_API-Gateway"
+            href="https://refarch.oss.muenchen.de/"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >{{ t("views.getStarted.dokuLinks.apiGateway") }}</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/Archetype_Backend"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >{{ t("views.getStarted.dokuLinks.backend") }}</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://git.muenchen.de/ccse/refarch-archetype"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >{{ t("views.getStarted.dokuLinks.archetypesRepo") }}</a
-          >
-        </div>
-        <div>
-          <a
-            href="https://wiki.muenchen.de/anwendungsentwicklung/index.php/JavaScript-Themen"
-            target="_blank"
-            rel="noopener noreferrer"
-            @click="documentationClicked = true"
-            >{{ t("views.getStarted.dokuLinks.javascriptWiki") }}</a
+            >Doku RefArch</a
           >
         </div>
       </v-col>
@@ -66,7 +39,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { VCol, VContainer, VRow } from "vuetify/components";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
 import { useSaveLeave } from "@/composables/saveLeave";

@@ -1,5 +1,10 @@
 package de.muenchen.refarch.configuration;
 
+import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
+import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import de.muenchen.refarch.MicroServiceApplication;
 import de.muenchen.refarch.TestConstants;
 import org.junit.jupiter.api.Test;
@@ -17,11 +22,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
-import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 @Testcontainers
 @SpringBootTest(
         classes = { MicroServiceApplication.class },
@@ -36,7 +36,7 @@ class CacheControlConfigurationTest {
     private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER = new PostgreSQLContainer<>(
             DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
 
-    private static final String ENTITY_ENDPOINT_URL = "/theEntities";
+    private static final String ENTITY_ENDPOINT_URL = "/theEntity";
 
     private static final String EXPECTED_CACHE_CONTROL_HEADER_VALUES = "no-cache, no-store, must-revalidate";
 

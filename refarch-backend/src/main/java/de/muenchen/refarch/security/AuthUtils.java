@@ -12,7 +12,7 @@ public final class AuthUtils {
 
     public static final String NAME_UNAUTHENTICATED_USER = "unauthenticated";
 
-    private static final String TOKEN_USER_NAME = "user_name";
+    private static final String TOKEN_USER_NAME = "preferred_username";
 
     private AuthUtils() {
     }

@@ -1,11 +1,11 @@
 package de.muenchen.refarch.configuration;
 
+import de.muenchen.refarch.configuration.nfcconverter.NfcRequestFilter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import de.muenchen.refarch.configuration.nfcconverter.NfcRequestFilter;
 
 /**
  * <p>

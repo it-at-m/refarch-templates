@@ -1,0 +1,76 @@
+name: Release NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        type: choice
+        description: "Select version increment type (follows Semantic Versioning)"
+        required: true
+        options:
+          - patch
+          - minor
+          - major
+      app-path:
+        type: choice
+        description: "Select the node service to release"
+        required: true
+        default: refarch-frontend
+        options:
+          - refarch-frontend # Add or modify frontend paths according to your project structure
+      skip-deployment:
+        default: true
+        type: boolean
+        description: "skip deployment to npm registry"
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    outputs:
+      ARTIFACT_NAME: ${{ steps.node.outputs.artifact-name }}
+      ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
+    steps:
+      - id: npm_release
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19
+        with:
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
+      - id: node
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19
+        with:
+          app-path: ${{ inputs.app-path }}
+      - if: ${{ !inputs.skip-deployment }}
+        shell: bash
+        working-directory: ./${{ inputs.app-path }}
+        run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
+
+  build-image:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19
+        with:
+          path: ${{ inputs.app-path }}
+          image-name: ${{ inputs.app-path }}
+          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry-username: ${{ github.actor }}
+          image-tags: |
+            type=semver,pattern={{version}},value=${{ needs.release.outputs.ARTIFACT_VERSION }}
+            type=raw,value=latest
+  create-github-release:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Release
+        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19
+        with:
+          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
+          tag-name: ${{ inputs.app-path }}-${{ needs.release.outputs.ARTIFACT_VERSION }}

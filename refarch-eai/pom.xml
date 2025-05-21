@@ -6,15 +6,37 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.6</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/4.8.1/dependencies and search for 'spring-boot-starter' -->
+        <version>3.4.4</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-eai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>refarch_eai</name>
+
+    <name>refarch-eai</name>
     <description>This is the default starting project for a EAI project based on the reference architecture of it@M</description>
+    <url>https://github.com/it-at-m/refarch-templates</url>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/it-at-m/refarch-templates.git</url>
+        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <developers>
+        <developer>
+            <organization>it@M</organization>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+        </developer>
+    </developers>
 
     <properties>
         <!-- Compilation -->
@@ -24,32 +46,34 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.8.2</camel-spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>4.11.0</camel-spring-boot-dependencies.version>
 
         <!-- Logging -->
-        <logstash-logback-encoder.version>8.0</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.28.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.8.6.6</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.8.6</spotbugs-annotations.version>
-        <findsecbugs-plugin.version>1.13.0</findsecbugs-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
+
+        <!-- Release -->
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 
         <!-- Utility -->
         <refarch-tools.version>1.1.0</refarch-tools.version>
-    </properties>
 
-    <scm>
-        <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
-        <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+        <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
+        <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.mirror>download.eclipse.org</p2.mirror>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -91,10 +115,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-test-spring-junit5</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-mock-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -156,21 +176,37 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <!-- defined via parent -->
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <showDeprecation>true</showDeprecation>
+                    <failOnWarning>false</failOnWarning>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <skipNotDeployed>false</skipNotDeployed>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
+            <!-- Testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                    <argLine>
+                        @{argLine} -Dfile.encoding=${project.build.sourceEncoding}
+                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+                        -Xshare:off
+                    </argLine>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -185,7 +221,21 @@
                 </executions>
             </plugin>
 
-            <!-- Codeformatter Spotless -->
+            <!-- Release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Linting -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -205,9 +255,17 @@
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                            <p2Mirrors>
+                                <p2Mirror>
+                                    <prefix>https://download.eclipse.org</prefix>
+                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                                </p2Mirror>
+                            </p2Mirrors>
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
+                        <importOrder />
+                        <removeUnusedImports />
                     </java>
                 </configuration>
                 <executions>
@@ -258,6 +316,8 @@
                 <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
+                    <excludeFilterFile>spotbugs-exclude-rules.xml</excludeFilterFile>
+                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs-results</spotbugsXmlOutputDirectory> <!-- required to ensure only the artifact jar is on top level when building -->
                     <plugins>
                         <plugin>
                             <groupId>com.h3xstream.findsecbugs</groupId>
@@ -276,5 +336,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

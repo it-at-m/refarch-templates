@@ -1,0 +1,13 @@
+name: Label PRs
+on:
+  - pull_request_target
+
+jobs:
+  pr-labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write # permission to create labels if not exist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-pr-labeler@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19

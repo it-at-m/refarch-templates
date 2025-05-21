@@ -25,7 +25,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { VCol, VContainer, VImg, VRow } from "vuetify/components";
 
 import { checkHealth } from "@/api/health-client";
 import { useSnackbarStore } from "@/stores/snackbar";

@@ -54,16 +54,6 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import {
-  VBtn,
-  VCard,
-  VCardActions,
-  VCardText,
-  VCardTitle,
-  VDialog,
-  VIcon,
-  VSpacer,
-} from "vuetify/components";
 
 const { t } = useI18n();
 

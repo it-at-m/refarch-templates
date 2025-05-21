@@ -1,0 +1,15 @@
+name: Docker Compose Healthcheck
+
+on:
+  # Runs on pull requests
+  pull_request:
+
+jobs:
+  docker-compose-healthcheck:
+    name: Run docker compose healthcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck@a7d25dbabec2057695f865169fdc411d475d4667 # v1.0.19
+        with:
+          skip-exited: true # required for keycloakmigration init container
+          compose-file-path: "./stack/"

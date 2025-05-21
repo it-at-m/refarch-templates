@@ -1,10 +1,17 @@
 package de.muenchen.refarch.configuration;
 
+import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
+import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import de.muenchen.refarch.MicroServiceApplication;
 import de.muenchen.refarch.TestConstants;
 import de.muenchen.refarch.theentity.TheEntity;
 import de.muenchen.refarch.theentity.TheEntityRepository;
-import org.apache.commons.lang3.StringUtils;
+import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
+import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
+import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,14 +22,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
-
-import java.net.URI;
-import java.util.UUID;
-
-import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
-import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
-import static de.muenchen.refarch.TestConstants.TheEntityDto;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
 @SpringBootTest(
@@ -38,7 +37,7 @@ class UnicodeConfigurationTest {
     private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER = new PostgreSQLContainer<>(
             DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
 
-    private static final String ENTITY_ENDPOINT_URL = "/theEntities";
+    private static final String ENTITY_ENDPOINT_URL = "/theEntity";
 
     /**
      * Decomposed string:
@@ -60,21 +59,23 @@ class UnicodeConfigurationTest {
 
     @Test
     void testForNfcNormalization() {
+        // Given
         // Persist entity with decomposed string.
-        final TheEntityDto theEntityDto = new TheEntityDto();
-        theEntityDto.setTextAttribute(TEXT_ATTRIBUTE_DECOMPOSED);
-        assertEquals(TEXT_ATTRIBUTE_DECOMPOSED.length(), theEntityDto.getTextAttribute().length());
-        final TheEntityDto response = testRestTemplate.postForEntity(URI.create(ENTITY_ENDPOINT_URL), theEntityDto, TheEntityDto.class).getBody();
+        final TheEntityRequestDTO theEntityRequestDto = new TheEntityRequestDTO(TEXT_ATTRIBUTE_DECOMPOSED);
 
+        // When
+        final TheEntityResponseDTO response = testRestTemplate.postForEntity(URI.create(ENTITY_ENDPOINT_URL), theEntityRequestDto, TheEntityResponseDTO.class)
+                .getBody();
+        final TheEntity theEntity = theEntityRepository.findById(response.id()).orElse(null);
+
+        // Then
         // Check whether response contains a composed string.
-        assertEquals(TEXT_ATTRIBUTE_COMPOSED, response.getTextAttribute());
-        assertEquals(TEXT_ATTRIBUTE_COMPOSED.length(), response.getTextAttribute().length());
-
-        // Extract uuid from self link.
-        final UUID uuid = UUID.fromString(StringUtils.substringAfterLast(response.getRequiredLink("self").getHref(), "/"));
+        assertNotNull(response.textAttribute());
+        assertEquals(TEXT_ATTRIBUTE_COMPOSED, response.textAttribute());
+        assertEquals(TEXT_ATTRIBUTE_COMPOSED.length(), response.textAttribute().length());
 
         // Check persisted entity contains a composed string via JPA repository.
-        final TheEntity theEntity = theEntityRepository.findById(uuid).orElse(null);
+        assertNotNull(theEntity.getTextAttribute());
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, theEntity.getTextAttribute());
         assertEquals(TEXT_ATTRIBUTE_COMPOSED.length(), theEntity.getTextAttribute().length());
     }

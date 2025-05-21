@@ -15,6 +15,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * The central class for configuration of all security aspects.
+ * Automatically used when not running with profile `no-security`.
+ * Configures all endpoints to require authentication via access token.
+ * (except the Spring Boot Actuator endpoints)
+ * Additionally it configures the use of the {@link UserInfoAuthoritiesService}.
  */
 @RequiredArgsConstructor
 @Configuration
@@ -40,6 +44,10 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher.antMatcher("/actuator/health/liveness"),
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
                         AntPathRequestMatcher.antMatcher("/actuator/health/readiness"),
+                        // allow access to SBOM overview
+                        AntPathRequestMatcher.antMatcher("/actuator/sbom"),
+                        // allow access to SBOM application data
+                        AntPathRequestMatcher.antMatcher("/actuator/sbom/application"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
                         AntPathRequestMatcher.antMatcher("/actuator/metrics"))
                         .permitAll())
@@ -47,7 +55,7 @@ public class SecurityConfiguration {
                         .authenticated())
                 .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer
                         .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(new JwtUserInfoAuthenticationConverter(
-                                new UserInfoAuthoritiesService(securityProperties.userInfoUri(), restTemplateBuilder)))));
+                                new UserInfoAuthoritiesService(securityProperties.getUserInfoUri(), restTemplateBuilder)))));
 
         return http.build();
     }

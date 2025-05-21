@@ -58,9 +58,9 @@
     <v-navigation-drawer v-model="drawer">
       <v-list>
         <v-list-item :to="{ name: ROUTES_GETSTARTED }">
-          <v-list-item-title>{{
-            t("views.getStarted.navText")
-          }}</v-list-item-title>
+          <v-list-item-title>
+            {{ t("views.getStarted.navText") }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -82,23 +82,6 @@ import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { useToggle } from "@vueuse/core";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import {
-  VApp,
-  VAppBar,
-  VAppBarNavIcon,
-  VBtn,
-  VCol,
-  VContainer,
-  VFadeTransition,
-  VList,
-  VListItem,
-  VListItemTitle,
-  VMain,
-  VNavigationDrawer,
-  VRow,
-  VTextField,
-  VToolbarTitle,
-} from "vuetify/components";
 
 import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";

@@ -20,7 +20,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { VBtn, VSnackbar } from "vuetify/components";
 
 import { SNACKBAR_DEFAULT_TIMEOUT, STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
@@ -46,7 +45,7 @@ watch(
   () => {
     color.value = snackbarStore.level;
     if (color.value === STATUS_INDICATORS.ERROR) {
-      timeout.value = 0;
+      timeout.value = -1;
     } else {
       timeout.value = SNACKBAR_DEFAULT_TIMEOUT;
     }

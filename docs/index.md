@@ -3,25 +3,24 @@
 layout: home
 
 hero:
-  name: "RefArch Templates"
-  text: "Documentation"
-  tagline: "Starter files for web application projects based on the reference architecture of it@M"
+  name: "RefArch Docs Template"
+  text: "Starter files for Vitepress-based documentation"
+  tagline: "This is the default template for writing documentation in RefArch applications"
   actions:
     - theme: brand
-      text: Getting Started
-      link: /getting-started
+      text: Example
+      link: /example
     - theme: alt
-      text: Reference architecture (RefArch)
+      text: ⤴ External link
       link: https://refarch.oss.muenchen.de
-
 features:
-  - icon: 🚀
-    title: Accelerate Project Setup
-    details: With repository templates, new projects are kick-started in no time! Pre-configured with essential files and folder structures, these templates eliminate the repetitive setup tasks, allowing developers to focus on business logic.
-  - icon: 💎
-    title: Consistent Code Quality
-    details: By establishing best practices for a unified structure and including helpful development tools, code consistency and quality is maintained across the organization as best as possible and collaboration is improved.
-  - icon: 👥
-    title: Simplify Onboarding
-    details: With clear documentation and predefined development configurations, new developers can quickly get up to speed, reducing the learning curve and increasing productivity from day one.
+  - icon: 1️⃣
+    title: Title 1
+    details: Add some interesting information here
+  - icon: 2️⃣
+    title: Title 2
+    details: Add some interesting information here
+  - icon: 3️⃣
+    title: Title 3
+    details: Add some interesting information here
 ---

@@ -1,5 +1,8 @@
 package de.muenchen.refarch.theentity;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import de.muenchen.refarch.theentity.dto.TheEntityMapper;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
@@ -8,9 +11,6 @@ import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @AllArgsConstructor
 class TheEntityMapperTest {

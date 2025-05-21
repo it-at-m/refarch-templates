@@ -1,20 +1,29 @@
 package de.muenchen.refarch.security;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 /**
- * Each possible authority in this project is represented by an enum.
- * The enums are used within the {@link PagingAndSortingRepository}
- * in the annotation e.g. {@link PreAuthorize}.
+ * Each possible authority in this project is represented by a constant in this class.
+ * The constants are used within the {@link org.springframework.stereotype.Controller} or
+ * {@link org.springframework.stereotype.Service} classes in the method security annotations
+ * (e.g. {@link PreAuthorize}).
  */
+@SuppressWarnings("PMD.DataClass")
 public final class Authorities {
-    public static final String HAS_AUTHORITY_READ_THEENTITY = "hasAuthority(READ_THEENTITY)";
-    public static final String HAS_AUTHORITY_WRITE_THEENTITY = "hasAuthority(WRITE_THEENTITY)";
-    public static final String HAS_AUTHORITY_DELETE_THEENTITY = "hasAuthority(DELETE_THEENTITY)";
+    public static final String THEENTITY_GET = "hasAnyRole('reader', 'writer')";
+    public static final String THEENTITY_GET_ALL = "hasAnyRole('reader', 'writer')";
+    public static final String THEENTITY_CREATE = "hasAnyRole('writer')";
+    public static final String THEENTITY_UPDATE = "hasAnyRole('writer')";
+    public static final String THEENTITY_DELETE = "hasAnyRole('writer')";
+
+    // Permissions based auth
+    // public static final String THEENTITY_GET = "hasAuthority('REFARCH_THEENTITY_READ')";
+    // public static final String THEENTITY_GET_ALL = "hasAuthority('REFARCH_THEENTITY_READ')";
+    // public static final String THEENTITY_CREATE = "hasAuthority('REFARCH_THEENTITY_WRITE')";
+    // public static final String THEENTITY_UPDATE = "hasAuthority('REFARCH_THEENTITY_WRITE')";
+    // public static final String THEENTITY_DELETE = "hasAuthority('REFARCH_THEENTITY_DELETE')";
 
     private Authorities() {
         throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
-    // add your authorities here and also add these new authorities to sso-authorisation.json.
 }
