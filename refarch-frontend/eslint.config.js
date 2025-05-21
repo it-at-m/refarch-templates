@@ -38,7 +38,7 @@ export default defineConfigWithVueTs(
     },
     settings: {
       "vue-i18n": {
-        localeDir: "./src/locales/*.yaml",
+        localeDir: "./src/locales/*.json",
         messageSyntaxVersion: "^11.0.0",
       },
     },
