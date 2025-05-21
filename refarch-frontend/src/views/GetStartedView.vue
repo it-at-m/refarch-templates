@@ -3,16 +3,16 @@
     <v-row class="text-center">
       <v-col>
         <h1 class="text-h3 font-weight-bold mb-10">
-          {{ t("views.getStarted.dokuHeader") }}
+          {{ t("views.getStarted.docsHeader") }}
         </h1>
-        <h3>{{ t("views.getStarted.dokuSubtext") }}</h3>
+        <h3>{{ t("views.getStarted.docsSubtext") }}</h3>
         <div>
           <a
             href="https://refarch.oss.muenchen.de/templates"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Doku RefArch-Templates</a
+            >{{ t("views.getStarted.docsLinks.templates") }}</a
           >
         </div>
         <div>
@@ -21,7 +21,7 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >Doku RefArch</a
+            >{{ t("views.getStarted.docsLinks.main") }}</a
           >
         </div>
       </v-col>

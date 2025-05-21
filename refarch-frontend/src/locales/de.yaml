@@ -31,17 +31,15 @@ views:
     apiGatewayStatus: "Das API-Gateway ist:"
   getStarted:
     navText: "Get started"
-    dokuHeader: Dokumentation
-    dokuSubtext: "Weiterführende Links sind hier zu finden:"
-    dokuLinks:
-      barrakuda: Barrakuda-Doku
-      apiGateway: Doku Archetype API-Gateway
-      backend: Doku Archetype Backend
-      archetypesRepo: Git-Repo Archetypes
-      javascriptWiki: Javascript-Wiki
+    docsHeader: Dokumentation
+    docsSubtext: "Weiterführende Links sind hier zu finden:"
+    docsLinks:
+      templates: Dokumentation RefArch-Templates
+      main: Dokumentation RefArch
     saveLeave:
       title: Wirklich verlassen?
       text: Wollen Sie wirklich nicht die Dokumentation anschauen?
+
 ## message keys specific to domain objects
 # domain:
 #   theEntity:
