@@ -52,6 +52,11 @@ management:
     readinessstate:
       enabled: true
 
+# Disable swagger-ui as default
+springdoc:
+  swagger-ui:
+    enabled: false
+
 info:
   application:
     name: @project.artifactId@
