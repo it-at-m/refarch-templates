@@ -8,10 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenAPIDocumentationConfig {
 
+    private OpenAPIProperties openAPIProperties;
+
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .openapi("3.0.3")
-                .info(new Info().title("Refarch-Backend Title").description("This is documentation for the Refarch-Backend.").version("v1.0"));
+                .info(new Info().title(openAPIProperties.getTitle()).description(openAPIProperties.getDescription()).version(openAPIProperties.getVersion()));
     }
 }
