@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
 public class OpenAPIProperties {
 
     @NotNull
-    private String title;
+    private String name;
 
     @NotNull
     private String description;
