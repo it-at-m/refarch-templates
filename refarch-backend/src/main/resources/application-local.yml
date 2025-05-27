@@ -30,6 +30,8 @@ spring:
 springdoc:
   swagger-ui:
     enabled: true
+  api-docs:
+    enabled: true
 
 # Define the local keycloak configuration here
 # Deduplication-only property
