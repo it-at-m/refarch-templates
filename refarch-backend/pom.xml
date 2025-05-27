@@ -322,8 +322,8 @@
                 </executions>
                 <configuration>
                     <apiDocsUrl>http://localhost:39146/v3/api-docs.yaml</apiDocsUrl>
-                    <outputFileName>${project.name}-openapi-spec.yaml</outputFileName>
-                    <outputDir>../api</outputDir>
+                    <outputFileName>${project.name}.yaml</outputFileName>
+                    <outputDir>../api/openapi</outputDir>
                     <failOnError>true</failOnError>
                 </configuration>
             </plugin>
