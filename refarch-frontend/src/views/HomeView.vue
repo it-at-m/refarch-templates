@@ -11,10 +11,10 @@
 
       <v-col class="mb-4">
         <h1 class="text-h3 font-weight-bold mb-3">
-          Willkommen beim refarch-frontend von it@M
+          {{ t("views.home.header") }}
         </h1>
         <p>
-          Das API-Gateway ist:
+          {{ t("views.home.apiGatewayStatus") }}
           <span :class="status">{{ status }}</span>
         </p>
       </v-col>
@@ -24,10 +24,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import { checkHealth } from "@/api/health-client";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
+
+const { t } = useI18n();
 
 const snackbarStore = useSnackbarStore();
 const status = ref("DOWN");
