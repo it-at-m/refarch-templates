@@ -34,15 +34,28 @@ public class TheEntityController {
     private final TheEntityService theEntityService;
     private final TheEntityMapper theEntityMapper;
 
+    /**
+     * Retrieve an entity by its UID.
+     * Fetches the entity details using the provided UUID.
+     *
+     * @param theEntityId the UUID of the requested entity
+     * @return the entity with the given UID as a DTO
+     */
     @GetMapping("{theEntityID}")
-    @Operation(summary = "Retrieve an entity by its UUID", description = "Fetches the entity details using the provided UUID.")
     @ResponseStatus(HttpStatus.OK)
     public TheEntityResponseDTO getTheEntity(@PathVariable("theEntityID") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.getTheEntity(theEntityId));
     }
 
+    /**
+     * Retrieve entities with pagination.
+     * Fetches a paginated list of entities based on the provided page number and size.
+     *
+     * @param pageNumber the number of the requested page (default: 0)
+     * @param pageSize the size of the page to retrieve (default: 10)
+     * @return a page of entities represented as DTOs
+     */
     @GetMapping
-    @Operation(summary = "Retrieve entities with pagination", description = "Fetches a paginated list of entities based on the provided page number and size.")
     @ResponseStatus(HttpStatus.OK)
     public Page<TheEntityResponseDTO> getTheEntitiesByPageAndSize(@RequestParam(defaultValue = "0") final int pageNumber,
             @RequestParam(defaultValue = "10") final int pageSize) {
@@ -51,6 +64,13 @@ public class TheEntityController {
         return new PageImpl<>(theEntityRequestDTOList, pageWithEntity.getPageable(), pageWithEntity.getTotalElements());
     }
 
+    /**
+     * Create a new entity.
+     * Creates a new entity using the provided entity details.
+     *
+     * @param theEntityRequestDTO the details of the entity to create
+     * @return the created entity as a DTO
+     */
     @PostMapping
     @Operation(summary = "Create a new entity", description = "Creates a new entity using the provided entity details.")
     @ResponseStatus(HttpStatus.CREATED)
@@ -58,6 +78,14 @@ public class TheEntityController {
         return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
     }
 
+    /**
+     * Update an existing entity.
+     * Updates the details of an existing entity using the provided UUID and entity details.
+     *
+     * @param theEntityRequestDTO the new details of the entity
+     * @param theEntityId the UUID of the entity to update
+     * @return the updated entity as a DTO
+     */
     @PutMapping("/{theEntityId}")
     @Operation(summary = "Update an existing entity", description = "Updates the details of an existing entity using the provided UUID and entity details.")
     @ResponseStatus(HttpStatus.OK)
@@ -66,6 +94,12 @@ public class TheEntityController {
         return theEntityMapper.toDTO(theEntityService.updateTheEntity(theEntityMapper.toEntity(theEntityRequestDTO), theEntityId));
     }
 
+    /**
+     * Delete an entity.
+     * Deletes the entity using the provided UUID.
+     *
+     * @param theEntityId the UUID of the entity to delete
+     */
     @DeleteMapping("/{theEntityId}")
     @Operation(summary = "Delete an entity", description = "Deletes the entity using the provided UUID.")
     @ResponseStatus(HttpStatus.OK)
