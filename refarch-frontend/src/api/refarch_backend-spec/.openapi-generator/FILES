@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+apis/TheEntityExampleTagApi.ts
+apis/index.ts
+index.ts
+models/PageMetadata.ts
+models/PagedModelTheEntityResponseDTO.ts
+models/TheEntityRequestDTO.ts
+models/TheEntityResponseDTO.ts
+models/index.ts
+runtime.ts

@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.13.0",
+    "generators": {
+      "refarch-backend": {
+        "generatorName": "typescript-fetch",
+        "glob": "../api/refarch_backend-spec.yaml",
+        "output": "#{cwd}/src/api/#{name}",
+        "additionalProperties": {
+          "supportsES6": true,
+          "enumPropertyNaming": "UPPERCASE",
+          "typescriptThreePlus": true
+        }
+      }
+    }
+  }
+}
