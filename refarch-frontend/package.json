@@ -18,11 +18,11 @@
   "dependencies": {
     "@fontsource/roboto": "5.2.5",
     "@muenchen/appswitcher-vue": "2.2.0",
-    "@vueuse/core": "13.2.0",
+    "@vueuse/core": "13.3.0",
     "pinia": "3.0.2",
     "vue": "3.5.14",
     "vue-router": "4.5.1",
-    "vuetify": "3.8.5"
+    "vuetify": "3.8.6"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "3.0.0",
