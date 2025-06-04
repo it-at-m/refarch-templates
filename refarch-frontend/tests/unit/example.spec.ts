@@ -6,6 +6,7 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 
 import TheSnackbar from "@/components/TheSnackbar.vue";
+import i18n from "@/plugins/i18n";
 
 const pinia = createPinia();
 const vuetify = createVuetify({
@@ -18,11 +19,10 @@ describe("TheSnackbar.vue", () => {
     const message = "Hello_World";
     const wrapper = shallowMount(TheSnackbar, {
       global: {
-        plugins: [pinia, vuetify],
+        plugins: [pinia, vuetify, i18n],
       },
       props: { message: message },
     });
-
     expect(wrapper.html()).toContain(message);
   });
 });
