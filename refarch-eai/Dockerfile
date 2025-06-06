@@ -3,7 +3,3 @@ FROM registry.access.redhat.com/ubi9/openjdk-21-runtime:1.22-1.1747241886@sha256
 
 # Copy runnable jar to deployments
 COPY target/*.jar /deployments/application.jar
-
-# Define healthcheck
-EXPOSE 8080/tcp
-HEALTHCHECK --interval=30s CMD curl -f http://localhost:8080/actuator/health || exit 1

@@ -7,9 +7,5 @@ COPY dist .
 # Copy custom nginx configurations
 COPY docker/nginx/*.conf "${NGINX_DEFAULT_CONF_PATH}"
 
-# Define healthcheck
-EXPOSE 8080/tcp
-HEALTHCHECK --interval=30s CMD curl -f http://localhost:8080/actuator/health || exit 1
-
 # Start the web server
 CMD ["nginx", "-g", "daemon off;"]
