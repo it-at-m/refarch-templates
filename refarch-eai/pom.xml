@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.6</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-starter-parent</artifactId>
+        <version>4.10.5</version>
         <relativePath />
     </parent>
 
@@ -45,9 +45,6 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
-        <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.10.5</camel-spring-boot-dependencies.version>
-
         <!-- Logging -->
         <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
@@ -80,8 +77,16 @@
             <!-- Camel BOM -->
             <dependency>
                 <groupId>org.apache.camel.springboot</groupId>
-                <artifactId>camel-spring-boot-dependencies</artifactId>
-                <version>${camel-spring-boot-dependencies.version}</version>
+                <artifactId>camel-spring-boot-bom</artifactId>
+                <version>4.10.5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
