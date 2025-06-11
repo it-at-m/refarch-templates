@@ -122,6 +122,9 @@ pnpm-debug.log*
 lerna-debug.log*
 logs
 
+# openapi generated specs folder - only on top level
+/api/*
+
 # ============== IDE specific settings ================
 
 ### Eclipse
