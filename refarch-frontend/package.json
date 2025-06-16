@@ -16,7 +16,7 @@
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@fontsource/roboto": "5.2.5",
+    "@fontsource/roboto": "5.2.6",
     "@muenchen/appswitcher-vue": "2.2.0",
     "@vueuse/core": "13.3.0",
     "pinia": "3.0.3",
