@@ -52,6 +52,16 @@ management:
     readinessstate:
       enabled: true
 
+# Disable swagger-ui as default
+springdoc:
+  swagger-ui:
+    enabled: false
+    path: /actuator/swagger.html
+  api-docs:
+    version: openapi_3_0
+    enabled: false
+    path: /actuator/openapi
+
 info:
   application:
     name: @project.artifactId@
