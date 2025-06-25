@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -39,18 +39,18 @@ public class SecurityProperties {
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
     @NotNull
-    private List<AntPathRequestMatcher> loggingIgnoreList = List.of(AntPathRequestMatcher.antMatcher("/actuator/**"));
+    private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", matchType = SuppressMatchType.EXACT)
-    public List<AntPathRequestMatcher> getLoggingIgnoreListAsMatchers() {
+    public List<PathPatternRequestMatcher> getLoggingIgnoreListAsMatchers() {
         return loggingIgnoreList;
     }
 
     public List<String> getLoggingIgnoreList() {
-        return loggingIgnoreList.stream().map(AntPathRequestMatcher::toString).collect(Collectors.toList());
+        return loggingIgnoreList.stream().map(PathPatternRequestMatcher::toString).collect(Collectors.toList());
     }
 
     public void setLoggingIgnoreList(final List<String> patterns) {
-        this.loggingIgnoreList = patterns.stream().map(AntPathRequestMatcher::new).collect(Collectors.toList());
+        this.loggingIgnoreList = patterns.stream().map(pattern -> PathPatternRequestMatcher.withDefaults().matcher(pattern)).collect(Collectors.toList());
     }
 }
