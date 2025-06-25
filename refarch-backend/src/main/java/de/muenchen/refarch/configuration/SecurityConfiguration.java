@@ -38,7 +38,7 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
                         // allow access to /actuator/info
-                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "actuator/info"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/info"),
                         // allow access to /actuator/health for OpenShift Health Check
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health"),
                         // allow access to /actuator/health/liveness for OpenShift Liveness Check
