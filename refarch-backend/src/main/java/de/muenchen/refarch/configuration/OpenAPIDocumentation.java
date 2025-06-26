@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class OpenAPIDocumentationConfig {
+public class OpenAPIDocumentation {
 
     private final OpenAPIProperties openAPIProperties;
 
