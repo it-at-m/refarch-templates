@@ -30,8 +30,6 @@ management:
           - info
           - prometheus
           - sbom
-          - openapi
-          - swagger-ui
       path-mapping:
         prometheus: metrics
   endpoint:
@@ -44,10 +42,6 @@ management:
     prometheus:
       access: read_only
     sbom:
-      access: read_only
-    openapi:
-      access: read_only
-    swagger-ui:
       access: read_only
   info:
     env:
