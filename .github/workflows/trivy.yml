@@ -13,8 +13,8 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'fs'
-          format: 'json'
-          output: trivy-report.json
+          format: 'table'
+          output: trivy-report.txt
           exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
