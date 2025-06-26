@@ -340,9 +340,8 @@
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
                 <version>${springdoc-openapi-maven-plugin.version}</version>
                 <configuration>
-                    <apiDocsUrl>http://localhost:39146/actuator/openapi.yaml</apiDocsUrl>
+                    <apiDocsUrl>http://localhost:39146/v3/api-docs</apiDocsUrl>
                     <outputFileName>${project.name}.yaml</outputFileName>
-                    <outputDir>../api/openapi</outputDir>
                     <failOnError>true</failOnError>
                 </configuration>
             </plugin>
