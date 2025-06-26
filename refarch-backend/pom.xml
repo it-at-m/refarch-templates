@@ -339,14 +339,6 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
                 <version>${springdoc-openapi-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <apiDocsUrl>http://localhost:39146/actuator/openapi.yaml</apiDocsUrl>
                     <outputFileName>${project.name}.yaml</outputFileName>
