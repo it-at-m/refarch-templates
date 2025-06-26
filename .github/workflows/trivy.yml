@@ -12,7 +12,7 @@ jobs:
       - name: Run Trivy vulnerability scanner in Image mode
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'ghcr.io/it-at-m/refarch-templates/refarch-backend:@sha256:adc85553c6db08ab8558767e36224d4dd9ab21eada742005e035ee54372effe9'
+          scan-type: 'fs'
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
