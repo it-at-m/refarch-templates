@@ -1,7 +1,5 @@
 name: build
 on:
-  push:
-    branches:
   pull_request:
 jobs:
   build:
@@ -14,7 +12,9 @@ jobs:
       - name: Run Trivy vulnerability scanner in repo mode
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          scan-type: 'fs'
-          ignore-unfixed: true
+          image-ref: 'ghcr.io/it-at-m/refarch-templates/refarch-backend:dev'
           format: 'table'
-          severity: 'CRITICAL'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
