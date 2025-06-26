@@ -1,5 +1,5 @@
 # For documentation see https://github.com/sclorg/nginx-container
-FROM registry.access.redhat.com/ubi9/nginx-124:9.5-1745932134@sha256:6465906193329d883dfe2de4077e5618420fa39885107f6dacd87fe00629ef4c
+FROM registry.access.redhat.com/ubi10/nginx-126:10.0-1747618876@sha256:d1866194c76ee988f6a0777292bbb7421f3bfc7637f43e41e8ad8512ae218cde
 
 # Copy built web components
 COPY dist .
@@ -8,4 +8,4 @@ COPY dist .
 COPY docker/nginx/*.conf "${NGINX_DEFAULT_CONF_PATH}"
 
 # Start the web server
-CMD nginx -g "daemon off;"
+CMD ["nginx", "-g", "daemon off;"]

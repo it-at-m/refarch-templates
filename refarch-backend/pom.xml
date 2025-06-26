@@ -5,14 +5,15 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.4.7</version>
         <relativePath/>
     </parent>
 
     <groupId>de.muenchen.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>refarch_backend</name>
+
+    <name>refarch-backend</name>
     <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
     <url>https://github.com/it-at-m/refarch-templates</url>
     <licenses>
@@ -22,6 +23,19 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <scm>
+        <url>https://github.com/it-at-m/refarch-templates.git</url>
+        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
+        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <developers>
+        <developer>
+            <organization>it@M</organization>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+        </developer>
+    </developers>
 
     <properties>
         <!-- Compilation -->
@@ -37,7 +51,7 @@
         <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
@@ -256,12 +270,6 @@
 
     </dependencies>
 
-    <scm>
-        <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
-        <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
     <build>
         <plugins>
             <plugin>
@@ -275,6 +283,10 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-configuration-processor</artifactId>
+                        </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
@@ -315,9 +327,13 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <configuration>
-                    <skipNotDeployed>false</skipNotDeployed>
-                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <skipNotDeployed>false</skipNotDeployed>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.springdoc</groupId>

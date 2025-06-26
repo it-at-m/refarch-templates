@@ -10,6 +10,6 @@
     },
     "allowSyntheticDefaultImports": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["unplugin-fonts/client"]
+    "types": ["unplugin-fonts/client", "@intlify/unplugin-vue-i18n/messages"]
   }
 }

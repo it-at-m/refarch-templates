@@ -38,14 +38,14 @@
           variant="text"
           @click="no"
         >
-          Nein
+          {{ t("common.no") }}
         </v-btn>
         <v-btn
           id="yesnodialog-btn-yes"
           color="primary"
           @click="yes"
         >
-          Ja
+          {{ t("common.yes") }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -53,6 +53,10 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+
 /**
  * The YesNo dialog is a generic dialog for yes/no queries to the user.
  * For example, it can be used to confirm the deletion of an entity.
