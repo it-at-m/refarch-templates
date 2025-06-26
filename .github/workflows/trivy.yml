@@ -3,13 +3,13 @@ on:
   pull_request:
 jobs:
   build:
-    name: Build
+    name: Trivy Check
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run Trivy vulnerability scanner in repo mode
+      - name: Run Trivy vulnerability scanner in Image mode
         uses: aquasecurity/trivy-action@0.28.0
         with:
           image-ref: 'ghcr.io/it-at-m/refarch-templates/refarch-backend:dev'
