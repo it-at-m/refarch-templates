@@ -46,6 +46,12 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher.antMatcher("/actuator/health/readiness"),
                         // allow access to SBOM overview
                         AntPathRequestMatcher.antMatcher("/actuator/sbom"),
+                        // allow access to opean-api endpoints
+                        AntPathRequestMatcher.antMatcher("/v3/api-docs"),
+                        AntPathRequestMatcher.antMatcher("/v3/api-docs.yaml"),
+                        AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
+                        // allow access to swagger-ui
+                        AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
                         // allow access to SBOM application data
                         AntPathRequestMatcher.antMatcher("/actuator/sbom/application"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
