@@ -7,11 +7,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
 /**
  * The central class for configuration of all security aspects.
@@ -37,19 +38,19 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
                         // allow access to /actuator/info
-                        AntPathRequestMatcher.antMatcher("/actuator/info"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/info"),
                         // allow access to /actuator/health for OpenShift Health Check
-                        AntPathRequestMatcher.antMatcher("/actuator/health"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health"),
                         // allow access to /actuator/health/liveness for OpenShift Liveness Check
-                        AntPathRequestMatcher.antMatcher("/actuator/health/liveness"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/liveness"),
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
-                        AntPathRequestMatcher.antMatcher("/actuator/health/readiness"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/readiness"),
                         // allow access to SBOM overview
-                        AntPathRequestMatcher.antMatcher("/actuator/sbom"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom"),
                         // allow access to SBOM application data
-                        AntPathRequestMatcher.antMatcher("/actuator/sbom/application"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom/application"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
-                        AntPathRequestMatcher.antMatcher("/actuator/metrics"))
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/metrics"))
                         .permitAll())
                 .authorizeHttpRequests((requests) -> requests.requestMatchers("/**")
                         .authenticated())
