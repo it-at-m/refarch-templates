@@ -30,6 +30,8 @@ management:
           - info
           - prometheus
           - sbom
+          - openapi
+          - swagger-ui
       path-mapping:
         prometheus: metrics
   endpoint:
@@ -43,6 +45,10 @@ management:
       access: read_only
     sbom:
       access: read_only
+    openapi:
+      access: read_only
+    swagger-ui:
+      access: read_only
   info:
     env:
       enabled: true
@@ -54,13 +60,12 @@ management:
 
 # Disable swagger-ui as default
 springdoc:
+  show-actuator: true
   swagger-ui:
     enabled: false
-    path: /actuator/swagger.html
   api-docs:
     version: openapi_3_0
     enabled: false
-    path: /actuator/openapi
 
 info:
   application:
