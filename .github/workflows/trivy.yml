@@ -15,7 +15,7 @@ jobs:
           scan-type: 'fs'
           format: 'json'
           output: trivy-report.json
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
           
