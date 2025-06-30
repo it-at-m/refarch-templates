@@ -46,7 +46,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.10.5</camel-spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>4.10.6</camel-spring-boot-dependencies.version>
 
         <!-- Logging -->
         <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
