@@ -46,13 +46,13 @@ public class SecurityConfiguration {
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/readiness"),
                         // allow access to SBOM overview
-                        AntPathRequestMatcher.antMatcher("/actuator/sbom"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom"),
                         // allow access to opean-api endpoints
-                        AntPathRequestMatcher.antMatcher("/v3/api-docs"),
-                        AntPathRequestMatcher.antMatcher("/v3/api-docs.yaml"),
-                        AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs.yaml"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
                         // allow access to swagger-ui
-                        AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
+                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom"),
                         // allow access to SBOM application data
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom/application"),
