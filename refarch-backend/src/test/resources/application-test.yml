@@ -6,5 +6,5 @@ spring:
 security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)
   # Currently only dummy values, will later be changed for testing security.
-  requestLogging: all
-  userInfoUri: NotNeeded
+  user-info-uri: NotNeeded
+  logging-mode: all

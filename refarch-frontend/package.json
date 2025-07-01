@@ -31,7 +31,7 @@
     "@intlify/unplugin-vue-i18n": "6.0.8",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@tsconfig/node-lts": "22.0.1",
+    "@tsconfig/node-lts": "22.0.2",
     "@types/node": "22.14.0",
     "@vitejs/plugin-vue": "6.0.0",
     "@vue/eslint-config-prettier": "10.2.0",
