@@ -336,6 +336,7 @@
                 </executions>
             </plugin>
             <plugin>
+                <!-- Spring needs to be running to be able to use this plugin! -->
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
                 <version>${springdoc-openapi-maven-plugin.version}</version>
