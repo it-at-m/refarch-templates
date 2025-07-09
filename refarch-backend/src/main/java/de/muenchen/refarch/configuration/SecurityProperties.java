@@ -25,21 +25,18 @@ public class SecurityProperties {
     /**
      * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
-    @NotNull
-    private LoggingMode loggingMode = LoggingMode.NONE;
+    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
      * authorities), see also {@link UserInfoAuthoritiesService}
      */
-    @NotBlank
-    private String userInfoUri;
+    @NotBlank private String userInfoUri;
 
     /**
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
-    @NotNull
-    private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
+    @NotNull private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", matchType = SuppressMatchType.EXACT)
     public List<PathPatternRequestMatcher> getLoggingIgnoreListAsMatchers() {
