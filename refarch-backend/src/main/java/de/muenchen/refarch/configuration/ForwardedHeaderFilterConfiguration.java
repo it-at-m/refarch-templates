@@ -10,7 +10,7 @@ import org.springframework.web.filter.ForwardedHeaderFilter;
  * the headers of type "Forwarded" and "X-Forwarded-*".
  */
 @Configuration
-public class ForwardedHeaderConfiguration {
+public class ForwardedHeaderFilterConfiguration {
 
     @Bean
     public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
