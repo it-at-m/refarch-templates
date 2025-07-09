@@ -13,6 +13,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,9 +26,12 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the
  * "Authorities" contained there.
+ *
+ * @deprecated Use {@link KeycloakRolesAuthoritiesConverter} instead. Can be removed if not used.
  */
 @Slf4j
-public class UserInfoAuthoritiesService {
+@Deprecated
+public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     private static final String NAME_AUTHENTICATION_CACHE = "authentication_cache";
     private static final int AUTHENTICATION_CACHE_ENTRY_SECONDS_TO_EXPIRE = 60;
@@ -44,7 +48,7 @@ public class UserInfoAuthoritiesService {
      * @param userInfoUri userinfo endpoint URI
      * @param restTemplateBuilder a {@link RestTemplateBuilder}
      */
-    public UserInfoAuthoritiesService(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
+    public UserInfoAuthoritiesConverter(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
         this.userInfoUri = userInfoUri;
         this.restTemplate = restTemplateBuilder.build();
         this.cache = new CaffeineCache(NAME_AUTHENTICATION_CACHE,
@@ -60,12 +64,13 @@ public class UserInfoAuthoritiesService {
      * @param jwt the JWT
      * @return the {@link GrantedAuthority}s according to claim "authorities" of /userinfo endpoint
      */
-    public Collection<SimpleGrantedAuthority> loadAuthorities(final Jwt jwt) {
+    @Override
+    public Collection<GrantedAuthority> convert(Jwt jwt) {
         final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
         if (valueWrapper != null) {
             // value present in cache
             @SuppressWarnings("unchecked")
-            final Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) valueWrapper.get();
+            final Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) valueWrapper.get();
             log.debug("Resolved authorities (from cache): {}", authorities);
             return authorities;
         }
@@ -76,7 +81,7 @@ public class UserInfoAuthoritiesService {
         headers.set(HttpHeaders.AUTHORIZATION, "Bearer " + jwt.getTokenValue());
         final HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
         try {
             @SuppressWarnings("unchecked")
             final Map<String, Object> map = restTemplate.exchange(this.userInfoUri, HttpMethod.GET, entity,
@@ -90,15 +95,14 @@ public class UserInfoAuthoritiesService {
             // store
             this.cache.put(jwt.getSubject(), authorities);
         } catch (Exception e) {
-            log.error(String.format("Could not fetch user details from %s - user is granted NO authorities",
-                    this.userInfoUri), e);
+            log.error("Could not fetch user details from {} - user is granted NO authorities", this.userInfoUri, e);
         }
 
         return authorities;
     }
 
-    private static List<SimpleGrantedAuthority> asAuthorities(final Object object) {
-        final List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    private static Collection<GrantedAuthority> asAuthorities(final Object object) {
+        final List<GrantedAuthority> authorities = new ArrayList<>();
         Object authoritiesObject = object;
         if (authoritiesObject instanceof Collection) {
             final Collection<?> collection = (Collection<?>) authoritiesObject;
@@ -113,5 +117,4 @@ public class UserInfoAuthoritiesService {
         }
         return authorities;
     }
-
 }

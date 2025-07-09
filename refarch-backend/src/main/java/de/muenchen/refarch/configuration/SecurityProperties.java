@@ -22,18 +22,24 @@ import org.springframework.validation.annotation.Validated;
 @Profile("!no-security")
 @Data
 public class SecurityProperties {
+    @NotBlank
+    private String clientId;
+
+    /**
+     * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
+     * authorities), see also {@link UserInfoAuthoritiesConverter}.
+     *
+     * @deprecated Use {@link KeycloakRolesAuthoritiesConverter}
+     */
+    @NotBlank
+    @Deprecated
+    private String userInfoUri;
+
     /**
      * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
      */
     @NotNull
     private LoggingMode loggingMode = LoggingMode.NONE;
-
-    /**
-     * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link UserInfoAuthoritiesService}
-     */
-    @NotBlank
-    private String userInfoUri;
 
     /**
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
