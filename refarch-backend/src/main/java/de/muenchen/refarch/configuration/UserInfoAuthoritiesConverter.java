@@ -65,7 +65,7 @@ public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<G
      * @return the {@link GrantedAuthority}s according to claim "authorities" of /userinfo endpoint
      */
     @Override
-    public Collection<GrantedAuthority> convert(Jwt jwt) {
+    public Collection<GrantedAuthority> convert(final Jwt jwt) {
         final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());
         if (valueWrapper != null) {
             // value present in cache
