@@ -52,9 +52,9 @@ management:
     readinessstate:
       enabled: true
 
-# Disable swagger-ui as default
 springdoc:
   show-actuator: true
+  # Disable swagger-ui as default
   swagger-ui:
     enabled: false
   api-docs:
