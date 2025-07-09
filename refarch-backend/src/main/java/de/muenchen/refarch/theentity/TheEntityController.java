@@ -3,7 +3,6 @@ package de.muenchen.refarch.theentity;
 import de.muenchen.refarch.theentity.dto.TheEntityMapper;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -72,7 +71,6 @@ public class TheEntityController {
      * @return the created entity as a DTO
      */
     @PostMapping
-    @Operation(summary = "Create a new entity", description = "Creates a new entity using the provided entity details.")
     @ResponseStatus(HttpStatus.CREATED)
     public TheEntityResponseDTO saveTheEntity(@Valid @RequestBody final TheEntityRequestDTO theEntityRequestDTO) {
         return theEntityMapper.toDTO(theEntityService.createTheEntity(theEntityMapper.toEntity(theEntityRequestDTO)));
@@ -87,7 +85,6 @@ public class TheEntityController {
      * @return the updated entity as a DTO
      */
     @PutMapping("/{theEntityId}")
-    @Operation(summary = "Update an existing entity", description = "Updates the details of an existing entity using the provided UUID and entity details.")
     @ResponseStatus(HttpStatus.OK)
     public TheEntityResponseDTO updateTheEntity(@Valid @RequestBody final TheEntityRequestDTO theEntityRequestDTO,
             @PathVariable("theEntityId") final UUID theEntityId) {
@@ -101,7 +98,6 @@ public class TheEntityController {
      * @param theEntityId the UUID of the entity to delete
      */
     @DeleteMapping("/{theEntityId}")
-    @Operation(summary = "Delete an entity", description = "Deletes the entity using the provided UUID.")
     @ResponseStatus(HttpStatus.OK)
     public void deleteTheEntity(@PathVariable("theEntityId") final UUID theEntityId) {
         theEntityService.deleteTheEntity(theEntityId);
