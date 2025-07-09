@@ -22,8 +22,10 @@ import org.springframework.validation.annotation.Validated;
 @Profile("!no-security")
 @Data
 public class SecurityProperties {
-    @NotBlank
-    private String clientId;
+    /**
+     * ID of the used oAuth client.
+     */
+    @NotBlank private String clientId;
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
