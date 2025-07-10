@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@Tag(name = "the_entity_example_tag", description = "An example tag for the entity controller")
 @RequestMapping("/theEntity")
 public class TheEntityController {
 
