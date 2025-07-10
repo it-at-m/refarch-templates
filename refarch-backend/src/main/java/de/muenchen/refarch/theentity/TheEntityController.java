@@ -3,7 +3,6 @@ package de.muenchen.refarch.theentity;
 import de.muenchen.refarch.theentity.dto.TheEntityMapper;
 import de.muenchen.refarch.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.refarch.theentity.dto.TheEntityResponseDTO;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
