@@ -10,12 +10,9 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class OpenAPIProperties {
 
-    @NotNull
-    private String name;
+    @NotNull private String name;
 
-    @NotNull
-    private String description;
+    @NotNull private String description;
 
-    @NotNull
-    private String version;
+    @NotNull private String version;
 }
