@@ -8,16 +8,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class OpenAPIDocumentation {
+public class OpenAPIDocumentationConfiguration {
 
     private final OpenAPIProperties openAPIProperties;
 
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info()
-                        .title(openAPIProperties.getName())
-                        .description(openAPIProperties.getDescription())
-                        .version(openAPIProperties.getVersion()));
+                .info(new Info().title(openAPIProperties.getName()).description(openAPIProperties.getDescription()).version(openAPIProperties.getVersion()));
     }
 }
