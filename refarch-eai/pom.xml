@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.6</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <version>3.4.7</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
@@ -52,9 +52,9 @@
         <logstash-logback-encoder.version>8.1</logstash-logback-encoder.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.45.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
-        <pmd-maven-plugin.version>3.26.0</pmd-maven-plugin.version>
+        <pmd-maven-plugin.version>3.27.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.3.2</spotbugs-maven-plugin.version>
         <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
@@ -67,7 +67,7 @@
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 
         <!-- Utility -->
-        <refarch-tools.version>1.1.0</refarch-tools.version>
+        <refarch-tools.version>1.2.0</refarch-tools.version>
 
         <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
         <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
@@ -277,6 +277,8 @@
                         <endWithNewline />
                         <importOrder />
                         <removeUnusedImports />
+                        <removeWildcardImports />
+                        <formatAnnotations />
                     </java>
                 </configuration>
                 <executions>
