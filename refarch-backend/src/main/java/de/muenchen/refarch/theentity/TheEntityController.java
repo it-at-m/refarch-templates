@@ -34,15 +34,15 @@ public class TheEntityController {
     private final TheEntityMapper theEntityMapper;
 
     /**
-     * Retrieve an entity by its UID.
+     * Retrieve an entity by its UUID.
      * Fetches the entity details using the provided UUID.
      *
      * @param theEntityId the UUID of the requested entity
      * @return the entity with the given UID as a DTO
      */
-    @GetMapping("{theEntityID}")
+    @GetMapping("{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
-    public TheEntityResponseDTO getTheEntity(@PathVariable("theEntityID") final UUID theEntityId) {
+    public TheEntityResponseDTO getTheEntity(@PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.getTheEntity(theEntityId));
     }
 
