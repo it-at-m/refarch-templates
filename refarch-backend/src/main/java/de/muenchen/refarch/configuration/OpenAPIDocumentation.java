@@ -15,6 +15,9 @@ public class OpenAPIDocumentation {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title(openAPIProperties.getName()).description(openAPIProperties.getDescription()).version(openAPIProperties.getVersion()));
+                .info(new Info()
+                        .title(openAPIProperties.getName())
+                        .description(openAPIProperties.getDescription())
+                        .version(openAPIProperties.getVersion()));
     }
 }
