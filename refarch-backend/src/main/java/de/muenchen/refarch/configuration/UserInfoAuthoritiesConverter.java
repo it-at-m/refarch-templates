@@ -58,6 +58,12 @@ public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<G
                         .build());
     }
 
+    protected UserInfoAuthoritiesConverter(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder, final Cache cache) {
+        this.userInfoUri = userInfoUri;
+        this.restTemplate = restTemplateBuilder.build();
+        this.cache = cache;
+    }
+
     /**
      * Calls the /userinfo endpoint and extracts {@link GrantedAuthority}s from the "authorities" claim.
      *
@@ -104,8 +110,7 @@ public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<G
     private static Collection<GrantedAuthority> asAuthorities(final Object object) {
         final List<GrantedAuthority> authorities = new ArrayList<>();
         Object authoritiesObject = object;
-        if (authoritiesObject instanceof Collection) {
-            final Collection<?> collection = (Collection<?>) authoritiesObject;
+        if (authoritiesObject instanceof Collection<?> collection) {
             authoritiesObject = collection.toArray(new Object[0]);
         }
         if (ObjectUtils.isArray(authoritiesObject)) {
