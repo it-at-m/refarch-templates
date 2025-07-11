@@ -29,7 +29,7 @@ import org.testcontainers.utility.DockerImageName;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles(profiles = { SPRING_TEST_PROFILE, SPRING_NO_SECURITY_PROFILE })
-class UnicodeConfigurationTest {
+class UnicodeFilterConfigurationTest {
 
     @Container
     @ServiceConnection

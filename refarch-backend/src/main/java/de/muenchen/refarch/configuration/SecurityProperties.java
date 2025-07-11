@@ -23,15 +23,23 @@ import org.springframework.validation.annotation.Validated;
 @Data
 public class SecurityProperties {
     /**
-     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
+     * ID of the used oAuth client.
      */
-    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
+    @NotBlank private String clientId;
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link UserInfoAuthoritiesService}
+     * authorities), see also {@link UserInfoAuthoritiesConverter}.
+     *
+     * @deprecated Use {@link KeycloakRolesAuthoritiesConverter}
      */
+    @Deprecated
     @NotBlank private String userInfoUri;
+
+    /**
+     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
+     */
+    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
 
     /**
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}

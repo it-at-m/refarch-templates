@@ -19,7 +19,7 @@ import org.springframework.core.Ordered;
  * </ul>
  */
 @Configuration
-public class UnicodeConfiguration {
+public class UnicodeFilterConfiguration {
 
     private static final String NFC_FILTER_NAME = "nfcRequestFilter";
 
