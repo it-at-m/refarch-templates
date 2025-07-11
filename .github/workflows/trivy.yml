@@ -1,0 +1,27 @@
+name: build
+on:
+  pull_request:
+jobs:
+  build:
+    name: Trivy Check
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner in Image mode
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          format: 'table'
+          output: trivy-report.txt
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          
+      - name: Upload Vulnerability Scan Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.txt
+          retention-days: 1
