@@ -58,7 +58,7 @@ class UserInfoAuthoritiesConverterTest {
         when(jwt.getTokenValue()).thenReturn(TEST_TOKEN_VALUE);
 
         final Map<String, Object> responseMap = new HashMap<>();
-        responseMap.put("authorities", new String[] {ROLE_USER, ROLE_ADMIN});
+        responseMap.put("authorities", new String[] { ROLE_USER, ROLE_ADMIN });
         when(restTemplate.exchange(eq(USER_INFO_URI), eq(HttpMethod.GET), any(HttpEntity.class), eq(Map.class)))
                 .thenReturn(new ResponseEntity<>(responseMap, HttpStatus.OK));
 
