@@ -23,6 +23,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 @ExtendWith(MockitoExtension.class)
 class KeycloakRolesAuthoritiesConverterTest {
     private static final String TEST_CLIENT = "test-client";
+    private static final String RESOURCE_ACCESS_CLAIM = "resource_access";
 
     @Mock
     private SecurityProperties securityProperties;
@@ -40,7 +41,7 @@ class KeycloakRolesAuthoritiesConverterTest {
         final Map<String, Object> resourceAccessClaim = new HashMap<>();
         resourceAccessClaim.put(TEST_CLIENT, Map.of("roles", List.of("admin", "user")));
         final Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsMap("resource_access")).thenReturn(resourceAccessClaim);
+        when(jwt.getClaimAsMap(RESOURCE_ACCESS_CLAIM)).thenReturn(resourceAccessClaim);
 
         // Call
         final Collection<GrantedAuthority> authorities = converter.convert(jwt);
@@ -56,10 +57,26 @@ class KeycloakRolesAuthoritiesConverterTest {
     void testConvert_WithoutRoles() {
         // Setup
         final Map<String, Object> claims = new HashMap<>();
-        claims.put("resource_access", Map.of(
+        claims.put(RESOURCE_ACCESS_CLAIM, Map.of(
                 TEST_CLIENT, Collections.emptyMap()));
         final Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsMap("resource_access")).thenReturn(claims);
+        when(jwt.getClaimAsMap(RESOURCE_ACCESS_CLAIM)).thenReturn(claims);
+
+        // Call
+        final Collection<GrantedAuthority> authorities = converter.convert(jwt);
+
+        // Assert
+        assert authorities != null;
+        assertTrue(authorities.isEmpty());
+    }
+
+    @Test
+    void testConvert_ClientNotInResourceAccess() {
+        // Setup
+        final Map<String, Object> resourceAccessClaim = new HashMap<>();
+        resourceAccessClaim.put("other-client", Map.of("roles", List.of("admin")));
+        final Jwt jwt = mock(Jwt.class);
+        when(jwt.getClaimAsMap(RESOURCE_ACCESS_CLAIM)).thenReturn(resourceAccessClaim);
 
         // Call
         final Collection<GrantedAuthority> authorities = converter.convert(jwt);
