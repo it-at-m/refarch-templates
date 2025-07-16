@@ -29,8 +29,7 @@ public class KeycloakRolesAuthoritiesConverter implements Converter<Jwt, Collect
     }
 
     private Collection<? extends GrantedAuthority> extractRoles(final Jwt jwt) {
-        return Optional.ofNullable(
-                        jwt.getClaimAsMap(CLAIM_NAME))
+        return Optional.ofNullable(jwt.getClaimAsMap(CLAIM_NAME))
                 .map(resourceAccess -> resourceAccess.get(securityProperties.getClientId()))
                 .filter(client -> client instanceof Map)
                 .map(client -> (Map<String, Object>) client)
