@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.Collection;
@@ -107,5 +108,6 @@ class UserInfoAuthoritiesConverterTest {
         assert authorities != null;
         assertEquals(1, authorities.size());
         assertTrue(authorities.contains(new SimpleGrantedAuthority(ROLE_USER)));
+        verifyNoInteractions(restTemplate);
     }
 }
