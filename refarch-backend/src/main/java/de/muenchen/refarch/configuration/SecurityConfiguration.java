@@ -60,9 +60,15 @@ public class SecurityConfiguration {
                         .jwt(jwtConfigurer -> {
                             final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
                             // authorities via keycloak roles scope
-                            keycloakRolesAuthoritiesConverter.ifPresent(jwtAuthenticationConverter::setJwtGrantedAuthoritiesConverter);
+                            if (keycloakRolesAuthoritiesConverter.isPresent()) {
+                                jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+                                        keycloakRolesAuthoritiesConverter.get());
+                            }
                             // DEPRECATED: authorities via userinfo endpoint
-                            userInfoAuthoritiesConverter.ifPresent(jwtAuthenticationConverter::setJwtGrantedAuthoritiesConverter);
+                            else if (userInfoAuthoritiesConverter.isPresent()) {
+                                jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+                                        userInfoAuthoritiesConverter.get());
+                            }
                             jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
                         }));
 
