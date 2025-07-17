@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
@@ -30,6 +31,7 @@ import org.springframework.web.client.RestTemplate;
  * @deprecated Use {@link KeycloakRolesAuthoritiesConverter} instead. Can be removed if not used.
  */
 @Slf4j
+@RequiredArgsConstructor
 @Deprecated
 public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
@@ -49,19 +51,15 @@ public class UserInfoAuthoritiesConverter implements Converter<Jwt, Collection<G
      * @param restTemplateBuilder a {@link RestTemplateBuilder}
      */
     public UserInfoAuthoritiesConverter(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder) {
-        this.userInfoUri = userInfoUri;
-        this.restTemplate = restTemplateBuilder.build();
-        this.cache = new CaffeineCache(NAME_AUTHENTICATION_CACHE,
-                Caffeine.newBuilder()
-                        .expireAfterWrite(AUTHENTICATION_CACHE_ENTRY_SECONDS_TO_EXPIRE, TimeUnit.SECONDS)
-                        .ticker(Ticker.systemTicker())
-                        .build());
-    }
-
-    protected UserInfoAuthoritiesConverter(final String userInfoUri, final RestTemplateBuilder restTemplateBuilder, final Cache cache) {
-        this.userInfoUri = userInfoUri;
-        this.restTemplate = restTemplateBuilder.build();
-        this.cache = cache;
+        this(
+                userInfoUri,
+                restTemplateBuilder.build(),
+                new CaffeineCache(
+                        NAME_AUTHENTICATION_CACHE,
+                        Caffeine.newBuilder()
+                                .expireAfterWrite(AUTHENTICATION_CACHE_ENTRY_SECONDS_TO_EXPIRE, TimeUnit.SECONDS)
+                                .ticker(Ticker.systemTicker())
+                                .build()));
     }
 
     /**

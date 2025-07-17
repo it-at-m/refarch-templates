@@ -38,8 +38,6 @@ class UserInfoAuthoritiesConverterTest {
     private static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     @Mock
-    private RestTemplateBuilder restTemplateBuilder;
-    @Mock
     private RestTemplate restTemplate;
     @Mock
     private Cache cache;
@@ -47,8 +45,7 @@ class UserInfoAuthoritiesConverterTest {
 
     @BeforeEach
     void setUp() {
-        when(restTemplateBuilder.build()).thenReturn(restTemplate);
-        converter = new UserInfoAuthoritiesConverter(USER_INFO_URI, restTemplateBuilder, cache);
+        converter = new UserInfoAuthoritiesConverter(USER_INFO_URI, restTemplate, cache);
     }
 
     @Test
