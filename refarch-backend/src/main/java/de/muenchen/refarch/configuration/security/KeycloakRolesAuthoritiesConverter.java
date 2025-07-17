@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -21,9 +22,12 @@ public class KeycloakRolesAuthoritiesConverter implements Converter<Jwt, Collect
     private final SecurityProperties securityProperties;
 
     @Override
-    public Collection<GrantedAuthority> convert(final Jwt jwt) {
+    public Collection<GrantedAuthority> convert(@Nullable final Jwt jwt) {
+        if (jwt == null) {
+            return Collections.emptySet();
+        }
         return Stream.concat(
-                Optional.of(defaultConverter.convert(jwt)).orElse(Collections.emptySet()).stream(),
+                defaultConverter.convert(jwt).stream(),
                 extractRoles(jwt).stream())
                 .collect(Collectors.toSet());
     }

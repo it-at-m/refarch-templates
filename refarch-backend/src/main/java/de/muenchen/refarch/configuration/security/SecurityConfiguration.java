@@ -2,6 +2,7 @@ package de.muenchen.refarch.configuration.security;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 @Import(RestTemplateAutoConfiguration.class)
+@Slf4j
 public class SecurityConfiguration {
     private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
     @Deprecated
@@ -75,6 +77,8 @@ public class SecurityConfiguration {
                             else if (userInfoAuthoritiesConverter.isPresent()) {
                                 jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
                                         userInfoAuthoritiesConverter.get());
+                            } else {
+                                log.warn("No custom authority converter available, falling back to default.");
                             }
                             jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
                         }));

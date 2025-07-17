@@ -17,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 /**
  * Properties class that holds configuration data relevant for security mechanisms
  */
-@ConfigurationProperties(prefix = "security")
+@ConfigurationProperties(prefix = "refarch.security")
 @Validated
 @Profile("!no-security")
 @Data
