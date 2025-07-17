@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

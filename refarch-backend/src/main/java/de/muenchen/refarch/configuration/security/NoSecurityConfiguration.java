@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

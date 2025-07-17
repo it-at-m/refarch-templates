@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;

@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

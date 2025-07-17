@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

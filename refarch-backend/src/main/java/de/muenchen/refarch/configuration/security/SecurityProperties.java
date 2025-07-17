@@ -1,7 +1,7 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
-import de.muenchen.refarch.security.RequestResponseLoggingFilter;
-import de.muenchen.refarch.security.RequestResponseLoggingFilter.LoggingMode;
+import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter;
+import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter.LoggingMode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;

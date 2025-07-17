@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
 import static de.muenchen.refarch.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.refarch.TestConstants.SPRING_TEST_PROFILE;
