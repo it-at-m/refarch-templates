@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration.nfcconverter;
+package de.muenchen.refarch.configuration.filter.nfcconverter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
