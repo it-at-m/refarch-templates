@@ -33,7 +33,6 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @Slf4j
 public class SecurityConfiguration {
     private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
-    @Deprecated
     private final Optional<UserInfoAuthoritiesConverter> userInfoAuthoritiesConverter;
 
     @Bean

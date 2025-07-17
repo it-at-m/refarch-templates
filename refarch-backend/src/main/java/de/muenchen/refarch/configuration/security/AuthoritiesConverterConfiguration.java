@@ -21,7 +21,6 @@ public class AuthoritiesConverterConfiguration {
 
     @Bean
     @Profile("userinfo-authorities")
-    @Deprecated
     public UserInfoAuthoritiesConverter userInfoAuthoritiesConverter(
             final SecurityProperties securityProperties, final RestTemplateBuilder restTemplateBuilder) {
         return new UserInfoAuthoritiesConverter(securityProperties.getUserInfoUri(), restTemplateBuilder);
