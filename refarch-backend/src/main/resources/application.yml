@@ -1,6 +1,6 @@
 spring:
   main:
-    banner-mode: log
+    banner-mode: console
   application:
     name: @project.artifactId@
     group: @project.groupId@

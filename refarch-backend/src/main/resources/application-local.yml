@@ -1,8 +1,6 @@
 server:
   port: 39146
 spring:
-  main:
-    banner-mode: console
   # Spring JPA
   jpa:
     # Logging for database operation
