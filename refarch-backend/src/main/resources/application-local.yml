@@ -33,6 +33,17 @@ springdoc:
   api-docs:
     enabled: true
 
+logging:
+  include-application-group: false
+  structured:
+    format:
+      console:
+  level:
+    root: INFO
+    de.muenchen.refarch: DEBUG
+    org.springframework.cache: TRACE
+    org.springframework.web: DEBUG
+
 # Define the local keycloak configuration here
 # Deduplication-only property
 sso:

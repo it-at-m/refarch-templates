@@ -4,6 +4,7 @@ management:
       default: none
 
 logging:
+  include-application-group: false
   level:
     org:
       springframework: INFO
