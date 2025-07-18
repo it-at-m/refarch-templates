@@ -78,7 +78,8 @@ logging:
         # therefore limit stack traces to a maximum of 8192 characters (to leave room for the rest of the message)
         max-length: 8192
       add:
-        springAppName: ${spring.application.name}
+        application_name: ${spring.application.name}
+        application_group: ${spring.application.group}
 
 info:
   application:

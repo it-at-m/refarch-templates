@@ -34,6 +34,7 @@ springdoc:
     enabled: true
 
 logging:
+  include-application-group: false
   structured:
     format:
       console:

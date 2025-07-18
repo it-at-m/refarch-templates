@@ -4,6 +4,7 @@ spring:
       ddl-auto: create-drop
 
 logging:
+  include-application-group: false
   structured:
     format:
       console:
