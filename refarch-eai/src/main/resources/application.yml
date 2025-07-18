@@ -1,7 +1,7 @@
 spring:
   application:
     name: @project.artifactId@
-    group: @project.group@
+    group: @project.groupId@
     version: @project.version@
 
 server:
