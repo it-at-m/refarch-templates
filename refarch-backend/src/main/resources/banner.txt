@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------------------------------------------------------
-${spring.application.name}
+${spring.application.name} (${spring.application.group})
 
 Application Version    : ${info.application.version}
 Java Version           : ${info.build.java.version}
