@@ -1,6 +1,7 @@
-package de.muenchen.refarch.security;
+package de.muenchen.refarch.configuration.filter;
 
-import de.muenchen.refarch.configuration.SecurityProperties;
+import de.muenchen.refarch.configuration.security.SecurityProperties;
+import de.muenchen.refarch.security.AuthUtils;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;

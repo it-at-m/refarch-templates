@@ -1,8 +1,9 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
@@ -19,7 +21,8 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  * Automatically used when not running with profile `no-security`.
  * Configures all endpoints to require authentication via access token.
  * (except the Spring Boot Actuator endpoints)
- * Additionally it configures the use of the {@link UserInfoAuthoritiesService}.
+ * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or deprecated
+ * {@link UserInfoAuthoritiesConverter}.
  */
 @RequiredArgsConstructor
 @Configuration
@@ -27,11 +30,10 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 @Import(RestTemplateAutoConfiguration.class)
+@Slf4j
 public class SecurityConfiguration {
-
-    private final RestTemplateBuilder restTemplateBuilder;
-
-    private final SecurityProperties securityProperties;
+    private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
+    private final Optional<UserInfoAuthoritiesConverter> userInfoAuthoritiesConverter;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -59,11 +61,26 @@ public class SecurityConfiguration {
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/metrics"))
                         .permitAll())
-                .authorizeHttpRequests((requests) -> requests.requestMatchers("/**")
+                .authorizeHttpRequests((requests) -> requests
+                        .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer -> httpSecurityOAuth2ResourceServerConfigurer
-                        .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(new JwtUserInfoAuthenticationConverter(
-                                new UserInfoAuthoritiesService(securityProperties.getUserInfoUri(), restTemplateBuilder)))));
+                .oauth2ResourceServer(oAuth2ResourceServerConfigurer -> oAuth2ResourceServerConfigurer
+                        .jwt(jwtConfigurer -> {
+                            final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+                            // authorities via keycloak roles scope
+                            if (keycloakRolesAuthoritiesConverter.isPresent()) {
+                                jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+                                        keycloakRolesAuthoritiesConverter.get());
+                            }
+                            // DEPRECATED: authorities via userinfo endpoint
+                            else if (userInfoAuthoritiesConverter.isPresent()) {
+                                jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
+                                        userInfoAuthoritiesConverter.get());
+                            } else {
+                                log.warn("No custom authority converter available, falling back to default.");
+                            }
+                            jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
+                        }));
 
         return http.build();
     }

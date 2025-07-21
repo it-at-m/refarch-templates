@@ -1,7 +1,7 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.security;
 
-import de.muenchen.refarch.security.RequestResponseLoggingFilter;
-import de.muenchen.refarch.security.RequestResponseLoggingFilter.LoggingMode;
+import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter;
+import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter.LoggingMode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
@@ -17,21 +17,29 @@ import org.springframework.validation.annotation.Validated;
 /**
  * Properties class that holds configuration data relevant for security mechanisms
  */
-@ConfigurationProperties(prefix = "security")
+@ConfigurationProperties(prefix = "refarch.security")
 @Validated
 @Profile("!no-security")
 @Data
 public class SecurityProperties {
     /**
-     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
+     * ID of the used oAuth client.
      */
-    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
+    @NotBlank private String clientId;
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link UserInfoAuthoritiesService}
+     * authorities), see also {@link UserInfoAuthoritiesConverter}.
+     *
+     * @deprecated Use {@link KeycloakRolesAuthoritiesConverter}
      */
+    @Deprecated
     @NotBlank private String userInfoUri;
+
+    /**
+     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
+     */
+    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
 
     /**
      * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
