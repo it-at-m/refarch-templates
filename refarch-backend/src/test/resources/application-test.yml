@@ -4,10 +4,10 @@ spring:
       ddl-auto: create-drop
 
 logging:
-  include-application-group: false
+  include-application-group: false # disabled because application group is only relevant when deployed
   structured:
     format:
-      console:
+      console: # set to empty to disable structured logging for testing
 
 security:
   # possible values: none, all, changing (With changing, only changing requests such as POST, PUT, DELETE are logged)

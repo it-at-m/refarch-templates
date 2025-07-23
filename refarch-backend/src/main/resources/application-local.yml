@@ -34,10 +34,10 @@ springdoc:
     enabled: true
 
 logging:
-  include-application-group: false
+  include-application-group: false # disabled because application group is only relevant when deployed
   structured:
     format:
-      console:
+      console: # set to empty to disable structured logging locally
   level:
     root: INFO
     de.muenchen.refarch: DEBUG
