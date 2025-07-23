@@ -2,9 +2,9 @@ spring:
   main:
     banner-mode: console
   application:
-    name: @project.artifactId@
-    group: @project.groupId@
-    version: @project.version@
+    name: "@project.artifactId@"
+    group: "@project.groupId@"
+    version: "@project.version@"
   data:
     web:
       pageable:
@@ -86,7 +86,7 @@ info:
     name: ${spring.application.name}
     version: ${spring.application.version}
     group: ${spring.application.group}
-    description: @project.description@
+    description: "@project.description@"
   build:
-    java.version: @java.version@
-    spring-cloud.version: @spring-cloud-dependencies.version@
+    java.version: "@java.version@"
+    spring-cloud.version: "@spring-cloud-dependencies.version@"
