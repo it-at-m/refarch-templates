@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,7 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * the header is not already set.
  */
 @Configuration
-public class CacheControlConfiguration {
+public class CacheControlFilterConfiguration {
 
     private static final String CACHE_CONTROL_HEADER_VALUES = "no-cache, no-store, must-revalidate";
 

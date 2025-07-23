@@ -1,4 +1,4 @@
-package de.muenchen.refarch.configuration;
+package de.muenchen.refarch.configuration.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +10,7 @@ import org.springframework.web.filter.ForwardedHeaderFilter;
  * the headers of type "Forwarded" and "X-Forwarded-*".
  */
 @Configuration
-public class ForwardedHeaderConfiguration {
+public class ForwardedHeaderFilterConfiguration {
 
     @Bean
     public FilterRegistrationBean<ForwardedHeaderFilter> forwardedHeaderFilter() {
