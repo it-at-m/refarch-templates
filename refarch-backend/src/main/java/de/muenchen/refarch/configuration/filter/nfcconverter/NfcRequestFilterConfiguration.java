@@ -4,16 +4,15 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Configuration
 @Slf4j
@@ -21,7 +20,7 @@ public class NfcRequestFilterConfiguration {
 
     @Bean
     @FilterRegistration(urlPatterns = "/*", asyncSupported = false)
-    NfcRequestFilter nfcRequestFilter() {
+    public NfcRequestFilter nfcRequestFilter() {
         return new NfcRequestFilter();
     }
 
@@ -49,7 +48,7 @@ public class NfcRequestFilterConfiguration {
      */
     public static class NfcRequestFilter extends OncePerRequestFilter {
 
-        private static final Set<String> contentTypes = new HashSet<>(Arrays.asList("text/plain", "application/json", "text/html"));
+        private static final Set<String> CONTENT_TYPES = new HashSet<>(Arrays.asList("text/plain", "application/json", "text/html"));
 
         @Override
         protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
@@ -60,9 +59,9 @@ public class NfcRequestFilterConfiguration {
 
             final String contentType = request.getContentType();
             log.debug("ContentType for request with URI: \"{}\"", contentType);
-            if (contentTypes.contains(contentType)) {
+            if (CONTENT_TYPES.contains(contentType)) {
                 log.debug("Processing request {}.", request.getRequestURI());
-                filterChain.doFilter(new NfcRequest(request, contentTypes), response);
+                filterChain.doFilter(new NfcRequest(request, CONTENT_TYPES), response);
             } else {
                 log.debug("Skip processing of HTTP request since it's content type \"{}\" is not in whitelist.", contentType);
                 filterChain.doFilter(request, response);
@@ -70,6 +69,5 @@ public class NfcRequestFilterConfiguration {
         }
 
     }
-
 
 }

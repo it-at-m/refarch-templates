@@ -35,7 +35,7 @@ public class RequestResponseLoggingFilterConfiguration {
 
     @Bean
     @FilterRegistration(urlPatterns = "/*", order = 1)
-    RequestResponseLoggingFilter requestResponseLoggingFilter() {
+    public RequestResponseLoggingFilter requestResponseLoggingFilter() {
         return new RequestResponseLoggingFilter(securityProperties);
     }
 
@@ -112,9 +112,9 @@ public class RequestResponseLoggingFilterConfiguration {
          */
         private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
             final boolean isLoggingMode = switch (securityProperties.getLoggingMode()) {
-                case LoggingMode.ALL -> true;
-                case LoggingMode.CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
-                default -> false;
+            case LoggingMode.ALL -> true;
+            case LoggingMode.CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
+            default -> false;
             };
 
             return isLoggingMode && securityProperties.getLoggingIgnoreListAsMatchers().stream().noneMatch(matcher -> matcher.matches(httpServletRequest));

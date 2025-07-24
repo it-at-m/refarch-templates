@@ -21,7 +21,7 @@ public class CacheControlFilterConfiguration {
 
     @Bean
     @FilterRegistration(urlPatterns = "/*")
-    CacheControlFilter cacheControlFilter() {
+    public CacheControlFilter cacheControlFilter() {
         return new CacheControlFilter();
     }
 

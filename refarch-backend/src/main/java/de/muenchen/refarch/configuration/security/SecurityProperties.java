@@ -36,12 +36,14 @@ public class SecurityProperties {
     @NotBlank private String userInfoUri;
 
     /**
-     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilterConfiguration}
+     * Logging mode for incoming HTTP requests, see also
+     * {@link RequestResponseLoggingFilterConfiguration}
      */
     @NotNull private RequestResponseLoggingFilterConfiguration.RequestResponseLoggingFilter.LoggingMode loggingMode = RequestResponseLoggingFilterConfiguration.RequestResponseLoggingFilter.LoggingMode.NONE;
 
     /**
-     * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilterConfiguration}
+     * List of paths to ignore when logging HTTP requests, see also
+     * {@link RequestResponseLoggingFilterConfiguration}
      */
     @NotNull private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
 
