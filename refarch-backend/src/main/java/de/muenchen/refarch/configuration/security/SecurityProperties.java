@@ -1,7 +1,6 @@
 package de.muenchen.refarch.configuration.security;
 
-import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter;
-import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilter.LoggingMode;
+import de.muenchen.refarch.configuration.filter.RequestResponseLoggingFilterConfiguration;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
@@ -37,12 +36,12 @@ public class SecurityProperties {
     @NotBlank private String userInfoUri;
 
     /**
-     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilter}
+     * Logging mode for incoming HTTP requests, see also {@link RequestResponseLoggingFilterConfiguration}
      */
-    @NotNull private LoggingMode loggingMode = LoggingMode.NONE;
+    @NotNull private RequestResponseLoggingFilterConfiguration.RequestResponseLoggingFilter.LoggingMode loggingMode = RequestResponseLoggingFilterConfiguration.RequestResponseLoggingFilter.LoggingMode.NONE;
 
     /**
-     * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilter}
+     * List of paths to ignore when logging HTTP requests, see also {@link RequestResponseLoggingFilterConfiguration}
      */
     @NotNull private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
 
