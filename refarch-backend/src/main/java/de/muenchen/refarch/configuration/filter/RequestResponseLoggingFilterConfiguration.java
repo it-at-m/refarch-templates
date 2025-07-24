@@ -10,7 +10,6 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +43,7 @@ public class RequestResponseLoggingFilterConfiguration {
     @RequiredArgsConstructor
     public static class RequestResponseLoggingFilter implements Filter {
 
-        private static final List<String> CHANGING_METHODS = Arrays.asList(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
+        private static final List<String> CHANGING_METHODS = List.of(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
                 HttpMethod.DELETE.name());
 
         private final SecurityProperties securityProperties;
@@ -95,8 +94,8 @@ public class RequestResponseLoggingFilterConfiguration {
          */
         private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
             final boolean isLoggingMode = switch (securityProperties.getLoggingMode()) {
-            case LoggingMode.ALL -> true;
-            case LoggingMode.CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
+            case ALL -> true;
+            case CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
             default -> false;
             };
 
