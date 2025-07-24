@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -19,14 +19,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Configuration
 public class CacheControlFilterConfiguration {
 
-    private static final String CACHE_CONTROL_HEADER_VALUES = "no-cache, no-store, must-revalidate";
-
     @Bean
-    public FilterRegistrationBean<CacheControlFilter> cacheControlFilter() {
-        final FilterRegistrationBean<CacheControlFilter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new CacheControlFilter());
-        registration.addUrlPatterns("/*");
-        return registration;
+    @FilterRegistration(urlPatterns = "/*")
+    CacheControlFilter cacheControlFilter() {
+        return new CacheControlFilter();
     }
 
     /**
@@ -35,6 +31,8 @@ public class CacheControlFilterConfiguration {
      * if the header is not already set.
      */
     public static class CacheControlFilter extends OncePerRequestFilter {
+
+        private static final String CACHE_CONTROL_HEADER_VALUES = "no-cache, no-store, must-revalidate";
 
         /**
          * The method which adds the {@link HttpHeaders#CACHE_CONTROL} header
