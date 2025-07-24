@@ -4,7 +4,6 @@ import de.muenchen.refarch.configuration.security.SecurityProperties;
 import de.muenchen.refarch.security.AuthUtils;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -69,14 +68,6 @@ public class RequestResponseLoggingFilterConfiguration {
         }
 
         /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void init(final FilterConfig filterConfig) {
-            log.debug("Initializing filter: {}", this);
-        }
-
-        /**
          * The method logs the username extracted out of the {@link SecurityContext},
          * the kind of HTTP-Request, the targeted URI and the response http status code.
          * {@inheritDoc}
@@ -94,14 +85,6 @@ public class RequestResponseLoggingFilterConfiguration {
                         httpRequest.getRequestURI(),
                         httpResponse.getStatus());
             }
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void destroy() {
-            log.debug("Destructing filter: {}", this);
         }
 
         /**
