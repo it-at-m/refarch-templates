@@ -26,9 +26,6 @@ import org.springframework.security.core.context.SecurityContext;
 @Slf4j
 public class RequestResponseLoggingFilterConfiguration {
 
-    /**
-     * The property or a zero length string if no property is available.
-     */
     private final SecurityProperties securityProperties;
 
     @Bean

@@ -59,7 +59,7 @@ public class NfcRequestFilterConfiguration {
 
             final String contentType = request.getContentType();
             log.debug("ContentType for request with URI: \"{}\"", contentType);
-            if (CONTENT_TYPES.contains(contentType)) {
+            if (contentType != null && CONTENT_TYPES.stream().anyMatch(contentType::startsWith)) {
                 log.debug("Processing request {}.", request.getRequestURI());
                 filterChain.doFilter(new NfcRequest(request), response);
             } else {
