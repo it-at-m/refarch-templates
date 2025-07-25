@@ -66,7 +66,7 @@ class NfcConverterTest {
     @Mock
     private FilterChain chain;
 
-    private final NfcRequestFilterConfiguration.NfcRequestFilter filter = new NfcRequestFilterConfiguration.NfcRequestFilter();
+    private final NfcRequestFilter filter = new NfcRequestFilter();
 
     // Test that request with configured ContentType is normalized to NFC.
     @Test
