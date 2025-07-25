@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -38,43 +36,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @see HttpServletRequest#getParts()
  */
 @Component
+@FilterRegistration(urlPatterns = "/*")
 @Slf4j
 public class NfcRequestFilter extends OncePerRequestFilter {
 
-    /**
-     * Name of the property for configuring the white list for content types.
-     *
-     * @see #getContentTypes()
-     * @see #setContentTypes(String)
-     */
-    public static final String CONTENTTYPES_PROPERTY = "contentTypes";
-
-    private final Set<String> contentTypes = new HashSet<>();
-
-    /**
-     * @return The property <em>contentTypes</em>
-     */
-    public String getContentTypes() {
-        return String.join("; ", this.contentTypes);
-    }
-
-    /**
-     * @param contentTypes The property <em>contentTypes</em>
-     */
-    @Autowired(required = false)
-    public void setContentTypes(final String contentTypes) {
-        this.contentTypes.clear();
-        if (StringUtils.isEmpty(contentTypes)) {
-            log.info("Disabling context-type filter.");
-
-        } else {
-            final Set<String> newContentTypes = Arrays.stream(contentTypes.split(";")).map(String::trim)
-                    .collect(Collectors.toSet());
-            this.contentTypes.addAll(newContentTypes);
-            log.info("Enabled content-type filtering to NFC for: {}", getContentTypes());
-
-        }
-    }
+    private static final Set<String> CONTENT_TYPES = new HashSet<>(Arrays.asList("text/plain", "application/json", "text/html"));
 
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
@@ -85,9 +51,9 @@ public class NfcRequestFilter extends OncePerRequestFilter {
 
         final String contentType = request.getContentType();
         log.debug("ContentType for request with URI: \"{}\"", contentType);
-        if (contentTypes.contains(contentType)) {
+        if (contentType != null && CONTENT_TYPES.stream().anyMatch(contentType::startsWith)) {
             log.debug("Processing request {}.", request.getRequestURI());
-            filterChain.doFilter(new NfcRequest(request, contentTypes), response);
+            filterChain.doFilter(new NfcRequest(request), response);
         } else {
             log.debug("Skip processing of HTTP request since it's content type \"{}\" is not in whitelist.", contentType);
             filterChain.doFilter(request, response);
