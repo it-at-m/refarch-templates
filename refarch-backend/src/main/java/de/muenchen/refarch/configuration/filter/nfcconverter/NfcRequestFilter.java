@@ -36,7 +36,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @see HttpServletRequest#getParts()
  */
 @Component
-@FilterRegistration(urlPatterns = "/*", asyncSupported = false)
+@FilterRegistration(urlPatterns = "/*")
 @Slf4j
 public class NfcRequestFilter extends OncePerRequestFilter {
 
