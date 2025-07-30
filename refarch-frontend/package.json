@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "4.0.0",
-    "@intlify/eslint-plugin-vue-i18n": "4.0.1",
+    "@intlify/eslint-plugin-vue-i18n": "4.1.0",
     "@intlify/unplugin-vue-i18n": "6.0.8",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
