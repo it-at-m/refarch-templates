@@ -28,12 +28,9 @@ public class SecurityProperties {
 
     /**
      * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link UserInfoAuthoritiesConverter}.
-     *
-     * @deprecated Use {@link KeycloakRolesAuthoritiesConverter}
+     * authorities), see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */
-    @Deprecated
-    @NotBlank private String userInfoUri;
+    @NotBlank private String permissionsUri;
 
     /**
      * Logging mode for incoming HTTP requests, see also
