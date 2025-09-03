@@ -4,7 +4,7 @@ on:
 jobs:
   build:
     name: Trivy Check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,14 +14,4 @@ jobs:
         with:
           scan-type: 'fs'
           format: 'table'
-          output: trivy-report.txt
-          exit-code: '0'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          
-      - name: Upload Vulnerability Scan Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: trivy-report
-          path: trivy-report.txt
-          retention-days: 1
+          exit-code: '1'
