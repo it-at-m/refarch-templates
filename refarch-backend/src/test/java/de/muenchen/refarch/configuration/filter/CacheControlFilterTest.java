@@ -44,7 +44,7 @@ class CacheControlFilterTest {
     private TestRestTemplate testRestTemplate;
 
     @Test
-    void testForCacheControlHeadersForEntityEndpoint() {
+    void givenEntityEndpoint_thenCacheControlHeadersPresent() {
         final ResponseEntity<String> response = testRestTemplate.exchange(ENTITY_ENDPOINT_URL, HttpMethod.GET, null, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getHeaders().containsKey(HttpHeaders.CACHE_CONTROL));

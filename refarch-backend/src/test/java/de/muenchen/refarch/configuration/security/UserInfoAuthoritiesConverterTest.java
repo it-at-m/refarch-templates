@@ -48,7 +48,7 @@ class UserInfoAuthoritiesConverterTest {
     }
 
     @Test
-    void testConvert_WithAuthorities() {
+    void givenNoRoles_thenConvert() {
         // Setup
         final Jwt jwt = mock(Jwt.class);
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
@@ -70,7 +70,7 @@ class UserInfoAuthoritiesConverterTest {
     }
 
     @Test
-    void testConvert_NoAuthorities() {
+    void givenNoAuthorities_thenConvert() {
         // Setup
         final Jwt jwt = mock(Jwt.class);
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
@@ -89,7 +89,7 @@ class UserInfoAuthoritiesConverterTest {
     }
 
     @Test
-    void testConvert_CacheHit() {
+    void givenCacheHit_thenConvert() {
         // Setup
         final Jwt jwt = mock(Jwt.class);
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
