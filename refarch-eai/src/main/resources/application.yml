@@ -1,8 +1,10 @@
 spring:
+  main:
+    banner-mode: console
   application:
-    name: "@project.artifactId@"
-    group: "@project.groupId@"
-    version: "@project.version@"
+    name: @project.artifactId@
+    group: @project.groupId@
+    version: @project.version@
 
 server:
   error:
@@ -43,6 +45,22 @@ management:
       enabled: true
     readinessstate:
       enabled: true
+
+logging:
+  level:
+    root: info
+  structured:
+    format:
+      console: logstash
+    json:
+      stacktrace:
+        root: first
+        # default max size of one log line in docker is 16kb - UTF8 ~ 1 Character = 1 Byte
+        # therefore limit stack traces to a maximum of 8192 characters (to leave room for the rest of the message)
+        max-length: 8192
+      add:
+        application_name: ${spring.application.name}
+        application_group: ${spring.application.group}
 
 info:
   application:
