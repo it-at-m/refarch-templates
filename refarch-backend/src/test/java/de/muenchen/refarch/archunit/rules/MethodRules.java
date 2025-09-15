@@ -12,7 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MethodRules {
