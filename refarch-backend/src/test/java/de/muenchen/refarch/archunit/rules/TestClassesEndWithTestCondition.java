@@ -16,9 +16,9 @@ public class TestClassesEndWithTestCondition extends ArchCondition<JavaMethod> {
 
     @Override
     public void check(JavaMethod method, ConditionEvents events) {
-        var topEnclosingClass = getTopEnclosingClass(method.getOwner());
+        final var topEnclosingClass = getTopEnclosingClass(method.getOwner());
 
-        if (!topEnclosingClass.getName().endsWith("Test")) {
+        if (!topEnclosingClass.getSimpleName().endsWith("Test")) {
             events.add(SimpleConditionEvent.violated(method, "Method %s must be declared in a class whose simple name ends with 'Test' (found: %s)"
                     .formatted(method.getName(), topEnclosingClass.getSimpleName())));
         }
