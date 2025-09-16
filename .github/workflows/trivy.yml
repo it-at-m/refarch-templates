@@ -15,4 +15,4 @@ jobs:
           scan-type: 'fs'
           format: 'table'
           exit-code: '1'
-          trivyignores: '/.trivyignore'
+          trivyignores: '../.trivyignore'
