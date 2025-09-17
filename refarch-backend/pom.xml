@@ -51,7 +51,7 @@
         <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.27.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.4.0</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.4.2</spotbugs-maven-plugin.version>
         <spotbugs-annotations.version>4.9.4</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
@@ -72,7 +72,7 @@
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
-        <springdoc-openapi-starter-webmvc-ui.version>2.8.11</springdoc-openapi-starter-webmvc-ui.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.8.13</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-maven-plugin.version>1.5</springdoc-openapi-maven-plugin.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
 
@@ -442,6 +442,7 @@
                     <excludeRoots>
                         <excludeRoot>target/generated-sources</excludeRoot>
                         <excludeRoot>target/generated-test-sources</excludeRoot>
+                        <excludeRoot>${project.build.testSourceDirectory}</excludeRoot>
                     </excludeRoots>
                     <rulesets>
                         <ruleset>refarch-pmd-ruleset.xml</ruleset>
