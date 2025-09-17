@@ -294,6 +294,7 @@
                     <excludeRoots>
                         <excludeRoot>target/generated-sources</excludeRoot>
                         <excludeRoot>target/generated-test-sources</excludeRoot>
+                        <excludeRoot>${project.build.testSourceDirectory}</excludeRoot>
                     </excludeRoots>
                     <rulesets>
                         <ruleset>refarch-pmd-ruleset.xml</ruleset>
