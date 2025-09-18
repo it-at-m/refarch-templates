@@ -4,7 +4,7 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.lang.ArchRule;
-import de.muenchen.refarch.archunit.rules.MethodRules;
+import de.muenchen.refarch.archunit.rules.Rules;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,11 +32,11 @@ public class ArchUnitTest {
     public static Stream<Arguments> allTestClassesRulesToVerify() {
         return Stream.of(
                 Arguments.of("RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED",
-                        MethodRules.RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED),
-                Arguments.of("TEST_NAMING_CONVENTION_RULE", MethodRules.RULE_TEST_NAMING_CONVENTION_SHOULD_WHEN_MATCHED),
-                Arguments.of("RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED", MethodRules.RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED),
-                Arguments.of("RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED", MethodRules.RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED),
-                Arguments.of("TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED", MethodRules.RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED));
+                        Rules.RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED),
+                Arguments.of("TEST_NAMING_CONVENTION_RULE", Rules.RULE_TEST_NAMING_CONVENTION_GIVEN_THEN_MATCHED),
+                Arguments.of("RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED", Rules.RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED),
+                Arguments.of("RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED", Rules.RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED),
+                Arguments.of("TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED", Rules.RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED));
     }
 
 }

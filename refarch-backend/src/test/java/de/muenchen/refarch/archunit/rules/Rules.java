@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MethodRules {
+public final class Rules {
 
-    public static final ArchRule RULE_TEST_NAMING_CONVENTION_SHOULD_WHEN_MATCHED = methods()
+    public static final ArchRule RULE_TEST_NAMING_CONVENTION_GIVEN_THEN_MATCHED = methods()
             .that().areAnnotatedWith(Test.class).or().areAnnotatedWith(ParameterizedTest.class)
             .should().haveNameMatching("^given[A-Z][a-zA-Z]+_then[A-Z][a-zA-Z]+$");
 
