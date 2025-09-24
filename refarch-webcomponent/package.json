@@ -17,7 +17,7 @@
     "fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "5.6.2",
+    "@muenchen/muc-patternlab-vue": "5.7.0",
     "@vueuse/core": "13.9.0",
     "vue": "3.5.21"
   },
