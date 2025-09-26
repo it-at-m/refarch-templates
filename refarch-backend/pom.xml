@@ -410,9 +410,12 @@
                         <endWithNewline />
                         <importOrder />
                         <removeUnusedImports />
-                        <removeWildcardImports />
+                        <forbidWildcardImports />
                         <formatAnnotations />
                     </java>
+                    <lintSuppressions>
+                        <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
+                    </lintSuppressions>
                 </configuration>
                 <executions>
                     <execution>
