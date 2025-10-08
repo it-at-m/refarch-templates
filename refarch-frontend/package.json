@@ -12,8 +12,8 @@
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json  --validate",
-    "lint": "prettier . --check && eslint . && vue-tsc --build --noEmit",
-    "fix": "prettier . --write && eslint . --fix"
+    "lint": "prettier . --check && eslint . --concurrency auto && vue-tsc --build --noEmit",
+    "fix": "prettier . --write && eslint . --fix --concurrency auto"
   },
   "dependencies": {
     "@fontsource/roboto": "5.2.8",
