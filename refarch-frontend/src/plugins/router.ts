@@ -1,5 +1,5 @@
 // Composables
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 import { ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
 import GetStartedView from "@/views/GetStartedView.vue";
@@ -21,7 +21,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
   scrollBehavior() {
     return {
