@@ -11,7 +11,7 @@
     "dev": "vite",
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
-    "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json  --validate",
+    "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
     "lint": "prettier . --check && eslint . --concurrency auto && vue-tsc --build --noEmit",
     "fix": "prettier . --write && eslint . --fix --concurrency auto"
   },
