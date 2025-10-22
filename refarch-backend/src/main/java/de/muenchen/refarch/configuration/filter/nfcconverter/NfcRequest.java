@@ -194,7 +194,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         log.debug("Converting InputStream data to NFC.");
         final String nfcConvertedContent = NfcHelper.nfcConverter(content);
-        return new NfcServletInputStream(new ByteArrayInputStream(nfcConvertedContent.getBytes()));
+        return new NfcServletInputStream(new ByteArrayInputStream(nfcConvertedContent.getBytes(encoding)));
     }
 
     private HttpServletRequest getOriginalRequest() {
