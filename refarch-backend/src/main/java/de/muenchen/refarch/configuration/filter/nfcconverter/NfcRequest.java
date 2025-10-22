@@ -181,7 +181,6 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return getOriginalRequest().getParts();
     }
 
-    @SuppressFBWarnings(value = "DM_DEFAULT_ENCODING", matchType = SuppressMatchType.EXACT)
     @Override
     public ServletInputStream getInputStream() throws IOException {
 
