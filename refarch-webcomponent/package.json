@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@muenchen/muc-patternlab-vue": "6.1.0",
-    "@vueuse/core": "13.9.0",
+    "@vueuse/core": "14.0.0",
     "vue": "3.5.22"
   },
   "devDependencies": {
