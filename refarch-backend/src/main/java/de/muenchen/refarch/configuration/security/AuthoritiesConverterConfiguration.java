@@ -7,22 +7,22 @@ import org.springframework.context.annotation.Profile;
 
 /**
  * Configure how authorities are resolved.
- * Either {@link KeycloakRolesAuthoritiesConverter} or with profile "userinfo-authorities"
- * deprecated {@link UserInfoAuthoritiesConverter}.
+ * Either {@link KeycloakRolesAuthoritiesConverter} or with profile "keycloak-permissions"
+ * {@link KeycloakPermissionsAuthoritiesConverter}.
  */
 @Configuration
 @Profile("!no-security")
 public class AuthoritiesConverterConfiguration {
     @Bean
-    @Profile("!userinfo-authorities")
+    @Profile("!keycloak-permissions")
     public KeycloakRolesAuthoritiesConverter keycloakRolesAuthoritiesConverter(final SecurityProperties securityProperties) {
         return new KeycloakRolesAuthoritiesConverter(securityProperties);
     }
 
     @Bean
-    @Profile("userinfo-authorities")
-    public UserInfoAuthoritiesConverter userInfoAuthoritiesConverter(
+    @Profile("keycloak-permissions")
+    public KeycloakPermissionsAuthoritiesConverter keycloakPermissionsAuthoritiesConverter(
             final SecurityProperties securityProperties, final RestTemplateBuilder restTemplateBuilder) {
-        return new UserInfoAuthoritiesConverter(securityProperties.getUserInfoUri(), restTemplateBuilder);
+        return new KeycloakPermissionsAuthoritiesConverter(securityProperties, restTemplateBuilder);
     }
 }
