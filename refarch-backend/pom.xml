@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.5</version>
+        <version>3.5.7</version>
         <relativePath/>
     </parent>
 
@@ -48,15 +48,15 @@
         <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
-        <pmd-maven-plugin.version>3.27.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.4.2</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.9.4</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
         <archunit.version>1.4.1</archunit.version>
 
@@ -417,9 +417,12 @@
                         <endWithNewline />
                         <importOrder />
                         <removeUnusedImports />
-                        <removeWildcardImports />
+                        <forbidWildcardImports />
                         <formatAnnotations />
                     </java>
+                    <lintSuppressions>
+                        <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
+                    </lintSuppressions>
                 </configuration>
                 <executions>
                     <execution>
