@@ -49,7 +49,7 @@
         <camel-spring-boot-dependencies.version>4.14.2</camel-spring-boot-dependencies.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
@@ -61,7 +61,7 @@
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
 
         <!-- Release -->
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <maven-release-plugin.version>3.2.0</maven-release-plugin.version>
 
         <!-- Utility -->
         <refarch-tools.version>1.2.0</refarch-tools.version>
