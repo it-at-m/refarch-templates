@@ -3,6 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 const vitepressConfig = defineConfig({
+  base: "/", // this needs to be changed and match your repository's name
   title: "RefArch Docs Template",
   description: "Documentation template from the RefArch Templates",
   head: [
