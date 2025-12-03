@@ -5,6 +5,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
@@ -31,6 +32,12 @@ public class SecurityProperties {
      * see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */
     @NotBlank private String permissionsUri;
+
+    /**
+     * Timeout for which resolved permissions are cached and reused. Default 60s.
+     * See {@link KeycloakPermissionsAuthoritiesConverter}
+     */
+    @NotNull private Duration permissionCacheLifetime = Duration.ofSeconds(60);
 
     /**
      * Logging mode for incoming HTTP requests, see also

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -38,7 +37,7 @@ import org.springframework.web.client.RestTemplate;
 public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
-    private static final int AUTHENTICATION_CACHE_ENTRY_SECONDS_TO_EXPIRE = 60;
+
     private static final String PERMISSION_NAME_KEY = "rsname";
     private static final String BODY_GRANT_TYPE = "grant_type";
     private static final String GRANT_TYPE = "urn:ietf:params:oauth:grant-type:uma-ticket";
@@ -57,7 +56,7 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
                 new CaffeineCache(
                         AUTHENTICATION_CACHE_NAME,
                         Caffeine.newBuilder()
-                                .expireAfterWrite(AUTHENTICATION_CACHE_ENTRY_SECONDS_TO_EXPIRE, TimeUnit.SECONDS)
+                                .expireAfterWrite(securityProperties.getPermissionCacheLifetime())
                                 .ticker(Ticker.systemTicker())
                                 .build()));
     }
