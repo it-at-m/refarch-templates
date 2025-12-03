@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.Cache;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -71,7 +72,7 @@ class KeycloakPermissionsAuthoritiesConverterTest {
                 Map.of(
                         "rsid", UUID.randomUUID().toString(),
                         "rsname", ROLE_ADMIN));
-        when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), eq(List.class)))
+        when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), any(ParameterizedTypeReference.class)))
                 .thenReturn(new ResponseEntity<>(response, HttpStatus.OK));
 
         // Call
@@ -92,7 +93,7 @@ class KeycloakPermissionsAuthoritiesConverterTest {
         when(jwt.getTokenValue()).thenReturn(TEST_TOKEN_VALUE);
 
         final List<Map<String, String>> responseMap = List.of();
-        when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), eq(List.class)))
+        when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), any(ParameterizedTypeReference.class)))
                 .thenReturn(new ResponseEntity<>(responseMap, HttpStatus.OK));
 
         // Call

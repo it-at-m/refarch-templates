@@ -27,8 +27,8 @@ public class SecurityProperties {
     @NotBlank private String clientId;
 
     /**
-     * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link KeycloakPermissionsAuthoritiesConverter}.
+     * URI of the endpoint used for fetching permissions,
+     * see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */
     @NotBlank private String permissionsUri;
 

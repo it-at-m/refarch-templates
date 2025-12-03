@@ -13,6 +13,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,8 +28,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Service that calls an OIDC /userinfo endpoint (with JWT Bearer Auth) and extracts the
- * "Authorities" contained there.
+ * Service that calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant)
+ * and extracts authorities from the permission resources.
  * <p>
  * The usage of simpler {@link KeycloakRolesAuthoritiesConverter} should be preferred.
  */
@@ -80,7 +81,8 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         try {
-            final List<?> permissions = this.fetchPermissions(this.securityProperties.getPermissionsUri(), jwt, this.securityProperties.getClientId());
+            final List<Map<String, String>> permissions = this.fetchPermissions(this.securityProperties.getPermissionsUri(), jwt,
+                    this.securityProperties.getClientId());
 
             log.debug("Response from permissions endpoint: {}", permissions);
             if (permissions != null) {
@@ -96,16 +98,14 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
         return authorities;
     }
 
-    private static List<GrantedAuthority> asAuthorities(final List<?> permissions) {
+    private static List<GrantedAuthority> asAuthorities(final List<Map<String, String>> permissions) {
         return permissions.stream()
-                .filter(i -> i instanceof Map)
-                .map(i -> ((Map<?, ?>) i).get(PERMISSION_NAME_KEY))
-                .filter(i -> i instanceof String)
-                .map(i -> (GrantedAuthority) new SimpleGrantedAuthority((String) i))
+                .map(i -> i.get(PERMISSION_NAME_KEY))
+                .map(i -> (GrantedAuthority) new SimpleGrantedAuthority(i))
                 .toList();
     }
 
-    private List<?> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
+    private List<Map<String, String>> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
         try {
             log.debug("Fetching permissions for token subject: {}", jwt.getSubject());
             // build headers
@@ -121,7 +121,8 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
             final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
             // fetch permissions
             return restTemplate.exchange(endpointUrl, HttpMethod.POST, entity,
-                    List.class).getBody();
+                    new ParameterizedTypeReference<List<Map<String, String>>>() {
+                    }).getBody();
         } catch (final RestClientException e) {
             log.error("Error while fetching permissions - user is granted no authorities", e);
             return List.of();

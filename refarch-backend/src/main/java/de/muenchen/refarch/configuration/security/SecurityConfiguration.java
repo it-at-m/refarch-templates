@@ -21,8 +21,8 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  * Automatically used when not running with profile `no-security`.
  * Configures all endpoints to require authentication via access token.
  * (except the Spring Boot Actuator endpoints)
- * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or deprecated
- * {@link KeycloakPermissionsAuthoritiesConverter}.
+ * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or
+ * {@link KeycloakPermissionsAuthoritiesConverter} (with profile "keycloak-permissions").
  */
 @RequiredArgsConstructor
 @Configuration
