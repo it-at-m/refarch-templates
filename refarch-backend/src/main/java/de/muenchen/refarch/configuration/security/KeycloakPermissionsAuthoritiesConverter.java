@@ -62,10 +62,11 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
     }
 
     /**
-     * Calls the /userinfo endpoint and extracts {@link GrantedAuthority}s from the "authorities" claim.
+     * Calls the Keycloak permissions endpoint and extracts {@link GrantedAuthority}s from permission
+     * resources.
      *
      * @param jwt the JWT
-     * @return the {@link GrantedAuthority}s according to claim "authorities" of /userinfo endpoint
+     * @return the {@link GrantedAuthority}s extracted from the permissions endpoint response
      */
     @Override
     public Collection<GrantedAuthority> convert(final Jwt jwt) {
@@ -100,6 +101,7 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
     private static List<GrantedAuthority> asAuthorities(final List<Map<String, String>> permissions) {
         return permissions.stream()
                 .map(i -> i.get(PERMISSION_NAME_KEY))
+                .filter(name -> name != null && !name.isEmpty())
                 .map(i -> (GrantedAuthority) new SimpleGrantedAuthority(i))
                 .toList();
     }

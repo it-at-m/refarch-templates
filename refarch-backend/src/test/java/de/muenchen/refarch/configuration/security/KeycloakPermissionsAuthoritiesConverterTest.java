@@ -92,9 +92,9 @@ class KeycloakPermissionsAuthoritiesConverterTest {
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
         when(jwt.getTokenValue()).thenReturn(TEST_TOKEN_VALUE);
 
-        final List<Map<String, String>> responseMap = List.of();
+        final List<Map<String, String>> response = List.of();
         when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), any(ParameterizedTypeReference.class)))
-                .thenReturn(new ResponseEntity<>(responseMap, HttpStatus.OK));
+                .thenReturn(new ResponseEntity<>(response, HttpStatus.OK));
 
         // Call
         final Collection<GrantedAuthority> authorities = converter.convert(jwt);
