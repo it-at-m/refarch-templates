@@ -1,0 +1,18 @@
+name: build
+on:
+  pull_request:
+jobs:
+  build:
+    name: Trivy Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner in Image mode
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: 'fs'
+          format: 'json'
+          exit-code: '1'
+          trivyignores: '.trivyignore'
