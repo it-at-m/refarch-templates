@@ -49,11 +49,11 @@ module "client_local" {
     }
   }
   # permissions
-  service_accounts_enabled = true
-  authorization = {
-    policy_enforcement_mode = "ENFORCING"
-    decision_strategy       = "AFFIRMATIVE"
-  }
+  # service_accounts_enabled = true
+  # authorization = {
+  #   policy_enforcement_mode = "ENFORCING"
+  #   decision_strategy       = "AFFIRMATIVE"
+  # }
 }
 
 # create users
