@@ -68,6 +68,9 @@ services:
       - keycloak
     working_dir: /workspace
     entrypoint: ["/workspace/entrypoint.sh"]
+    environment:
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=localhost,keycloak
     volumes:
       - ./keycloak/terraform:/workspace
     networks:
