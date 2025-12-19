@@ -1,25 +1,3 @@
-variable "client_id" {
-  description = "Client ID"
-  type        = string
-  default     = "terraform"
-}
-
-variable "client_secret" {
-  description = "Client Secret"
-  type        = string
-}
-
-variable "keycloak_url" {
-  description = "Keycloak URL"
-  type        = string
-}
-
-variable "realm" {
-  description = "Realm"
-  type        = string
-  default     = "master"
-}
-
 variable "optional_scopes" {
     description = "List of optional client scopes (custom scopes only - 'roles' is added automatically based on skip_default_scopes_lookup)"
     type        = list(string)
