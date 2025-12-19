@@ -16,7 +16,7 @@ provider "keycloak" {
 
 # Filter realms based on blacklist
 locals {
-  enabled_realm_ids = [for r in var.realm_id : r if !contains(var.realm_blacklist, r)]
+  enabled_realm_ids = [for r in var.realm_ids : r if !contains(var.realm_blacklist, r)]
   
   # Empty list if skipping lookups, otherwise enabled realms
   realms_for_lookup = var.skip_default_scopes_lookup ? [] : local.enabled_realm_ids
@@ -39,7 +39,7 @@ resource "keycloak_openid_client_scope" "common_client_scope" {
 }
 
 # Roles Client Scope - Conditional: Resource oder Data Source
-# In neuen Realms existiert der roles Scope bereits, in alten muss er erstellt werden
+# The roles scope already exists in new realms, but must be created in old ones.
 resource "keycloak_openid_client_scope" "roles_scope" {
   for_each = var.manage_roles_scope ? toset(local.enabled_realm_ids) : []
   
@@ -69,7 +69,7 @@ locals {
   }
 }
 
-# Data Sources für Standard Keycloak Scopes (mit Error Handling)
+# Data sources for built-in Keycloak scopes (with error handling)
 data "keycloak_openid_client_scope" "profile" {
   for_each = toset(local.realms_for_lookup)
   realm_id = each.key
@@ -382,7 +382,7 @@ resource "keycloak_openid_user_client_role_protocol_mapper" "client_roles_mapper
 
 ## lhm-core scope protocol mappers lhmObjectID
 resource "keycloak_openid_user_attribute_protocol_mapper" "lhmObjectID" {
-  for_each            = toset(var.realm_id)
+  for_each            = toset(var.realm_ids)
   realm_id            = each.key
   client_scope_id     = keycloak_openid_client_scope.common_client_scope[each.key].id
   name                = "lhmObjectID"
@@ -398,7 +398,7 @@ resource "keycloak_openid_user_attribute_protocol_mapper" "lhmObjectID" {
 
 ## lhm-core scope protocol mappers department
 resource "keycloak_openid_user_attribute_protocol_mapper" "department" {
-  for_each            = toset(var.realm_id)
+  for_each            = toset(var.realm_ids)
   realm_id            = each.key
   client_scope_id     = keycloak_openid_client_scope.common_client_scope[each.key].id
   name                = "department"
@@ -413,7 +413,7 @@ resource "keycloak_openid_user_attribute_protocol_mapper" "department" {
 
 ## lhm-core scope protocol mappers telephoneNumber
 resource "keycloak_openid_user_attribute_protocol_mapper" "telephoneNumber" {
-  for_each            = toset(var.realm_id)
+  for_each            = toset(var.realm_ids)
   realm_id            = each.key
   client_scope_id     = keycloak_openid_client_scope.common_client_scope[each.key].id
   name                = "telephoneNumber"
@@ -426,7 +426,6 @@ resource "keycloak_openid_user_attribute_protocol_mapper" "telephoneNumber" {
   claim_name       = "telephone_number"
 }
 
-# Default Scopes - nur lhm-core
 resource "keycloak_realm_default_client_scopes" "default_scopes" {
   for_each = toset(local.enabled_realm_ids)
   realm_id = each.key
@@ -435,15 +434,16 @@ resource "keycloak_realm_default_client_scopes" "default_scopes" {
     keycloak_openid_client_scope.common_client_scope[each.key].name
   ]
 }
+# Default Scopes - only lhm-core
 
 # Optional Scopes - Standard Keycloak Scopes + Custom LHM Scopes
-# NUR für existierende Realms (skip_default_scopes_lookup = false)
-# Bei neuen Realms wird dies im Root-Modul verwaltet
+# ONLY for existing realms (skip_default_scopes_lookup = false)
+# For new realms, this is managed in the root module
 resource "keycloak_realm_optional_client_scopes" "optional_scopes" {
   for_each        = var.skip_default_scopes_lookup ? [] : toset(local.enabled_realm_ids)
   realm_id        = each.key
   optional_scopes = concat(
-    # Standard Keycloak Scopes - für existierende Realms
+    # Standard Keycloak Scopes - for existing realms
     [
       "profile",
       "email", 

@@ -15,7 +15,7 @@ resource "keycloak_openid_client" "client" {
 
   description = var.description
 
-  # Client Authentication: CONFIDENTIAL wenn client-secret/client-jwt, sonst PUBLIC
+  # Client Authentication: CONFIDENTIAL if client-secret/client-jwt, else PUBLIC
   client_authenticator_type = var.client_authenticator_type
   access_type               = var.client_authenticator_type == "client-secret" || var.client_authenticator_type == "client-jwt" || var.client_authenticator_type == "client-x509" ? "CONFIDENTIAL" : "PUBLIC"
 
@@ -72,8 +72,7 @@ data "keycloak_openid_client_scope" "optional_scopes" {
 }
 
 # Assign Default Client Scopes to Client
-# WICHTIG: Diese Resource managed NUR die explizit angegebenen Scopes
-# und ENTFERNT alle anderen Scopes vom Client!
+# IMPORTANT: This resource ONLY manages the explicitly specified scopes and REMOVES all other scopes from the client!
 resource "keycloak_openid_client_default_scopes" "default_scopes" {
   count = length(var.default_client_scopes) > 0 ? 1 : 0
 
@@ -99,7 +98,7 @@ resource "keycloak_openid_client_optional_scopes" "optional_scopes" {
   ]
 }
 
-# Composite-Zuordnung vorbereiten
+# Prepare composite assignment
 locals {
   composite_mappings = flatten([
     for role_name, role_def in var.roles : [
@@ -112,7 +111,7 @@ locals {
   ])
 }
 
-# Realm-Rollen (client_id = null)
+# Realm roles (client_id = null)
 data "keycloak_role" "realm_composite_roles" {
   for_each = {
     for m in local.composite_mappings :
@@ -123,7 +122,7 @@ data "keycloak_role" "realm_composite_roles" {
   name     = each.value.child_role
 }
 
-# Fremd-Client-Rollen (client_id != null && != "self") – erwartet Client-UUID
+# Foreign client roles (client_id != null && != “self”) – expects client UUID
 data "keycloak_role" "client_composite_roles" {
   for_each = {
     for m in local.composite_mappings :
@@ -135,7 +134,7 @@ data "keycloak_role" "client_composite_roles" {
   name      = each.value.child_role
 }
 
-# 1. Basis-Rollen anlegen (ohne Composites)
+# 1. Create basic roles (without composites)
 resource "keycloak_role" "base_roles" {
   for_each = {
     for role_name, role_def in var.roles :
@@ -149,7 +148,7 @@ resource "keycloak_role" "base_roles" {
   description = try(each.value.description, "")
 }
 
-# 2. Composite-Rollen separat (können auf base_roles verweisen)
+# 2. Composite roles separately (can refer to base_roles)
 resource "keycloak_role" "composite_roles" {
   for_each = {
     for role_name, role_def in var.roles :
@@ -163,19 +162,19 @@ resource "keycloak_role" "composite_roles" {
   description = try(each.value.description, "")
 
   composite_roles = concat(
-    # Realm-Rollen
+    # Realm roles
     [
       for m in local.composite_mappings :
       data.keycloak_role.realm_composite_roles["${m.parent_role}:${m.child_role}"].id
       if m.parent_role == each.key && m.client_id == null
     ],
-    # Basis-Rollen desselben Clients (client_id = "self")
+    # Basis roles same Clients (client_id = "self")
     [
       for m in local.composite_mappings :
       keycloak_role.base_roles[m.child_role].id
       if m.parent_role == each.key && m.client_id == "self"
     ],
-    # Fremd-Client-Rollen
+    # Foreign client roles
     [
       for m in local.composite_mappings :
       data.keycloak_role.client_composite_roles["${m.parent_role}:${m.child_role}:${m.client_id}"].id
@@ -186,7 +185,7 @@ resource "keycloak_role" "composite_roles" {
   depends_on = [keycloak_role.base_roles]
 }
 
-# 3. Output für alle Rollen (merge beider Resources)
+# 3. Output for all roles (merge of both resources)
 locals {
   all_roles = merge(
     { for k, v in keycloak_role.base_roles : k => v.id },

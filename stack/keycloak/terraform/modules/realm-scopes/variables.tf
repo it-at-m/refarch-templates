@@ -30,7 +30,7 @@ variable "optional_scopes" {
 }
 
 
-variable "realm_id" {
+variable "realm_ids" {
   description = "Realm IDs"
   type        = list(string)
   default     = []
