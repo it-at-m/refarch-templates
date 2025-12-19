@@ -18,3 +18,8 @@ output "service_account_user_id" {
   description = "Service account user ID (if enabled)"
   value       = var.service_accounts_enabled ? keycloak_openid_client.client.service_account_user_id : null
 }
+
+output "resource_server_id" {
+  description = "Internal client authorization ID (if authorization enabled)"
+  value = keycloak_openid_client.client.resource_server_id
+}

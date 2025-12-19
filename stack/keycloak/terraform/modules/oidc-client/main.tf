@@ -39,6 +39,17 @@ resource "keycloak_openid_client" "client" {
   # Optional: Custom client secret
   client_secret = var.client_secret
 
+  # Optional: Authorization
+  dynamic "authorization" {
+    for_each = var.authorization != null ? [var.authorization] : []
+    content {
+      policy_enforcement_mode = var.authorization.policy_enforcement_mode
+      decision_strategy                = try(var.authorization.decision_strategy, null)
+      allow_remote_resource_management = try(var.authorization.allow_remote_resource_management, false)
+      keep_defaults                    = try(var.authorization.keep_defaults, false)
+    }
+  }
+
   # Extra config for advanced settings
   extra_config = merge(
     var.access_token_lifespan != null ? {

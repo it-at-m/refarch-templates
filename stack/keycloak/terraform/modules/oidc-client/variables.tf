@@ -146,6 +146,17 @@ variable "extra_attributes" {
   default     = {}
 }
 
+variable "authorization" {
+  description = "Configuration for fine-grained authorization (enabled if present)"
+  type = object({
+    policy_enforcement_mode          = string
+    decision_strategy                = optional(string)
+    allow_remote_resource_management = optional(bool)
+    keep_defaults                    = optional(bool)
+  })
+  default = null
+}
+
 # =============================================================================
 # Protocol Mappers
 # =============================================================================
