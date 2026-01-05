@@ -21,8 +21,8 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  * Automatically used when not running with profile `no-security`.
  * Configures all endpoints to require authentication via access token.
  * (except the Spring Boot Actuator endpoints)
- * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or deprecated
- * {@link UserInfoAuthoritiesConverter}.
+ * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or
+ * {@link KeycloakPermissionsAuthoritiesConverter} (with profile "keycloak-permissions").
  */
 @RequiredArgsConstructor
 @Configuration
@@ -33,7 +33,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @Slf4j
 public class SecurityConfiguration {
     private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
-    private final Optional<UserInfoAuthoritiesConverter> userInfoAuthoritiesConverter;
+    private final Optional<KeycloakPermissionsAuthoritiesConverter> keycloakPermissionsAuthoritiesConverter;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -72,10 +72,10 @@ public class SecurityConfiguration {
                                 jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
                                         keycloakRolesAuthoritiesConverter.get());
                             }
-                            // DEPRECATED: authorities via userinfo endpoint
-                            else if (userInfoAuthoritiesConverter.isPresent()) {
+                            // authorities via keycloak permissions endpoint
+                            else if (keycloakPermissionsAuthoritiesConverter.isPresent()) {
                                 jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
-                                        userInfoAuthoritiesConverter.get());
+                                        keycloakPermissionsAuthoritiesConverter.get());
                             } else {
                                 log.warn("No custom authority converter available, falling back to default.");
                             }
