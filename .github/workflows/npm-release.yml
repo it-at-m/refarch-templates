@@ -53,8 +53,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
 
   build-image:
-    runs-on: ubuntu-latest
     needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@12966547963631f8429d42bab860485b413003c2 # v1.0.22
         with:
@@ -66,9 +68,12 @@ jobs:
           image-tags: |
             type=semver,pattern={{version}},value=${{ needs.release.outputs.ARTIFACT_VERSION }}
             type=raw,value=latest
+
   create-github-release:
     needs: release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Create GitHub Release
         uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@12966547963631f8429d42bab860485b413003c2 # v1.0.22
