@@ -40,6 +40,7 @@ jobs:
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
+          use-pr: 'true'
       - id: node
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@12966547963631f8429d42bab860485b413003c2 # v1.0.22
         with:
