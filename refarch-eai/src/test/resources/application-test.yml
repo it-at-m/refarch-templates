@@ -4,9 +4,10 @@ management:
       default: none
 
 logging:
-  level:
-    org:
-      springframework: INFO
+  include-application-group: false # disabled because application group is only relevant when deployed
+  structured:
+    format:
+      console: # set to empty to disable structured logging for testing
 
 camel:
   main:

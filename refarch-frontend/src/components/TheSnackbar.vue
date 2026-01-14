@@ -12,16 +12,19 @@
       variant="text"
       @click="hide"
     >
-      Schließen
+      {{ t("common.actions.close") }}
     </v-btn>
   </v-snackbar>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 
 import { SNACKBAR_DEFAULT_TIMEOUT, STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
+
+const { t } = useI18n();
 
 const snackbarStore = useSnackbarStore();
 
@@ -53,11 +56,13 @@ watch(
   () => snackbarStore.show,
   () => {
     if (snackbarStore.show) {
-      show.value = false;
-      setTimeout(() => {
-        show.value = true;
-        snackbarStore.show = false;
-      }, timeout.value);
+      show.value = true;
+      if (timeout.value > 0) {
+        setTimeout(() => {
+          show.value = false;
+          snackbarStore.show = false;
+        }, timeout.value);
+      }
     }
   }
 );

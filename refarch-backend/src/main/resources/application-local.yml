@@ -26,13 +26,33 @@ spring:
           audiences:
             - ${sso.client}
 
+# Enable swagger-ui
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+
+logging:
+  include-application-group: false # disabled because application group is only relevant when deployed
+  structured:
+    format:
+      console: # set to empty to disable structured logging locally
+  level:
+    root: INFO
+    de.muenchen.refarch: DEBUG
+    org.springframework.cache: TRACE
+    org.springframework.web: DEBUG
+
 # Define the local keycloak configuration here
 # Deduplication-only property
 sso:
-  url: http://kubernetes.docker.internal:8100
+  url: http://keycloak:8100
   realm: local_realm
   client: local
 
-security:
-  user-info-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo
-  logging-mode: all
+refarch:
+  security:
+    client-id: ${sso.client}
+    user-info-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo
+    logging-mode: all

@@ -21,11 +21,9 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles(TestConstants.SPRING_TEST_PROFILE)
 class EaiTest {
 
-    @SuppressWarnings("unused") // field is auto-injected by camel
     @Produce(EaiRouteBuilder.DIRECT_ROUTE)
     private ProducerTemplate producer;
 
-    @SuppressWarnings("unused") // field is auto-injected by camel
     @EndpointInject("mock:output")
     private MockEndpoint output;
 
