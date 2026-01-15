@@ -1,3 +1,6 @@
 dist
 node_modules
 processes/post-build.js
+
+# Ignore generated api-folders only
+src/api/*/
