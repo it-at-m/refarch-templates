@@ -6,7 +6,7 @@
     "generators": {
       "refarch-backend": {
         "generatorName": "typescript-fetch",
-        "glob": "../api/refarch_backend-spec.yaml",
+        "glob": "../refarch-backend/target/*.yaml",
         "output": "#{cwd}/src/api/#{name}",
         "additionalProperties": {
           "supportsES6": true,
