@@ -7,12 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
-      - name: Run Trivy vulnerability scanner in Image mode
-        uses: aquasecurity/trivy-action@0.28.0
+      - name: Run Trivy vulnerability scanner in repository mode
+        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
         with:
-          scan-type: 'fs'
-          format: 'json'
-          exit-code: '1'
-          trivyignores: '.trivyignore'
+          scan-type: "fs"
+          scan-ref: "."
+          format: "table"
+          exit-code: "1"
+          trivyignores: ${{ inputs.trivyignore-files }}
+          output: trivy-report.json
+
+      - name: Upload Vulnerability Scan Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.json
+          retention-days: 1
