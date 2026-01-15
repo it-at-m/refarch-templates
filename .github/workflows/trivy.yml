@@ -17,11 +17,11 @@ jobs:
           format: "table"
           exit-code: "1"
           trivyignores: ${{ inputs.trivyignore-files }}
-          output: trivy-report.json
+          output: trivy-report.txt
 
       - name: Upload Vulnerability Scan Results
         uses: actions/upload-artifact@v4
         with:
           name: trivy-report
-          path: trivy-report.json
+          path: trivy-report.txt
           retention-days: 1
