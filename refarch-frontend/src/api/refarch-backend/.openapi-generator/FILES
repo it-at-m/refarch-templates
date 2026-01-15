@@ -1,7 +1,9 @@
 .openapi-generator-ignore
-apis/TheEntityExampleTagApi.ts
+apis/ActuatorApi.ts
+apis/TheEntityControllerApi.ts
 apis/index.ts
 index.ts
+models/Link.ts
 models/PageMetadata.ts
 models/PagedModelTheEntityResponseDTO.ts
 models/TheEntityRequestDTO.ts
