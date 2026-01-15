@@ -16,7 +16,7 @@ jobs:
           scan-ref: "."
           format: "table"
           exit-code: "1"
-          trivyignores: ${{ inputs.trivyignore-files }}
+          trivyignores: '.trivyignore'
           output: trivy-report.txt
 
       - name: Upload Vulnerability Scan Results
