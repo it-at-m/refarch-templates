@@ -1,6 +1,10 @@
 spring:
+  main:
+    banner-mode: console
   application:
-    name: @project.artifactId@
+    name: "@project.artifactId@"
+    group: "@project.groupId@"
+    version: "@project.version@"
   data:
     web:
       pageable:
@@ -9,6 +13,7 @@ spring:
     hibernate:
       # schema is managed by Flyway, only validate
       ddl-auto: validate
+    open-in-view: false # Disable OSIV
   flyway:
     locations:
       - classpath:db/migration/schema
@@ -52,11 +57,37 @@ management:
     readinessstate:
       enabled: true
 
+springdoc:
+  show-actuator: true
+  # Disable swagger-ui as default
+  swagger-ui:
+    enabled: false
+  api-docs:
+    version: openapi_3_0
+    enabled: false
+
+logging:
+  level:
+    root: info
+  structured:
+    format:
+      console: logstash
+    json:
+      stacktrace:
+        root: first
+        # default max size of one log line in docker is 16kb - UTF8 ~ 1 Character = 1 Byte
+        # therefore limit stack traces to a maximum of 8192 characters (to leave room for the rest of the message)
+        max-length: 8192
+      add:
+        application_name: ${spring.application.name}
+        application_group: ${spring.application.group}
+
 info:
   application:
-    name: @project.artifactId@
-    version: @project.version@
-    description: @project.description@
+    name: ${spring.application.name}
+    version: ${spring.application.version}
+    group: ${spring.application.group}
+    description: "@project.description@"
   build:
-    java.version: @java.version@
-    spring-cloud.version: @spring-cloud-dependencies.version@
+    java.version: "@java.version@"
+    spring-cloud.version: "@spring-cloud-dependencies.version@"
