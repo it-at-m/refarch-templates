@@ -122,7 +122,7 @@ const { hasWriterRole } = useRoleCheck();
 
 // Check if current route is an admin route
 const isAdminRoute = computed((): boolean => {
-  return route.path.startsWith("/admin");
+  return route.matched.some((r) => r.name === ROUTES_ADMIN);
 });
 
 onMounted(() => {
