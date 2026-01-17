@@ -35,8 +35,10 @@ import { useRouter } from "vue-router";
 import { getAdminStatus } from "@/api/admin-client";
 import { useRoleCheck } from "@/composables/useRoleCheck";
 import { ROUTES_HOME } from "@/constants";
+import { useSnackbarStore } from "@/stores/snackbar";
 
 const router = useRouter();
+const snackbarStore = useSnackbarStore();
 const { hasWriterRole } = useRoleCheck();
 const adminStatus = ref<AdminStatusResponse | null>(null);
 
@@ -57,10 +59,10 @@ function loadAdminStatus(): void {
       adminStatus.value = status;
     })
     .catch(() => {
-      // Error loading admin status - user might not have access
-      if (!hasWriterRole.value) {
-        router.push({ name: ROUTES_HOME });
-      }
+      // Error loading admin status - show error message to user
+      snackbarStore.showMessage({
+        message: "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
+      });
     });
 }
 </script>
