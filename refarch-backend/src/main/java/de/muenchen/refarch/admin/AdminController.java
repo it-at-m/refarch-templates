@@ -1,5 +1,6 @@
 package de.muenchen.refarch.admin;
 
+import de.muenchen.refarch.admin.dto.AdminStatusResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,11 +30,5 @@ public class AdminController {
     public AdminStatusResponse getAdminStatus() {
         log.debug("Admin status endpoint accessed");
         return new AdminStatusResponse(true);
-    }
-
-    /**
-     * Response DTO for admin status
-     */
-    public record AdminStatusResponse(boolean granted) {
     }
 }
