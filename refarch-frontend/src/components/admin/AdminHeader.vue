@@ -12,7 +12,7 @@
           color="white"
           @click.stop="toggleDrawer()"
         />
-        <router-link to="/admin">
+        <router-link :to="{ name: ROUTES_ADMIN }">
           <v-toolbar-title class="font-weight-bold">
             <span class="text-white">CMS Admin</span>
           </v-toolbar-title>
@@ -51,7 +51,7 @@
 import { useToggle } from "@vueuse/core";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
-import { ROUTES_HOME } from "@/constants";
+import { ROUTES_ADMIN, ROUTES_HOME } from "@/constants";
 import { useUserStore } from "@/stores/user";
 
 const userStore = useUserStore();
