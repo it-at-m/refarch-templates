@@ -35,10 +35,8 @@ import { useRouter } from "vue-router";
 import { getAdminStatus } from "@/api/admin-client";
 import { useRoleCheck } from "@/composables/useRoleCheck";
 import { ROUTES_HOME } from "@/constants";
-import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
-const userStore = useUserStore();
 const { hasWriterRole } = useRoleCheck();
 const adminStatus = ref<AdminStatusResponse | null>(null);
 
