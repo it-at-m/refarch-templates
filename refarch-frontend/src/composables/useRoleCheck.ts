@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, type ComputedRef } from "vue";
 
 import { useUserStore } from "@/stores/user";
 
@@ -28,19 +28,25 @@ export function useRoleCheck() {
   });
 
   /**
-   * Checks if the current user has a specific role
+   * Checks if the current user has a specific role.
+   * Returns a computed ref that automatically updates when the user changes.
+   *
+   * @param roleName - The role name to check (e.g., "writer", "reader")
+   * @returns A computed ref that is true if the user has the role, false otherwise
    */
-  function hasRole(roleName: string): boolean {
-    const user = userStore.getUser;
-    if (!user) {
-      return false;
-    }
-    return (
-      user.user_roles?.includes(roleName) ||
-      user.authorities?.some(
-        (auth) => auth === roleName || auth === `ROLE_${roleName}`
-      )
-    );
+  function hasRole(roleName: string): ComputedRef<boolean> {
+    return computed(() => {
+      const user = userStore.getUser;
+      if (!user) {
+        return false;
+      }
+      return (
+        user.user_roles?.includes(roleName) ||
+        user.authorities?.some(
+          (auth) => auth === roleName || auth === `ROLE_${roleName}`
+        )
+      );
+    });
   }
 
   return {
