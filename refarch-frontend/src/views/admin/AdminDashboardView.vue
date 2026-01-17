@@ -6,13 +6,13 @@
           class="text-h3 font-weight-bold mb-3"
           style="color: #333333"
         >
-          CMS Admin Dashboard
+          {{ t("views.admin.dashboardTitle") }}
         </h1>
         <p
           class="text-body-1"
           style="color: #333333"
         >
-          Welcome to the Content Management System administration panel.
+          {{ t("views.admin.welcomeMessage") }}
         </p>
         <v-progress-circular
           v-if="isLoading"
@@ -71,8 +71,7 @@ function loadAdminStatus(): void {
     .catch(() => {
       // Error loading admin status - show error message to user
       snackbarStore.showMessage({
-        message:
-          "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
+        message: t("views.admin.errorLoadingStatus"),
       });
     })
     .finally(() => {

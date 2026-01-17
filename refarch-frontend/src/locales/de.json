@@ -39,7 +39,10 @@
       "navText": "Admin Übersicht",
       "headerTitle": "CMS Admin",
       "homepageLink": "Homepage",
-      "statusGranted": "Admin-Zugriff gewährt"
+      "statusGranted": "Admin-Zugriff gewährt",
+      "dashboardTitle": "CMS Admin Dashboard",
+      "welcomeMessage": "Willkommen im Content-Management-System-Verwaltungsbereich.",
+      "errorLoadingStatus": "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut."
     }
   },
   "domain": {}
