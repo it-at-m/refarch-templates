@@ -14,7 +14,7 @@ export interface AdminStatusResponse {
  * Requires writer role.
  */
 export function getAdminStatus(): Promise<AdminStatusResponse> {
-  return fetch("api/backend-service/admin/status", getConfig())
+  return fetch("/api/backend-service/admin/status", getConfig())
     .catch(defaultCatchHandler)
     .then((response) => {
       defaultResponseHandler(
