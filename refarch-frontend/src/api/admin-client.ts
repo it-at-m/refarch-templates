@@ -4,7 +4,6 @@ import {
   defaultResponseHandler,
   getConfig,
 } from "@/api/fetch-utils";
-import { STATUS_INDICATORS } from "@/constants";
 
 export interface AdminStatusResponse {
   message: string;
@@ -27,7 +26,7 @@ export function getAdminStatus(): Promise<AdminStatusResponse> {
         .catch((error) => {
           throw new ApiError(
             "Beim Laden des Admin-Status ist ein Fehler aufgetreten.",
-            STATUS_INDICATORS.ERROR
+            error
           );
         });
     });
