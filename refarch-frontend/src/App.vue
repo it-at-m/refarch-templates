@@ -1,7 +1,8 @@
 <template>
   <v-app>
     <the-snackbar />
-    <v-app-bar color="primary">
+    <admin-header v-if="isAdminRoute" />
+    <v-app-bar v-else color="primary">
       <v-row align="center">
         <v-col
           cols="3"
@@ -55,11 +56,19 @@
         </v-col>
       </v-row>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer">
+    <v-navigation-drawer v-if="!isAdminRoute" v-model="drawer">
       <v-list>
         <v-list-item :to="{ name: ROUTES_GETSTARTED }">
           <v-list-item-title>
             {{ t("views.getStarted.navText") }}
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          v-if="hasWriterRole"
+          :to="{ name: ROUTES_ADMIN }"
+        >
+          <v-list-item-title>
+            Admin Dashboard
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -80,13 +89,16 @@
 import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { useToggle } from "@vueuse/core";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRoute } from "vue-router";
 
 import { getUser } from "@/api/user-client";
+import AdminHeader from "@/components/admin/AdminHeader.vue";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/constants";
+import { useRoleCheck } from "@/composables/useRoleCheck";
+import { APPSWITCHER_URL, ROUTES_ADMIN, ROUTES_GETSTARTED } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
@@ -96,9 +108,16 @@ const { t } = useI18n();
 const query = ref<string>("");
 const appswitcherBaseUrl = APPSWITCHER_URL;
 
+const route = useRoute();
 const snackbarStore = useSnackbarStore();
 const userStore = useUserStore();
 const [drawer, toggleDrawer] = useToggle();
+const { hasWriterRole } = useRoleCheck();
+
+// Check if current route is an admin route
+const isAdminRoute = computed((): boolean => {
+  return route.path.startsWith("/admin");
+});
 
 onMounted(() => {
   loadUser();
