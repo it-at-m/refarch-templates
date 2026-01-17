@@ -21,7 +21,7 @@ export function getAdminStatus(): Promise<AdminStatusResponse> {
         response,
         "Beim Laden des Admin-Status ist ein Fehler aufgetreten."
       );
-      return response.json().catch((error) => {
+      return response.json().catch(() => {
         throw new ApiError({
           message: "Beim Laden des Admin-Status ist ein Fehler aufgetreten.",
         });
