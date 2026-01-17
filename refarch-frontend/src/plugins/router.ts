@@ -2,6 +2,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { getUser } from "@/api/user-client";
+import { useRoleCheck } from "@/composables/useRoleCheck";
 import { ROUTES_ADMIN, ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
@@ -68,12 +69,9 @@ router.beforeEach(async (to, from, next) => {
       }
     }
 
-    // Check if user has writer role
-    const hasWriterRole =
-      user.user_roles?.includes("writer") ||
-      user.authorities?.some(
-        (auth) => auth === "writer" || auth === "ROLE_writer"
-      );
+    // Check if user has writer role using the composable
+    const { hasRole } = useRoleCheck();
+    const hasWriterRole = hasRole("writer").value;
 
     if (hasWriterRole) {
       next();
