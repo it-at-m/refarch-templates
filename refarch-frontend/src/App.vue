@@ -2,7 +2,10 @@
   <v-app>
     <the-snackbar />
     <admin-header v-if="isAdminRoute" />
-    <v-app-bar v-else color="primary">
+    <v-app-bar
+      v-else
+      color="primary"
+    >
       <v-row align="center">
         <v-col
           cols="3"
@@ -56,7 +59,10 @@
         </v-col>
       </v-row>
     </v-app-bar>
-    <v-navigation-drawer v-if="!isAdminRoute" v-model="drawer">
+    <v-navigation-drawer
+      v-if="!isAdminRoute"
+      v-model="drawer"
+    >
       <v-list>
         <v-list-item :to="{ name: ROUTES_GETSTARTED }">
           <v-list-item-title>
@@ -67,9 +73,7 @@
           v-if="hasWriterRole"
           :to="{ name: ROUTES_ADMIN }"
         >
-          <v-list-item-title>
-            Admin Dashboard
-          </v-list-item-title>
+          <v-list-item-title> Admin Dashboard </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

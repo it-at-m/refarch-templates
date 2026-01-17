@@ -2,11 +2,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import { ROUTES_ADMIN, ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
-import { useRoleCheck } from "@/composables/useRoleCheck";
 import { useUserStore } from "@/stores/user";
+import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
 import GetStartedView from "@/views/GetStartedView.vue";
 import HomeView from "@/views/HomeView.vue";
-import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
 
 const routes = [
   {
@@ -45,8 +44,7 @@ const router = createRouter({
 // Navigation guard to check writer role for admin routes
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresWriterRole) {
-    const userStore = useUserStore();
-    const user = userStore.getUser;
+    const user = useUserStore().getUser;
 
     // Wait for user to be loaded if not yet available
     if (user === null) {

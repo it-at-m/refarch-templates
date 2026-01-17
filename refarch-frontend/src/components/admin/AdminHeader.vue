@@ -1,5 +1,8 @@
 <template>
-  <v-app-bar color="#333333" dark>
+  <v-app-bar
+    color="#333333"
+    dark
+  >
     <v-row align="center">
       <v-col
         cols="3"
@@ -32,12 +35,13 @@
       </v-col>
     </v-row>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" color="#ffffff">
+  <v-navigation-drawer
+    v-model="drawer"
+    color="#ffffff"
+  >
     <v-list>
       <v-list-item :to="{ name: ROUTES_HOME }">
-        <v-list-item-title>
-          Homepage
-        </v-list-item-title>
+        <v-list-item-title> Homepage </v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

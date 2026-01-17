@@ -21,7 +21,9 @@ export function useRoleCheck() {
     // authorities may contain "ROLE_writer" format
     return (
       user.user_roles?.includes("writer") ||
-      user.authorities?.some((auth) => auth === "writer" || auth === "ROLE_writer")
+      user.authorities?.some(
+        (auth) => auth === "writer" || auth === "ROLE_writer"
+      )
     );
   });
 
