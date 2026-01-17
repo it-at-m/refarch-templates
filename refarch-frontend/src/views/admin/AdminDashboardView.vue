@@ -14,8 +14,14 @@
         >
           Welcome to the Content Management System administration panel.
         </p>
+        <v-progress-circular
+          v-if="isLoading"
+          indeterminate
+          color="primary"
+          class="mt-4"
+        />
         <v-alert
-          v-if="adminStatus"
+          v-else-if="adminStatus"
           type="success"
           class="mt-4"
         >
@@ -41,6 +47,7 @@ const router = useRouter();
 const snackbarStore = useSnackbarStore();
 const { hasWriterRole } = useRoleCheck();
 const adminStatus = ref<AdminStatusResponse | null>(null);
+const isLoading = ref(false);
 
 onMounted(() => {
   // Router guard already ensures user has writer role, but double-check for safety
@@ -54,6 +61,7 @@ onMounted(() => {
 });
 
 function loadAdminStatus(): void {
+  isLoading.value = true;
   getAdminStatus()
     .then((status: AdminStatusResponse) => {
       adminStatus.value = status;
@@ -63,6 +71,9 @@ function loadAdminStatus(): void {
       snackbarStore.showMessage({
         message: "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
       });
+    })
+    .finally(() => {
+      isLoading.value = false;
     });
 }
 </script>
