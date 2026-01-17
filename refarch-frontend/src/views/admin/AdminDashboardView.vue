@@ -21,11 +21,11 @@
           class="mt-4"
         />
         <v-alert
-          v-else-if="adminStatus"
+          v-else-if="adminAccessGranted === true"
           type="success"
           class="mt-4"
         >
-          {{ adminStatus.message }}
+          {{ t("views.admin.statusGranted") }}
         </v-alert>
       </v-col>
     </v-row>
@@ -33,9 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import type { AdminStatusResponse } from "@/api/admin-client";
-
 import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 import { getAdminStatus } from "@/api/admin-client";
@@ -43,10 +42,11 @@ import { useRoleCheck } from "@/composables/useRoleCheck";
 import { ROUTES_HOME } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 
+const { t } = useI18n();
 const router = useRouter();
 const snackbarStore = useSnackbarStore();
 const { hasWriterRole } = useRoleCheck();
-const adminStatus = ref<AdminStatusResponse | null>(null);
+const adminAccessGranted = ref<boolean | null>(null);
 const isLoading = ref(false);
 
 onMounted(() => {

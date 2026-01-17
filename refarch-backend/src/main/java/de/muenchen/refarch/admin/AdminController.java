@@ -21,19 +21,13 @@ public class AdminController {
      * Health check endpoint for admin dashboard.
      * Verifies that the user has writer role and admin access is working.
      *
-     * @return simple status message
+     * @return true if admin access is granted
      */
     @GetMapping("/status")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('writer')")
-    public AdminStatusResponse getAdminStatus() {
+    public boolean getAdminStatus() {
         log.debug("Admin status endpoint accessed");
-        return new AdminStatusResponse("Admin access granted");
-    }
-
-    /**
-     * Simple response DTO for admin status
-     */
-    public record AdminStatusResponse(String message) {
+        return true;
     }
 }

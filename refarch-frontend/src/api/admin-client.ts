@@ -5,15 +5,13 @@ import {
   getConfig,
 } from "@/api/fetch-utils";
 
-export interface AdminStatusResponse {
-  message: string;
-}
-
 /**
  * Checks admin access status from the backend.
  * Requires writer role.
+ *
+ * @returns true if admin access is granted, false otherwise
  */
-export function getAdminStatus(): Promise<AdminStatusResponse> {
+export function getAdminStatus(): Promise<boolean> {
   return fetch("/api/backend-service/admin/status", getConfig())
     .catch(defaultCatchHandler)
     .then((response) => {
@@ -25,6 +23,6 @@ export function getAdminStatus(): Promise<AdminStatusResponse> {
         throw new ApiError({
           message: "Beim Laden des Admin-Status ist ein Fehler aufgetreten.",
         });
-      });
+      }) as Promise<boolean>;
     });
 }

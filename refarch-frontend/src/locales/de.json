@@ -38,7 +38,8 @@
     "admin": {
       "navText": "Admin Übersicht",
       "headerTitle": "CMS Admin",
-      "homepageLink": "Homepage"
+      "homepageLink": "Homepage",
+      "statusGranted": "Admin-Zugriff gewährt"
     }
   },
   "domain": {}
