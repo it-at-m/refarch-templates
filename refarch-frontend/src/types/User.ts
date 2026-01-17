@@ -25,7 +25,7 @@ export function UserLocalDevelopment(): User {
     // todo add authorities
   ];
   u.user_roles = [
-    // todo add user roles
+    "writer", // Add writer role for local development
   ];
   return u;
 }
