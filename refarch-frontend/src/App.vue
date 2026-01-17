@@ -73,7 +73,9 @@
           v-if="hasWriterRole"
           :to="{ name: ROUTES_ADMIN }"
         >
-          <v-list-item-title> Admin Dashboard </v-list-item-title>
+          <v-list-item-title>
+            {{ t("views.admin.navText") }}
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
