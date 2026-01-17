@@ -1,8 +1,10 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 
+import { getUser } from "@/api/user-client";
 import { ROUTES_ADMIN, ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
 import { useUserStore } from "@/stores/user";
+import User, { UserLocalDevelopment } from "@/types/User";
 import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
 import GetStartedView from "@/views/GetStartedView.vue";
 import HomeView from "@/views/HomeView.vue";
@@ -42,15 +44,28 @@ const router = createRouter({
 });
 
 // Navigation guard to check writer role for admin routes
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresWriterRole) {
-    const user = useUserStore().getUser;
+    const userStore = useUserStore();
+    let user = userStore.getUser;
 
     // Wait for user to be loaded if not yet available
     if (user === null) {
-      // User not loaded yet, allow navigation but check in component
-      next();
-      return;
+      try {
+        // Load user data before allowing navigation
+        user = await getUser();
+        userStore.setUser(user);
+      } catch {
+        // No user info received, so fallback
+        if (import.meta.env.DEV) {
+          user = UserLocalDevelopment();
+          userStore.setUser(user);
+        } else {
+          // No user available, redirect to homepage
+          next({ name: ROUTES_HOME });
+          return;
+        }
+      }
     }
 
     // Check if user has writer role

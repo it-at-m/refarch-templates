@@ -41,7 +41,7 @@ const { hasWriterRole } = useRoleCheck();
 const adminStatus = ref<AdminStatusResponse | null>(null);
 
 onMounted(() => {
-  // Check if user has writer role, redirect if not
+  // Router guard already ensures user has writer role, but double-check for safety
   if (!hasWriterRole.value) {
     router.push({ name: ROUTES_HOME });
     return;
