@@ -69,7 +69,8 @@ function loadAdminStatus(): void {
     .catch(() => {
       // Error loading admin status - show error message to user
       snackbarStore.showMessage({
-        message: "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
+        message:
+          "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
       });
     })
     .finally(() => {
