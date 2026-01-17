@@ -63,8 +63,8 @@ onMounted(() => {
 function loadAdminStatus(): void {
   isLoading.value = true;
   getAdminStatus()
-    .then((status: AdminStatusResponse) => {
-      adminStatus.value = status;
+    .then((granted: boolean) => {
+      adminAccessGranted.value = granted;
     })
     .catch(() => {
       // Error loading admin status - show error message to user
