@@ -36,7 +36,9 @@
       }
     },
     "admin": {
-      "navText": "Admin Übersicht"
+      "navText": "Admin Übersicht",
+      "headerTitle": "CMS Admin",
+      "homepageLink": "Homepage"
     }
   },
   "domain": {}

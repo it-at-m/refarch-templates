@@ -14,7 +14,7 @@
         />
         <router-link :to="{ name: ROUTES_ADMIN }">
           <v-toolbar-title class="font-weight-bold">
-            <span class="text-white">CMS Admin</span>
+            <span class="text-white">{{ t("views.admin.headerTitle") }}</span>
           </v-toolbar-title>
         </router-link>
       </v-col>
@@ -41,7 +41,9 @@
   >
     <v-list>
       <v-list-item :to="{ name: ROUTES_HOME }">
-        <v-list-item-title> Homepage </v-list-item-title>
+        <v-list-item-title>
+          {{ t("views.admin.homepageLink") }}
+        </v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -49,10 +51,13 @@
 
 <script setup lang="ts">
 import { useToggle } from "@vueuse/core";
+import { useI18n } from "vue-i18n";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import { ROUTES_ADMIN, ROUTES_HOME } from "@/constants";
 import { useUserStore } from "@/stores/user";
+
+const { t } = useI18n();
 
 const userStore = useUserStore();
 const [drawer, toggleDrawer] = useToggle();
