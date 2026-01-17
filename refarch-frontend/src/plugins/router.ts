@@ -5,7 +5,7 @@ import { getUser } from "@/api/user-client";
 import { useRoleCheck } from "@/composables/useRoleCheck";
 import { ROUTES_ADMIN, ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
 import { useUserStore } from "@/stores/user";
-import User, { UserLocalDevelopment } from "@/types/User";
+import { UserLocalDevelopment } from "@/types/User";
 import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
 import GetStartedView from "@/views/GetStartedView.vue";
 import HomeView from "@/views/HomeView.vue";
