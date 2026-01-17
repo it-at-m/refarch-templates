@@ -34,6 +34,9 @@
         "title": "Wirklich verlassen?",
         "text": "Wollen Sie wirklich nicht die Dokumentation anschauen?"
       }
+    },
+    "admin": {
+      "navText": "Admin Übersicht"
     }
   },
   "domain": {}
