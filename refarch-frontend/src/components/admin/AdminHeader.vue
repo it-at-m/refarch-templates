@@ -23,14 +23,12 @@
         class="d-flex align-center justify-end"
       >
         <v-btn
+          v-if="userStore.getUser !== null"
           variant="text"
           icon
           color="white"
         >
-          <ad2-image-avatar
-            v-if="userStore.getUser !== null"
-            :username="userStore.getUser.username"
-          />
+          <ad2-image-avatar :username="userStore.getUser.username" />
         </v-btn>
       </v-col>
     </v-row>
