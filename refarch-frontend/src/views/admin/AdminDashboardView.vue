@@ -21,7 +21,7 @@
           class="mt-4"
         />
         <v-alert
-          v-else-if="adminAccessGranted === true"
+          v-else-if="adminStatus?.granted"
           type="success"
           class="mt-4"
         >
@@ -33,6 +33,8 @@
 </template>
 
 <script setup lang="ts">
+import type { AdminStatusResponse } from "@/api/admin-client";
+
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
@@ -46,7 +48,7 @@ const { t } = useI18n();
 const router = useRouter();
 const snackbarStore = useSnackbarStore();
 const { hasWriterRole } = useRoleCheck();
-const adminAccessGranted = ref<boolean | null>(null);
+const adminStatus = ref<AdminStatusResponse | null>(null);
 const isLoading = ref(false);
 
 onMounted(() => {
@@ -63,8 +65,8 @@ onMounted(() => {
 function loadAdminStatus(): void {
   isLoading.value = true;
   getAdminStatus()
-    .then((granted: boolean) => {
-      adminAccessGranted.value = granted;
+    .then((status: AdminStatusResponse) => {
+      adminStatus.value = status;
     })
     .catch(() => {
       // Error loading admin status - show error message to user
