@@ -3,10 +3,18 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import { getUser } from "@/api/user-client";
 import { useRoleCheck } from "@/composables/useRoleCheck";
-import { ROUTES_ADMIN, ROUTES_GETSTARTED, ROUTES_HOME } from "@/constants";
+import {
+  ROUTES_ADMIN,
+  ROUTES_ADMIN_SETTINGS,
+  ROUTES_ADMIN_THEME,
+  ROUTES_GETSTARTED,
+  ROUTES_HOME,
+} from "@/constants";
 import { useUserStore } from "@/stores/user";
 import { UserLocalDevelopment } from "@/types/User";
 import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
+import AdminSettingsView from "@/views/admin/AdminSettingsView.vue";
+import AdminThemeView from "@/views/admin/AdminThemeView.vue";
 import GetStartedView from "@/views/GetStartedView.vue";
 import HomeView from "@/views/HomeView.vue";
 
@@ -26,6 +34,22 @@ const routes = [
     path: "/admin",
     name: ROUTES_ADMIN,
     component: AdminDashboardView,
+    meta: {
+      requiresWriterRole: true,
+    },
+  },
+  {
+    path: "/admin/settings",
+    name: ROUTES_ADMIN_SETTINGS,
+    component: AdminSettingsView,
+    meta: {
+      requiresWriterRole: true,
+    },
+  },
+  {
+    path: "/admin/theme",
+    name: ROUTES_ADMIN_THEME,
+    component: AdminThemeView,
     meta: {
       requiresWriterRole: true,
     },

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row class="text-center">
+    <v-row class="text-center mb-6">
       <v-col cols="12">
         <h1
           class="text-h3 font-weight-bold mb-3"
@@ -29,19 +29,119 @@
         </v-alert>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          :to="{ name: ROUTES_ADMIN_SETTINGS }"
+          class="pa-6 text-center"
+          style="
+            background-color: #ffffff;
+            border: 1px solid #333333;
+            cursor: pointer;
+            min-height: 200px;
+          "
+          hover
+        >
+          <v-icon
+            size="64"
+            style="color: #333333"
+          >
+            {{ mdiCog }}
+          </v-icon>
+          <v-card-title
+            class="mt-4"
+            style="color: #333333"
+          >
+            {{ t("views.admin.dashboard.settingsCard.title") }}
+          </v-card-title>
+          <v-card-text style="color: #333333">
+            {{ t("views.admin.dashboard.settingsCard.description") }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          :to="{ name: ROUTES_ADMIN_THEME }"
+          class="pa-6 text-center"
+          style="
+            background-color: #ffffff;
+            border: 1px solid #333333;
+            cursor: pointer;
+            min-height: 200px;
+          "
+          hover
+        >
+          <v-icon
+            size="64"
+            style="color: #333333"
+          >
+            {{ mdiPalette }}
+          </v-icon>
+          <v-card-title
+            class="mt-4"
+            style="color: #333333"
+          >
+            {{ t("views.admin.dashboard.themeCard.title") }}
+          </v-card-title>
+          <v-card-text style="color: #333333">
+            {{ t("views.admin.dashboard.themeCard.description") }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        md="4"
+      >
+        <v-card
+          class="pa-6 text-center"
+          style="
+            background-color: #ffffff;
+            border: 1px solid #333333;
+            min-height: 200px;
+          "
+        >
+          <v-icon
+            size="64"
+            style="color: #333333"
+          >
+            {{ mdiPlus }}
+          </v-icon>
+          <v-card-title
+            class="mt-4"
+            style="color: #333333"
+          >
+            {{ t("views.admin.dashboard.placeholderCard.title") }}
+          </v-card-title>
+          <v-card-text style="color: #333333">
+            {{ t("views.admin.dashboard.placeholderCard.description") }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import type { AdminStatusResponse } from "@/api/admin-client";
 
+import { mdiCog, mdiPalette, mdiPlus } from "@mdi/js";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 import { getAdminStatus } from "@/api/admin-client";
 import { useRoleCheck } from "@/composables/useRoleCheck";
-import { ROUTES_HOME } from "@/constants";
+import {
+  ROUTES_ADMIN_SETTINGS,
+  ROUTES_ADMIN_THEME,
+  ROUTES_HOME,
+} from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 
 const { t } = useI18n();
