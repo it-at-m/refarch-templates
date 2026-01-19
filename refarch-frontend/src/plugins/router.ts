@@ -1,7 +1,7 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 
-import { getUser } from "@/api/user-client";
+import { getConfig } from "@/api/fetch-utils";
 import { useRoleCheck } from "@/composables/useRoleCheck";
 import {
   ROUTES_ADMIN,
@@ -11,7 +11,7 @@ import {
   ROUTES_HOME,
 } from "@/constants";
 import { useUserStore } from "@/stores/user";
-import { UserLocalDevelopment } from "@/types/User";
+import User from "@/types/User";
 import AdminDashboardView from "@/views/admin/AdminDashboardView.vue";
 import AdminSettingsView from "@/views/admin/AdminSettingsView.vue";
 import AdminThemeView from "@/views/admin/AdminThemeView.vue";
@@ -77,19 +77,45 @@ router.beforeEach(async (to, from, next) => {
     // Wait for user to be loaded if not yet available
     if (user === null) {
       try {
-        // Load user data before allowing navigation
-        user = await getUser();
-        userStore.setUser(user);
-      } catch {
-        // No user info received, so fallback
-        if (import.meta.env.DEV) {
-          user = UserLocalDevelopment();
-          userStore.setUser(user);
-        } else {
-          // No user available, redirect to homepage
+        // Try to load user data - check response status to detect unauthenticated users
+        const response = await fetch("api/sso/userinfo", getConfig());
+
+        // If 401 Unauthorized or 403 Forbidden, user is not logged in - redirect immediately
+        if (response.status === 401 || response.status === 403) {
           next({ name: ROUTES_HOME });
           return;
         }
+
+        // If response is not ok, user is not authenticated
+        if (!response.ok) {
+          next({ name: ROUTES_HOME });
+          return;
+        }
+
+        // User is authenticated, parse and store user data
+        const json: Partial<User> = await response.json();
+        const u = new User();
+        u.sub = json.sub || "";
+        u.displayName = json.displayName || "";
+        u.surname = json.surname || "";
+        u.telephoneNumber = json.telephoneNumber || "";
+        u.email = json.email || "";
+        u.username = json.username || "";
+        u.givenname = json.givenname || "";
+        u.department = json.department || "";
+        u.lhmObjectID = json.lhmObjectID || "";
+        u.preferred_username = json.preferred_username || "";
+        u.memberof = json.memberof || [];
+        u.user_roles = json.user_roles || [];
+        u.authorities = json.authorities || [];
+        user = u;
+        userStore.setUser(user);
+      } catch {
+        // Error loading user - redirect to homepage
+        // Don't use UserLocalDevelopment() fallback in router guard
+        // This ensures admin routes are only accessible to authenticated users
+        next({ name: ROUTES_HOME });
+        return;
       }
     }
 
