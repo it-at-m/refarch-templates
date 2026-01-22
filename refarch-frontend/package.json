@@ -13,7 +13,8 @@
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
     "lint": "prettier . --check && eslint . --concurrency auto && vue-tsc --build --noEmit",
-    "fix": "prettier . --write && eslint . --fix --concurrency auto"
+    "fix": "prettier . --write && eslint . --fix --concurrency auto",
+    "api-gen": "openapi-generator-cli generate"
   },
   "dependencies": {
     "@fontsource/roboto": "5.2.9",
@@ -31,6 +32,7 @@
     "@intlify/unplugin-vue-i18n": "11.0.3",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
+    "@openapitools/openapi-generator-cli": "2.27.0",
     "@tsconfig/node-lts": "22.0.4",
     "@types/node": "22.19.0",
     "@vitejs/plugin-vue": "6.0.3",
