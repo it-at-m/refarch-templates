@@ -71,8 +71,12 @@ export class TheEntityControllerApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/theEntity/{theEntityId}`;
+        urlPath = urlPath.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId'])));
+
         const response = await this.request({
-            path: `/theEntity/{theEntityId}`.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId']))),
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -106,8 +110,11 @@ export class TheEntityControllerApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/theEntity`;
+
         const response = await this.request({
-            path: `/theEntity`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -141,8 +148,12 @@ export class TheEntityControllerApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/theEntity/{theEntityId}`;
+        urlPath = urlPath.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId'])));
+
         const response = await this.request({
-            path: `/theEntity/{theEntityId}`.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId']))),
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -178,8 +189,11 @@ export class TheEntityControllerApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+
+        let urlPath = `/theEntity`;
+
         const response = await this.request({
-            path: `/theEntity`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -223,8 +237,12 @@ export class TheEntityControllerApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+
+        let urlPath = `/theEntity/{theEntityId}`;
+        urlPath = urlPath.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId'])));
+
         const response = await this.request({
-            path: `/theEntity/{theEntityId}`.replace(`{${"theEntityId"}}`, encodeURIComponent(String(requestParameters['theEntityId']))),
+            path: urlPath,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,

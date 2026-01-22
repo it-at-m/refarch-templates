@@ -44,8 +44,11 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator/health`;
+
         const response = await this.request({
-            path: `/actuator/health`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -70,8 +73,11 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator/info`;
+
         const response = await this.request({
-            path: `/actuator/info`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -96,8 +102,11 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator`;
+
         const response = await this.request({
-            path: `/actuator`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -129,8 +138,12 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator/sbom/{id}`;
+        urlPath = urlPath.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id'])));
+
         const response = await this.request({
-            path: `/actuator/sbom/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -155,8 +168,11 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator/sbom`;
+
         const response = await this.request({
-            path: `/actuator/sbom`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -189,8 +205,11 @@ export class ActuatorApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+
+        let urlPath = `/actuator/metrics`;
+
         const response = await this.request({
-            path: `/actuator/metrics`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
