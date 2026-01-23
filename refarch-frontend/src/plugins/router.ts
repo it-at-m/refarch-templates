@@ -94,21 +94,7 @@ router.beforeEach(async (to, from, next) => {
 
         // User is authenticated, parse and store user data
         const json: Partial<User> = await response.json();
-        const u = new User();
-        u.sub = json.sub || "";
-        u.displayName = json.displayName || "";
-        u.surname = json.surname || "";
-        u.telephoneNumber = json.telephoneNumber || "";
-        u.email = json.email || "";
-        u.username = json.username || "";
-        u.givenname = json.givenname || "";
-        u.department = json.department || "";
-        u.lhmObjectID = json.lhmObjectID || "";
-        u.preferred_username = json.preferred_username || "";
-        u.memberof = json.memberof || [];
-        u.user_roles = json.user_roles || [];
-        u.authorities = json.authorities || [];
-        user = u;
+        user = User.fromJson(json);
         userStore.setUser(user);
       } catch {
         // Error loading user - redirect to homepage
