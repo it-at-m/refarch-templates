@@ -21,11 +21,18 @@
           class="mt-4"
         />
         <v-alert
-          v-else-if="adminStatus?.granted"
+          v-else-if="adminStatus?.granted === true"
           type="success"
           class="mt-4"
         >
           {{ t("views.admin.statusGranted") }}
+        </v-alert>
+        <v-alert
+          v-else-if="adminStatus?.granted === false"
+          type="error"
+          class="mt-4"
+        >
+          {{ t("views.admin.statusDenied") }}
         </v-alert>
       </v-col>
     </v-row>
@@ -167,6 +174,12 @@ function loadAdminStatus(): void {
   getAdminStatus()
     .then((status: AdminStatusResponse) => {
       adminStatus.value = status;
+      // If access is denied, redirect to home page after a short delay
+      if (status.granted === false) {
+        setTimeout(() => {
+          router.push({ name: ROUTES_HOME });
+        }, 3000);
+      }
     })
     .catch(() => {
       // Error loading admin status - show error message to user
