@@ -34,6 +34,42 @@
         "title": "Wirklich verlassen?",
         "text": "Wollen Sie wirklich nicht die Dokumentation anschauen?"
       }
+    },
+    "admin": {
+      "navText": "Admin Übersicht",
+      "headerTitle": "CMS Admin",
+      "homepageLink": "Homepage",
+      "statusGranted": "Admin-Zugriff gewährt",
+      "statusDenied": "Admin-Zugriff verweigert. Sie werden zur Startseite weitergeleitet.",
+      "dashboardTitle": "CMS Admin Dashboard",
+      "welcomeMessage": "Willkommen im Content-Management-System-Verwaltungsbereich.",
+      "errorLoadingStatus": "Fehler beim Laden des Admin-Status. Bitte versuchen Sie es erneut.",
+      "dashboard": {
+        "settingsCard": {
+          "title": "Globale Einstellungen",
+          "description": "Verwalten Sie die globalen Systemeinstellungen"
+        },
+        "themeCard": {
+          "title": "Theme-Verwaltung",
+          "description": "Verwalten und installieren Sie dynamische Themes"
+        },
+        "placeholderCard": {
+          "title": "Platzhalter",
+          "description": "Zukünftige Funktion"
+        }
+      },
+      "settings": {
+        "title": "Globale Einstellungen",
+        "description": "Verwalten Sie die globalen Systemeinstellungen für das Content-Management-System.",
+        "cardTitle": "Einstellungen",
+        "cardContent": "Hier können Sie die globalen Einstellungen konfigurieren."
+      },
+      "theme": {
+        "title": "Theme-Verwaltung",
+        "description": "Verwalten und installieren Sie dynamische Themes für die Webseite.",
+        "cardTitle": "Themes",
+        "cardContent": "Hier können Sie Themes verwalten und installieren."
+      }
     }
   },
   "domain": {}

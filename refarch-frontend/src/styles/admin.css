@@ -1,0 +1,37 @@
+.admin-text {
+  color: rgb(var(--v-theme-on-surface));
+}
+
+.admin-text-white {
+  color: rgb(var(--v-theme-on-primary));
+}
+
+.admin-card {
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgb(var(--v-theme-on-surface));
+  min-height: 200px;
+}
+
+.admin-card-link {
+  cursor: pointer;
+}
+
+.admin-app-bar {
+  background-color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+}
+
+.admin-app-bar.v-toolbar,
+.admin-app-bar .v-toolbar__content,
+.admin-app-bar .v-app-bar__content {
+  background-color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+}
+
+.admin-drawer {
+  background-color: rgb(var(--v-theme-surface));
+}
+
+.admin-icon {
+  color: rgb(var(--v-theme-on-primary));
+}
