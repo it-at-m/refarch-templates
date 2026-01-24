@@ -2,16 +2,10 @@
   <v-container>
     <v-row class="text-center mb-6">
       <v-col cols="12">
-        <h1
-          class="text-h3 font-weight-bold mb-3"
-          style="color: #333333"
-        >
+        <h1 class="text-h3 font-weight-bold mb-3 admin-text">
           {{ t("views.admin.dashboardTitle") }}
         </h1>
-        <p
-          class="text-body-1"
-          style="color: #333333"
-        >
+        <p class="text-body-1 admin-text">
           {{ t("views.admin.welcomeMessage") }}
         </p>
         <v-progress-circular
@@ -43,28 +37,19 @@
       >
         <v-card
           :to="{ name: ROUTES_ADMIN_SETTINGS }"
-          class="pa-6 text-center"
-          style="
-            background-color: #ffffff;
-            border: 1px solid #333333;
-            cursor: pointer;
-            min-height: 200px;
-          "
+          class="pa-6 text-center admin-card admin-card-link"
           hover
         >
           <v-icon
             size="64"
-            style="color: #333333"
+            class="admin-text"
           >
             {{ mdiCog }}
           </v-icon>
-          <v-card-title
-            class="mt-4"
-            style="color: #333333"
-          >
+          <v-card-title class="mt-4 admin-text">
             {{ t("views.admin.dashboard.settingsCard.title") }}
           </v-card-title>
-          <v-card-text style="color: #333333">
+          <v-card-text class="admin-text">
             {{ t("views.admin.dashboard.settingsCard.description") }}
           </v-card-text>
         </v-card>
@@ -75,28 +60,19 @@
       >
         <v-card
           :to="{ name: ROUTES_ADMIN_THEME }"
-          class="pa-6 text-center"
-          style="
-            background-color: #ffffff;
-            border: 1px solid #333333;
-            cursor: pointer;
-            min-height: 200px;
-          "
+          class="pa-6 text-center admin-card admin-card-link"
           hover
         >
           <v-icon
             size="64"
-            style="color: #333333"
+            class="admin-text"
           >
             {{ mdiPalette }}
           </v-icon>
-          <v-card-title
-            class="mt-4"
-            style="color: #333333"
-          >
+          <v-card-title class="mt-4 admin-text">
             {{ t("views.admin.dashboard.themeCard.title") }}
           </v-card-title>
-          <v-card-text style="color: #333333">
+          <v-card-text class="admin-text">
             {{ t("views.admin.dashboard.themeCard.description") }}
           </v-card-text>
         </v-card>
@@ -105,27 +81,17 @@
         cols="12"
         md="4"
       >
-        <v-card
-          class="pa-6 text-center"
-          style="
-            background-color: #ffffff;
-            border: 1px solid #333333;
-            min-height: 200px;
-          "
-        >
+        <v-card class="pa-6 text-center admin-card">
           <v-icon
             size="64"
-            style="color: #333333"
+            class="admin-text"
           >
             {{ mdiPlus }}
           </v-icon>
-          <v-card-title
-            class="mt-4"
-            style="color: #333333"
-          >
+          <v-card-title class="mt-4 admin-text">
             {{ t("views.admin.dashboard.placeholderCard.title") }}
           </v-card-title>
-          <v-card-text style="color: #333333">
+          <v-card-text class="admin-text">
             {{ t("views.admin.dashboard.placeholderCard.description") }}
           </v-card-text>
         </v-card>
@@ -202,4 +168,17 @@ onUnmounted(() => {
 
 <style scoped>
 /* Admin dashboard styles - black and white theme */
+.admin-text {
+  color: #333333;
+}
+
+.admin-card {
+  background-color: #ffffff;
+  border: 1px solid #333333;
+  min-height: 200px;
+}
+
+.admin-card-link {
+  cursor: pointer;
+}
 </style>
