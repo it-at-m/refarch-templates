@@ -78,7 +78,15 @@ router.beforeEach(async (to, from, next) => {
     if (user === null) {
       try {
         // Try to load user data - check response status to detect unauthenticated users
-        const response = await fetch("api/sso/userinfo", getConfig());
+        const abortController = new AbortController();
+        const timeoutId = window.setTimeout(() => {
+          abortController.abort();
+        }, 5000);
+        const response = await fetch("api/sso/userinfo", {
+          ...getConfig(),
+          signal: abortController.signal,
+        });
+        window.clearTimeout(timeoutId);
 
         // If 401 Unauthorized or 403 Forbidden, user is not logged in - redirect immediately
         if (response.status === 401 || response.status === 403) {
