@@ -2,26 +2,17 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1
-          class="text-h3 font-weight-bold mb-3"
-          style="color: #333333"
-        >
+        <h1 class="text-h3 font-weight-bold mb-3 admin-text">
           {{ t("views.admin.settings.title") }}
         </h1>
-        <p
-          class="text-body-1 mb-6"
-          style="color: #333333"
-        >
+        <p class="text-body-1 mb-6 admin-text">
           {{ t("views.admin.settings.description") }}
         </p>
-        <v-card
-          class="pa-6"
-          style="background-color: #ffffff; border: 1px solid #333333"
-        >
-          <v-card-title style="color: #333333">
+        <v-card class="pa-6 admin-card">
+          <v-card-title class="admin-text">
             {{ t("views.admin.settings.cardTitle") }}
           </v-card-title>
-          <v-card-text style="color: #333333">
+          <v-card-text class="admin-text">
             {{ t("views.admin.settings.cardContent") }}
           </v-card-text>
         </v-card>
@@ -38,4 +29,12 @@ const { t } = useI18n();
 
 <style scoped>
 /* Admin settings page styles - black and white theme */
+.admin-text {
+  color: #333333;
+}
+
+.admin-card {
+  background-color: #ffffff;
+  border: 1px solid #333333;
+}
 </style>
