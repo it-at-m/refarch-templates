@@ -17,8 +17,8 @@
 }
 
 .admin-app-bar {
-  background-color: #333333;
-  color: #ffffff;
+  background-color: #333333 !important;
+  color: #ffffff !important;
 }
 
 .admin-drawer {
