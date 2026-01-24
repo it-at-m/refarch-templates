@@ -165,20 +165,3 @@ onUnmounted(() => {
   }
 });
 </script>
-
-<style scoped>
-/* Admin dashboard styles - black and white theme */
-.admin-text {
-  color: #333333;
-}
-
-.admin-card {
-  background-color: #ffffff;
-  border: 1px solid #333333;
-  min-height: 200px;
-}
-
-.admin-card-link {
-  cursor: pointer;
-}
-</style>

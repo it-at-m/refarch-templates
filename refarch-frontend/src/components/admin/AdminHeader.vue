@@ -1,20 +1,17 @@
 <template>
-  <v-app-bar
-    color="#333333"
-    dark
-  >
+  <v-app-bar class="admin-app-bar">
     <v-row align="center">
       <v-col
         cols="3"
         class="d-flex align-center justify-start"
       >
         <v-app-bar-nav-icon
-          color="white"
+          class="admin-icon"
           @click.stop="toggleDrawer()"
         />
         <router-link :to="{ name: ROUTES_ADMIN }">
-          <v-toolbar-title class="font-weight-bold">
-            <span class="text-white">{{ t("views.admin.headerTitle") }}</span>
+          <v-toolbar-title class="font-weight-bold admin-text-white">
+            {{ t("views.admin.headerTitle") }}
           </v-toolbar-title>
         </router-link>
       </v-col>
@@ -26,7 +23,7 @@
           v-if="userStore.getUser !== null"
           variant="text"
           icon
-          color="white"
+          class="admin-icon"
         >
           <ad2-image-avatar :username="userStore.getUser.username" />
         </v-btn>
@@ -35,12 +32,12 @@
   </v-app-bar>
   <v-navigation-drawer
     v-model="drawer"
-    color="#ffffff"
+    class="admin-drawer"
   >
     <v-list>
       <v-list-item :to="{ name: ROUTES_ADMIN }">
         <template #prepend>
-          <v-icon>{{ mdiViewDashboard }}</v-icon>
+          <v-icon class="admin-text">{{ mdiViewDashboard }}</v-icon>
         </template>
         <v-list-item-title>
           {{ t("views.admin.dashboardTitle") }}
@@ -48,7 +45,7 @@
       </v-list-item>
       <v-list-item :to="{ name: ROUTES_ADMIN_SETTINGS }">
         <template #prepend>
-          <v-icon>{{ mdiCog }}</v-icon>
+          <v-icon class="admin-text">{{ mdiCog }}</v-icon>
         </template>
         <v-list-item-title>
           {{ t("views.admin.settings.title") }}
@@ -56,7 +53,7 @@
       </v-list-item>
       <v-list-item :to="{ name: ROUTES_ADMIN_THEME }">
         <template #prepend>
-          <v-icon>{{ mdiPalette }}</v-icon>
+          <v-icon class="admin-text">{{ mdiPalette }}</v-icon>
         </template>
         <v-list-item-title>
           {{ t("views.admin.theme.title") }}
@@ -65,7 +62,7 @@
       <v-divider class="my-2" />
       <v-list-item :to="{ name: ROUTES_HOME }">
         <template #prepend>
-          <v-icon>{{ mdiHome }}</v-icon>
+          <v-icon class="admin-text">{{ mdiHome }}</v-icon>
         </template>
         <v-list-item-title>
           {{ t("views.admin.homepageLink") }}
@@ -94,7 +91,3 @@ const { t } = useI18n();
 const userStore = useUserStore();
 const [drawer, toggleDrawer] = useToggle();
 </script>
-
-<style scoped>
-/* Admin header styles */
-</style>

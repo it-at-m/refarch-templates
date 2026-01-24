@@ -26,15 +26,3 @@ import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 </script>
-
-<style scoped>
-/* Admin theme page styles - black and white theme */
-.admin-text {
-  color: #333333;
-}
-
-.admin-card {
-  background-color: #ffffff;
-  border: 1px solid #333333;
-}
-</style>

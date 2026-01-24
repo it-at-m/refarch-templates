@@ -1,0 +1,30 @@
+.admin-text {
+  color: #333333;
+}
+
+.admin-text-white {
+  color: #ffffff;
+}
+
+.admin-card {
+  background-color: #ffffff;
+  border: 1px solid #333333;
+  min-height: 200px;
+}
+
+.admin-card-link {
+  cursor: pointer;
+}
+
+.admin-app-bar {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.admin-drawer {
+  background-color: #ffffff;
+}
+
+.admin-icon {
+  color: #ffffff;
+}
