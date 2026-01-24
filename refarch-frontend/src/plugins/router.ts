@@ -82,7 +82,7 @@ router.beforeEach(async (to, from, next) => {
         const timeoutId = window.setTimeout(() => {
           abortController.abort();
         }, 5000);
-        const response = await fetch("api/sso/userinfo", {
+        const response = await fetch("/api/sso/userinfo", {
           ...getConfig(),
           signal: abortController.signal,
         });
