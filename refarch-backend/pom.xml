@@ -68,6 +68,7 @@
         <commons-text.version>1.14.0</commons-text.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.2.0</refarch-tools.version>
+        <s3.integration>2.2.0</s3.integration>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
@@ -116,6 +117,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.muenchen.refarch</groupId>
+            <artifactId>refarch-s3-integration-java-client-starter</artifactId>
+            <version>${s3.integration}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -56,3 +56,10 @@ refarch:
     client-id: ${sso.client}
     user-info-uri: ${sso.url}/auth/realms/${sso.realm}/protocol/openid-connect/userinfo
     logging-mode: all
+
+  s3:
+    url: http://localhost:9000
+    bucket-name: refarch-bucket
+    access-key: admin
+    secret-key: adminadmin
+    initial-connection-test: true

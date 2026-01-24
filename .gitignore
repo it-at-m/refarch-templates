@@ -113,6 +113,9 @@ cache/
 .env.local
 .env.*.local
 
+# Stack
+stack/minio/
+
 # Log files
 *.log
 npm-debug.log*
