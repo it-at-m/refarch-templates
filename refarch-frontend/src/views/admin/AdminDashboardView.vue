@@ -138,7 +138,7 @@
 import type { AdminStatusResponse } from "@/api/admin-client";
 
 import { mdiCog, mdiPalette, mdiPlus } from "@mdi/js";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
@@ -157,6 +157,7 @@ const snackbarStore = useSnackbarStore();
 const { hasWriterRole } = useRoleCheck();
 const adminStatus = ref<AdminStatusResponse | null>(null);
 const isLoading = ref(false);
+const deniedRedirectTimeout = ref<ReturnType<typeof setTimeout> | null>(null);
 
 onMounted(() => {
   // Router guard already ensures user has writer role, but double-check for safety
@@ -176,7 +177,7 @@ function loadAdminStatus(): void {
       adminStatus.value = status;
       // If access is denied, redirect to home page after a short delay
       if (status.granted === false) {
-        setTimeout(() => {
+        deniedRedirectTimeout.value = setTimeout(() => {
           router.push({ name: ROUTES_HOME });
         }, 3000);
       }
@@ -191,6 +192,12 @@ function loadAdminStatus(): void {
       isLoading.value = false;
     });
 }
+
+onUnmounted(() => {
+  if (deniedRedirectTimeout.value) {
+    clearTimeout(deniedRedirectTimeout.value);
+  }
+});
 </script>
 
 <style scoped>
