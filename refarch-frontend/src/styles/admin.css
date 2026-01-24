@@ -1,14 +1,14 @@
 .admin-text {
-  color: #333333;
+  color: rgb(var(--v-theme-on-surface));
 }
 
 .admin-text-white {
-  color: #ffffff;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .admin-card {
-  background-color: #ffffff;
-  border: 1px solid #333333;
+  background-color: rgb(var(--v-theme-surface));
+  border: 1px solid rgb(var(--v-theme-on-surface));
   min-height: 200px;
 }
 
@@ -17,14 +17,21 @@
 }
 
 .admin-app-bar {
-  background-color: #333333 !important;
-  color: #ffffff !important;
+  background-color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+}
+
+.admin-app-bar.v-toolbar,
+.admin-app-bar .v-toolbar__content,
+.admin-app-bar .v-app-bar__content {
+  background-color: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .admin-drawer {
-  background-color: #ffffff;
+  background-color: rgb(var(--v-theme-surface));
 }
 
 .admin-icon {
-  color: #ffffff;
+  color: rgb(var(--v-theme-on-primary));
 }
