@@ -65,7 +65,7 @@
         <!-- Utility -->
         <commons-collections4.version>4.5.0</commons-collections4.version>
         <commons-io.version>2.21.0</commons-io.version>
-        <commons-text.version>1.14.0</commons-text.version>
+        <commons-text.version>1.15.0</commons-text.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.2.0</refarch-tools.version>
 
