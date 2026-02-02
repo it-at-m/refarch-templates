@@ -24,7 +24,7 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/it-at-m/refarch-templates.git</url>
+        <url>https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY.git</url>
         <connection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</connection>
         <developerConnection>scm:git:${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git</developerConnection>
         <tag>HEAD</tag>
