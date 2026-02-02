@@ -1,2 +1,5 @@
 dist
 node_modules
+
+# Ignore generated api-folders only
+src/api/*/
