@@ -13,15 +13,13 @@ on:
       - "docs/**"
       - ".github/workflows/deploy-docs.yml"
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - id: build_docs
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
