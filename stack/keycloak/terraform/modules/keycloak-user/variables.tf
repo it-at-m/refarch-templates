@@ -57,6 +57,12 @@ variable "temporary_password" {
 }
 
 # LDAP/AD Attributes
+variable "custom_attributes_enabled" {
+  description = "If to add custom attributes"
+  type        = bool
+  default     = true
+}
+
 variable "department" {
   description = "Department/Organizational Unit"
   type        = string

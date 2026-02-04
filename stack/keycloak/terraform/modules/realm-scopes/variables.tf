@@ -8,7 +8,7 @@ variable "optional_scopes" {
 }
 
 
-variable "realm_ids" {
+variable "realm_id" {
   description = "Realm IDs"
   type        = list(string)
   default     = []
@@ -42,6 +42,12 @@ variable "skip_default_scopes_lookup" {
   description = "Skip data source lookups for default Keycloak scopes (set to true for NEW realm deployments to avoid 404 errors during plan phase)"
   type        = bool
   default     = false
+}
+
+variable "use_custom_authorities_mapper" {
+  description = "Whether to use the custom 'oidc-authorities-mapper' protocol mapper (requires plugin installed)."
+  type        = bool
+  default     = true
 }
 
 # Realm-spezifische Protocol Mapper Overrides

@@ -58,7 +58,7 @@ resource "keycloak_user" "user" {
   required_actions = var.required_actions
 
   # User attributes (map(string) - Keycloak Provider Format)
-  attributes = merge(
+  attributes = var.custom_attributes_enabled == true ? merge(
     {
       lhmObjectID = local.lhm_object_id
       cn          = local.cn
@@ -69,5 +69,5 @@ resource "keycloak_user" "user" {
     var.department != "" ? { department = var.department } : {},
     var.telephone_number != "" ? { telephoneNumber = var.telephone_number } : {},
     length(var.member_of) > 0 ? { memberOf = join("##", var.member_of) } : {}
-  )
+  ) : {}
 }
