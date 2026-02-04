@@ -9,13 +9,14 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "lint": "prettier . --check && markdownlint .",
-    "fix": "prettier . --write && markdownlint -f ."
+    "lint": "prettier . --check --cache && markdownlint .",
+    "fix": "prettier . --write --cache && markdownlint -f ."
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
     "markdownlint-cli": "0.47.0",
     "mermaid": "11.12.2",
+    "prettier": "3.8.1",
     "vitepress": "1.6.4",
     "vitepress-plugin-mermaid": "2.0.17"
   }
