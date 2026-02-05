@@ -29,7 +29,7 @@ class NfcHelperTest {
     private static final String[] NFC_OUTPUT_EXPECTED = { FIRST_NFC, SECOND_NFC, THIRD_NFC };
 
     @Test
-    void nfcConverterString() {
+    void givenString_thenNfcConverted() {
         assertEquals(FIRST_NFC, NfcHelper.nfcConverter(FIRST_NFD));
         assertEquals(FIRST_NFC.length(), NfcHelper.nfcConverter(FIRST_NFD).length());
 
@@ -41,7 +41,7 @@ class NfcHelperTest {
     }
 
     @Test
-    void nfcConverterStringBuffer() {
+    void givenStringBuffer_thenNfcConverted() {
         assertEquals(FIRST_NFC, NfcHelper.nfcConverter(new StringBuffer(FIRST_NFD)).toString());
         assertEquals(FIRST_NFC.length(), NfcHelper.nfcConverter(new StringBuffer(FIRST_NFD)).length());
 
@@ -53,13 +53,13 @@ class NfcHelperTest {
     }
 
     @Test
-    void nfcConverterStringArray() {
+    void givenStringArray_thenNfcConverted() {
         assertArrayEquals(NFC_OUTPUT_EXPECTED, NfcHelper.nfcConverter(NFD_INPUT));
         assertEquals(NFC_OUTPUT_EXPECTED.length, NfcHelper.nfcConverter(NFD_INPUT).length);
     }
 
     @Test
-    void nfcConverterMapOfStrings() {
+    void givenMapOfStrings_thenNfcConverted() {
         final Map<String, String[]> nfdInput = new HashMap<>();
         nfdInput.put(FIRST_NFD, NFD_INPUT);
         nfdInput.put(SECOND_NFD, NFD_INPUT);
@@ -73,7 +73,7 @@ class NfcHelperTest {
     }
 
     @Test
-    void nfcConverterCookie() {
+    void givenCookie_thenNfcConverted() {
         final Cookie nfcCookie = NfcHelper.nfcConverter(createNfdCookie());
 
         assertEquals(NfcConverterTest.TOKEN, nfcCookie.getName());
@@ -84,7 +84,7 @@ class NfcHelperTest {
 
     @SuppressWarnings("PMD.UnitTestShouldIncludeAssert")
     @Test
-    void nfcConverterCookieArray() {
+    void givenCookieArray_thenNfcConverted() {
         final Cookie[] nfdCookies = Collections.nCopies(3, createNfdCookie()).toArray(new Cookie[3]);
         final Cookie[] nfcCookies = NfcHelper.nfcConverter(nfdCookies);
         Arrays.asList(nfcCookies).forEach(nfcCookie -> {
