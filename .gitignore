@@ -1,3 +1,8 @@
+# =============== Stack =================
+/stack
+!/stack/keycloak/plugins/*.jar
+!/stack/pgadmin/data/info.txt
+
 # =============== Java =================
 # Compiled class file
 *.class
@@ -10,7 +15,6 @@
 
 # Package Files #
 *.jar
-!/stack/keycloak/plugins/*.jar
 *.war
 *.nar
 *.ear
