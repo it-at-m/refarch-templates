@@ -23,7 +23,7 @@ resource "keycloak_realm" "local" {
 # scopes
 # module "scopes_local" {
 #   source = "./modules/realm-scopes"
-#   realm_ids    = [keycloak_realm.local.id]
+#   realm_id    = [keycloak_realm.local.id]
 #   skip_default_scopes_lookup = true
 #   manage_roles_scope = false
 # }
