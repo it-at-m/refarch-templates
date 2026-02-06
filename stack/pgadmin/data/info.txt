@@ -1,0 +1,2 @@
+Info:
+When exporting or creating backup from within pgAdmin, export to /root, to have the files be mounted back in the OS.
