@@ -38,6 +38,7 @@ services:
     security_opt: *security_settings
     volumes:
       - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
+      - './pgadmin/preferences.json:/pgadmin4/preferences.json:ro'
       - './pgadmin/pgpass:/tmp/pgpass.mounted:ro'
       - './pgadmin/data:/tmp/data'
     entrypoint: >
