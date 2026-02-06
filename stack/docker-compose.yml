@@ -18,7 +18,6 @@ services:
     security_opt: &security_settings
       - no-new-privileges:true
 
-  # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
     image: dpage/pgadmin4:9.11.0@sha256:50700ac17936d0227f9e3e4bb086a91efb67064debc4b4737c35545bf1564088
     environment:
@@ -39,13 +38,12 @@ services:
     security_opt: *security_settings
     volumes:
       - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
-      - './pgadmin/pgpass:/tmp/pgpass:ro'
-      - './pgadmin/data:/root'
-    user: root # see https://github.com/pgadmin-org/pgadmin4/issues/6257
+      - './pgadmin/pgpass:/tmp/pgpass.mounted:ro'
+      - './pgadmin/data:/tmp/data'
     entrypoint: >
       /bin/sh -c "
-        cp -f /tmp/pgpass /pgadmin4/pgpass;
-        chmod 600 /pgadmin4/pgpass;
+        cp -f /tmp/pgpass.mounted /tmp/pgpass;
+        chmod 600 /tmp/pgpass;
         /entrypoint.sh
       "
 
