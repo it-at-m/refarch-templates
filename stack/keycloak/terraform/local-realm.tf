@@ -4,12 +4,13 @@ resource "keycloak_realm" "local" {
   enabled = true
 }
 
-# scopes
+# lhm scopes
 # module "scopes_local" {
-#   source = "./modules/realm-scopes"
-#   realm_id    = [keycloak_realm.local.id]
+#   source                     = "./modules/realm-scopes"
+#   realm_id                   = [keycloak_realm.local.id]
 #   skip_default_scopes_lookup = true
-#   manage_roles_scope = false
+#   manage_roles_scope         = false
+#   optional_scopes            = []
 # }
 
 # create client
@@ -32,7 +33,7 @@ module "client_local" {
       included_client_audience = "local"
     }
   }
-  # permissions
+  # permissions (see local-permissions.tf)
   # service_accounts_enabled = true
   # authorization = {
   #   policy_enforcement_mode = "ENFORCING"

@@ -1,3 +1,6 @@
+# can be commented in to generate example permissions
+# also requires commenting in authorization in client
+
 # # resources
 # resource "keycloak_openid_client_authorization_resource" "the_entity_read" {
 #   realm_id           = keycloak_realm.local.id
