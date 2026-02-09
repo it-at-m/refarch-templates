@@ -184,12 +184,14 @@ module "lhm_demo_scopes" {
   source = "./modules/realm-scopes"
 
   # Realm Config
-  realm_id = [keycloak_realm.lhm_demo.realm]
+  realm_id = keycloak_realm.lhm_demo.realm
 
   # NEW REALM MODE: Skip data source lookups during plan phase
   skip_default_scopes_lookup    = true
   manage_roles_scope            = false # roles scope is auto-created, managed separately
   use_custom_authorities_mapper = false
+
+  depends_on = [keycloak_realm.lhm_demo]
 }
 
 # 2b. Realm Optional Client Scopes - Standard + Custom LHM Scopes
