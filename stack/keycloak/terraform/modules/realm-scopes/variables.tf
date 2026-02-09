@@ -7,17 +7,9 @@ variable "optional_scopes" {
     ]
 }
 
-
 variable "realm_id" {
   description = "Realm IDs"
-  type        = list(string)
-  default     = []
-}
-
-variable "realm_blacklist" {
-  description = "Realms to exclude from scope management"
-  type        = list(string)
-  default     = []
+  type        = string
 }
 
 # Environment-specific attribute mappings for environments without LDAP
@@ -50,19 +42,8 @@ variable "use_custom_authorities_mapper" {
   default     = true
 }
 
-# Realm-spezifische Protocol Mapper Overrides
-variable "protocol_mapper_overrides" {
-  description = "Realm-specific overrides for protocol mapper attributes (e.g., different user_attribute per realm)"
-  type = map(object({
-    lhmObjectID_user_attribute = optional(string)
-    # Weitere Mapper können hier hinzugefügt werden bei Bedarf
-  }))
-  default = {}
-  
-  # Beispiel:
-  # protocol_mapper_overrides = {
-  #   "public" = {
-  #     lhmObjectID_user_attribute = "customObjectID"
-  #   }
-  # }
+variable "lhmObjectID_attribute" {
+  description = "Override for lhmObjectID attribute"
+  type = string
+  default = "lhmObjectID"
 }
