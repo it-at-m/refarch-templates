@@ -4,14 +4,34 @@ resource "keycloak_realm" "local" {
   enabled = true
 }
 
-# lhm scopes
+# scopes
+# lhm-scopes (also comment in clients depends_on)
 # module "scopes_local" {
-#   source                     = "./modules/realm-scopes"
-#   realm_id                   = [keycloak_realm.local.id]
-#   skip_default_scopes_lookup = true
-#   manage_roles_scope         = false
-#   optional_scopes            = []
+#   source                        = "./modules/realm-scopes"
+#   realm_id                      = keycloak_realm.local.id
+#   skip_default_scopes_lookup    = true
+#   manage_roles_scope            = false
+#   use_custom_authorities_mapper = false
 # }
+# comment out with lhm scopes
+resource "keycloak_realm_default_client_scopes" "local_default" {
+  realm_id       = keycloak_realm.local.id
+  default_scopes = []
+}
+resource "keycloak_realm_optional_client_scopes" "local_optional" {
+  realm_id = keycloak_realm.local.id
+  optional_scopes = [
+    "profile",
+    "email",
+    "roles",
+    "acr",
+    "web-origins",
+    "basic"
+  ]
+  depends_on = [
+    keycloak_realm_default_client_scopes.local_default
+  ]
+}
 
 # create client
 module "client_local" {
@@ -39,6 +59,10 @@ module "client_local" {
   #   policy_enforcement_mode = "ENFORCING"
   #   decision_strategy       = "AFFIRMATIVE"
   # }
+  depends_on = [
+    keycloak_realm_optional_client_scopes.local_optional,
+    # module.scopes_local
+  ]
 }
 
 # create users
