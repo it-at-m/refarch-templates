@@ -1,22 +1,19 @@
 # ============================================================================
-# LHM Demo Setup - VEREINFACHTE VERSION für frische Keycloak-Instanz
-# ============================================================================
-# Diese Datei erstellt das komplette LHM Demo Setup OHNE Module, damit keine
-# Data Sources während der Plan-Phase ausgeführt werden müssen.
+# LHM Demo Setup - SIMPLIFIED VERSION for fresh Keycloak instance
 # ============================================================================
 
-# 1. LHM Demo Realm erstellen
+# 1. Create LHM-Demo realm
 # ============================================================================
 resource "keycloak_realm" "lhm_demo" {
   realm        = "LHM-Demo"
   enabled      = true
   display_name = "LHM Demo Realm"
 
-  # LHM Standard Themes
+  # LHM standard themes
   # login_theme = "lhm-default.v2"
   # admin_theme = "lhm-admin"
 
-  # Token Lifespans (LHM Standard)
+  # Token lifespans (LHM standard)
   sso_session_idle_timeout = "30m"
   sso_session_max_lifespan = "10h"
   access_token_lifespan    = "5m"
@@ -27,7 +24,7 @@ resource "keycloak_realm" "lhm_demo" {
     default_locale    = "de"
   }
 
-  # Security Defenses
+  # Security defenses
   security_defenses {
     headers {
       x_frame_options                     = "SAMEORIGIN"
@@ -50,64 +47,12 @@ resource "keycloak_realm" "lhm_demo" {
   }
 }
 
-# ============================================================================
-# Data Sources für Standard Keycloak Client Scopes
-# ============================================================================
-# Diese Scopes werden automatisch von Keycloak beim Realm-Erstellen angelegt.
-# Wir nutzen Data Sources um sie zu referenzieren.
-# ============================================================================
-
-data "keycloak_openid_client_scope" "standard_profile" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "profile"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-data "keycloak_openid_client_scope" "standard_email" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "email"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-data "keycloak_openid_client_scope" "standard_acr" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "acr"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-data "keycloak_openid_client_scope" "standard_web_origins" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "web-origins"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-data "keycloak_openid_client_scope" "standard_basic" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "basic"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-# Standard Roles Scope - wird via Data Source referenziert
-# Die Konfiguration (include_in_token_scope) wird via deploy-Skript gesetzt
-data "keycloak_openid_client_scope" "standard_roles" {
-  realm_id = keycloak_realm.lhm_demo.id
-  name     = "roles"
-
-  depends_on = [keycloak_realm.lhm_demo]
-}
-
-
-# 1b. User Profile mit Unmanaged Attributes Policy
+# 1b. User profile with unmanaged attributes policy
 # ============================================================================
 resource "keycloak_realm_user_profile" "lhm_demo_profile" {
   realm_id = keycloak_realm.lhm_demo.id
 
-  # 🎯 WICHTIG: Unmanaged Attributes aktivieren
+  # 🎯 IMPORTANT: activate unmanaged attributes
   unmanaged_attribute_policy = "ENABLED"
 
   attribute {
@@ -178,12 +123,12 @@ resource "keycloak_realm_user_profile" "lhm_demo_profile" {
   }
 }
 
-# 2. LHM Standard Scopes mit Modul erstellen
+# 2. Create LHM standard scopes via module
 # ============================================================================
 module "lhm_demo_scopes" {
   source = "./modules/realm-scopes"
 
-  # Realm Config
+  # Realm config
   realm_id = keycloak_realm.lhm_demo.realm
 
   # NEW REALM MODE: Skip data source lookups during plan phase
@@ -194,38 +139,32 @@ module "lhm_demo_scopes" {
   depends_on = [keycloak_realm.lhm_demo]
 }
 
-# 2b. Realm Optional Client Scopes - Standard + Custom LHM Scopes
+# 2b. Realm optional client scopes - standard + custom LHM scopes
 # ============================================================================
-# Keycloak erstellt Standard-Scopes automatisch, aber wir müssen sie explizit
-# zu den Optional Scopes hinzufügen
+# Keycloak automatically creates standard scopes, but we need to explicitly add them
+# to the optional scopes.
 resource "keycloak_realm_optional_client_scopes" "lhm_demo_optional" {
   realm_id = keycloak_realm.lhm_demo.id
 
   optional_scopes = [
-    # Standard Keycloak Scopes (per Namen referenzieren)
-    data.keycloak_openid_client_scope.standard_profile.name,
-    data.keycloak_openid_client_scope.standard_email.name,
-    data.keycloak_openid_client_scope.standard_roles.name,
-    data.keycloak_openid_client_scope.standard_acr.name,
-    data.keycloak_openid_client_scope.standard_web_origins.name,
-    data.keycloak_openid_client_scope.standard_basic.name,
-    # Custom LHM Scopes
+    # Standard Keycloak scopes (referenced by name)
+    "profile",
+    "email",
+    "roles",
+    "acr",
+    "web-origins",
+    "basic",
+    # Custom LHM scopes
     "LHM",
     "LHM_Extended"
   ]
 
   depends_on = [
-    module.lhm_demo_scopes,
-    data.keycloak_openid_client_scope.standard_profile,
-    data.keycloak_openid_client_scope.standard_email,
-    data.keycloak_openid_client_scope.standard_roles,
-    data.keycloak_openid_client_scope.standard_acr,
-    data.keycloak_openid_client_scope.standard_web_origins,
-    data.keycloak_openid_client_scope.standard_basic
+    module.lhm_demo_scopes
   ]
 }
 
-# 3. Clients mit Modulen
+# 3. Clients via module
 # ============================================================================
 module "demo_confidential_client" {
   source = "./modules/oidc-client"
@@ -245,7 +184,7 @@ module "demo_confidential_client" {
   valid_redirect_uris = ["https://demo-backend.muenchen.de/*", "http://localhost:8080/*"]
   web_origins         = ["https://demo-backend.muenchen.de", "http://localhost:8080"]
 
-  # Keine Scope-Zuweisung - Realm Defaults werden automatisch übernommen
+  # No scope assignment - Realm defaults are automatically applied
   # default_client_scopes  = ["profile", "email", "lhm-core"]
   # optional_client_scopes = ["roles"]
 
@@ -284,9 +223,7 @@ module "demo_confidential_client" {
 
   depends_on = [
     module.lhm_demo_scopes,
-    keycloak_realm_optional_client_scopes.lhm_demo_optional,
-    data.keycloak_openid_client_scope.standard_profile,
-    data.keycloak_openid_client_scope.standard_email
+    keycloak_realm_optional_client_scopes.lhm_demo_optional
   ]
 }
 
@@ -298,7 +235,7 @@ module "demo_public_client" {
   name        = "LHM Demo Frontend Application"
   description = "Public OIDC Client für SPAs"
 
-  client_authenticator_type = "none" # Public Client = keine Authentifizierung
+  client_authenticator_type = "none" # Public client = no authentication
   standard_flow_enabled     = true
   full_scope_allowed        = false
 
@@ -306,7 +243,7 @@ module "demo_public_client" {
   valid_redirect_uris = ["https://demo-frontend.muenchen.de/*", "http://localhost:3000/*", "http://localhost:5173/*"]
   web_origins         = ["https://demo-frontend.muenchen.de", "http://localhost:3000", "http://localhost:5173"]
 
-  # Keine Scope-Zuweisung - Realm Defaults werden automatisch übernommen
+  # No scope assignment - Realm defaults are automatically applied
   # default_client_scopes  = ["profile", "email", "lhm-core"]
   # optional_client_scopes = ["roles"]
 
@@ -345,13 +282,11 @@ module "demo_public_client" {
 
   depends_on = [
     module.lhm_demo_scopes,
-    keycloak_realm_optional_client_scopes.lhm_demo_optional,
-    data.keycloak_openid_client_scope.standard_profile,
-    data.keycloak_openid_client_scope.standard_email
+    keycloak_realm_optional_client_scopes.lhm_demo_optional
   ]
 }
 
-# 4. Demo Users
+# 4. Demo users
 # ============================================================================
 module "demo_user_admin" {
   source = "./modules/keycloak-user"
@@ -372,7 +307,7 @@ module "demo_user_admin" {
   generate_lhm_object_id = true
   required_actions       = ["UPDATE_PASSWORD", "VERIFY_EMAIL"]
 
-  # WICHTIG: User Profile muss VOR den Users angelegt werden!
+  # IMPORTANT: User profiles must be created BEFORE the users!
   depends_on = [keycloak_realm_user_profile.lhm_demo_profile]
 }
 
@@ -395,11 +330,11 @@ module "demo_user_tester" {
   generate_lhm_object_id = true
   required_actions       = ["UPDATE_PASSWORD", "VERIFY_EMAIL"]
 
-  # WICHTIG: User Profile muss VOR den Users angelegt werden!
+  # IMPORTANT: User profiles must be created BEFORE the users!
   depends_on = [keycloak_realm_user_profile.lhm_demo_profile]
 }
 
-# Role Assignments
+# Role assignments
 resource "keycloak_user_roles" "admin_backend_roles" {
   realm_id = keycloak_realm.lhm_demo.id
   user_id  = module.demo_user_admin.user_id
