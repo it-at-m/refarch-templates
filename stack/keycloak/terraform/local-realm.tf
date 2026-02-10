@@ -38,6 +38,7 @@ module "client_local" {
   source              = "./modules/oidc-client"
   realm_id            = keycloak_realm.local.id
   client_id           = "local"
+  client_secret       = "client_secret"
   name                = "local"
   valid_redirect_uris = ["http://*", "https://*"]
   roles = {
