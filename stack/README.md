@@ -11,11 +11,11 @@ Requires `HTTPS_PROXY` var if executed behind proxy, which can be set via `.env`
 
 ### local_realm
 
-Default realm containing client `local`. 
+Default realm containing client `local`.
 
 By default, doesn't include any lhm-specific configuration but can be enabled by commenting in e.g. the `realm-scopes` module.
 
-### LHM-Core
+### LHM-Demo
 
-Realm containing lhm specific scopes (more see in [`realm-scopes` module docs](./keycloak/terraform/modules/realm-scopes/README.md)). Should only be used when needed to support maximum intercompatibility by reducing
-dependencies on lhm particularities.
+Realm containing lhm specific scopes (more see in [`realm-scopes` module docs](./keycloak/terraform/modules/realm-scopes/README.md)). 
+Should only be used when needed to support maximum intercompatibility by reducing dependencies on lhm particularities.
