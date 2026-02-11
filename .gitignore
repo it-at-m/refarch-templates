@@ -1,8 +1,3 @@
-# =============== Stack =================
-/stack/pgadmin/data/*
-!/stack/keycloak/plugins/*.jar
-!/stack/pgadmin/data/info.txt
-
 # =============== Java =================
 # Compiled class file
 *.class
@@ -189,3 +184,9 @@ nbdist/
 *.njsproj
 *.sln
 *.sw?
+
+# ========== RefArch specific  ==========
+# =============== Stack =================
+/stack/pgadmin/data/*
+!/stack/keycloak/plugins/*.jar
+!/stack/pgadmin/data/info.txt
