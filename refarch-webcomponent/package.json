@@ -17,7 +17,7 @@
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "6.1.0",
+    "@muenchen/muc-patternlab-vue": "7.4.1",
     "@vueuse/core": "14.2.0",
     "vue": "3.5.27"
   },
@@ -33,7 +33,7 @@
     "@vue/tsconfig": "0.8.1",
     "eslint": "9.39.2",
     "eslint-plugin-vue": "10.7.0",
-    "jsdom": "27.4.0",
+    "jsdom": "28.0.0",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
     "vite": "7.3.1",
