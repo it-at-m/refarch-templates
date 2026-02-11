@@ -29,6 +29,7 @@ export default defineConfigWithVueTs(
         "kebab-case",
         { registeredComponentsOnly: false },
       ],
+      "vue/multi-word-component-names": "off",
       // Enforce i18n best practices manually as no stylistic ruleset exists yet
       "@intlify/vue-i18n/key-format-style": ["error"], // enforce camelCase for message keys
       "@intlify/vue-i18n/no-duplicate-keys-in-locale": ["error"],
@@ -40,6 +41,12 @@ export default defineConfigWithVueTs(
       "vue-i18n": {
         localeDir: "./src/locales/*.json",
         messageSyntaxVersion: "^11.0.0",
+      },
+      "import/core-modules": ["vue-router/auto-routes"],
+    },
+    languageOptions: {
+      globals: {
+        definePage: "readonly",
       },
     },
   },
