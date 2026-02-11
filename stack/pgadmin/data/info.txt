@@ -1,2 +1,4 @@
 Info:
-When exporting or creating backup from within pgAdmin, export to /root, to have the files be mounted back in the OS.
+When exporting or creating backup from within pgAdmin, export to /tmp/data, to have the files be mounted back into the host machine.
+The files will then appear in the same directory as this file.
+TIP: Using the folder icon to select the export location will automatically open the /tmp/data directory.
