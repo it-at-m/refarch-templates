@@ -1,5 +1,5 @@
 # =============== Stack =================
-/stack/pgadmin/data
+/stack/pgadmin/data/*
 !/stack/keycloak/plugins/*.jar
 !/stack/pgadmin/data/info.txt
 
