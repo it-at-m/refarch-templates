@@ -37,7 +37,7 @@ public class SecurityProperties {
      * Timeout for which resolved permissions are cached and reused. Default 60s.
      * See {@link KeycloakPermissionsAuthoritiesConverter}
      */
-    @NotNull private Duration permissionCacheLifetime = Duration.ofSeconds(60);
+    @NotNull private Duration permissionsCacheLifetime = Duration.ofSeconds(60);
 
     /**
      * Max number of entries the permissions cache contains.
