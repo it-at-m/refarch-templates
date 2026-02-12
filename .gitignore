@@ -13,7 +13,6 @@ route-map.d.ts
 
 # Package Files #
 *.jar
-!/stack/keycloak/plugins/*.jar
 *.war
 *.nar
 *.ear
@@ -188,3 +187,9 @@ nbdist/
 *.njsproj
 *.sln
 *.sw?
+
+# ========== RefArch specific  ==========
+# =============== Stack =================
+/stack/pgadmin/data/*
+!/stack/keycloak/plugins/*.jar
+!/stack/pgadmin/data/info.txt

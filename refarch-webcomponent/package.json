@@ -17,7 +17,7 @@
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "6.1.0",
+    "@muenchen/muc-patternlab-vue": "7.4.1",
     "@vueuse/core": "14.2.0",
     "vue": "3.5.27"
   },
