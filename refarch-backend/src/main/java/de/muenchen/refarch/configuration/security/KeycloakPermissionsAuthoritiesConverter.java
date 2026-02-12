@@ -56,6 +56,7 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
                 new CaffeineCache(
                         AUTHENTICATION_CACHE_NAME,
                         Caffeine.newBuilder()
+                                .maximumSize(securityProperties.getPermissionsCacheMaxSize())
                                 .expireAfterWrite(securityProperties.getPermissionCacheLifetime())
                                 .ticker(Ticker.systemTicker())
                                 .build()));

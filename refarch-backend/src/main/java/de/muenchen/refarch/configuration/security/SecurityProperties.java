@@ -40,6 +40,12 @@ public class SecurityProperties {
     @NotNull private Duration permissionCacheLifetime = Duration.ofSeconds(60);
 
     /**
+     * Max number of entries the permissions cache contains.
+     * Elements are evicted by least or most past use.
+     */
+    private long permissionsCacheMaxSize = 1000;
+
+    /**
      * Logging mode for incoming HTTP requests, see also
      * {@link RequestResponseLoggingFilter}
      */
