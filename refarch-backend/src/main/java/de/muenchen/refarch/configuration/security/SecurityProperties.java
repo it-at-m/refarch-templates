@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
@@ -41,9 +43,8 @@ public class SecurityProperties {
 
     /**
      * Max number of entries the permissions cache contains.
-     * Elements are evicted by least or most past use.
      */
-    private long permissionsCacheMaxSize = 1000;
+    @Positive private long permissionsCacheMaxSize = 1000;
 
     /**
      * Logging mode for incoming HTTP requests, see also
