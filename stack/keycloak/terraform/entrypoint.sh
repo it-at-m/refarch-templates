@@ -17,4 +17,7 @@ tofu fmt
 tofu init
 tofu apply -auto-approve
 
+# Modify roles scope
+# TODO make roles available via user info endpoint
+
 echo "Finished"
