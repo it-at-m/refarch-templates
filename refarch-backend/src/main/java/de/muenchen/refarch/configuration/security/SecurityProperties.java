@@ -5,6 +5,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressMatchType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
@@ -27,13 +29,21 @@ public class SecurityProperties {
     @NotBlank private String clientId;
 
     /**
-     * URI of the userinfo endpoint to use for fetching data relevant for authorization (e.g. roles or
-     * authorities), see also {@link UserInfoAuthoritiesConverter}.
-     *
-     * @deprecated Use {@link KeycloakRolesAuthoritiesConverter}
+     * URI of the endpoint used for fetching permissions,
+     * see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */
-    @Deprecated
-    @NotBlank private String userInfoUri;
+    @NotBlank private String permissionsUri;
+
+    /**
+     * Timeout for which resolved permissions are cached and reused. Default 60s.
+     * See {@link KeycloakPermissionsAuthoritiesConverter}
+     */
+    @NotNull private Duration permissionsCacheLifetime = Duration.ofSeconds(60);
+
+    /**
+     * Max number of entries the permissions cache contains.
+     */
+    @Positive private long permissionsCacheMaxSize = 1000;
 
     /**
      * Logging mode for incoming HTTP requests, see also
