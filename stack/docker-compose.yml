@@ -28,6 +28,7 @@ services:
       - PGADMIN_REPLACE_SERVERS_ON_STARTUP=True
       - PGADMIN_DISABLE_POSTFIX=True
       - PGADMIN_LISTEN_PORT=5050
+      - PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED=False
     ports:
       - "5050:5050"
     depends_on:
