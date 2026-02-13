@@ -1,6 +1,14 @@
 server:
   port: 8085
 
+management:
+  endpoints:
+    access:
+      default: unrestricted # Required for local debugging via JMX+RMI, additionally might have to set -Djava.rmi.server.hostname=localhost as JVM arguments
+  endpoint:
+    health:
+      show-details: always
+
 logging:
   include-application-group: false # disabled because application group is only relevant when deployed
   structured:
