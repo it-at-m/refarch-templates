@@ -1,3 +1,6 @@
+# ========= Frontend specific ==========
+route-map.d.ts
+
 # =============== Java =================
 # Compiled class file
 *.class
