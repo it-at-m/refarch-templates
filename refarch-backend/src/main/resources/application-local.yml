@@ -26,6 +26,14 @@ spring:
           audiences:
             - ${sso.client}
 
+management:
+  endpoints:
+    access:
+      default: unrestricted # Required for local debugging via JMX+RMI, additionally might have to set -Djava.rmi.server.hostname=localhost as JVM arguments
+  endpoint:
+    health:
+      show-details: always
+
 # Enable swagger-ui
 springdoc:
   swagger-ui:
