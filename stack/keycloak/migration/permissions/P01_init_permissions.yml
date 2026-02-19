@@ -7,14 +7,6 @@ changes:
       serviceAccountsEnabled: true
       authorizationServicesEnabled: true
 
-  - addClientMapper:
-      clientId: local
-      name: userClientPermissionsAuthorities
-      protocolMapper: oidc-authorities-mapper
-      config:
-        authorities: "authorities"
-        userinfo.token.claim: "true"
-
   - importClientAuthorization:
       clientId: local
       authorizationRepresentationJsonFilename: example_authorization.json

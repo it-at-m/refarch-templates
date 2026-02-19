@@ -57,7 +57,7 @@
     </v-app-bar>
     <v-navigation-drawer v-model="drawer">
       <v-list>
-        <v-list-item :to="{ name: ROUTES_GETSTARTED }">
+        <v-list-item to="/getstarted">
           <v-list-item-title>
             {{ t("views.getStarted.navText") }}
           </v-list-item-title>
@@ -86,7 +86,7 @@ import { useI18n } from "vue-i18n";
 import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbar from "@/components/TheSnackbar.vue";
-import { APPSWITCHER_URL, ROUTES_GETSTARTED } from "@/constants";
+import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";

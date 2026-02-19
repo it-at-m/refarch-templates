@@ -21,8 +21,8 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  * Automatically used when not running with profile `no-security`.
  * Configures all endpoints to require authentication via access token.
  * (except the Spring Boot Actuator endpoints)
- * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or deprecated
- * {@link UserInfoAuthoritiesConverter}.
+ * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or
+ * {@link KeycloakPermissionsAuthoritiesConverter} (with profile "keycloak-permissions").
  */
 @RequiredArgsConstructor
 @Configuration
@@ -33,7 +33,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @Slf4j
 public class SecurityConfiguration {
     private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
-    private final Optional<UserInfoAuthoritiesConverter> userInfoAuthoritiesConverter;
+    private final Optional<KeycloakPermissionsAuthoritiesConverter> keycloakPermissionsAuthoritiesConverter;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
@@ -47,16 +47,14 @@ public class SecurityConfiguration {
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/liveness"),
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/readiness"),
-                        // allow access to SBOM overview
-                        PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom"),
                         // allow access to opean-api endpoints
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs"),
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs.yaml"),
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
                         // allow access to swagger-ui
                         PathPatternRequestMatcher.withDefaults().matcher("/swagger-ui/**"),
+                        // allow access to SBOM endpoints
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom"),
-                        // allow access to SBOM application data
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/sbom/application"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
                         PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/metrics"))
@@ -72,10 +70,10 @@ public class SecurityConfiguration {
                                 jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
                                         keycloakRolesAuthoritiesConverter.get());
                             }
-                            // DEPRECATED: authorities via userinfo endpoint
-                            else if (userInfoAuthoritiesConverter.isPresent()) {
+                            // authorities via keycloak permissions endpoint
+                            else if (keycloakPermissionsAuthoritiesConverter.isPresent()) {
                                 jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
-                                        userInfoAuthoritiesConverter.get());
+                                        keycloakPermissionsAuthoritiesConverter.get());
                             } else {
                                 log.warn("No custom authority converter available, falling back to default.");
                             }

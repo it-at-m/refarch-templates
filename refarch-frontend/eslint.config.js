@@ -41,7 +41,25 @@ export default defineConfigWithVueTs(
         localeDir: "./src/locales/*.json",
         messageSyntaxVersion: "^11.0.0",
       },
+      "import/core-modules": ["vue-router/auto-routes"],
+    },
+    languageOptions: {
+      globals: {
+        definePage: "readonly",
+      },
     },
   },
-  globalIgnores(["dist", "target", "node_modules", "env.d.ts"])
+  {
+    files: ["src/routes/**/*.vue"],
+    rules: {
+      "vue/multi-word-component-names": "off",
+    },
+  },
+  globalIgnores([
+    "dist",
+    "target",
+    "node_modules",
+    "env.d.ts",
+    "route-map.d.ts",
+  ])
 );

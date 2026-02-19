@@ -13,32 +13,32 @@
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "node ./processes/post-build.js && cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
     "preview": "vite preview",
-    "lint": "prettier . --check && eslint . --concurrency auto && vue-tsc --build --noEmit",
-    "fix": "prettier . --write && eslint . --fix --concurrency auto"
+    "lint": "prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
+    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "6.1.0",
-    "@vueuse/core": "14.0.0",
-    "vue": "3.5.26"
+    "@muenchen/muc-patternlab-vue": "7.4.1",
+    "@vueuse/core": "14.2.1",
+    "vue": "3.5.28"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "4.1.2",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.4",
     "@types/node": "22.19.0",
-    "@vitejs/plugin-vue": "6.0.3",
+    "@vitejs/plugin-vue": "6.0.4",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.6.0",
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.8.1",
     "eslint": "9.39.2",
-    "eslint-plugin-vue": "10.5.1",
-    "jsdom": "27.2.0",
-    "prettier": "3.6.2",
+    "eslint-plugin-vue": "10.7.0",
+    "jsdom": "28.0.0",
+    "prettier": "3.8.1",
     "typescript": "5.9.3",
-    "vite": "7.2.7",
-    "vite-plugin-vue-devtools": "8.0.5",
-    "vitest": "4.0.16",
-    "vue-tsc": "3.1.8"
+    "vite": "7.3.1",
+    "vite-plugin-vue-devtools": "8.0.6",
+    "vitest": "4.0.18",
+    "vue-tsc": "3.2.4"
   }
 }
