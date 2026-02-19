@@ -3,8 +3,8 @@ on:
   pull_request:
 jobs:
   build:
-    name: Run Trivy Security check on Repository
+    name: Security Check
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Run Trivy Security check on Repository
         uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@12966547963631f8429d42bab860485b413003c2
