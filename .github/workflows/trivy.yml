@@ -3,26 +3,8 @@ on:
   pull_request:
 jobs:
   build:
-    name: Trivy Check
+    name: Run Trivy Security check on Repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: Run Trivy vulnerability scanner in repository mode
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8 # 0.33.1
-        with:
-          scan-type: "fs"
-          scan-ref: "."
-          format: "table"
-          exit-code: "1"
-          trivyignores: '.trivyignore'
-          output: trivy-report.txt
-
-      - name: Upload Vulnerability Scan Results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: trivy-report
-          path: trivy-report.txt
-          retention-days: 1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@12966547963631f8429d42bab860485b413003c2
