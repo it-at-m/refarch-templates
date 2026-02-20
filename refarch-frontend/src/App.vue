@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-snackbar />
+    <the-snackbar-queue />
     <v-app-bar color="primary">
       <v-row align="center">
         <v-col
@@ -85,7 +85,7 @@ import { useI18n } from "vue-i18n";
 
 import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
-import TheSnackbar from "@/components/TheSnackbar.vue";
+import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
@@ -126,7 +126,7 @@ function loadUser(): void {
 
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
-    snackbarStore.showMessage({
+    snackbarStore.add({
       message: "Sie haben nach " + query.value + " gesucht. ;)",
     });
   }
