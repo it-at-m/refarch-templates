@@ -32,7 +32,7 @@ const DEFAULTS: Record<Levels, Pick<SnackbarInput, "timeout" | "icon">> = {
   [Levels.INFO]: { timeout: 2500, icon: mdiInformationOutline },
   [Levels.SUCCESS]: { timeout: 2500, icon: mdiCheckCircleOutline },
   [Levels.WARNING]: { timeout: 3500, icon: mdiAlertOutline },
-  [Levels.ERROR]: { timeout: 4000, icon: mdiAlertCircleOutline },
+  [Levels.ERROR]: { timeout: -1, icon: mdiAlertCircleOutline },
 } as const;
 
 const normalizeSnackbar = (input: SnackbarMessage): SnackbarInput => {
