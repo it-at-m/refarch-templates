@@ -252,6 +252,12 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+        <dependency> <!-- Added to fix CVE-2025-48924-->
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.18.0</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Configuration Processor -->
         <dependency>
