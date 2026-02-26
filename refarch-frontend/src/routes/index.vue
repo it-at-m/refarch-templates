@@ -39,7 +39,7 @@ onMounted(() => {
   checkHealth()
     .then((content: HealthState) => (status.value = content.status))
     .catch((error) => {
-      snackbarStore.add({ message: error });
+      snackbarStore.add({ text: error });
     });
 });
 </script>

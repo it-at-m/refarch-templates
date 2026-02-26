@@ -87,7 +87,7 @@ import { getUser } from "@/api/user-client";
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import { APPSWITCHER_URL } from "@/constants";
-import { Levels, useSnackbarStore } from "@/stores/snackbar";
+import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
 
@@ -126,8 +126,7 @@ function loadUser(): void {
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.add({
-      message: "Sie haben nach " + query.value + " gesucht. ;)",
-      level: Levels.ERROR,
+      text: "Sie haben nach " + query.value + " gesucht. ;)",
     });
   }
 }
