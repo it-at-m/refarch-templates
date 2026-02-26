@@ -1,6 +1,6 @@
 <template>
   <v-snackbar-queue
-    v-model="snackbareStore.queue"
+    v-model="snackbarStore.queue"
     timeout="5000"
     :color="STATUS_INDICATORS.INFO"
   >
@@ -16,7 +16,7 @@
     </template>
     <template #actions="{ props, item }">
       <v-btn
-        v-if="item.color == 'error'"
+        v-if="item.color == STATUS_INDICATORS.ERROR"
         color="primary"
         variant="text"
         v-bind="props"
@@ -33,7 +33,7 @@ import { useI18n } from "vue-i18n";
 import { STATUS_INDICATORS } from "@/constants.ts";
 import { useSnackbarStore } from "@/stores/snackbar.ts";
 
-const snackbareStore = useSnackbarStore();
+const snackbarStore = useSnackbarStore();
 
 const { t } = useI18n();
 </script>
