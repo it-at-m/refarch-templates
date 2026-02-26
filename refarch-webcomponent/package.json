@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "4.1.2",
+    "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "22.0.4",
     "@types/node": "22.19.0",
