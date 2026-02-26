@@ -1,7 +1,7 @@
 <template>
   <v-snackbar-queue
     v-model="snackbarStore.queue"
-    timeout="5000"
+    :timeout="5000"
     :color="STATUS_INDICATORS.INFO"
   >
     <template #text="textData">
