@@ -125,7 +125,7 @@ function loadUser(): void {
  */
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
-    snackbarStore.add({
+    snackbarStore.push({
       text: "Sie haben nach " + query.value + " gesucht. ;)",
     });
   }
