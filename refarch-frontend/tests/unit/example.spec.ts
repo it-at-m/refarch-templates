@@ -22,7 +22,7 @@ describe("TheSnackbarQueue.vue", () => {
 
     const store = useSnackbarStore();
 
-    store.add({ message: "Test_Message" });
+    store.push({ message: "Test_Message" });
     await wrapper.vm.$nextTick();
 
     const queueComponent = wrapper.findComponent({ name: "v-snackbar-queue" });
