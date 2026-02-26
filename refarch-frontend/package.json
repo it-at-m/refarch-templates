@@ -39,7 +39,7 @@
     "@vue/test-utils": "2.4.6",
     "@vue/tsconfig": "0.8.1",
     "eslint": "9.39.2",
-    "eslint-plugin-vue": "10.7.0",
+    "eslint-plugin-vue": "10.8.0",
     "jsdom": "28.1.0",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
