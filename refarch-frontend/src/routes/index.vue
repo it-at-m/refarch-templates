@@ -27,6 +27,7 @@ import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { checkHealth } from "@/api/health-client";
+import { STATUS_INDICATORS } from "@/constants.ts";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
 
@@ -38,8 +39,11 @@ const status = ref("DOWN");
 onMounted(() => {
   checkHealth()
     .then((content: HealthState) => (status.value = content.status))
-    .catch((error) => {
-      snackbarStore.push({ text: error });
+    .catch((error: Error) => {
+      snackbarStore.push({
+        text: error.message,
+        color: STATUS_INDICATORS.ERROR,
+      });
     });
 });
 </script>
