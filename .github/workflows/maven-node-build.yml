@@ -30,6 +30,7 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
         with:
           app-path: ${{ matrix.app-path }}
+          node-version: "24"
       - if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null }}
         id: maven
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
