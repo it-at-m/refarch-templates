@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, test } from "vitest";
 
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
+import i18n from "@/plugins/i18n";
 import { useSnackbarStore } from "@/stores/snackbar";
 
 describe("TheSnackbarQueue.vue", () => {
@@ -15,7 +16,7 @@ describe("TheSnackbarQueue.vue", () => {
 
     const wrapper = shallowMount(TheSnackbarQueue, {
       global: {
-        plugins: [pinia],
+        plugins: [pinia, i18n],
       },
     });
 
