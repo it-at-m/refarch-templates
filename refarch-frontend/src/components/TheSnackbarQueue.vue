@@ -16,7 +16,7 @@
     </template>
     <template #actions="{ props, item }">
       <v-btn
-        v-if="item.color == STATUS_INDICATORS.ERROR"
+        v-if="item.color === STATUS_INDICATORS.ERROR"
         color="primary"
         variant="text"
         v-bind="props"
