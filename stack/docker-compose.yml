@@ -69,18 +69,20 @@ services:
     security_opt: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.125@sha256:a326d3e50e2a35b70a3cf3a5d33288af9bcba27fef89146a2107622583e34231
+    build:
+      context: ./keycloak/terraform/
+      dockerfile: Dockerfile
+      args:
+        - HTTPS_PROXY=${HTTPS_PROXY}
     depends_on:
       - keycloak
+    working_dir: /workspace
+    entrypoint: ["/workspace/entrypoint.sh"]
     environment:
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:8100/auth
-      WAIT_FOR_KEYCLOAK: 'true'
-      FAIL_ON_UNDEFINED_VARIABLES: 'true'
-      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+      - HTTPS_PROXY=${HTTPS_PROXY}
+      - NO_PROXY=localhost,keycloak
     volumes:
-      - './keycloak/migration:/migration'
+      - ./keycloak/terraform:/workspace
     networks:
       - keycloak
     security_opt: *security_settings
@@ -93,6 +95,7 @@ services:
     ports:
       - "8083:8080"
     environment:
+    - LOGGING_STRUCTURED_FORMAT_CONSOLE=
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID=sso
