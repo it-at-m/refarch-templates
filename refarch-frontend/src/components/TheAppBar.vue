@@ -76,8 +76,8 @@ const query = ref<string>("");
 
 async function search(): Promise<void> {
   if (query.value !== "" && query.value !== null) {
-    snackbarStore.showMessage({
-      message: "Sie haben nach " + query.value + " gesucht. ;)",
+    snackbarStore.push({
+      text: "Sie haben nach " + query.value + " gesucht. ;)",
     });
   }
 }

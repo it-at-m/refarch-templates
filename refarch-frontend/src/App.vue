@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <the-snackbar />
+    <the-snackbar-queue />
     <the-app-bar @clicked-nav-icon="toggleNavigation" />
     <the-navigation-drawer v-model="isNavigationShown" />
     <v-main>
@@ -22,7 +22,7 @@ import { onMounted } from "vue";
 import { getUser } from "@/api/user-client";
 import TheAppBar from "@/components/TheAppBar.vue";
 import TheNavigationDrawer from "@/components/TheNavigationDrawer.vue";
-import TheSnackbar from "@/components/TheSnackbar.vue";
+import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import { useUserStore } from "@/stores/user";
 import User, { UserLocalDevelopment } from "@/types/User";
 
