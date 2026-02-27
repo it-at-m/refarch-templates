@@ -3,16 +3,16 @@
     <v-row class="text-center">
       <v-col>
         <h1 class="text-h3 font-weight-bold mb-10">
-          {{ t("views.getStarted.docsHeader") }}
+          {{ t("views.documentation.docsHeader") }}
         </h1>
-        <h3>{{ t("views.getStarted.docsSubtext") }}</h3>
+        <h3>{{ t("views.documentation.docsSubtext") }}</h3>
         <div>
           <a
             href="https://refarch.oss.muenchen.de/templates"
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >{{ t("views.getStarted.docsLinks.templates") }}</a
+            >{{ t("views.documentation.docsLinks.templates") }}</a
           >
         </div>
         <div>
@@ -21,15 +21,15 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="documentationClicked = true"
-            >{{ t("views.getStarted.docsLinks.main") }}</a
+            >{{ t("views.documentation.docsLinks.main") }}</a
           >
         </div>
       </v-col>
     </v-row>
     <yes-no-dialog
       v-model="saveLeaveDialog"
-      :dialogtitle="t('views.getStarted.saveLeave.title')"
-      :dialogtext="t('views.getStarted.saveLeave.text')"
+      :dialogtitle="t('views.documentation.saveLeave.title')"
+      :dialogtext="t('views.documentation.saveLeave.text')"
       @no="cancel"
       @yes="leave"
     />

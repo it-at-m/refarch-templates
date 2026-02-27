@@ -13,7 +13,6 @@
           <v-toolbar-title class="font-weight-bold">
             <span class="text-white">{{ t("app.name.part1") }}</span>
             <span class="text-secondary">{{ t("app.name.part2") }}</span>
-            <span class="text-white">{{ t("app.name.part3") }}</span>
           </v-toolbar-title>
         </router-link>
       </v-col>
@@ -27,7 +26,7 @@
           flat
           variant="solo-inverted"
           hide-details
-          :label="t('app.search')"
+          :label="t('common.actions.search')"
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
