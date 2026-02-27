@@ -45,14 +45,12 @@
           :icon="mdiApps"
         />
         <v-btn
+          v-if="userStore.getUser !== null"
           class="mx-2"
           variant="text"
           icon
         >
-          <ad2-image-avatar
-            v-if="userStore.getUser !== null"
-            :username="userStore.getUser.username"
-          />
+          <ad2-image-avatar :username="userStore.getUser.username" />
         </v-btn>
       </v-col>
     </v-row>
