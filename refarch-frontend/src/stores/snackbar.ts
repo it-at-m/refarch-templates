@@ -26,6 +26,11 @@ const DEFAULTS: Record<
   [STATUS_INDICATORS.ERROR]: { timeout: -1, icon: mdiAlertCircleOutline },
 } as const;
 
+/**
+ * Applying defaults for SnackbarMessage by using the DEFAULTS-records.
+ * Color is extracted from the enum STATUS_INDICATORS itself.
+ * @param input the incoming message with possible missing values.
+ */
 function applyDefaults(input: SnackbarMessage): SnackbarMessage {
   const color = input.color ?? STATUS_INDICATORS.INFO;
   const defaults = DEFAULTS[color];
