@@ -11,10 +11,10 @@
 
       <v-col class="mb-4">
         <h1 class="text-h3 font-weight-bold mb-3">
-          {{ t("views.home.header") }}
+          {{ t("views.index.header") }}
         </h1>
         <p>
-          {{ t("views.home.apiGatewayStatus") }}
+          {{ t("views.index.apiGatewayStatus") }}
           <span :class="status">{{ status }}</span>
         </p>
       </v-col>
