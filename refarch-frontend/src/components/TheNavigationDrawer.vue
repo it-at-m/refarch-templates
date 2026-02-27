@@ -1,5 +1,9 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" temporary :scrim="false">
+  <v-navigation-drawer
+    v-model="showDrawer"
+    temporary
+    :scrim="false"
+  >
     <v-list>
       <v-list-item to="/getstarted">
         <v-list-item-title>
