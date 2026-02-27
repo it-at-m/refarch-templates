@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :model-value="showDrawer">
+  <v-navigation-drawer v-model="showDrawer" temporary :scrim="false">
     <v-list>
       <v-list-item to="/getstarted">
         <v-list-item-title>
@@ -13,9 +13,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
-defineProps<{
-  showDrawer: boolean;
-}>();
+const showDrawer = defineModel<boolean>({ required: true });
 
 const { t } = useI18n();
 </script>

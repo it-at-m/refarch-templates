@@ -2,7 +2,7 @@
   <v-app>
     <the-snackbar />
     <the-app-bar @clicked-nav-icon="toggleNavigation" />
-    <the-navigation-drawer :show-drawer="isNavigationShown" />
+    <the-navigation-drawer v-model="isNavigationShown" />
     <v-main>
       <v-container fluid>
         <router-view v-slot="{ Component }">
