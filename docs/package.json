@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "engines": {
-    "node": ">=22.19 <=22"
+    "node": ">=24.11 <25"
   },
   "scripts": {
     "dev": "vitepress dev",
@@ -15,7 +16,7 @@
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
     "markdownlint-cli": "0.47.0",
-    "mermaid": "11.12.2",
+    "mermaid": "11.12.3",
     "prettier": "3.8.1",
     "vitepress": "1.6.4",
     "vitepress-plugin-mermaid": "2.0.17"

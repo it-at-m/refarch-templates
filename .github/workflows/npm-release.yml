@@ -39,12 +39,14 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
         with:
           app-path: ${{ inputs.app-path }}
+          node-version: '24'
           releaseVersion: ${{ inputs.release-version }}
           use-pr: 'true'
       - id: node
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
         with:
           app-path: ${{ inputs.app-path }}
+          node-version: '24'
       - if: ${{ !inputs.skip-deployment }}
         shell: bash
         working-directory: ./${{ inputs.app-path }}
