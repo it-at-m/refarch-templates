@@ -5,7 +5,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=22.19 <=22"
+    "node": ">=24.11 <25"
   },
   "scripts": {
     "dev": "vite",
@@ -25,8 +25,8 @@
     "@cyclonedx/cyclonedx-npm": "4.1.2",
     "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@tsconfig/node-lts": "22.0.4",
-    "@types/node": "22.19.0",
+    "@tsconfig/node-lts": "24.0.0",
+    "@types/node": "24.10.13",
     "@vitejs/plugin-vue": "6.0.4",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.7.0",
