@@ -27,7 +27,7 @@ import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { checkHealth } from "@/api/health-client";
-import { STATUS_INDICATORS } from "@/constants.ts";
+import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
 
