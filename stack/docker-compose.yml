@@ -69,7 +69,11 @@ services:
     security_opt: *security_settings
 
   init-keycloak:
-    image: ghcr.io/opentofu/opentofu:1
+    build:
+      context: ./keycloak/terraform/
+      dockerfile: Dockerfile
+      args:
+        - HTTPS_PROXY=${HTTPS_PROXY}
     depends_on:
       - keycloak
     working_dir: /workspace
