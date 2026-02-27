@@ -95,6 +95,7 @@ services:
     ports:
       - "8083:8080"
     environment:
+    - LOGGING_STRUCTURED_FORMAT_CONSOLE=
     - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
     - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
     - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID=sso
