@@ -32,6 +32,7 @@
     "@intlify/unplugin-vue-i18n": "11.0.7",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
+    "@pinia/testing": "1.0.3",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.10.13",
     "@vitejs/plugin-vue": "6.0.4",
