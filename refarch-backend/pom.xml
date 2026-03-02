@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>de.muenchen.refarch</groupId>
+    <groupId>de.muenchen.oss.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
