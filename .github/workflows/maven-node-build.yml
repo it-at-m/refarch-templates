@@ -36,6 +36,7 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
         with:
           app-path: ${{ matrix.app-path }}
+          java-version: "21"
       - if: github.ref == 'refs/heads/main'
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
         with:
