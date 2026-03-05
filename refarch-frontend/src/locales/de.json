@@ -21,10 +21,10 @@
       "header": "Willkommen beim @:app.name.full von it{'@'}M",
       "apiGatewayStatus": "Das API-Gateway ist:"
     },
-    "documentation": {
-      "navText": "Dokumentation",
-      "docsHeader": "Dokumentation",
-      "docsSubtext": "Weiterführende Links sind hier zu finden:",
+    "getStarted": {
+      "navText": "Get Started",
+      "header": "Get Started",
+      "docsText": "Dokumentation für die RefArch ist hier zu finden:",
       "docsLinks": {
         "templates": "Dokumentation RefArch-Templates",
         "main": "Dokumentation RefArch"

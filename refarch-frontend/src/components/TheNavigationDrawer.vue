@@ -9,9 +9,9 @@
           {{ t("views.index.navText") }}
         </v-list-item-title>
       </v-list-item>
-      <v-list-item to="/documentation">
+      <v-list-item to="/get-started">
         <v-list-item-title>
-          {{ t("views.documentation.navText") }}
+          {{ t("views.getStarted.navText") }}
         </v-list-item-title>
       </v-list-item>
     </v-list>
