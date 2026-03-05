@@ -4,7 +4,12 @@
     temporary
   >
     <v-list>
-      <v-list-item to="/getstarted">
+      <v-list-item to="/">
+        <v-list-item-title>
+          {{ t("views.index.navText") }}
+        </v-list-item-title>
+      </v-list-item>
+      <v-list-item to="/get-started">
         <v-list-item-title>
           {{ t("views.getStarted.navText") }}
         </v-list-item-title>

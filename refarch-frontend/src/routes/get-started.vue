@@ -3,9 +3,9 @@
     <v-row class="text-center">
       <v-col>
         <h1 class="text-h3 font-weight-bold mb-10">
-          {{ t("views.getStarted.docsHeader") }}
+          {{ t("views.getStarted.header") }}
         </h1>
-        <h3>{{ t("views.getStarted.docsSubtext") }}</h3>
+        <h3>{{ t("views.getStarted.docsText") }}</h3>
         <div>
           <a
             href="https://refarch.oss.muenchen.de/templates"
