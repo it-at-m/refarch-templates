@@ -8,6 +8,7 @@ import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import VueRouter from "vue-router/vite";
+import EncodeBracketsPlugin from "./encode-brackets-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -45,6 +46,7 @@ export default defineConfig(({ mode }) => {
           "./src/locales/*.json"
         ),
       }),
+      EncodeBracketsPlugin()
     ],
     server: {
       host: true,
@@ -53,6 +55,7 @@ export default defineConfig(({ mode }) => {
         "/api": "http://localhost:8083",
         "/actuator": "http://localhost:8083",
       },
+
       allowedHosts: ["host.docker.internal"], // required to use frontend behind proxy (e.g. API Gateway)
       headers: {
         "x-frame-options": "SAMEORIGIN", // required to use devtools behind proxy (e.g. API Gateway)
