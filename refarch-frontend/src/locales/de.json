@@ -1,31 +1,30 @@
 {
+  "app": {
+    "name": {
+      "part1": "refarch-",
+      "part2": "frontend",
+      "full": "@:app.name.part1@:app.name.part2"
+    }
+  },
   "common": {
     "yes": "Ja",
     "no": "Nein",
     "actions": {
-      "close": "Schließen"
+      "close": "Schließen",
+      "search": "Suchen"
     },
     "messages": {}
   },
-  "app": {
-    "name": {
-      "part1": "RefArch-",
-      "part2": "Kick",
-      "part3": "Starter",
-      "full": "@:app.name.part1@:app.name.part2@:app.name.part3"
-    },
-    "search": "Suche"
-  },
-  "components": {},
   "views": {
-    "home": {
+    "index": {
+      "navText": "Willkommen",
       "header": "Willkommen beim @:app.name.full von it{'@'}M",
       "apiGatewayStatus": "Das API-Gateway ist:"
     },
     "getStarted": {
-      "navText": "Erste Schritte",
-      "docsHeader": "Dokumentation",
-      "docsSubtext": "Weiterführende Links sind hier zu finden:",
+      "navText": "Get Started",
+      "header": "Get Started",
+      "docsText": "Dokumentation für die RefArch ist hier zu finden:",
       "docsLinks": {
         "templates": "Dokumentation RefArch-Templates",
         "main": "Dokumentation RefArch"
@@ -36,5 +35,6 @@
       }
     }
   },
+  "components": {},
   "domain": {}
 }
