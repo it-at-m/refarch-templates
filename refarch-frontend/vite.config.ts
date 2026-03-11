@@ -7,12 +7,19 @@ import UnpluginFonts from "unplugin-fonts/vite";
 import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
+import VueRouter from "vue-router/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === "development";
   return {
     plugins: [
+      VueRouter({
+        routesFolder: {
+          src: "src/routes",
+        },
+        dts: "./route-map.d.ts",
+      }),
       vue({
         template: { transformAssetUrls },
         features: {

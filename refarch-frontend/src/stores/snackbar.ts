@@ -1,29 +1,60 @@
+import {
+  mdiAlertCircleOutline,
+  mdiAlertOutline,
+  mdiCheckCircleOutline,
+  mdiInformationOutline,
+} from "@mdi/js";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
 import { STATUS_INDICATORS } from "@/constants";
 
-export interface SnackbarState {
-  message: string | undefined;
-  level: STATUS_INDICATORS;
-  show: boolean;
+interface SnackbarMessage {
+  text: string;
+  timeout?: number;
+  color?: STATUS_INDICATORS;
+  icon?: string;
 }
 
+const DEFAULTS: Record<
+  STATUS_INDICATORS,
+  Pick<SnackbarMessage, "timeout" | "icon">
+> = {
+  [STATUS_INDICATORS.INFO]: { icon: mdiInformationOutline },
+  [STATUS_INDICATORS.SUCCESS]: { icon: mdiCheckCircleOutline },
+  [STATUS_INDICATORS.WARNING]: { icon: mdiAlertOutline },
+  [STATUS_INDICATORS.ERROR]: { timeout: -1, icon: mdiAlertCircleOutline },
+} as const;
+
+/**
+ * Applying defaults for SnackbarMessage by using the DEFAULTS-records.
+ * Color is extracted from the enum STATUS_INDICATORS itself.
+ * @param input the incoming message with possible missing values.
+ */
+function applyDefaults(input: SnackbarMessage): SnackbarMessage {
+  const color = input.color ?? STATUS_INDICATORS.INFO;
+  const defaults = DEFAULTS[color];
+
+  return {
+    text: input.text,
+    color,
+    icon: input.icon ?? defaults.icon,
+    timeout: input.timeout ?? defaults.timeout,
+  };
+}
+
+/**
+ * Store for messages which should be displayed by the snackbar
+ */
 export const useSnackbarStore = defineStore("snackbar", () => {
-  const message = ref<string | undefined>(undefined);
-  const level = ref(STATUS_INDICATORS.INFO);
-  const show = ref(false);
-  function showMessage(messageI: {
-    message?: string;
-    level?: STATUS_INDICATORS;
-    show?: boolean;
-  }): void {
-    message.value = messageI.message;
-    level.value = messageI.level ? messageI.level : STATUS_INDICATORS.INFO;
-    show.value = true;
+  const queue = ref<SnackbarMessage[]>([]);
+
+  /**
+   * Adds default values if necessary
+   */
+  function push(message: SnackbarMessage) {
+    queue.value.push(applyDefaults(message));
   }
-  function updateShow(showI: boolean): void {
-    show.value = showI;
-  }
-  return { message, level, show, showMessage, updateShow };
+
+  return { queue, push };
 });

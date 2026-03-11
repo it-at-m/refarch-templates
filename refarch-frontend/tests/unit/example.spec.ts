@@ -1,28 +1,29 @@
+import { createTestingPinia } from "@pinia/testing";
 import { shallowMount } from "@vue/test-utils";
-import { createPinia } from "pinia";
-import { describe, expect, test } from "vitest";
-import { createVuetify } from "vuetify";
-import * as components from "vuetify/components";
-import * as directives from "vuetify/directives";
+import { describe, expect, test, vi } from "vitest";
 
-import TheSnackbar from "@/components/TheSnackbar.vue";
+import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import i18n from "@/plugins/i18n";
+import { useSnackbarStore } from "@/stores/snackbar";
 
-const pinia = createPinia();
-const vuetify = createVuetify({
-  components,
-  directives,
-});
-
-describe("TheSnackbar.vue", () => {
-  test("renders props.message when passed", () => {
-    const message = "Hello_World";
-    const wrapper = shallowMount(TheSnackbar, {
+describe("TheSnackbarQueue.vue", () => {
+  test("passes store queue to v-snackbar-queue", async () => {
+    const wrapper = shallowMount(TheSnackbarQueue, {
       global: {
-        plugins: [pinia, vuetify, i18n],
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+          i18n,
+        ],
       },
-      props: { message: message },
     });
-    expect(wrapper.html()).toContain(message);
+
+    const store = useSnackbarStore();
+
+    store.push({ text: "Test_Message" });
+
+    const queueComponent = wrapper.findComponent({ name: "v-snackbar-queue" });
+    expect(queueComponent.props("modelValue")).toEqual(store.queue);
   });
 });
