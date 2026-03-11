@@ -43,7 +43,4 @@ public class ArchUnitTest {
         arguments.get(1, ArchRule.class).check(allTestClasses);
     }
 
-
-
 }
-
