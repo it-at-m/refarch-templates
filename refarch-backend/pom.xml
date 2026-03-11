@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.5</version>
+        <version>3.5.7</version>
         <relativePath/>
     </parent>
 
@@ -48,31 +48,31 @@
         <spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
-        <pmd-maven-plugin.version>3.27.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.4.2</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.9.4</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
+        <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
         <archunit.version>1.4.1</archunit.version>
 
         <!-- Release -->
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <maven-release-plugin.version>3.2.0</maven-release-plugin.version>
 
         <!-- Utility -->
         <commons-collections4.version>4.5.0</commons-collections4.version>
-        <commons-io.version>2.20.0</commons-io.version>
+        <commons-io.version>2.21.0</commons-io.version>
         <commons-text.version>1.14.0</commons-text.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.2.0</refarch-tools.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
-        <springdoc-openapi-starter-webmvc-ui.version>2.8.13</springdoc-openapi-starter-webmvc-ui.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.8.14</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-maven-plugin.version>1.5</springdoc-openapi-maven-plugin.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
 
@@ -417,9 +417,12 @@
                         <endWithNewline />
                         <importOrder />
                         <removeUnusedImports />
-                        <removeWildcardImports />
+                        <forbidWildcardImports />
                         <formatAnnotations />
                     </java>
+                    <lintSuppressions>
+                        <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
+                    </lintSuppressions>
                 </configuration>
                 <executions>
                     <execution>

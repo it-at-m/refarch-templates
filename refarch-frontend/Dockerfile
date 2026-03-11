@@ -1,5 +1,5 @@
 # For documentation see https://github.com/sclorg/nginx-container
-FROM registry.access.redhat.com/ubi10/nginx-126:10.0-1756913183@sha256:87d5fc56619129e86b27d81b86803381dbc057565715c6cc4ba9b72c0cf2e1df
+FROM registry.access.redhat.com/ubi10/nginx-126:10.1-1763382165@sha256:4c3e5e60d785e6e8bb25a13320fffae720cf0a5d1c3d161c2fb98567421da840
 
 # Copy built web application
 COPY dist .
