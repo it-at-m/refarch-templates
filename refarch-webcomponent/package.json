@@ -22,7 +22,7 @@
     "vue": "3.5.29"
   },
   "devDependencies": {
-    "@cyclonedx/cyclonedx-npm": "4.1.2",
+    "@cyclonedx/cyclonedx-npm": "4.2.0",
     "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@tsconfig/node-lts": "24.0.0",
