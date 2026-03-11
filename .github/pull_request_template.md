@@ -37,7 +37,7 @@ Issue: #XXX
 - [ ] Added component tests (if component was changed)
 - [ ] Considered and tested accessibility (if UI change was made)
 - [ ] Checked / Updated Node.js engine requirements in `package.json` (if dependencies were changed)
-- [ ] Manually tested changes using API gateway
+- [ ] Tested changes using API gateway
 
 #### Backend / EAI
 
