@@ -37,6 +37,7 @@ Issue: #XXX
 - [ ] Added component tests (if component was changed)
 - [ ] Considered and tested accessibility (if UI change was made)
 - [ ] Checked / Updated Node.js engine requirements in `package.json` (if dependencies were changed)
+- [ ] Manually tested changes using API gateway
 
 #### Backend / EAI
 
@@ -47,7 +48,6 @@ Issue: #XXX
 
 ### Development Stack
 
-- [ ] Approved image change company internal (if Docker image was added or version was modified)
 - [ ] Checked functionality of Docker stack (if Docker stack was modified or images were changed)
 
 ## Screenshots (if UI was changed)
