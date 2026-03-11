@@ -23,12 +23,6 @@ public class ArchUnitTest {
                 .importPackages(de.muenchen.refarch.MicroServiceApplication.class.getPackage().getName());
     }
 
-    @ParameterizedTest(name = "{0}")
-    @MethodSource("allTestClassesRulesToVerify")
-    void givenAllArchUnitRulesForAllTestClasses_thenRunArchUnitTests(final ArgumentsAccessor arguments) {
-        arguments.get(1, ArchRule.class).check(allTestClasses);
-    }
-
     public static Stream<Arguments> allTestClassesRulesToVerify() {
         return Stream.of(
                 Arguments.of("RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED",
@@ -38,5 +32,13 @@ public class ArchUnitTest {
                 Arguments.of("RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED", Rules.RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED),
                 Arguments.of("TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED", Rules.RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED));
     }
+
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("allTestClassesRulesToVerify")
+    void givenAllArchUnitRulesForAllTestClasses_thenRunArchUnitTests(final ArgumentsAccessor arguments) {
+        arguments.get(1, ArchRule.class).check(allTestClasses);
+    }
+
+
 
 }
