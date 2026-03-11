@@ -20,7 +20,7 @@ public class ArchUnitTest {
     static void init() {
         allTestClasses = new ClassFileImporter()
                 .withImportOption(new ImportOption.OnlyIncludeTests())
-                .importPackages(de.muenchen.refarch.MicroServiceApplication.class.getPackage().getName());
+                .importPackages(de.muenchen.oss.refarch.backend.MicroServiceApplication.class.getPackage().getName());
     }
 
     public static Stream<Arguments> allTestClassesRulesToVerify() {
