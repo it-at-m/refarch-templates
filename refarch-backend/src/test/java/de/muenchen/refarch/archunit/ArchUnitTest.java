@@ -11,6 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import de.muenchen.oss.refarch.backend.MicroServiceApplication;
 
 public class ArchUnitTest {
 
@@ -20,7 +21,7 @@ public class ArchUnitTest {
     static void init() {
         allTestClasses = new ClassFileImporter()
                 .withImportOption(new ImportOption.OnlyIncludeTests())
-                .importPackages(de.muenchen.oss.refarch.backend.MicroServiceApplication.class.getPackage().getName());
+                .importPackages(MicroServiceApplication.class.getPackage().getName());
     }
 
     public static Stream<Arguments> allTestClassesRulesToVerify() {

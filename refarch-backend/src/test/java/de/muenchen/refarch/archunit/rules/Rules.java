@@ -21,31 +21,30 @@ public final class Rules {
             .that().areAnnotatedWith(Test.class)
             .or().areAnnotatedWith(ParameterizedTest.class)
             .or().areAnnotatedWith(RepeatedTest.class)
-            .or()
-            .areAnnotatedWith(TestTemplate.class)
+            .or().areAnnotatedWith(TestTemplate.class)
             .should().haveNameMatching("^given[A-Z][a-zA-Z]+_then[A-Z][a-zA-Z]+$");
 
     public static final ArchRule RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(BeforeEach.class).should().haveNameMatching("^setUp$")
-            .allowEmptyShould(true);
+            .allowEmptyShould(false);
 
     public static final ArchRule RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(AfterEach.class).should().haveNameMatching("^tearDown$")
-            .allowEmptyShould(true);
+            .allowEmptyShould(false);
 
     public static final ArchRule RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(Test.class)
             .or().areAnnotatedWith(ParameterizedTest.class)
-            .or().areAnnotatedWith(RepeatedTest.class).or()
-            .areAnnotatedWith(TestTemplate.class).should()
-            .notHaveModifier(JavaModifier.PROTECTED)
+            .or().areAnnotatedWith(RepeatedTest.class)
+            .or().areAnnotatedWith(TestTemplate.class)
+            .should().notHaveModifier(JavaModifier.PROTECTED)
             .andShould().notHaveModifier(JavaModifier.PRIVATE)
             .andShould().notHaveModifier(JavaModifier.PUBLIC);
 
     public static final ArchRule RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(Test.class)
             .or().areAnnotatedWith(ParameterizedTest.class)
-            .or().areAnnotatedWith(RepeatedTest.class).or()
-            .areAnnotatedWith(TestTemplate.class)
+            .or().areAnnotatedWith(RepeatedTest.class)
+            .or().areAnnotatedWith(TestTemplate.class)
             .should(haveTopEnclosingClassEndingWithTest);
 }
