@@ -90,7 +90,7 @@ class NfcConverterTest {
 
     // Test that Request not configured ContentType remains unchanged, i.e. is not normalized to NFC.
     @Test
-    void givenContenttypeNotInWhitelist_thenSkipFilter() throws ServletException, IOException {
+    void givenContentTypeNotInWhitelist_thenSkipFilter() throws ServletException, IOException {
         mockRequest("application/notvalid");
 
         filter.doFilter(req, resp, chain);
