@@ -70,7 +70,7 @@ class NfcConverterTest {
 
     // Test that request with configured ContentType is normalized to NFC.
     @Test
-    void givenContenttypeInWhitelist_thenFilter() throws ServletException, IOException {
+    void givenContentTypeInWhitelist_thenFilter() throws ServletException, IOException {
         mockRequest("text/plain");
 
         filter.doFilter(req, resp, chain);
