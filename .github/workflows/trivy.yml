@@ -5,7 +5,7 @@ on:
     - cron: '0 3 * * *' # läuft täglich um 03:00 UTC
 jobs:
   scan:
-    name: Security Check
+    name: Security check
     runs-on: ubuntu-latest
     if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
     steps:
