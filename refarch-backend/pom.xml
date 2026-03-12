@@ -252,10 +252,17 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
+
+        <!-- Dependencies for CVE fixes -->
         <dependency> <!-- Added to fix CVE-2025-48924-->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.21.1</version>
         </dependency>
 
         <!-- Configuration Processor -->
