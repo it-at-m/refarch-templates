@@ -29,7 +29,8 @@ public final class Rules {
             .allowEmptyShould(false);
 
     public static final ArchRule RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED = methods()
-            .that().areAnnotatedWith(AfterEach.class).should().haveNameMatching("^tearDown$")
+            .that().areAnnotatedWith(AfterEach.class)
+            .should().haveNameMatching("^tearDown$")
             .allowEmptyShould(false);
 
     public static final ArchRule RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED = methods()
