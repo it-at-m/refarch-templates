@@ -25,7 +25,8 @@ public final class Rules {
             .should().haveNameMatching("^given[A-Z][a-zA-Z]+_then[A-Z][a-zA-Z]+$");
 
     public static final ArchRule RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED = methods()
-            .that().areAnnotatedWith(BeforeEach.class).should().haveNameMatching("^setUp$")
+            .that().areAnnotatedWith(BeforeEach.class)
+            .should().haveNameMatching("^setUp$")
             .allowEmptyShould(false);
 
     public static final ArchRule RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED = methods()
