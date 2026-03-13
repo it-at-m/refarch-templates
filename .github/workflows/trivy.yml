@@ -10,4 +10,4 @@ jobs:
     if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
     steps:
       - name: Run Trivy security check on repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@93bc0588b20f51660a827470790f6e52b7e300e6
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@9e864712662f02cd6b900a0e55f31a386b3b2e7e
