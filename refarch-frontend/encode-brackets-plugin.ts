@@ -55,8 +55,8 @@ export function extendRoute(route: EditableTreeNode): PromiseLike<void> | void {
     for (const [viewName, componentPath] of route.components.entries()) {
       if (componentPath.includes("[") || componentPath.includes("]")) {
         const encodedPath = componentPath
-          .replace(/$$/g, "%5B")
-          .replace(/$$/g, "%5D");
+          .replace(/\[/g, "%5B")
+          .replace(/\]/g, "%5D");
         route.components.set(viewName, encodedPath);
       }
     }

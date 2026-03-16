@@ -7,7 +7,6 @@
           class="my-3"
           height="200"
         />
-        <v-btn :to="'/test/5'">Test</v-btn>
       </v-col>
 
       <v-col class="mb-4">
