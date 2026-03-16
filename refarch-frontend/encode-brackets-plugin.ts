@@ -1,4 +1,4 @@
-import * as fs from "node:fs";
+import * as fs from "node:fs/promises";
 
 import type { Plugin } from "vite";
 import type { EditableTreeNode } from "vue-router/unplugin";
@@ -27,7 +27,7 @@ export function EncodeBracketsPlugin(): Plugin {
     },
 
     // load source from accepted filepath (resolveId) and return file from decoded filepath
-    load(id) {
+    async load(id) {
       if (id.includes("%5B") || id.includes("%5D")) {
         const realPath = id.replace(/%5B/gi, "[").replace(/%5D/gi, "]");
 
@@ -35,7 +35,7 @@ export function EncodeBracketsPlugin(): Plugin {
           // let vite watch changes on this file
           this.addWatchFile(realPath);
 
-          return fs.readFileSync(realPath, "utf-8");
+          return await fs.readFile(realPath, "utf-8");
         } catch {
           // eslint-disable-next-line no-console
           console.error(
