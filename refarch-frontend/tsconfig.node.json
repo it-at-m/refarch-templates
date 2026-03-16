@@ -1,6 +1,10 @@
 {
   "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": ["vite.config.*", "vitest.config.*"],
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "encode-brackets-plugin.ts" // temporary fix
+  ],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,

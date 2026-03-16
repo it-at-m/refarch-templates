@@ -9,7 +9,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import VueRouter from "vue-router/vite";
 
-import EncodeBracketsPlugin from "./encode-brackets-plugin";
+import { EncodeBracketsPlugin, extendRoute } from "./encode-brackets-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -21,22 +21,7 @@ export default defineConfig(({ mode }) => {
           src: "src/routes",
         },
         dts: "./route-map.d.ts",
-        extendRoute(route) {
-          // Hier encodieren wir den Pfad, damit der Browser %5B anfragt
-          if (route.components) {
-            for (const [
-              viewName,
-              componentPath,
-            ] of route.components.entries()) {
-              if (componentPath.includes("[") || componentPath.includes("]")) {
-                const encodedPath = componentPath
-                  .replace(/\[/g, "%5B")
-                  .replace(/\]/g, "%5D");
-                route.components.set(viewName, encodedPath);
-              }
-            }
-          }
-        },
+        ...(isDevelopment && { extendRoute }),
       }),
       vue({
         template: { transformAssetUrls },
@@ -63,7 +48,10 @@ export default defineConfig(({ mode }) => {
           "./src/locales/*.json"
         ),
       }),
-      EncodeBracketsPlugin(),
+      {
+        ...EncodeBracketsPlugin(),
+        apply: "serve", // Ensures plugin is only applied during serve, see https://vite.dev/guide/using-plugins#conditional-application
+      },
     ],
     server: {
       host: true,

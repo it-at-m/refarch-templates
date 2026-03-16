@@ -1,11 +1,22 @@
 import * as fs from "node:fs";
 
 import type { Plugin } from "vite";
+import type { EditableTreeNode } from "vue-router/unplugin";
 
-export default function EncodeBracketsPlugin(): Plugin {
+/**
+ * This plugin ensures parameterized file-based routes (e.g. files like [id].vue) are handled correctly through API gateway
+ * when developing locally.
+ * The plugin URL encodes brackets in the URL because API gateway (Netty webserver) cannot process brackets directly.
+ * Currently, there are some issues open for Vite.js:
+ * https://github.com/vitejs/vite/issues/10307
+ * https://github.com/vitejs/vite/issues/20799
+ *
+ * @constructor
+ */
+export function EncodeBracketsPlugin(): Plugin {
   return {
-    name: "vite-plugin-netty-bracket-fix",
-    enforce: "pre", // Wichtig: Vor allen anderen Plugins laufen
+    name: "vite-plugin-apigateway-bracket-fix",
+    enforce: "pre", // Ensures plugin is executed before Vite core plugins, see https://vite.dev/guide/using-plugins#enforcing-plugin-ordering
 
     // catch imports with encoded brackets and return them
     resolveId(source) {
@@ -25,9 +36,10 @@ export default function EncodeBracketsPlugin(): Plugin {
           this.addWatchFile(realPath);
 
           return fs.readFileSync(realPath, "utf-8");
-        } catch (e) {
+        } catch {
+          // eslint-disable-next-line no-console
           console.error(
-            "Vite Custom Plugin Fehler: Konnte Datei nicht laden:",
+            "vite-plugin-apigateway-bracket-fix: Could not load file: ",
             realPath
           );
         }
@@ -35,4 +47,18 @@ export default function EncodeBracketsPlugin(): Plugin {
       return null;
     },
   };
+}
+
+export function extendRoute(route: EditableTreeNode): PromiseLike<void> | void {
+  // Encode path in order to request with encoded symbols
+  if (route.components) {
+    for (const [viewName, componentPath] of route.components.entries()) {
+      if (componentPath.includes("[") || componentPath.includes("]")) {
+        const encodedPath = componentPath
+          .replace(/$$/g, "%5B")
+          .replace(/$$/g, "%5D");
+        route.components.set(viewName, encodedPath);
+      }
+    }
+  }
 }
