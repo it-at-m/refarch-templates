@@ -258,7 +258,7 @@
         <dependency> <!-- Added to fix CVE-2025-48924-->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.18.0</version>
+            <version>3.20.0</version>
         </dependency>
         <dependency> <!-- Added to fix CVE-2026-29062-->
             <groupId>com.fasterxml.jackson.core</groupId>
