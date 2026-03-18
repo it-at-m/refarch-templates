@@ -1,7 +1,7 @@
-package de.muenchen.refarch.archunit.rules;
+package de.muenchen.oss.refarch.backend.archunit.rules;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
-import static de.muenchen.refarch.archunit.rules.TestClassesEndWithTestCondition.haveTopEnclosingClassEndingWithTest;
+import static de.muenchen.oss.refarch.backend.archunit.rules.TestClassesEndWithTestCondition.haveTopEnclosingClassEndingWithTest;
 
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.lang.ArchRule;

@@ -1,4 +1,4 @@
-package de.muenchen.refarch.archunit.rules;
+package de.muenchen.oss.refarch.backend.archunit.rules;
 
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaMethod;

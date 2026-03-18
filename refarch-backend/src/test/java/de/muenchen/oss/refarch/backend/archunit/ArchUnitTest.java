@@ -1,11 +1,11 @@
-package de.muenchen.refarch.archunit;
+package de.muenchen.oss.refarch.backend.archunit;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.lang.ArchRule;
 import de.muenchen.oss.refarch.backend.MicroServiceApplication;
-import de.muenchen.refarch.archunit.rules.Rules;
+import de.muenchen.oss.refarch.backend.archunit.rules.Rules;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
