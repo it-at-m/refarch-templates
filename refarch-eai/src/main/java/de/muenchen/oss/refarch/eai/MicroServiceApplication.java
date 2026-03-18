@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @SuppressWarnings("PMD.UseUtilityClass")
-public class Application {
+public class MicroServiceApplication {
     public static void main(final String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MicroServiceApplication.class, args);
     }
 }
