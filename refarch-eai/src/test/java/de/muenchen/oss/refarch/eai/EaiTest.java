@@ -28,7 +28,7 @@ class EaiTest {
     private MockEndpoint output;
 
     @Test
-    void sendToMockTest() throws InterruptedException {
+    void givenMessage_thenSendToMockShouldSucceed() throws InterruptedException {
         final String message = "Hello Test !";
         output.expectedMessageCount(1);
 
