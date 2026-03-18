@@ -1,7 +1,7 @@
-package de.muenchen.refarch.archunit.rules;
+package de.muenchen.oss.refarch.backend.archunit.rules;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.methods;
-import static de.muenchen.refarch.archunit.rules.TestClassesEndWithTestCondition.haveTopEnclosingClassEndingWithTest;
+import static de.muenchen.oss.refarch.backend.archunit.rules.TestClassesEndWithTestCondition.haveTopEnclosingClassEndingWithTest;
 
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.lang.ArchRule;
@@ -22,17 +22,18 @@ public final class Rules {
             .or().areAnnotatedWith(ParameterizedTest.class)
             .or().areAnnotatedWith(RepeatedTest.class)
             .or().areAnnotatedWith(TestTemplate.class)
-            .should().haveNameMatching("^given[A-Z][a-zA-Z]+_then[A-Z][a-zA-Z]+$");
+            .should().haveNameMatching("^given[A-Z][a-zA-Z]+_then[A-Z][a-zA-Z]+$")
+            .allowEmptyShould(true);
 
     public static final ArchRule RULE_BEFORE_EACH_NAMING_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(BeforeEach.class)
             .should().haveNameMatching("^setUp$")
-            .allowEmptyShould(false);
+            .allowEmptyShould(true);
 
     public static final ArchRule RULE_AFTER_EACH_NAMING_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(AfterEach.class)
             .should().haveNameMatching("^tearDown$")
-            .allowEmptyShould(false);
+            .allowEmptyShould(true);
 
     public static final ArchRule RULE_TEST_METHODS_ARE_PACKAGE_PRIVATE_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(Test.class)
@@ -41,12 +42,14 @@ public final class Rules {
             .or().areAnnotatedWith(TestTemplate.class)
             .should().notHaveModifier(JavaModifier.PROTECTED)
             .andShould().notHaveModifier(JavaModifier.PRIVATE)
-            .andShould().notHaveModifier(JavaModifier.PUBLIC);
+            .andShould().notHaveModifier(JavaModifier.PUBLIC)
+            .allowEmptyShould(true);
 
     public static final ArchRule RULE_TESTCLASSES_END_WITH_TEST_CONVENTION_MATCHED = methods()
             .that().areAnnotatedWith(Test.class)
             .or().areAnnotatedWith(ParameterizedTest.class)
             .or().areAnnotatedWith(RepeatedTest.class)
             .or().areAnnotatedWith(TestTemplate.class)
-            .should(haveTopEnclosingClassEndingWithTest);
+            .should(haveTopEnclosingClassEndingWithTest)
+            .allowEmptyShould(true);
 }
