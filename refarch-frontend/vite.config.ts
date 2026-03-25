@@ -9,6 +9,8 @@ import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import VueRouter from "vue-router/vite";
 
+import { EncodeBracketsPlugin, extendRoute } from "./encode-brackets-plugin";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const isDevelopment = mode === "development";
@@ -19,6 +21,7 @@ export default defineConfig(({ mode }) => {
           src: "src/routes",
         },
         dts: "./route-map.d.ts",
+        ...(isDevelopment && { extendRoute }),
       }),
       vue({
         template: { transformAssetUrls },
@@ -45,6 +48,10 @@ export default defineConfig(({ mode }) => {
           "./src/locales/*.json"
         ),
       }),
+      {
+        ...EncodeBracketsPlugin(),
+        apply: "serve", // Ensures plugin is only applied during serve, see https://vite.dev/guide/using-plugins#conditional-application
+      },
     ],
     server: {
       host: true,

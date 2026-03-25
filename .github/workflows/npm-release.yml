@@ -36,15 +36,17 @@ jobs:
       ARTIFACT_VERSION: ${{ steps.npm_release.outputs.ARTIFACT_VERSION }}
     steps:
       - id: npm_release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
           app-path: ${{ inputs.app-path }}
+          node-version: "24"
           releaseVersion: ${{ inputs.release-version }}
-          use-pr: 'true'
+          use-pr: "true"
       - id: node
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
           app-path: ${{ inputs.app-path }}
+          node-version: "24"
       - if: ${{ !inputs.skip-deployment }}
         shell: bash
         working-directory: ./${{ inputs.app-path }}
@@ -58,7 +60,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
           path: ${{ inputs.app-path }}
           image-name: ${{ inputs.app-path }}
@@ -76,7 +78,7 @@ jobs:
       contents: write
     steps:
       - name: Create GitHub Release
-        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@e012d3bda6f9d5511415e2d885f32826049284a4 # v1.0.23
+        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@7cb754b2056cebda6c36db344434f85be398c493 # v1.0.25
         with:
           artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ needs.release.outputs.ARTIFACT_VERSION }}
