@@ -19,7 +19,7 @@ body:
       multiple: true
       description: Affected documentation parts
       options:
-        - refarch-frontend
+        - frontend
         - refarch-backend
         - refarch-eai
         - webcomponent

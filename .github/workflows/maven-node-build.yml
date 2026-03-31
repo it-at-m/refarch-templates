@@ -19,7 +19,7 @@ jobs:
       matrix:
         include: # hier müssen die Pfade angegeben werden
           - app-path: refarch-backend
-          - app-path: refarch-frontend
+          - app-path: frontend
           - app-path: refarch-eai
           - app-path: webcomponent
 

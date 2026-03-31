@@ -20,7 +20,7 @@
       - any-glob-to-any-file: ['refarch-eai/**']
 "Template: Frontend":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-frontend/**']
+      - any-glob-to-any-file: ['frontend/**']
 "Template: Webcomponent":
   - changed-files:
       - any-glob-to-any-file: ['webcomponent/**']
