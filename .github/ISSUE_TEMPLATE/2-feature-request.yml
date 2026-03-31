@@ -21,7 +21,7 @@ body:
       options:
         - frontend
         - refarch-backend
-        - refarch-eai
+        - eai
         - webcomponent
     validations:
       required: false

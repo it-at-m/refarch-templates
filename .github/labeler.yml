@@ -17,7 +17,7 @@
     - any-glob-to-any-file: ['refarch-backend/**']
 "Template: EAI":
   - changed-files:
-      - any-glob-to-any-file: ['refarch-eai/**']
+      - any-glob-to-any-file: ['eai/**']
 "Template: Frontend":
   - changed-files:
       - any-glob-to-any-file: ['frontend/**']

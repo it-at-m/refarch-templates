@@ -20,7 +20,7 @@ jobs:
         include: # hier müssen die Pfade angegeben werden
           - app-path: refarch-backend
           - app-path: frontend
-          - app-path: refarch-eai
+          - app-path: eai
           - app-path: webcomponent
 
     steps:
