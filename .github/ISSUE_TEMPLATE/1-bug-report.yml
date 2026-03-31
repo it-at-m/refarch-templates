@@ -59,7 +59,7 @@ body:
         - refarch-frontend
         - refarch-backend
         - refarch-eai
-        - refarch-webcomponent
+        - webcomponent
     validations:
       required: false
   - type: input
