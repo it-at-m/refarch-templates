@@ -20,7 +20,7 @@ body:
       description: Affected documentation parts
       options:
         - frontend
-        - refarch-backend
+        - backend
         - eai
         - webcomponent
         - Other

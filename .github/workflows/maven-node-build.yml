@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         include: # hier müssen die Pfade angegeben werden
-          - app-path: refarch-backend
+          - app-path: backend
           - app-path: frontend
           - app-path: eai
           - app-path: webcomponent

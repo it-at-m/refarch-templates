@@ -16,7 +16,7 @@ on:
         description: Service-Name
         required: true
         options:
-          - refarch-backend
+          - backend
           - eai
 
 jobs:

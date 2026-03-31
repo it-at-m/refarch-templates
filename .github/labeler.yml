@@ -14,7 +14,7 @@
   - head-branch: [ '^sec', '-security-' ]
 "Template: Backend":
   - changed-files:
-    - any-glob-to-any-file: ['refarch-backend/**']
+    - any-glob-to-any-file: ['backend/**']
 "Template: EAI":
   - changed-files:
       - any-glob-to-any-file: ['eai/**']
