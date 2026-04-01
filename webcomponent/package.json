@@ -10,11 +10,12 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
+    "build": "npm run-script api-gen && vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "node ./processes/post-build.js && cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
     "preview": "vite preview",
-    "lint": "prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
-    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
+    "lint": "npm run-script api-gen && prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
+    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto",
+    "api-gen": "openapi-generator-cli generate"
   },
   "dependencies": {
     "@muenchen/muc-patternlab-vue": "8.1.0",
@@ -25,6 +26,7 @@
     "@cyclonedx/cyclonedx-npm": "4.2.1",
     "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
+    "@openapitools/openapi-generator-cli": "2.29.0",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.11.2",
     "@vitejs/plugin-vue": "6.0.5",

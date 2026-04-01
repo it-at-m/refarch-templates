@@ -10,10 +10,11 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest run",
-    "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
+    "build": "npm run-script api-gen && vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
-    "lint": "prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
-    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
+    "lint": "npm run-script api-gen && prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
+    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto",
+    "api-gen": "openapi-generator-cli generate"
   },
   "dependencies": {
     "@fontsource/roboto": "5.2.10",
@@ -33,6 +34,7 @@
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@pinia/testing": "1.0.3",
+    "@openapitools/openapi-generator-cli": "2.29.0",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.11.2",
     "@vitejs/plugin-vue": "6.0.5",
