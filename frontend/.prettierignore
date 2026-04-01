@@ -1,3 +1,4 @@
 dist
 node_modules
 route-map.d.ts
+src/api/generated/*/
