@@ -32,7 +32,7 @@ jobs:
       TZ: Europe/Berlin # timezone
     steps:
       - id: maven-release-step
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@992204b33cb6a9766bbc8bc57ccd1460c4bf1aa9 # v1.0.26
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           app-path: ${{ github.event.inputs.app-path }}
           java-version: "21"
@@ -50,7 +50,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@992204b33cb6a9766bbc8bc57ccd1460c4bf1aa9 # v1.0.26
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           path: ${{ github.event.inputs.app-path }}
           image-name: ${{ github.event.inputs.app-path }}
@@ -68,7 +68,7 @@ jobs:
       contents: write
     steps:
       - name: Download a single artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@992204b33cb6a9766bbc8bc57ccd1460c4bf1aa9 # v1.0.26
+        uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
