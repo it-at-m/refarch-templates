@@ -28,6 +28,7 @@ jobs:
   codeql-check-changed-files:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: read
     outputs:
       java: ${{ steps.filter.outputs.java }}
@@ -40,6 +41,7 @@ jobs:
   codeql-java:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       security-events: write
     needs: codeql-check-changed-files
     strategy:
@@ -58,6 +60,7 @@ jobs:
   codeql-javascript-typescript-vue:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       security-events: write
     needs: codeql-check-changed-files
     steps:
@@ -69,6 +72,7 @@ jobs:
   codeql-python:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       security-events: write
     needs: codeql-check-changed-files
     steps:
