@@ -35,7 +35,8 @@ jobs:
       python: ${{ steps.filter.outputs.python }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - id: filter
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
   codeql-java:
     runs-on: ubuntu-latest
     permissions:
