@@ -1,4 +1,5 @@
-name: Build all
+# Workflow for building NPM/Maven projects and Docker images
+name: build
 
 on:
   pull_request:
@@ -13,11 +14,11 @@ jobs:
       contents: read
       packages: write
     env:
-      TZ: Europe/Berlin # timezone
+      TZ: Europe/Berlin
     strategy:
       fail-fast: false
       matrix:
-        include: # hier müssen die Pfade angegeben werden
+        include: # Add or modify paths according to your project structure
           - app-path: backend
           - app-path: frontend
           - app-path: eai
@@ -25,14 +26,14 @@ jobs:
 
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-      - if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path))!=null }}
-        id: node
+      - id: node # required for steps.* syntax
+        if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           app-path: ${{ matrix.app-path }}
           node-version: "24"
-      - if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path))!=null }}
-        id: maven
+      - id: maven # required for steps.* syntax
+        if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           app-path: ${{ matrix.app-path }}
