@@ -29,5 +29,11 @@ export default defineConfigWithVueTs(
       ],
     },
   },
-  globalIgnores(["dist", "target", "node_modules", "env.d.ts"])
+  globalIgnores([
+    "dist",
+    "target",
+    "node_modules",
+    "env.d.ts",
+    "src/api/generated/*/**",
+  ])
 );
