@@ -47,7 +47,7 @@ jobs:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.java == 'true') }}
+        if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -61,7 +61,7 @@ jobs:
     needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true') }}
+        if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -72,7 +72,7 @@ jobs:
     needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true') }}
+        if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}

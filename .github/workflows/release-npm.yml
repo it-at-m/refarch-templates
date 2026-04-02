@@ -65,11 +65,11 @@ jobs:
         with:
           path: ${{ inputs.app-path }}
           image-name: ${{ inputs.app-path }}
-          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           registry-username: ${{ github.actor }}
           image-tags: |
-            type=semver,pattern={{version}},value=${{ needs.release.outputs.ARTIFACT_VERSION }}
+            type=semver,pattern={{version}},value=${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
             type=raw,value=latest
 
   release-npm-github:
@@ -80,5 +80,5 @@ jobs:
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
-          artifact-name: ${{ needs.release.outputs.ARTIFACT_NAME }}
-          tag-name: ${{ inputs.app-path }}-${{ needs.release.outputs.ARTIFACT_VERSION }}
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}

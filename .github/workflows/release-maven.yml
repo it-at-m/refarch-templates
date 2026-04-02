@@ -56,7 +56,7 @@ jobs:
           path: ${{ github.event.inputs.app-path }}
           image-name: ${{ github.event.inputs.app-path }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
-          artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+          artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           registry-username: ${{ github.actor }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
@@ -70,6 +70,6 @@ jobs:
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
-          artifact-name: ${{ needs.release-maven.outputs.ARTIFACT_NAME }}
+          artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
