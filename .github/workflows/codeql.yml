@@ -1,5 +1,5 @@
 # Workflow for advanced CodeQL setup used for scanning Java/JavaScript/TypeScript/Vue/Python based source files
-name: CodeQL Advanced
+name: codeql
 env:
   # Whether to analyze Java code or not (only set to true if repo has Java source code)
   analyze-java: true
@@ -15,22 +15,17 @@ env:
   analysis-query: security-and-quality
 
 on:
-  # Runs on pull requests and on pushes to main (in order to keep the regular scanning by GitHub working)
   pull_request:
   push:
-    branches: [main]
-
-permissions:
-  pull-requests: read
-  security-events: write
+    branches:
+      - "main" # Runs on main in order to keep the regular scanning by GitHub working
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  check-changes:
-    name: Check changed files and directories
+  codeql-check-changed-files:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: read
@@ -39,15 +34,13 @@ jobs:
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
       python: ${{ steps.filter.outputs.python }}
     steps:
-      - name: Checkout repository
-        uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-      - name: Path Filter
-        id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
   codeql-java:
-    name: Analyze Java source files
     runs-on: ubuntu-latest
-    needs: check-changes
+    permissions:
+      security-events: write
+    needs: codeql-check-changed-files
     strategy:
       fail-fast: false
       matrix:
@@ -62,9 +55,10 @@ jobs:
           java-version: ${{ env.java-version }}
           path: ${{ matrix.build-path }}
   codeql-javascript-typescript-vue:
-    name: Analyze JavaScript/TypeScript/Vue source files
     runs-on: ubuntu-latest
-    needs: check-changes
+    permissions:
+      security-events: write
+    needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.javascript-typescript-vue == 'true') }}
@@ -72,9 +66,10 @@ jobs:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
   codeql-python:
-    name: Analyze Python source files
     runs-on: ubuntu-latest
-    needs: check-changes
+    permissions:
+      security-events: write
+    needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.check-changes.outputs.python == 'true') }}
