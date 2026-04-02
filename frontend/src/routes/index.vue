@@ -19,7 +19,7 @@
         </p>
         <p>
           {{ t("views.index.backendStatus") }}
-          <span :class="backendStatus">{{ apiGwStatus }}</span>
+          <span :class="backendStatus">{{ backendStatus }}</span>
         </p>
       </v-col>
     </v-row>
