@@ -30,12 +30,12 @@
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/health-client";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import HealthState from "@/types/HealthState";
-import { ApiFactory } from "@/util/apiFactory";
 
 const { t } = useI18n();
 

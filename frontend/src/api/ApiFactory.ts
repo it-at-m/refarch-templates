@@ -2,16 +2,41 @@ import type { HTTPHeaders } from "@/api/generated/refarch-backend";
 
 import { getHeaders } from "@/api/fetch-utils.ts";
 import { BaseAPI, Configuration } from "@/api/generated/refarch-backend";
+import { BASE_PATH } from "@/constants.ts";
 
 type ApiCtor<T extends BaseAPI> = new (config: Configuration) => T;
 
 const instances = new Map<ApiCtor<BaseAPI>, BaseAPI>();
 
+async function customFetch(url: string, init?: RequestInit) {
+  const customInit: RequestInit = {
+    ...init,
+    mode: "cors",
+    credentials: "same-origin",
+    redirect: "manual",
+  };
+
+  return fetch(url, customInit);
+}
+
 function createConfig(): Configuration {
   return new Configuration({
-    basePath: "/api/backend",
-    credentials: "same-origin",
-    headers: convertHeaders(getHeaders()),
+    basePath: BASE_PATH,
+    fetchApi: customFetch,
+    middleware: [
+      {
+        pre: async (context) => {
+          const freshHeaders = convertHeaders(getHeaders());
+          return {
+            url: context.url,
+            init: {
+              ...context.init,
+              headers: { ...context.init.headers, ...freshHeaders },
+            },
+          };
+        },
+      },
+    ],
   });
 }
 
