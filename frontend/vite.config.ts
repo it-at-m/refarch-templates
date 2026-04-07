@@ -39,8 +39,8 @@ export default defineConfig(({ mode }) => {
               weights: [100, 300, 400, 500, 700, 900],
               subset: "latin",
               fallback: {
-                category: "sans-serif"
-              }
+                category: "sans-serif",
+              },
             },
           ],
         },
