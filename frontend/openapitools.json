@@ -4,13 +4,16 @@
   "generator-cli": {
     "version": "7.19.0",
     "generators": {
-      "raumreservierung-backend": {
+      "backend": {
         "generatorName": "typescript-fetch",
         "glob": "../backend/src/api-spec/*.yaml",
         "output": "#{cwd}/src/api/generated/#{name}",
         "additionalProperties": {
           "supportsES6": true,
-          "enumPropertyNaming": "UPPERCASE"
+          "enumPropertyNaming": "UPPERCASE",
+          "disallowAdditionalPropertiesIfNotPresent": false,
+          "useSingleRequestParameter": false,
+          "validationAttributes": true
         }
       }
     }
