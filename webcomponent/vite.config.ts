@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       manifest: true, // required for post build logic in 'processes' folder
-      rollupOptions: {
+      rolldownOptions: {
         input: {
           "refarch-hello-world-webcomponent":
             "./src/refarch-hello-world-webcomponent.ts",
