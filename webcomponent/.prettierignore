@@ -1,4 +1,4 @@
 dist
 node_modules
 processes/post-build.js
-src/api/generated/*/
+src/api/generated/*/**
