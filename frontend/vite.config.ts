@@ -31,12 +31,16 @@ export default defineConfig(({ mode }) => {
       }),
       vuetify(),
       UnpluginFonts({
+        inlineFontFace: true,
         fontsource: {
           families: [
             {
               name: "Roboto",
               weights: [100, 300, 400, 500, 700, 900],
               subset: "latin",
+              fallback: {
+                category: "sans-serif",
+              },
             },
           ],
         },
