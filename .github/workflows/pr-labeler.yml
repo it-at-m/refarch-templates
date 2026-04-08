@@ -1,4 +1,5 @@
-name: Label PRs
+# Workflow to assign appropriate labels to PRs
+name: pr-labeler
 on:
   - pull_request_target
 

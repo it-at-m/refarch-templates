@@ -1,4 +1,5 @@
-name: Deploy documentation website
+# Workflow to build docs and deploy docs folder to GitHub pages
+name: deploy-docs
 
 on:
   # Runs on pushes to any branch when changes are made to docs or workflow
@@ -21,10 +22,8 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - id: build_docs
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           node-version: "24"
-      - id: deploy_docs
-        # Only deploy documentation from the main branch to prevent unauthorized changes
-        uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      # Only deploy documentation from the main branch to prevent unauthorized changes
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27

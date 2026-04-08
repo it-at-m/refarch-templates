@@ -1,12 +1,11 @@
-name: Docker Compose Healthcheck
+# Workflow to check health of dockercompose based development stacks
+name: dockercompose-healthcheck
 
 on:
-  # Runs on pull requests
   pull_request:
 
 jobs:
-  docker-compose-healthcheck:
-    name: Run docker compose healthcheck
+  dockercompose-healthcheck:
     runs-on: ubuntu-latest
     permissions:
       contents: read
