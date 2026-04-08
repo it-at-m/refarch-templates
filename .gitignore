@@ -193,5 +193,4 @@ nbdist/
 /stack/pgadmin/data/*
 !/stack/keycloak/plugins/*.jar
 !/stack/pgadmin/data/info.txt
-/frontend/src/api/generated/
-/webcomponent/src/api/generated/
+**/src/api/generated/**
