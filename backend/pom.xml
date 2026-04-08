@@ -352,7 +352,7 @@
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
                 <version>${springdoc-openapi-maven-plugin.version}</version>
                 <configuration>
-                    <apiDocsUrl>http://localhost:39146/v3/api-docs</apiDocsUrl>
+                    <apiDocsUrl>http://localhost:39146/v3/api-docs.yaml</apiDocsUrl>
                     <outputFileName>${project.name}.yaml</outputFileName>
                     <outputDir>${project.basedir}/src/api-spec</outputDir>
                     <failOnError>true</failOnError>

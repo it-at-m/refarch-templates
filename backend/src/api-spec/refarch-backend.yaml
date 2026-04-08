@@ -1,1 +1,343 @@
-{"openapi":"3.0.1","info":{"title":"refarch-backend","description":"This is the default starting project for a backend project based on the reference architecture of it@M","version":"0.0.1-SNAPSHOT"},"servers":[{"url":"http://localhost:39146","description":"Generated server url"}],"security":[{"bearerAuth":[]}],"tags":[{"name":"Actuator","description":"Monitor and interact","externalDocs":{"description":"Spring Boot Actuator Web API Documentation","url":"https://docs.spring.io/spring-boot/docs/current/actuator-api/html/"}}],"paths":{"/theEntity/{theEntityId}":{"get":{"tags":["the-entity-controller"],"summary":"Retrieve an entity by its UUID.","description":"Retrieve an entity by its UUID.\n Fetches the entity details using the provided UUID.","operationId":"getTheEntity","parameters":[{"name":"theEntityId","in":"path","description":"the UUID of the requested entity","required":true,"schema":{"type":"string","format":"uuid"}}],"responses":{"200":{"description":"the entity with the given UID as a DTO","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TheEntityResponseDTO"}}}}}},"put":{"tags":["the-entity-controller"],"summary":"Update an existing entity.","description":"Update an existing entity.\n Updates the details of an existing entity using the provided UUID and entity details.","operationId":"updateTheEntity","parameters":[{"name":"theEntityId","in":"path","description":"the UUID of the entity to update","required":true,"schema":{"type":"string","format":"uuid"}}],"requestBody":{"description":"the new details of the entity","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TheEntityRequestDTO"}}},"required":true},"responses":{"200":{"description":"the updated entity as a DTO","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TheEntityResponseDTO"}}}}}},"delete":{"tags":["the-entity-controller"],"summary":"Delete an entity.","description":"Delete an entity.\n Deletes the entity using the provided UUID.","operationId":"deleteTheEntity","parameters":[{"name":"theEntityId","in":"path","description":"the UUID of the entity to delete","required":true,"schema":{"type":"string","format":"uuid"}}],"responses":{"200":{"description":"OK"}}}},"/theEntity":{"get":{"tags":["the-entity-controller"],"summary":"Retrieve entities with pagination.","description":"Retrieve entities with pagination.\n Fetches a paginated list of entities based on the provided page number and size.","operationId":"getTheEntitiesByPageAndSize","parameters":[{"name":"pageNumber","in":"query","description":"the number of the requested page (default: 0)","required":false,"schema":{"type":"integer","format":"int32","default":0}},{"name":"pageSize","in":"query","description":"the size of the page to retrieve (default: 10)","required":false,"schema":{"type":"integer","format":"int32","default":10}}],"responses":{"200":{"description":"a page of entities represented as DTOs","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PagedModelTheEntityResponseDTO"}}}}}},"post":{"tags":["the-entity-controller"],"summary":"Create a new entity.","description":"Create a new entity.\n Creates a new entity using the provided entity details.","operationId":"saveTheEntity","requestBody":{"description":"the details of the entity to create","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TheEntityRequestDTO"}}},"required":true},"responses":{"201":{"description":"the created entity as a DTO","content":{"*/*":{"schema":{"$ref":"#/components/schemas/TheEntityResponseDTO"}}}}}}},"/actuator":{"get":{"tags":["Actuator"],"summary":"Actuator root web endpoint","operationId":"links","responses":{"200":{"description":"OK","content":{"application/vnd.spring-boot.actuator.v3+json":{"schema":{"type":"object","additionalProperties":{"type":"object","additionalProperties":{"$ref":"#/components/schemas/Link"}}}},"application/vnd.spring-boot.actuator.v2+json":{"schema":{"type":"object","additionalProperties":{"type":"object","additionalProperties":{"$ref":"#/components/schemas/Link"}}}},"application/json":{"schema":{"type":"object","additionalProperties":{"type":"object","additionalProperties":{"$ref":"#/components/schemas/Link"}}}}}}}}},"/actuator/sbom":{"get":{"tags":["Actuator"],"summary":"Actuator web endpoint 'sbom'","operationId":"sboms","responses":{"200":{"description":"OK","content":{"application/vnd.spring-boot.actuator.v3+json":{"schema":{"type":"object"}},"application/vnd.spring-boot.actuator.v2+json":{"schema":{"type":"object"}},"application/json":{"schema":{"type":"object"}}}}}}},"/actuator/sbom/{id}":{"get":{"tags":["Actuator"],"summary":"Actuator web endpoint 'sbom-id'","operationId":"sbom","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/octet-stream":{"schema":{"type":"object"}}}},"404":{"description":"Not Found"}}}},"/actuator/metrics":{"get":{"tags":["Actuator"],"summary":"Actuator web endpoint 'prometheus'","operationId":"scrape","parameters":[{"name":"format","in":"query","schema":{"type":"string","enum":["CONTENT_TYPE_004","CONTENT_TYPE_OPENMETRICS_100","CONTENT_TYPE_PROTOBUF"]}},{"name":"includedNames","in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"text/plain;version=0.0.4;charset=utf-8":{"schema":{"type":"object"}},"application/openmetrics-text;version=1.0.0;charset=utf-8":{"schema":{"type":"object"}},"application/vnd.google.protobuf;proto=io.prometheus.client.MetricFamily;encoding=delimited":{"schema":{"type":"object"}}}}}}},"/actuator/info":{"get":{"tags":["Actuator"],"summary":"Actuator web endpoint 'info'","operationId":"info","responses":{"200":{"description":"OK","content":{"application/vnd.spring-boot.actuator.v3+json":{"schema":{"type":"object"}},"application/vnd.spring-boot.actuator.v2+json":{"schema":{"type":"object"}},"application/json":{"schema":{"type":"object"}}}}}}},"/actuator/health":{"get":{"tags":["Actuator"],"summary":"Actuator web endpoint 'health'","operationId":"health","responses":{"200":{"description":"OK","content":{"application/vnd.spring-boot.actuator.v3+json":{"schema":{"type":"object"}},"application/vnd.spring-boot.actuator.v2+json":{"schema":{"type":"object"}},"application/json":{"schema":{"type":"object"}}}}}}}},"components":{"schemas":{"TheEntityRequestDTO":{"required":["textAttribute"],"type":"object","properties":{"textAttribute":{"maxLength":8,"minLength":2,"type":"string"}}},"TheEntityResponseDTO":{"type":"object","properties":{"id":{"type":"string","format":"uuid"},"textAttribute":{"type":"string"}}},"PageMetadata":{"type":"object","properties":{"size":{"type":"integer","format":"int64"},"number":{"type":"integer","format":"int64"},"totalElements":{"type":"integer","format":"int64"},"totalPages":{"type":"integer","format":"int64"}}},"PagedModelTheEntityResponseDTO":{"type":"object","properties":{"content":{"type":"array","items":{"$ref":"#/components/schemas/TheEntityResponseDTO"}},"page":{"$ref":"#/components/schemas/PageMetadata"}}},"Link":{"type":"object","properties":{"href":{"type":"string"},"templated":{"type":"boolean"}}}},"securitySchemes":{"bearerAuth":{"type":"http","name":"bearerAuth","scheme":"bearer","bearerFormat":"JWT"}}}}
+openapi: 3.0.1
+info:
+  title: refarch-backend
+  description: This is the default starting project for a backend project based on
+    the reference architecture of it@M
+  version: 0.0.1-SNAPSHOT
+servers:
+- url: http://localhost:39146
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Actuator
+  description: Monitor and interact
+  externalDocs:
+    description: Spring Boot Actuator Web API Documentation
+    url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
+paths:
+  /theEntity/{theEntityId}:
+    get:
+      tags:
+      - the-entity-controller
+      summary: Retrieve an entity by its UUID.
+      description: |-
+        Retrieve an entity by its UUID.
+         Fetches the entity details using the provided UUID.
+      operationId: getTheEntity
+      parameters:
+      - name: theEntityId
+        in: path
+        description: the UUID of the requested entity
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: the entity with the given UID as a DTO
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TheEntityResponseDTO"
+    put:
+      tags:
+      - the-entity-controller
+      summary: Update an existing entity.
+      description: |-
+        Update an existing entity.
+         Updates the details of an existing entity using the provided UUID and entity details.
+      operationId: updateTheEntity
+      parameters:
+      - name: theEntityId
+        in: path
+        description: the UUID of the entity to update
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        description: the new details of the entity
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TheEntityRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: the updated entity as a DTO
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TheEntityResponseDTO"
+    delete:
+      tags:
+      - the-entity-controller
+      summary: Delete an entity.
+      description: |-
+        Delete an entity.
+         Deletes the entity using the provided UUID.
+      operationId: deleteTheEntity
+      parameters:
+      - name: theEntityId
+        in: path
+        description: the UUID of the entity to delete
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+  /theEntity:
+    get:
+      tags:
+      - the-entity-controller
+      summary: Retrieve entities with pagination.
+      description: |-
+        Retrieve entities with pagination.
+         Fetches a paginated list of entities based on the provided page number and size.
+      operationId: getTheEntitiesByPageAndSize
+      parameters:
+      - name: pageNumber
+        in: query
+        description: "the number of the requested page (default: 0)"
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: "the size of the page to retrieve (default: 10)"
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: a page of entities represented as DTOs
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModelTheEntityResponseDTO"
+    post:
+      tags:
+      - the-entity-controller
+      summary: Create a new entity.
+      description: |-
+        Create a new entity.
+         Creates a new entity using the provided entity details.
+      operationId: saveTheEntity
+      requestBody:
+        description: the details of the entity to create
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TheEntityRequestDTO"
+        required: true
+      responses:
+        "201":
+          description: the created entity as a DTO
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TheEntityResponseDTO"
+  /actuator:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator root web endpoint
+      operationId: links
+      responses:
+        "200":
+          description: OK
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+  /actuator/sbom:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'sbom'
+      operationId: sboms
+      responses:
+        "200":
+          description: OK
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+  /actuator/sbom/{id}:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'sbom-id'
+      operationId: sbom
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: object
+        "404":
+          description: Not Found
+  /actuator/metrics:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'prometheus'
+      operationId: scrape
+      parameters:
+      - name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - CONTENT_TYPE_004
+          - CONTENT_TYPE_OPENMETRICS_100
+          - CONTENT_TYPE_PROTOBUF
+      - name: includedNames
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            text/plain;version=0.0.4;charset=utf-8:
+              schema:
+                type: object
+            application/openmetrics-text;version=1.0.0;charset=utf-8:
+              schema:
+                type: object
+            application/vnd.google.protobuf;proto=io.prometheus.client.MetricFamily;encoding=delimited:
+              schema:
+                type: object
+  /actuator/info:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'info'
+      operationId: info
+      responses:
+        "200":
+          description: OK
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+  /actuator/health:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'health'
+      operationId: health
+      responses:
+        "200":
+          description: OK
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    TheEntityRequestDTO:
+      required:
+      - textAttribute
+      type: object
+      properties:
+        textAttribute:
+          maxLength: 8
+          minLength: 2
+          type: string
+    TheEntityResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        textAttribute:
+          type: string
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    PagedModelTheEntityResponseDTO:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/TheEntityResponseDTO"
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        templated:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      name: bearerAuth
+      scheme: bearer
+      bearerFormat: JWT
