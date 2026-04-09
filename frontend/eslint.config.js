@@ -12,7 +12,7 @@ import { globalIgnores } from "eslint/config";
 export default defineConfigWithVueTs(
   ESLint.defaultConfig,
   jsEslintConfig.configs.recommended,
-  vueEslintConfig.configs["flat/recommended"],
+  vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
   vueI18nEslintConfig.configs.recommended,
