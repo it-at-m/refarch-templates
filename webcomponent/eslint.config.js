@@ -11,7 +11,7 @@ import { globalIgnores } from "eslint/config";
 export default defineConfigWithVueTs(
   ESLint.defaultConfig,
   jsEslintConfig.configs.recommended,
-  vueEslintConfig.configs["flat/essential"],
+  vueEslintConfig.configs["flat/recommended"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
   vuePrettierEslintConfigSkipFormatting,
