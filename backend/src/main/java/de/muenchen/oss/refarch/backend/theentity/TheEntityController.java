@@ -3,6 +3,7 @@ package de.muenchen.oss.refarch.backend.theentity;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityMapper;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/theEntity")
+@SecurityRequirement(name = "bearerAuth")
 public class TheEntityController {
 
     private final TheEntityService theEntityService;

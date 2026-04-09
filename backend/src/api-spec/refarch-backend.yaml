@@ -7,8 +7,6 @@ info:
 servers:
 - url: http://localhost:39146
   description: Generated server url
-security:
-- bearerAuth: []
 tags:
 - name: Actuator
   description: Monitor and interact
@@ -40,6 +38,8 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
+      security:
+      - bearerAuth: []
     put:
       tags:
       - the-entity-controller
@@ -70,6 +70,8 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
+      security:
+      - bearerAuth: []
     delete:
       tags:
       - the-entity-controller
@@ -89,6 +91,8 @@ paths:
       responses:
         "200":
           description: OK
+      security:
+      - bearerAuth: []
   /theEntity:
     get:
       tags:
@@ -122,6 +126,8 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PagedModelTheEntityResponseDTO"
+      security:
+      - bearerAuth: []
     post:
       tags:
       - the-entity-controller
@@ -144,6 +150,8 @@ paths:
             '*/*':
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
+      security:
+      - bearerAuth: []
   /actuator:
     get:
       tags:
