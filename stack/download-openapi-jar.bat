@@ -6,4 +6,3 @@ cd /d "%~dp0"
 
 REM execute the shell script inside the GitBash
 bash download-openapi-jar.sh
-
