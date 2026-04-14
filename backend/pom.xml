@@ -88,7 +88,6 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -98,6 +97,23 @@
                 <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
+            <dependency> <!-- Added to fix CVE-2025-48924-->
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.20.0</version>
+            </dependency>
+            <dependency> <!-- Added to fix CVE-2026-29062-->
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.21.2</version>
+            </dependency>
+            <dependency> <!-- Added to fix CVE-2026-34483, CVE-2026-34486, CVE-2026-34487 -->
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>10.1.54</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -258,18 +274,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
-        </dependency>
-
-        <!-- Dependencies for CVE fixes -->
-        <dependency> <!-- Added to fix CVE-2025-48924-->
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.20.0</version>
-        </dependency>
-        <dependency> <!-- Added to fix CVE-2026-29062-->
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.21.2</version>
         </dependency>
 
         <!-- Configuration Processor -->

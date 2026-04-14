@@ -6,8 +6,8 @@
         class="d-flex align-center justify-start"
       >
         <v-app-bar-nav-icon
-          @click="emit('clickedNavIcon')"
           class="mx-2"
+          @click="emit('clickedNavIcon')"
         />
         <router-link to="/">
           <v-toolbar-title class="font-weight-bold">
