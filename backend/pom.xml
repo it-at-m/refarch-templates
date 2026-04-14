@@ -61,9 +61,6 @@
         <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
 
         <!-- Utility -->
-        <commons-collections4.version>4.5.0</commons-collections4.version>
-        <commons-io.version>2.21.0</commons-io.version>
-        <commons-text.version>1.15.0</commons-text.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <refarch-tools.version>1.2.2</refarch-tools.version>
 
@@ -244,23 +241,6 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-        </dependency>
-
-        <!-- Apache Commons -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>${commons-collections4.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-            <version>${commons-text.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
         </dependency>
 
         <!-- Configuration Processor -->

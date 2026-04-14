@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.map.CaseInsensitiveMap;
+import org.springframework.util.LinkedCaseInsensitiveMap;
 
 /**
  * Utility class for NFC normalization
@@ -141,7 +141,7 @@ public class NfcHelper {
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
     public static Map<String, List<String>> nfcConverterForHeadersFromOriginalRequest(final HttpServletRequest originalRequest) {
-        final Map<String, List<String>> converted = new CaseInsensitiveMap<>();
+        final Map<String, List<String>> converted = new LinkedCaseInsensitiveMap<>();
         Collections.list(originalRequest.getHeaderNames()).forEach(nfdHeaderName -> {
             final String nfcHeaderName = nfcConverter(nfdHeaderName);
             final List<String> nfcHeaderEntries = Collections.list(originalRequest.getHeaders(nfdHeaderName)).stream()

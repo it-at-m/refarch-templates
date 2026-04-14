@@ -18,8 +18,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.IteratorUtils;
-import org.apache.commons.io.IOUtils;
 
 /**
  * Wrapper for HttpServletRequest that performs NFC conversion.
@@ -65,13 +63,13 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     public Enumeration<String> getHeaders(final String name) {
         convert();
         final List<String> values = this.headers.get(NfcHelper.nfcConverter(name));
-        return (values == null) ? Collections.emptyEnumeration() : IteratorUtils.asEnumeration(values.iterator());
+        return (values == null) ? Collections.emptyEnumeration() : Collections.enumeration(values);
     }
 
     @Override
     public Enumeration<String> getHeaderNames() {
         convert();
-        return IteratorUtils.asEnumeration(this.headers.keySet().iterator());
+        return Collections.enumeration(this.headers.keySet());
     }
 
     @Override
@@ -148,7 +146,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     @Override
     public Enumeration<String> getParameterNames() {
         convert();
-        return IteratorUtils.asEnumeration(this.params.keySet().iterator());
+        return Collections.enumeration(this.params.keySet());
     }
 
     @Override
@@ -187,7 +185,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
 
         final String content;
         try (InputStream is = getOriginalRequest().getInputStream()) {
-            content = new String(IOUtils.toByteArray(is), encoding);
+            content = new String(is.readAllBytes(), encoding);
         }
 
         log.debug("Converting InputStream data to NFC.");

@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
@@ -23,9 +24,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections4.list.UnmodifiableList;
-import org.apache.commons.collections4.map.UnmodifiableMap;
-import org.apache.commons.io.IOUtils;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -34,6 +33,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.util.StreamUtils;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -82,10 +82,12 @@ class NfcConverterTest {
         assertEquals(VALUE_NFC, reqCaptor.getValue().getParameter(NAME_NFC));
         assertEquals(VALUE_NFC, reqCaptor.getValue().getHeader(NAME_NFC));
         assertEquals(VALUE_NFC, reqCaptor.getValue().getCookies()[0].getValue());
-        assertEquals(VALUE_NFC, IOUtils.toString(reqCaptor.getValue().getReader()));
+        final StringWriter writer = new StringWriter();
+        reqCaptor.getValue().getReader().transferTo(writer);
+        assertEquals(VALUE_NFC, writer.toString());
 
         // Check that multipart requests are not touched.
-        assertArrayEquals(VALUE_NFD.getBytes(UTF8), IOUtils.toByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
+        assertArrayEquals(VALUE_NFD.getBytes(UTF8), StreamUtils.copyToByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
     }
 
     // Test that Request not configured ContentType remains unchanged, i.e. is not normalized to NFC.
@@ -102,10 +104,10 @@ class NfcConverterTest {
         assertEquals(VALUE_NFD, reqCaptor.getValue().getParameter(NAME_NFD));
         assertEquals(VALUE_NFD, reqCaptor.getValue().getHeader(NAME_NFD));
         assertEquals(VALUE_NFD, reqCaptor.getValue().getCookies()[0].getValue());
-        assertEquals(VALUE_NFD, IOUtils.toString(reqCaptor.getValue().getReader()));
+        assertEquals(VALUE_NFD, reqCaptor.getValue().getReader().lines().collect(Collectors.joining("\n")));
 
         // Check that multipart requests are not touched.
-        assertArrayEquals(VALUE_NFD.getBytes(UTF8), IOUtils.toByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
+        assertArrayEquals(VALUE_NFD.getBytes(UTF8), StreamUtils.copyToByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
     }
 
     private void mockRequest(final String contentType) throws IOException, ServletException {
@@ -114,17 +116,17 @@ class NfcConverterTest {
 
         final Map<String, String[]> baseMapParams = new HashMap<>();
         baseMapParams.put(NAME_NFD, new String[] { VALUE_NFD, VALUE2_NFD });
-        final Map<String, String[]> params = UnmodifiableMap.unmodifiableMap(baseMapParams);
+        final Map<String, String[]> params = Map.copyOf(baseMapParams);
         Mockito.when(req.getParameter(NAME_NFD)).thenReturn(params.get(NAME_NFD)[0]);
         Mockito.when(req.getParameterMap()).thenReturn(params);
         final Map<String, String> baseMapHeaders = new HashMap<>();
         baseMapHeaders.put(NAME_NFD, VALUE_NFD);
-        final Map<String, String> headers = UnmodifiableMap.unmodifiableMap(baseMapHeaders);
+        final Map<String, String> headers = Map.copyOf(baseMapHeaders);
         Mockito.when(req.getHeaderNames()).thenReturn(Collections.enumeration(headers.keySet()));
         Mockito.when(req.getHeader(NAME_NFD)).thenReturn(headers.get(NAME_NFD));
         final List<String> baseListvalues = new ArrayList<>();
         baseListvalues.add(VALUE_NFD);
-        final List<String> values = new UnmodifiableList<>(baseListvalues);
+        final List<String> values = List.copyOf(baseListvalues);
         Mockito.when(req.getHeaders(NAME_NFD)).thenReturn(Collections.enumeration(values));
         Mockito.when(req.getCookies()).thenReturn(mockCookies());
 
@@ -147,7 +149,7 @@ class NfcConverterTest {
         Mockito.when(part.getInputStream()).thenReturn(new ByteArrayInputStream(VALUE_NFD.getBytes(UTF8)));
         final List<Part> baseListParts = new ArrayList<>();
         baseListParts.add(part);
-        return new UnmodifiableList<>(baseListParts);
+        return List.copyOf(baseListParts);
     }
 
 }
