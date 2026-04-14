@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -104,7 +103,9 @@ class NfcConverterTest {
         assertEquals(VALUE_NFD, reqCaptor.getValue().getParameter(NAME_NFD));
         assertEquals(VALUE_NFD, reqCaptor.getValue().getHeader(NAME_NFD));
         assertEquals(VALUE_NFD, reqCaptor.getValue().getCookies()[0].getValue());
-        assertEquals(VALUE_NFD, reqCaptor.getValue().getReader().lines().collect(Collectors.joining("\n")));
+        final StringWriter writer = new StringWriter();
+        reqCaptor.getValue().getReader().transferTo(writer);
+        assertEquals(VALUE_NFD, writer.toString());
 
         // Check that multipart requests are not touched.
         assertArrayEquals(VALUE_NFD.getBytes(UTF8), StreamUtils.copyToByteArray(reqCaptor.getValue().getPart(NAME_NFD).getInputStream()));
