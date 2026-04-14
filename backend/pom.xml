@@ -44,9 +44,6 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
-        <!-- Core Frameworks -->
-        <spring-cloud-dependencies.version>2025.0.2</spring-cloud-dependencies.version> <!-- Must match the chosen Spring Boot version -->
-
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
@@ -90,15 +87,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Cloud -->
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
             <dependency> <!-- Added to fix CVE-2025-48924-->
                 <groupId>org.apache.commons</groupId>
@@ -120,7 +108,6 @@
 
 
     <dependencies>
-
         <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
