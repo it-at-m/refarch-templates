@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.AccessLevel;
@@ -141,7 +142,7 @@ public class NfcHelper {
      * @see Normalizer#normalize(CharSequence, Normalizer.Form)
      */
     public static Map<String, List<String>> nfcConverterForHeadersFromOriginalRequest(final HttpServletRequest originalRequest) {
-        final Map<String, List<String>> converted = new LinkedCaseInsensitiveMap<>();
+        final Map<String, List<String>> converted = new LinkedCaseInsensitiveMap<>(Locale.ROOT);
         Collections.list(originalRequest.getHeaderNames()).forEach(nfdHeaderName -> {
             final String nfcHeaderName = nfcConverter(nfdHeaderName);
             final List<String> nfcHeaderEntries = Collections.list(originalRequest.getHeaders(nfdHeaderName)).stream()
