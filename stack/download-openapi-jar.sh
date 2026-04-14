@@ -68,11 +68,11 @@ for PROJECT_DIR in "../frontend" "../webcomponent"; do
   mkdir -p "$DIR"
 
   if [ -f "$DIR/$LOCAL_JAR" ]; then
-    echo " => JAR already exists: $DIR/$LOCAL_JAR, skipping download."
+    echo " => .jar file already exists: $DIR/$LOCAL_JAR, skipping download."
     continue
   fi
 
-  echo " => Downloading JAR:"
+  echo " => Downloading .jar file:"
   echo "    URL:        $URL"
   echo "    Target-file: $DIR/$LOCAL_JAR"
 
