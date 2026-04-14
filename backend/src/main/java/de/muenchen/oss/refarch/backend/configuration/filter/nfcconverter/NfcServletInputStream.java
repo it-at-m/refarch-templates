@@ -3,7 +3,6 @@ package de.muenchen.oss.refarch.backend.configuration.filter.nfcconverter;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import java.io.ByteArrayInputStream;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * ServletInputStream, which reads from a buffer.
@@ -34,7 +33,7 @@ public class NfcServletInputStream extends ServletInputStream {
 
     @Override
     public void setReadListener(final ReadListener listener) {
-        throw new NotImplementedException("Not implemented");
+        throw new IllegalStateException("Not implemented");
     }
 
 }
