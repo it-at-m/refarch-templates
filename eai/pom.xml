@@ -64,7 +64,7 @@
         <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
 
         <!-- Utility -->
-        <refarch.version>1.2.2</refarch.version>
+        <refarch-tools.version>1.2.2</refarch-tools.version>
 
         <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
         <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
@@ -333,7 +333,7 @@
                     <dependency>
                         <groupId>de.muenchen.oss.refarch</groupId>
                         <artifactId>refarch-pmd</artifactId>
-                        <version>${refarch.version}</version>
+                        <version>${refarch-tools.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
