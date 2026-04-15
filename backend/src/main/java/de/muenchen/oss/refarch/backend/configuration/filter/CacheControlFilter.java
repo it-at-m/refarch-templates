@@ -5,10 +5,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
@@ -38,7 +38,7 @@ public class CacheControlFilter extends OncePerRequestFilter {
             final FilterChain filterChain) throws ServletException, IOException {
 
         final String cacheControlHeaderValue = response.getHeader(HttpHeaders.CACHE_CONTROL);
-        if (StringUtils.isBlank(cacheControlHeaderValue)) {
+        if (!StringUtils.hasText(cacheControlHeaderValue)) {
             response.addHeader(HttpHeaders.CACHE_CONTROL, CACHE_CONTROL_HEADER_VALUES);
         }
 
