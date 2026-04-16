@@ -12,6 +12,3 @@ logging:
 camel:
   main:
     tracing: false
-
-# Custom properties
-output : mock:output
