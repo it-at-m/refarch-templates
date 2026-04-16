@@ -44,12 +44,12 @@
           :icon="mdiApps"
         />
         <v-btn
-          v-if="userStore.getUser !== null"
+          v-if="userStore.getUserInfo !== null"
           class="mx-2"
           variant="text"
           icon
         >
-          <ad2-image-avatar :username="userStore.getUser.username" />
+          <ad2-image-avatar :username="userStore.getUserInfo.username" />
         </v-btn>
       </v-col>
     </v-row>
@@ -64,10 +64,10 @@ import { useI18n } from "vue-i18n";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import { APPSWITCHER_URL } from "@/constants";
-import { useSnackbarStore } from "@/stores/snackbar.ts";
-import { useUserStore } from "@/stores/user.ts";
+import { useSnackbarStore } from "@/stores/snackbar";
+import { useUserInfoStore } from "@/stores/userinfo";
 
-const userStore = useUserStore();
+const userStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
 const { t } = useI18n();
 

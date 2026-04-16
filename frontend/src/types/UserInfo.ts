@@ -1,4 +1,4 @@
-export interface User {
+export interface UserInfo {
   sub: string;
 
   // LHM
@@ -18,7 +18,7 @@ export interface User {
   authorities: string[];
 }
 
-export const USER_LOCAL_DEVELOPMENT: User = {
+export const USERINFO_LOCAL_DEVELOPMENT: UserInfo = {
   sub: "",
 
   // LHM
@@ -42,7 +42,7 @@ export const USER_LOCAL_DEVELOPMENT: User = {
   ],
 };
 
-export const USER_EMPTY: User = {
+export const USERINFO_EMPTY: UserInfo = {
   sub: "",
 
   // LHM
