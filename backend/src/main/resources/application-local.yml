@@ -1,5 +1,5 @@
 server:
-  port: 39146
+  port: 8086
 spring:
   # Spring JPA
   jpa:

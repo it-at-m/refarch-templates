@@ -3,9 +3,9 @@ package de.muenchen.oss.refarch.backend.configuration.filter.nfcconverter;
 import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 
 /**
  * <p>
@@ -36,7 +36,9 @@ public class NfcReader extends Reader {
 
         log.debug("Converting Reader data to NFC.");
         try {
-            final String nfdContent = IOUtils.toString(original);
+            final StringWriter writer = new StringWriter();
+            original.transferTo(writer);
+            final String nfdContent = writer.toString();
             final String nfcConvertedContent = NfcHelper.nfcConverter(nfdContent);
             converted = new CharArrayReader(nfcConvertedContent.toCharArray());
         } catch (final IOException e) {
