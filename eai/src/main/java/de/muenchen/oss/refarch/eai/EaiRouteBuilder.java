@@ -3,15 +3,11 @@ package de.muenchen.oss.refarch.eai;
 import lombok.RequiredArgsConstructor;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class EaiRouteBuilder extends RouteBuilder {
-
-    @Value("${output}")
-    private String outputRoute;
 
     public static final String DIRECT_ROUTE = "direct:eai-route";
 
@@ -23,7 +19,7 @@ public class EaiRouteBuilder extends RouteBuilder {
                 .routeId("eai-route")
                 .log(LoggingLevel.DEBUG, "de.muenchen",
                         "Add camel routing... (https://camel.apache.org/components/latest/eips/enterprise-integration-patterns.html).")
-                .to(outputRoute);
+                .to("mock:example");
     }
 
 }
