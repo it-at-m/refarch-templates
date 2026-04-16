@@ -34,14 +34,11 @@ set_proxy_from_global_npmrc() {
 
 set_proxy_from_global_npmrc
 
-# Da das Skript direkt im Projekt liegt, ist der Projektordner das SCRIPT_DIR
-PROJECT="$SCRIPT_DIR"
-
 echo "----------------------------------------"
-echo "Project: $PROJECT"
+echo "Project: $SCRIPT_DIR"
 
 # Reading version number of openapi-config file
-CFG="$PROJECT/openapitools.json"
+CFG="$SCRIPT_DIR/openapitools.json"
 if [ ! -f "$CFG" ]; then
   echo "Config file $CFG not found - exiting"
   exit 1
@@ -64,7 +61,7 @@ URL="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$VER/
 
 # Local desired filename and location
 LOCAL_JAR="$VER.jar"
-DIR="$PROJECT/node_modules/@openapitools/openapi-generator-cli/versions"
+DIR="$SCRIPT_DIR/node_modules/@openapitools/openapi-generator-cli/versions"
 mkdir -p "$DIR"
 
 if [ -f "$DIR/$LOCAL_JAR" ]; then
