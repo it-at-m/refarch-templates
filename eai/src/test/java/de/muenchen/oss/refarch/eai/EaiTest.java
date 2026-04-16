@@ -24,7 +24,7 @@ class EaiTest {
     @Produce(EaiRouteBuilder.DIRECT_ROUTE)
     private ProducerTemplate producer;
 
-    @EndpointInject("mock:output")
+    @EndpointInject("mock:example")
     private MockEndpoint output;
 
     @Test
@@ -35,7 +35,7 @@ class EaiTest {
         producer.sendBody(message);
 
         output.assertIsSatisfied();
-        assertEquals(message, output.getExchanges().get(0).getMessage().getBody(String.class));
+        assertEquals(message, output.getExchanges().getFirst().getMessage().getBody(String.class));
     }
 
 }
