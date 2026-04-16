@@ -23,6 +23,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,6 +61,9 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
                                 .expireAfterWrite(securityProperties.getPermissionsCacheLifetime())
                                 .ticker(Ticker.systemTicker())
                                 .build()));
+        if (!StringUtils.hasText(securityProperties.getPermissionsUri())) {
+            throw new IllegalArgumentException("refarch.security.permissions-uri is required for resolving permissions");
+        }
     }
 
     /**
