@@ -1,6 +1,6 @@
 changelog:
   categories:
-    # backend
+    # Backend
     - title: Backend - 💥 Breaking Changes
       labels:
         - BREAKING
@@ -231,3 +231,26 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
+
+    # Catch the rest
+    - title: 💥 Breaking Changes
+      labels:
+        - BREAKING
+    - title: 🎉 New Features
+      labels:
+        - "Type: Feature"
+    - title: 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+    - title: 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+    - title: 📔 Documentation
+      labels:
+        - "Type: Documentation"
+    - title: ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+    - title: 🔒️ Security
+      labels:
+        - "Type: Security"
