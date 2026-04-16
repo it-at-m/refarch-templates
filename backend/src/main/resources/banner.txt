@@ -4,7 +4,6 @@ ${spring.application.name} (${spring.application.group})
 Application Version    : ${info.application.version}
 Java Version           : ${info.build.java.version}
 Spring Boot Version    : ${spring-boot.version}
-Spring Cloud Version   : ${info.build.spring-cloud.version}
 Active Spring Profiles : ${spring.profiles.active:}
 About                  : ${info.application.description}
 
