@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { DefaultLhmAvatarService } from "@/api/ad2imageavatar-client";
+import { getAvatarHref } from "@/api/ad2imageavatar-client";
 
 const {
   username,
@@ -22,7 +22,7 @@ const {
 }>();
 
 const avatarUrl = computed(() => {
-  return DefaultLhmAvatarService.avatarHref(username, avatarMode, avatarSize);
+  return getAvatarHref(username, avatarMode, avatarSize);
 });
 
 const altText = computed(() => `Bild von ${username}`);
