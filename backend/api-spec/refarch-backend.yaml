@@ -5,7 +5,7 @@ info:
     the reference architecture of it@M
   version: 0.0.1-SNAPSHOT
 servers:
-- url: http://localhost:39146
+- url: http://localhost:8086
   description: Generated server url
 tags:
 - name: Actuator

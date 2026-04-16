@@ -1,5 +1,6 @@
 package de.muenchen.oss.refarch.backend.theentity;
 
+import de.muenchen.oss.refarch.backend.configuration.OpenAPIDocumentationConfiguration;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityMapper;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/theEntity")
-@SecurityRequirement(name = "bearerAuth")
+@SecurityRequirement(name = OpenAPIDocumentationConfiguration.SECURITY_SCHEME_NAME)
 public class TheEntityController {
 
     private final TheEntityService theEntityService;
