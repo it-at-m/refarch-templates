@@ -28,7 +28,7 @@ jobs:
   release-npm-artifact:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # 'write' if use-pr is 'false'
+      contents: write
       pull-requests: write # can be removed if use-pr is 'false'
       id-token: write # required when publishing with `npm publish --provenance`
     outputs:

@@ -24,7 +24,7 @@ jobs:
   release-maven-artifact:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # 'write' if use-pr is 'false'
+      contents: write
       pull-requests: write # can be removed if use-pr is 'false'
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
