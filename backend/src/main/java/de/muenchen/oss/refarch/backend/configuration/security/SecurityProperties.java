@@ -32,7 +32,7 @@ public class SecurityProperties {
      * URI of the endpoint used for fetching permissions,
      * see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */
-    @NotBlank private String permissionsUri;
+    private String permissionsUri;
 
     /**
      * Timeout for which resolved permissions are cached and reused. Default 60s.
