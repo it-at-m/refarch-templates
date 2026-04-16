@@ -30,6 +30,7 @@ jobs:
     permissions:
       contents: read # 'write' if use-pr is 'false'
       pull-requests: write # can be removed if use-pr is 'false'
+      id-token: write # required when publishing with `npm publish --provenance`
     outputs:
       ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
