@@ -28,7 +28,7 @@ export function getUserInfo(): Promise<UserInfo> {
     .then((userInfo: Partial<UserInfo>) => {
       return {
         ...USERINFO_EMPTY,
-        userInfo,
+        ...userInfo,
       };
     });
 }
