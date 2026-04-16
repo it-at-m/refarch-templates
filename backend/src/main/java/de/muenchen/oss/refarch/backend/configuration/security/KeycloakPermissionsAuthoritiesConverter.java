@@ -35,7 +35,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+public final class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
 
