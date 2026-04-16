@@ -23,7 +23,7 @@ export class Ad2imageAvatarClient {
 }
 
 /**
- * The default Ad2imageAvatarClient, which is configurable via environment variable VITE_AD2IMAGE_URL in .env file.
+ * The default Ad2imageavatarClient, which is configurable via environment variable VITE_AD2IMAGE_URL in .env file.
  *
  * @see https://github.com/it-at-m/ad2image#documentation
  */
