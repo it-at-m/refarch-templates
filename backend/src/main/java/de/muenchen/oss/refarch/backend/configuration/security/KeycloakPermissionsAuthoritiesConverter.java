@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
@@ -23,6 +22,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,8 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * The usage of simpler {@link KeycloakRolesAuthoritiesConverter} should be preferred.
  */
 @Slf4j
-@RequiredArgsConstructor
-public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+public final class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
 
@@ -49,7 +48,8 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
     private final RestTemplate restTemplate;
     private final Cache cache;
 
-    public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties, final RestTemplateBuilder restTemplateBuilder) {
+    public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
+            final RestTemplateBuilder restTemplateBuilder) {
         this(
                 securityProperties,
                 restTemplateBuilder.build(),
@@ -60,6 +60,17 @@ public class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, C
                                 .expireAfterWrite(securityProperties.getPermissionsCacheLifetime())
                                 .ticker(Ticker.systemTicker())
                                 .build()));
+    }
+
+    public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
+            final RestTemplate restTemplate,
+            final Cache cache) {
+        if (!StringUtils.hasText(securityProperties.getPermissionsUri())) {
+            throw new IllegalArgumentException("refarch.security.permissions-uri is required for resolving permissions");
+        }
+        this.securityProperties = securityProperties;
+        this.restTemplate = restTemplate;
+        this.cache = cache;
     }
 
     /**
