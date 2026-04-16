@@ -49,7 +49,7 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     private final Cache cache;
 
     public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-                                                   final RestTemplateBuilder restTemplateBuilder) {
+            final RestTemplateBuilder restTemplateBuilder) {
         this(
                 securityProperties,
                 restTemplateBuilder.build(),
@@ -63,8 +63,8 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     }
 
     public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-                                                   final RestTemplate restTemplate,
-                                                   final Cache cache) {
+            final RestTemplate restTemplate,
+            final Cache cache) {
         if (!StringUtils.hasText(securityProperties.getPermissionsUri())) {
             throw new IllegalArgumentException("refarch.security.permissions-uri is required for resolving permissions");
         }
