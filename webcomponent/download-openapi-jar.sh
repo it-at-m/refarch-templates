@@ -34,7 +34,6 @@ set_proxy_from_global_npmrc() {
 
 set_proxy_from_global_npmrc
 
-# Da das Skript direkt im Projekt liegt, ist der Projektordner das SCRIPT_DIR
 PROJECT="$SCRIPT_DIR"
 
 echo "----------------------------------------"
