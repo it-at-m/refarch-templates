@@ -16,6 +16,8 @@
 </template>
 
 <script setup lang="ts">
+import type { User } from "@/types/User";
+
 import { useToggle } from "@vueuse/core";
 import { onMounted } from "vue";
 
@@ -24,7 +26,7 @@ import TheAppBar from "@/components/TheAppBar.vue";
 import TheNavigationDrawer from "@/components/TheNavigationDrawer.vue";
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import { useUserStore } from "@/stores/user";
-import User, { UserLocalDevelopment } from "@/types/User";
+import { USER_LOCAL_DEVELOPMENT } from "@/types/User";
 
 const userStore = useUserStore();
 const [isNavigationShown, toggleNavigation] = useToggle();
@@ -42,7 +44,7 @@ function loadUser(): void {
     .catch(() => {
       // No user info received, so fallback
       if (import.meta.env.DEV) {
-        userStore.setUser(UserLocalDevelopment());
+        userStore.setUser(USER_LOCAL_DEVELOPMENT);
       } else {
         userStore.setUser(null);
       }

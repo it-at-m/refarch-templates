@@ -1,7 +1,7 @@
+import type { User } from "@/types/User";
+
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-
-import User from "@/types/User";
 
 export interface UserState {
   user: User | null;
