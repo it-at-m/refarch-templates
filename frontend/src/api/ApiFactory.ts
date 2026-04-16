@@ -2,7 +2,7 @@ import type { HTTPHeaders } from "@/api/generated/refarch-backend";
 
 import { getHeaders } from "@/api/fetch-utils.ts";
 import { BaseAPI, Configuration } from "@/api/generated/refarch-backend";
-import { BASE_PATH } from "@/constants.ts";
+import { BASE_API_PATH } from "@/constants.ts";
 
 type ApiCtor<T extends BaseAPI> = new (config: Configuration) => T;
 
@@ -21,7 +21,7 @@ async function customFetch(url: string, init?: RequestInit) {
 
 function createConfig(): Configuration {
   return new Configuration({
-    basePath: BASE_PATH,
+    basePath: BASE_API_PATH,
     fetchApi: customFetch,
     middleware: [
       {
