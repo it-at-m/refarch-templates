@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAPIDocumentationConfiguration {
 
     public static final String SECURITY_SCHEME_NAME = "bearerAuth";
-    public static final String SECURITY_SCHEME_TYPE = "bearer";
 
     private final OpenAPIProperties openAPIProperties;
 
@@ -30,7 +29,7 @@ public class OpenAPIDocumentationConfiguration {
                         .addSecuritySchemes(SECURITY_SCHEME_NAME, new SecurityScheme()
                                 .name(SECURITY_SCHEME_NAME)
                                 .type(SecurityScheme.Type.HTTP)
-                                .scheme(SECURITY_SCHEME_TYPE)
+                                .scheme("bearer")
                                 .bearerFormat("JWT")));
     }
 }
