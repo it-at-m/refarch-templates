@@ -28,10 +28,9 @@ jobs:
   release-npm-artifact:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
+      contents: write
+      pull-requests: write # can be removed if use-pr is 'false'
+      id-token: write # required when publishing with `npm publish --provenance`
     outputs:
       ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
