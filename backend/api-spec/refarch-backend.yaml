@@ -35,7 +35,7 @@ paths:
         "200":
           description: the entity with the given UID as a DTO
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
       security:
@@ -67,7 +67,7 @@ paths:
         "200":
           description: the updated entity as a DTO
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
       security:
@@ -123,7 +123,7 @@ paths:
         "200":
           description: a page of entities represented as DTOs
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: "#/components/schemas/PagedModelTheEntityResponseDTO"
       security:
@@ -147,7 +147,7 @@ paths:
         "201":
           description: the created entity as a DTO
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: "#/components/schemas/TheEntityResponseDTO"
       security:
