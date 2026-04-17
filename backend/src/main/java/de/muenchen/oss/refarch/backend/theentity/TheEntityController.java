@@ -42,7 +42,7 @@ public class TheEntityController {
      * @param theEntityId the UUID of the requested entity
      * @return the entity with the given UID as a DTO
      */
-    @GetMapping(value = "{theEntityId}")
+    @GetMapping("{theEntityId}")
     @ResponseStatus(HttpStatus.OK)
     public TheEntityResponseDTO getTheEntity(@PathVariable("theEntityId") final UUID theEntityId) {
         return theEntityMapper.toDTO(theEntityService.getTheEntity(theEntityId));
