@@ -44,12 +44,12 @@
           :icon="mdiApps"
         />
         <v-btn
-          v-if="userStore.getUserInfo !== null"
+          v-if="userInfoStore.getUserInfo !== null"
           class="mx-2"
           variant="text"
           icon
         >
-          <ad2-image-avatar :username="userStore.getUserInfo.username" />
+          <ad2-image-avatar :username="userInfoStore.getUserInfo.username" />
         </v-btn>
       </v-col>
     </v-row>
@@ -67,7 +67,7 @@ import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";
 
-const userStore = useUserInfoStore();
+const userInfoStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
 const { t } = useI18n();
 
