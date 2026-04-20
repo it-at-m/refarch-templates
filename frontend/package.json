@@ -12,8 +12,11 @@
     "test": "vitest run",
     "build": "vue-tsc --build --noCheck && vite build && npm run post-build",
     "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
-    "lint": "prettier --check --cache . && eslint  --cache --concurrency auto . && vue-tsc --build --noEmit",
-    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
+    "lint": "npm run prettier-lint && npm run eslint-lint && npm run type-lint",
+    "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto",
+    "prettier-lint": "prettier --check --cache .",
+    "eslint-lint": "eslint  --cache --concurrency auto .",
+    "type-lint": "vue-tsc --build --noEmit"
   },
   "dependencies": {
     "@fontsource/roboto": "5.2.10",
