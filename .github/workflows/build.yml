@@ -38,7 +38,7 @@ jobs:
         with:
           app-path: ${{ matrix.app-path }}
           java-version: "21"
-      - if: github.ref == 'refs/heads/main'
+      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           path: ${{ matrix.app-path }}
