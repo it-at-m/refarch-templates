@@ -1,8 +1,9 @@
-import { defaultResponseHandler, getConfig } from "@/api/fetch-utils";
-import HealthState from "@/types/HealthState";
+import type { AppInfo } from "@/types/AppInfo";
 
-export function checkHealth(): Promise<HealthState> {
-  return fetch("actuator/health", getConfig())
+import { defaultResponseHandler, getConfig } from "@/api/fetch-utils";
+
+export function getAppInfo(): Promise<AppInfo> {
+  return fetch("actuator/info", getConfig())
     .then((response) => {
       defaultResponseHandler(response);
       return response.json();

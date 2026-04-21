@@ -23,13 +23,14 @@
 </template>
 
 <script setup lang="ts">
+import type { HealthState } from "@/types/HealthState";
+
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { checkHealth } from "@/api/health-client";
+import { checkHealth } from "@/api/healthstate-client";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
-import HealthState from "@/types/HealthState";
 
 const { t } = useI18n();
 
