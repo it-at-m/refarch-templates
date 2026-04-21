@@ -65,9 +65,10 @@ class KeycloakPermissionsAuthoritiesConverterTest {
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
         when(jwt.getTokenValue()).thenReturn(TEST_TOKEN_VALUE);
 
-        final List<Map<String, String>> response = List.of(
+        final List<Map<String, Object>> response = List.of(
                 Map.of(
                         "rsid", UUID.randomUUID().toString(),
+                        "scopes", List.of("view", "update"),
                         "rsname", ROLE_USER),
                 Map.of(
                         "rsid", UUID.randomUUID().toString(),
@@ -92,7 +93,7 @@ class KeycloakPermissionsAuthoritiesConverterTest {
         when(jwt.getSubject()).thenReturn(TEST_SUBJECT);
         when(jwt.getTokenValue()).thenReturn(TEST_TOKEN_VALUE);
 
-        final List<Map<String, String>> response = List.of();
+        final List<Map<String, Object>> response = List.of();
         when(restTemplate.exchange(eq(PERMISSIONS_URI), eq(HttpMethod.POST), any(HttpEntity.class), any(ParameterizedTypeReference.class)))
                 .thenReturn(new ResponseEntity<>(response, HttpStatus.OK));
 
