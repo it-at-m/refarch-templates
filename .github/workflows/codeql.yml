@@ -34,12 +34,20 @@ jobs:
       java: ${{ steps.filter.outputs.java }}
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
       python: ${{ steps.filter.outputs.python }}
+      analyze_java: ${{ steps.analyze-flags.outputs.analyze_java }}
+      analyze_javascript_typescript_vue: ${{ steps.analyze-flags.outputs.analyze_javascript_typescript_vue }}
+      analyze_python: ${{ steps.analyze-flags.outputs.analyze_python }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
       - id: filter
         uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - id: analyze-flags
+        run: |
+          echo "analyze_java=${{ env.analyze-java }}" >> "$GITHUB_OUTPUT"
+          echo "analyze_javascript_typescript_vue=${{ env.analyze-javascript-typescript-vue }}" >> "$GITHUB_OUTPUT"
+          echo "analyze_python=${{ env.analyze-python }}" >> "$GITHUB_OUTPUT"
   codeql-java:
-    if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze_java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -58,7 +66,7 @@ jobs:
           java-version: ${{ env.java-version }}
           path: ${{ matrix.build-path }}
   codeql-javascript-typescript-vue:
-    if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze_javascript_typescript_vue == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,7 +78,7 @@ jobs:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
   codeql-python:
-    if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze_python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
