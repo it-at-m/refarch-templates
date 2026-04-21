@@ -43,9 +43,11 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
       - id: analyze-flags
         run: |
-          echo "analyze_java=${{ env.analyze-java }}" >> "$GITHUB_OUTPUT"
-          echo "analyze_javascript_typescript_vue=${{ env.analyze-javascript-typescript-vue }}" >> "$GITHUB_OUTPUT"
-          echo "analyze_python=${{ env.analyze-python }}" >> "$GITHUB_OUTPUT"
+          {
+            echo "analyze_java=${{ env.analyze-java }}";
+            echo "analyze_javascript_typescript_vue=${{ env.analyze-javascript-typescript-vue }}";
+            echo "analyze_python=${{ env.analyze-python }}";
+          } >> "$GITHUB_OUTPUT"
   codeql-java:
     if: ${{ needs.codeql-check-changed-files.outputs.analyze_java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
     runs-on: ubuntu-latest
