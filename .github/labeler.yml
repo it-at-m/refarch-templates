@@ -3,7 +3,7 @@
 "Type: Bug":
   - head-branch: [ '^bug', '-bug-' ]
 "Type: Maintenance":
-  - head-branch: [ '^maint', '-maintenance-' ]
+  - head-branch: [ '^maint', '^refact', '^chore', '-maintenance-' ]
 "Type: Documentation":
   - head-branch: [ '^docs', '-documentation-' ]
   - changed-files:
