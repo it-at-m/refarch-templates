@@ -9,3 +9,19 @@ changes:
       redirectUris:
         - http://*
         - https://*
+
+  # Add roles to user-info
+  - deleteClientScopeMapper:
+      clientScopeName: roles
+      name: client roles
+  - addClientScopeMapper:
+      clientScopeName: roles
+      name: client roles
+      protocolMapper: oidc-usermodel-client-role-mapper
+      config:
+        "multivalued": "true"
+        "userinfo.token.claim": "true"
+        "id.token.claim": "false"
+        "access.token.claim": "true"
+        "claim.name": "resource_access.$${client_id}.roles"
+        "jsonType.label": "String"
