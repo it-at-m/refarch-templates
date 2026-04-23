@@ -4,17 +4,17 @@
   "resources": [
     {
       "name": "REFARCH_THEENTITY_READ",
-      "type": "local-backend-service",
+      "type": "backend",
       "scopes": []
     },
     {
       "name": "REFARCH_THEENTITY_WRITE",
-      "type": "local-backend-service",
+      "type": "backend",
       "scopes": []
     },
     {
       "name": "REFARCH_THEENTITY_DELETE",
-      "type": "local-backend-service",
+      "type": "backend",
       "scopes": []
     }
   ],

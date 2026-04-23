@@ -1,0 +1,75 @@
+# Workflow to release Maven-based artifacts
+name: release-maven
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseVersion:
+        description: "Version to use when preparing a release (e.g., 1.2.3)"
+        required: true
+        default: 0.0.1
+      developmentVersion:
+        description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
+        required: true
+        default: 0.0.2-SNAPSHOT
+      app-path:
+        type: choice
+        description: Service-Name
+        required: true
+        options: # Add or modify paths according to your project structure
+          - backend
+          - eai
+
+jobs:
+  release-maven-artifact:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write # can be removed if use-pr is 'false'
+    outputs:
+      MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
+      ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
+    env:
+      TZ: Europe/Berlin
+    steps:
+      - id: release-maven-artifact
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          app-path: ${{ github.event.inputs.app-path }}
+          java-version: "21"
+          releaseVersion: ${{ github.event.inputs.releaseVersion }}
+          developmentVersion: ${{ github.event.inputs.developmentVersion }}
+          use-pr: "true"
+          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
+          GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
+
+  release-maven-image:
+    runs-on: ubuntu-latest
+    needs: release-maven-artifact
+    permissions:
+      packages: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          path: ${{ github.event.inputs.app-path }}
+          image-name: ${{ github.event.inputs.app-path }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
+          registry-username: ${{ github.actor }}
+          image-tags: |
+            type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
+            type=raw,value=latest
+
+  release-maven-github:
+    needs: release-maven-artifact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
+          tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
+          artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar

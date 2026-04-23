@@ -1,0 +1,22 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "declarations.d.ts",
+    "route-map.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": ["tests/**/*"],
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "noUncheckedSideEffectImports": true,
+    "noUncheckedIndexedAccess": true,
+    "types": ["unplugin-fonts/client", "@intlify/unplugin-vue-i18n/messages"]
+  }
+}

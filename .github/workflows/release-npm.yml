@@ -1,0 +1,83 @@
+# Workflow to release NPM-based artifacts
+name: release-npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        type: choice
+        description: "Select version increment type (follows Semantic Versioning)"
+        required: true
+        options:
+          - patch
+          - minor
+          - major
+      app-path:
+        type: choice
+        description: "Select the node service to release"
+        required: true
+        default: frontend
+        options: # Add or modify paths according to your project structure
+          - frontend
+          - webcomponent
+      skip-deployment:
+        default: true
+        type: boolean
+        description: "skip deployment to npm registry"
+jobs:
+  release-npm-artifact:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write # can be removed if use-pr is 'false'
+      id-token: write # required when publishing with `npm publish --provenance`
+    outputs:
+      ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
+      ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
+    steps:
+      - id: release-npm-artifact
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          app-path: ${{ inputs.app-path }}
+          node-version: "24"
+          releaseVersion: ${{ inputs.release-version }}
+          use-pr: "true"
+      - id: build
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          app-path: ${{ inputs.app-path }}
+          node-version: "24"
+      - if: ${{ !inputs.skip-deployment }}
+        shell: bash
+        working-directory: ./${{ inputs.app-path }}
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
+
+  release-npm-image:
+    needs: release-npm-artifact
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          path: ${{ inputs.app-path }}
+          image-name: ${{ inputs.app-path }}
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry-username: ${{ github.actor }}
+          image-tags: |
+            type=semver,pattern={{version}},value=${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
+            type=raw,value=latest
+
+  release-npm-github:
+    needs: release-npm-artifact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        with:
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
