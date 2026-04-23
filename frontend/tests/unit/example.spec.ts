@@ -1,11 +1,11 @@
 import { createTestingPinia } from "@pinia/testing";
 import { shallowMount } from "@vue/test-utils";
 import { describe, expect, test, vi } from "vitest";
+import { nextTick } from "vue";
 
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import i18n from "@/plugins/i18n";
 import { useSnackbarStore } from "@/stores/snackbar";
-import { nextTick } from "vue";
 
 describe("TheSnackbarQueue.vue", () => {
   test("passes store queue to v-snackbar-queue", async () => {
@@ -15,7 +15,7 @@ describe("TheSnackbarQueue.vue", () => {
         plugins: [
           createTestingPinia({
             createSpy: vi.fn,
-            stubActions: false
+            stubActions: false,
           }),
           i18n,
         ],
