@@ -2,6 +2,7 @@ package de.muenchen.oss.refarch.backend.configuration.filter;
 
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
+import static de.muenchen.oss.refarch.backend.TestConstants.TAG_TESTCONTAINER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -12,8 +13,8 @@ import de.muenchen.oss.refarch.backend.theentity.TheEntityRepository;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
 import java.net.URI;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -24,7 +25,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@DisabledIfSystemProperty(named = "skipTestcontainerTests", matches = "true")
+@Tag(TAG_TESTCONTAINER)
 @Testcontainers
 @SpringBootTest(
         classes = { MicroServiceApplication.class },

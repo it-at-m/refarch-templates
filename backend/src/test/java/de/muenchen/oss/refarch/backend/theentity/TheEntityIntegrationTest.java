@@ -2,6 +2,7 @@ package de.muenchen.oss.refarch.backend.theentity;
 
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
+import static de.muenchen.oss.refarch.backend.TestConstants.TAG_TESTCONTAINER;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -20,8 +21,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +35,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@DisabledIfSystemProperty(named = "skipTestcontainerTests", matches = "true")
+@Tag(TAG_TESTCONTAINER)
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
