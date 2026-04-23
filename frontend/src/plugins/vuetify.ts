@@ -32,6 +32,7 @@ export default createVuetify({
     },
   },
   locale: {
+    // @ts-expect-error false positive for type mismatch (no tsc compilation error)
     adapter: createVueI18nAdapter({ i18n, useI18n } as VueI18nAdapterParams),
   },
 });
