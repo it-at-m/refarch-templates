@@ -38,8 +38,8 @@ export const USERINFO_LOCAL_DEVELOPMENT: UserInfo = {
   lhmObjectID: "LOCAL_ID",
 
   resource_access: {
-    praktikumsplaner: {
-      roles: ["ausbilder"],
+    local: {
+      roles: ["writer", "reader"],
     },
   },
 };
