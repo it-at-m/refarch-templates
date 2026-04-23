@@ -1,6 +1,8 @@
+# ⚠️ WARNING: PRs without a "Type" label are not taken into account
 changelog:
   categories:
     # Backend
+    # ⚠️ WARNING: PRs without a "Component" label will land in one of the "Backend" sections
     - title: Backend - 💥 Breaking Changes
       labels:
         - BREAKING
