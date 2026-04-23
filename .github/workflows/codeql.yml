@@ -49,7 +49,7 @@ jobs:
             echo "analyze-python=${{ env.analyze-python }}";
           } >> "$GITHUB_OUTPUT"
   codeql-java:
-    if: ${{ needs.codeql-check-changed-files.outputs.analyze-java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-java == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -68,7 +68,7 @@ jobs:
           java-version: ${{ env.java-version }}
           path: ${{ matrix.build-path }}
   codeql-javascript-typescript-vue:
-    if: ${{ needs.codeql-check-changed-files.outputs.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-javascript-typescript-vue == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -80,7 +80,7 @@ jobs:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
   codeql-python:
-    if: ${{ needs.codeql-check-changed-files.outputs.analyze-python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-python == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
