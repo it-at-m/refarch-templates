@@ -12,7 +12,7 @@ export interface UserInfo {
   email: string;
 
   // scope: roles;
-  resource_access: Record<string, { roles: string[] | undefined }>;
+  resource_access: Record<string, { roles: string[] }>;
 
   // scope: phone
   telephone_number: string;
