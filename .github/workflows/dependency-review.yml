@@ -9,5 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27

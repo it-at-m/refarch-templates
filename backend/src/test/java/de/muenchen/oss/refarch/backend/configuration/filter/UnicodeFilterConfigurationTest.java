@@ -58,7 +58,7 @@ class UnicodeFilterConfigurationTest {
     private TheEntityRepository theEntityRepository;
 
     @Test
-    void givenDecomposedString_thenCovertToNfcNormalized() {
+    void givenDecomposedString_thenConvertToNfcNormalized() {
         // Given
         // Persist entity with decomposed string.
         final TheEntityRequestDTO theEntityRequestDto = new TheEntityRequestDTO(TEXT_ATTRIBUTE_DECOMPOSED);
