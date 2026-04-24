@@ -1,0 +1,258 @@
+# ⚠️ WARNING: PRs without a "Type" label are not taken into account
+changelog:
+  categories:
+    # Backend
+    # ⚠️ WARNING: PRs without a "Component" label will land in one of the "Backend" sections
+    - title: Backend - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Backend - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+
+    # EAI
+    - title: EAI - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: EAI - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+
+    # Frontend
+    - title: Frontend - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+    - title: Frontend - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Webcomponent"
+
+    # Webcomponent
+    - title: Webcomponent - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+    - title: Webcomponent - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+
+    # Catch the rest
+    - title: 💥 Breaking Changes
+      labels:
+        - BREAKING
+    - title: 🎉 New Features
+      labels:
+        - "Type: Feature"
+    - title: 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+    - title: 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+    - title: 📔 Documentation
+      labels:
+        - "Type: Documentation"
+    - title: ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+    - title: 🔒️ Security
+      labels:
+        - "Type: Security"
