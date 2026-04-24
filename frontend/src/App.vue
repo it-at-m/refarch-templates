@@ -26,7 +26,6 @@ import TheAppBar from "@/components/TheAppBar.vue";
 import TheNavigationDrawer from "@/components/TheNavigationDrawer.vue";
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
 import { useUserInfoStore } from "@/stores/userinfo";
-import { USERINFO_LOCAL_DEVELOPMENT } from "@/types/UserInfo";
 
 const userInfoStore = useUserInfoStore();
 const [isNavigationShown, toggleNavigation] = useToggle();
@@ -39,15 +38,8 @@ onMounted(() => {
  * Loads UserInfo from the backend and sets it in the store.
  */
 function loadUserInfo(): void {
-  getUserInfo()
-    .then((userInfo: UserInfo) => userInfoStore.setUserInfo(userInfo))
-    .catch(() => {
-      // No user info received, so fallback
-      if (import.meta.env.DEV) {
-        userInfoStore.setUserInfo(USERINFO_LOCAL_DEVELOPMENT);
-      } else {
-        userInfoStore.setUserInfo(null);
-      }
-    });
+  getUserInfo().then((userInfo: UserInfo) =>
+    userInfoStore.setUserInfo(userInfo)
+  );
 }
 </script>
