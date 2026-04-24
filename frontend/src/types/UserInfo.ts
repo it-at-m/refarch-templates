@@ -18,30 +18,6 @@ export interface UserInfo {
   authorities: string[];
 }
 
-export const USERINFO_LOCAL_DEVELOPMENT: UserInfo = {
-  sub: "",
-
-  // LHM
-  displayName: "Local Development User",
-  surname: "User",
-  telephoneNumber: "+1234567890",
-  email: "local@development.com",
-  username: "Local Development User",
-  givenname: "Local",
-  department: "Local Department",
-  lhmObjectID: "LOCAL_ID",
-
-  // LHM_Extended
-  preferred_username: "",
-  memberof: [],
-  user_roles: [
-    // todo add authorities
-  ],
-  authorities: [
-    // todo add user roles
-  ],
-};
-
 export const USERINFO_EMPTY: UserInfo = {
   sub: "",
 
