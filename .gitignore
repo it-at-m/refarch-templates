@@ -189,6 +189,7 @@ nbdist/
 *.sw?
 
 # ========== RefArch specific  ==========
+**/src/api/generated
 # =============== Stack =================
 /stack/pgadmin/data/*
 !/stack/keycloak/plugins/*.jar
