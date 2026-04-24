@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.caffeine.CaffeineCache;
@@ -49,10 +48,10 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     private final Cache cache;
 
     public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-            final RestTemplateBuilder restTemplateBuilder) {
+            final RestTemplate restTemplate) {
         this(
                 securityProperties,
-                restTemplateBuilder.build(),
+                restTemplate,
                 new CaffeineCache(
                         AUTHENTICATION_CACHE_NAME,
                         Caffeine.newBuilder()
@@ -93,7 +92,7 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         try {
-            final List<Map<String, String>> permissions = this.fetchPermissions(this.securityProperties.getPermissionsUri(), jwt,
+            final List<Map<String, Object>> permissions = this.fetchPermissions(this.securityProperties.getPermissionsUri(), jwt,
                     this.securityProperties.getClientId());
 
             log.debug("Response from permissions endpoint: {}", permissions);
@@ -110,15 +109,17 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
         return authorities;
     }
 
-    private static List<GrantedAuthority> asAuthorities(final List<Map<String, String>> permissions) {
+    private static List<GrantedAuthority> asAuthorities(final List<Map<String, Object>> permissions) {
         return permissions.stream()
                 .map(i -> i.get(PERMISSION_NAME_KEY))
-                .filter(name -> name != null && !name.isEmpty())
+                .filter(String.class::isInstance)
+                .map(String.class::cast)
+                .filter(name -> !name.isEmpty())
                 .map(i -> (GrantedAuthority) new SimpleGrantedAuthority(i))
                 .toList();
     }
 
-    private List<Map<String, String>> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
+    private List<Map<String, Object>> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
         try {
             log.debug("Fetching permissions for token subject: {}", jwt.getSubject());
             // build headers
@@ -134,7 +135,7 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
             final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
             // fetch permissions
             return restTemplate.exchange(endpointUrl, HttpMethod.POST, entity,
-                    new ParameterizedTypeReference<List<Map<String, String>>>() {
+                    new ParameterizedTypeReference<List<Map<String, Object>>>() {
                     }).getBody();
         } catch (final RestClientException e) {
             log.error("Error while fetching permissions - user is granted no authorities", e);

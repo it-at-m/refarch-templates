@@ -34,11 +34,22 @@ jobs:
       java: ${{ steps.filter.outputs.java }}
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
       python: ${{ steps.filter.outputs.python }}
+      analyze-java: ${{ steps.analyze-flags.outputs.analyze-java }}
+      analyze-javascript-typescript-vue: ${{ steps.analyze-flags.outputs.analyze-javascript-typescript-vue }}
+      analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
       - id: filter
         uses: it-at-m/lhm_actions/action-templates/actions/action-filter@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - id: analyze-flags
+        run: |
+          {
+            echo "analyze-java=${{ env.analyze-java }}";
+            echo "analyze-javascript-typescript-vue=${{ env.analyze-javascript-typescript-vue }}";
+            echo "analyze-python=${{ env.analyze-python }}";
+          } >> "$GITHUB_OUTPUT"
   codeql-java:
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-java == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,7 +61,6 @@ jobs:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-java == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -58,6 +68,7 @@ jobs:
           java-version: ${{ env.java-version }}
           path: ${{ matrix.build-path }}
   codeql-javascript-typescript-vue:
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-javascript-typescript-vue == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -65,11 +76,11 @@ jobs:
     needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-javascript-typescript-vue == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
   codeql-python:
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-python == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -77,7 +88,6 @@ jobs:
     needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
-        if: ${{ env.analyze-python == 'true' && (github.ref_name == 'main' || needs.codeql-check-changed-files.outputs.python == 'true') }}
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}

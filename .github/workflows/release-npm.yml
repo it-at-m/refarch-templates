@@ -50,7 +50,7 @@ jobs:
       - if: ${{ !inputs.skip-deployment }}
         shell: bash
         working-directory: ./${{ inputs.app-path }}
-        run: npm --prefix ./${{ inputs.app-path }} publish --provenance --access public
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
 

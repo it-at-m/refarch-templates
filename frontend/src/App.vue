@@ -16,36 +16,30 @@
 </template>
 
 <script setup lang="ts">
+import type { UserInfo } from "@/types/UserInfo";
+
 import { useToggle } from "@vueuse/core";
 import { onMounted } from "vue";
 
-import { getUser } from "@/api/user-client";
+import { getUserInfo } from "@/api/userinfo-client";
 import TheAppBar from "@/components/TheAppBar.vue";
 import TheNavigationDrawer from "@/components/TheNavigationDrawer.vue";
 import TheSnackbarQueue from "@/components/TheSnackbarQueue.vue";
-import { useUserStore } from "@/stores/user";
-import User, { UserLocalDevelopment } from "@/types/User";
+import { useUserInfoStore } from "@/stores/userinfo";
 
-const userStore = useUserStore();
+const userInfoStore = useUserInfoStore();
 const [isNavigationShown, toggleNavigation] = useToggle();
 
 onMounted(() => {
-  loadUser();
+  loadUserInfo();
 });
 
 /**
  * Loads UserInfo from the backend and sets it in the store.
  */
-function loadUser(): void {
-  getUser()
-    .then((user: User) => userStore.setUser(user))
-    .catch(() => {
-      // No user info received, so fallback
-      if (import.meta.env.DEV) {
-        userStore.setUser(UserLocalDevelopment());
-      } else {
-        userStore.setUser(null);
-      }
-    });
+function loadUserInfo(): void {
+  getUserInfo().then((userInfo: UserInfo) =>
+    userInfoStore.setUserInfo(userInfo)
+  );
 }
 </script>
