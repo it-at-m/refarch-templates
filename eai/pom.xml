@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.12</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <version>3.5.13</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
@@ -70,6 +70,10 @@
         <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
         <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
         <p2.mirror>download.eclipse.org</p2.mirror>
+
+        <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
+        <jackson-bom.version>2.21.2</jackson-bom.version> <!-- Added to fix CVE-2026-29062-->
+        <tomcat.version>10.1.54</tomcat.version> <!-- Added to fix CVE-2026-34483, CVE-2026-34486, CVE-2026-34487 -->
     </properties>
 
     <dependencyManagement>
@@ -81,18 +85,6 @@
                 <version>${camel-spring-boot-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-            <dependency> <!-- Added to fix CVE-2026-29062-->
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>2.21.2</version>
-            </dependency>
-            <dependency> <!-- Added to fix CVE-2026-29145, CVE-2026-29146, CVE-2026-34483, CVE-2026-34486, CVE-2026-34487, CVE-2026-25854, CVE-2026-34500 -->
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>10.1.54</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
