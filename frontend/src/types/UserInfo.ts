@@ -11,7 +11,7 @@ export interface UserInfo {
   // scope: email
   email: string;
 
-  // scope: roles;
+  // scope: roles
   resource_access: Record<string, { roles: string[] }>;
 
   // scope: phone
