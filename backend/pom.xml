@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.13</version>
+        <version>3.5.14</version>
         <relativePath/>
     </parent>
 
@@ -82,9 +82,7 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <commons-lang3.version>3.20.0</commons-lang3.version> <!-- Added to fix CVE-2025-48924-->
-        <jackson-bom.version>2.21.2</jackson-bom.version> <!-- Added to fix CVE-2026-29062-->
-        <tomcat.version>10.1.54</tomcat.version> <!-- Added to fix CVE-2026-34483, CVE-2026-34486, CVE-2026-34487 -->
+        <commons-lang3.version>3.20.0</commons-lang3.version> <!-- Added to fix CVE-2025-48924 -->
     </properties>
 
     <dependencies>
