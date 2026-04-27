@@ -17,10 +17,10 @@
     - any-glob-to-any-file: ['backend/**']
 "Template: EAI":
   - changed-files:
-      - any-glob-to-any-file: ['eai/**']
+    - any-glob-to-any-file: ['eai/**']
 "Template: Frontend":
   - changed-files:
-      - any-glob-to-any-file: ['frontend/**']
+    - any-glob-to-any-file: ['frontend/**']
 "Template: Webcomponent":
   - changed-files:
-      - any-glob-to-any-file: ['webcomponent/**']
+    - any-glob-to-any-file: ['webcomponent/**']

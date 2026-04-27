@@ -22,28 +22,6 @@ export interface UserInfo {
   lhmObjectID: string;
 }
 
-export const USERINFO_LOCAL_DEVELOPMENT: UserInfo = {
-  sub: "",
-
-  preferred_username: "local.development-user",
-  name: "Local Development-User",
-  given_name: "Local",
-  family_name: "Development-User",
-
-  email: "local@development.com",
-
-  telephone_number: "+1234567890",
-
-  department: "Local Department",
-  lhmObjectID: "LOCAL_ID",
-
-  resource_access: {
-    local: {
-      roles: ["writer", "reader"],
-    },
-  },
-};
-
 export const USERINFO_EMPTY: UserInfo = {
   sub: "",
 

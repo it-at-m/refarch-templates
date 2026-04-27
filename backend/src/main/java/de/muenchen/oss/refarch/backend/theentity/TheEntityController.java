@@ -1,8 +1,10 @@
 package de.muenchen.oss.refarch.backend.theentity;
 
+import de.muenchen.oss.refarch.backend.configuration.OpenAPIDocumentationConfiguration;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityMapper;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/theEntity")
+@RequestMapping(value = "/theEntity", produces = MediaType.APPLICATION_JSON_VALUE)
+@SecurityRequirement(name = OpenAPIDocumentationConfiguration.SECURITY_SCHEME_NAME)
 public class TheEntityController {
 
     private final TheEntityService theEntityService;

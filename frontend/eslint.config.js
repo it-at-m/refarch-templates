@@ -61,5 +61,6 @@ export default defineConfigWithVueTs(
     "node_modules",
     "env.d.ts",
     "route-map.d.ts",
+    "src/api/generated/*/**",
   ])
 );
