@@ -15,7 +15,7 @@ export interface UserInfo {
   resource_access: Record<string, { roles: string[] }>;
 
   // scope: phone
-  telephone_number: string;
+  phone_number: string;
 
   // scope: lhm-core
   department: string;
