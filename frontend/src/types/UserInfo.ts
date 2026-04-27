@@ -32,7 +32,7 @@ export const USERINFO_EMPTY: UserInfo = {
 
   email: "",
 
-  telephone_number: "",
+  phone_number: "",
 
   department: "",
   lhmObjectID: "",
