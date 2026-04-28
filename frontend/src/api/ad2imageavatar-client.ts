@@ -12,7 +12,7 @@ export function getAvatarHref(
   mode = "fallbackGeneric",
   size = "64"
 ): string {
-  const url = new URL("/avatar", AD2IMAGE_URL);
+  const url = new URL("avatar", AD2IMAGE_URL);
   url.searchParams.append("uid", username);
   url.searchParams.append("m", mode);
   url.searchParams.append("size", size);
