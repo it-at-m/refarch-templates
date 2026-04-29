@@ -49,7 +49,9 @@
           variant="text"
           icon
         >
-          <ad2-image-avatar :username="userInfoStore.getUserInfo.username" />
+          <ad2-image-avatar
+            :username="userInfoStore.getUserInfo.preferred_username"
+          />
         </v-btn>
       </v-col>
     </v-row>
