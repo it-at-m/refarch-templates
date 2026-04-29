@@ -12,12 +12,8 @@ export function getAvatarHref(
   mode = "fallbackGeneric",
   size = "64"
 ): string {
-  const baseUrl = new URL(AD2IMAGE_URL);
-  const basePath = baseUrl.pathname.endsWith("/")
-    ? baseUrl.pathname
-    : `${baseUrl.pathname}/`;
-  baseUrl.pathname = `${basePath}avatar`;
-  const url = baseUrl;
+  const url = new URL(AD2IMAGE_URL);
+  url.pathname = `${url.pathname}${url.pathname.endsWith("/") ? "" : "/"}avatar`;
   url.searchParams.append("uid", username);
   url.searchParams.append("m", mode);
   url.searchParams.append("size", size);
