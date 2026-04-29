@@ -5,6 +5,8 @@ import static de.muenchen.oss.refarch.backend.archunit.rules.TestClassesEndWithT
 
 import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.lang.ArchRule;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -12,9 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.params.ParameterizedTest;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Rules {
-    private Rules() {
-    }
 
     public static final ArchRule RULE_TEST_NAMING_CONVENTION_GIVEN_THEN_MATCHED = methods()
             .that().areAnnotatedWith(Test.class)
