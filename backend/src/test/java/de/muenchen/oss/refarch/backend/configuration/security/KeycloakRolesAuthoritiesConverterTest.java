@@ -56,11 +56,10 @@ class KeycloakRolesAuthoritiesConverterTest {
     @Test
     void givenNoRoles_thenConvert() {
         // Setup
-        final Map<String, Object> claims = new HashMap<>();
-        claims.put(RESOURCE_ACCESS_CLAIM, Map.of(
-                TEST_CLIENT, Collections.emptyMap()));
+        final Map<String, Object> resourceAccessClaim = new HashMap<>();
+        resourceAccessClaim.put(TEST_CLIENT, Collections.emptyMap());
         final Jwt jwt = mock(Jwt.class);
-        when(jwt.getClaimAsMap(RESOURCE_ACCESS_CLAIM)).thenReturn(claims);
+        when(jwt.getClaimAsMap(RESOURCE_ACCESS_CLAIM)).thenReturn(resourceAccessClaim);
 
         // Call
         final Collection<GrantedAuthority> authorities = converter.convert(jwt);

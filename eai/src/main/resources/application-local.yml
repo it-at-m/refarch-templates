@@ -16,6 +16,6 @@ logging:
       console: # set to empty to disable structured logging locally
   level:
     root: INFO
-    de.muenchen.refarch: DEBUG
+    de.muenchen.oss.refarch: DEBUG
     org.springframework.cache: TRACE
     org.springframework.web: DEBUG

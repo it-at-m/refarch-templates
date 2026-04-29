@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
@@ -182,10 +183,11 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
     public ServletInputStream getInputStream() throws IOException {
 
         final String encoding = getOriginalRequest().getCharacterEncoding();
+        final Charset charset = encoding == null ? StandardCharsets.UTF_8 : Charset.forName(encoding);
 
         final String content;
         try (InputStream is = getOriginalRequest().getInputStream()) {
-            content = new String(is.readAllBytes(), encoding);
+            content = new String(is.readAllBytes(), charset);
         }
 
         log.debug("Converting InputStream data to NFC.");
