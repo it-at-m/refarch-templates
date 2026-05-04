@@ -36,7 +36,7 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
         with:
           app-path: ${{ github.event.inputs.app-path }}
-          java-version: "21"
+          java-version: "25"
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           use-pr: "true"
