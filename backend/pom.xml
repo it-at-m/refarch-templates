@@ -82,7 +82,9 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
+        <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
         <commons-lang3.version>3.20.0</commons-lang3.version> <!-- Added to fix CVE-2025-48924 -->
+        <postgresql.version>42.7.11</postgresql.version> <!-- Added to fix CVE-2026-42198 -->
     </properties>
 
     <dependencies>
