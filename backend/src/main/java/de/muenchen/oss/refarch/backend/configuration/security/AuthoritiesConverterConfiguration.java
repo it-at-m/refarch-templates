@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Profile;
  * {@link KeycloakPermissionsAuthoritiesConverter}.
  */
 @Configuration
-@Profile("!no-security")
 public class AuthoritiesConverterConfiguration {
     public static final int KEYCLOAK_FETCH_TIMEOUT = 30;
 
