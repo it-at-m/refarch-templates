@@ -1,21 +1,23 @@
 package de.muenchen.oss.refarch.backend.configuration.filter;
 
-import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.muenchen.oss.refarch.backend.MicroServiceApplication;
+import de.muenchen.oss.refarch.backend.OAuthSecurityMockConfiguration;
 import de.muenchen.oss.refarch.backend.TestConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -27,7 +29,8 @@ import org.testcontainers.utility.DockerImageName;
         classes = { MicroServiceApplication.class },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@ActiveProfiles(profiles = { SPRING_TEST_PROFILE, SPRING_NO_SECURITY_PROFILE })
+@ActiveProfiles(profiles = { SPRING_TEST_PROFILE })
+@Import(OAuthSecurityMockConfiguration.class)
 class CacheControlFilterTest {
 
     @Container
@@ -44,6 +47,7 @@ class CacheControlFilterTest {
     private TestRestTemplate testRestTemplate;
 
     @Test
+    @WithMockUser(roles = {"reader"})
     void givenEntityEndpoint_thenCacheControlHeadersPresent() {
         final ResponseEntity<String> response = testRestTemplate.exchange(ENTITY_ENDPOINT_URL, HttpMethod.GET, null, String.class);
         assertEquals(HttpStatus.OK, response.getStatusCode());
