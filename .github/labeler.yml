@@ -3,7 +3,7 @@
 "Type: Bug":
   - head-branch: [ '^bug', '-bug-' ]
 "Type: Maintenance":
-  - head-branch: [ '^maint', '-maintenance-' ]
+  - head-branch: [ '^maint', '^refact', '^chore', '-maintenance-' ]
 "Type: Documentation":
   - head-branch: [ '^docs', '-documentation-' ]
   - changed-files:
@@ -12,15 +12,15 @@
   - head-branch: [ '^dep', '-dependency-' ]
 "Type: Security":
   - head-branch: [ '^sec', '-security-' ]
-"Template: Backend":
+"Component: Backend":
   - changed-files:
     - any-glob-to-any-file: ['backend/**']
-"Template: EAI":
+"Component: EAI":
   - changed-files:
     - any-glob-to-any-file: ['eai/**']
-"Template: Frontend":
+"Component: Frontend":
   - changed-files:
     - any-glob-to-any-file: ['frontend/**']
-"Template: Webcomponent":
+"Component: Webcomponent":
   - changed-files:
     - any-glob-to-any-file: ['webcomponent/**']
