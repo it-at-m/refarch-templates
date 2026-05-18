@@ -385,6 +385,7 @@
                         <importOrder />
                         <removeUnusedImports />
                         <forbidWildcardImports />
+                        <expandWildcardImports />
                         <formatAnnotations />
                     </java>
                     <lintSuppressions>
