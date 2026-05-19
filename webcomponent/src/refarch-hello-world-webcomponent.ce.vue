@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type HealthState from "@/types/HealthState.ts";
+import type { HealthState } from "@/types/HealthState";
 
 import { MucCallout } from "@muenchen/muc-patternlab-vue";
 import customIconsSprite from "@muenchen/muc-patternlab-vue/assets/icons/custom-icons.svg?raw";
@@ -33,7 +33,7 @@ import { computed, onMounted, ref } from "vue";
 
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
-import { checkHealth } from "@/api/health-client.ts";
+import { checkHealth } from "@/api/healthstate-client";
 import { FIRSTNAME_DEFAULT } from "@/util/constants";
 
 const apiGwStatus = ref("DOWN");

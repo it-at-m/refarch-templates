@@ -44,13 +44,13 @@
           :icon="mdiApps"
         />
         <v-btn
-          v-if="userInfoStore.getUserInfo !== null"
+          v-if="userInfoStore.userInfo !== null"
           class="mx-2"
           variant="text"
           icon
         >
           <ad2-image-avatar
-            :username="userInfoStore.getUserInfo.preferred_username"
+            :username="userInfoStore.userInfo.preferred_username"
           />
         </v-btn>
       </v-col>
