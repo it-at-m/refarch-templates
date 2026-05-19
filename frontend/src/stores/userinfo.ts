@@ -1,18 +1,27 @@
 import type { UserInfo } from "@/types/UserInfo";
 
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { readonly, ref } from "vue";
+
+import { getUserInfo } from "@/api/userinfo-client";
+import { STATUS_INDICATORS } from "@/constants";
+import { useSnackbarStore } from "@/stores/snackbar";
 
 export const useUserInfoStore = defineStore("userInfo", () => {
-  const userInfo = ref<UserInfo | null>(null);
+  const snackbarStore = useSnackbarStore();
+  const internalUserInfo = ref<UserInfo | null>(null);
+  const userInfo = readonly(internalUserInfo);
 
-  const getUserInfo = computed((): UserInfo | null => {
-    return userInfo.value;
-  });
-
-  function setUserInfo(payload: UserInfo | null): void {
-    userInfo.value = payload;
+  async function fetchUserInfo(): Promise<void> {
+    try {
+      internalUserInfo.value = await getUserInfo();
+    } catch {
+      snackbarStore.push({
+        color: STATUS_INDICATORS.ERROR,
+        text: "Nutzer konnte nicht geladen werden.",
+      });
+    }
   }
 
-  return { getUserInfo, setUserInfo };
+  return { userInfo, fetchUserInfo };
 });
