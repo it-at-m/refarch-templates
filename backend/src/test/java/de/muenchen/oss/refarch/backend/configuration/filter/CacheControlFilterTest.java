@@ -2,11 +2,13 @@ package de.muenchen.oss.refarch.backend.configuration.filter;
 
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
+import static de.muenchen.oss.refarch.backend.TestConstants.TAG_TESTCONTAINER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import de.muenchen.oss.refarch.backend.MicroServiceApplication;
 import de.muenchen.oss.refarch.backend.TestConstants;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +24,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+@Tag(TAG_TESTCONTAINER)
 @Testcontainers
 @SpringBootTest(
         classes = { MicroServiceApplication.class },
