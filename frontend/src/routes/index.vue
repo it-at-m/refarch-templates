@@ -40,6 +40,12 @@ import { useSnackbarStore } from "@/stores/snackbar";
 
 const { t } = useI18n();
 
+definePage({
+  meta: {
+    requiredRoles: "reader"
+  }
+})
+
 const snackbarStore = useSnackbarStore();
 const apiGwStatus = ref("DOWN");
 const backendStatus = ref("DOWN");
