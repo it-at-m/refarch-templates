@@ -123,7 +123,6 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
         try {
             log.debug("Fetching permissions for token subject: {}", jwt.getSubject());
             // build headers
-            @SuppressWarnings("PMD.LooseCoupling")
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             headers.setBearerAuth(jwt.getTokenValue());
