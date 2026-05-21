@@ -17,11 +17,10 @@ spring:
   flyway:
     locations:
       - classpath:db/migration/schema
-
-server:
-  error:
-    whitelabel:
-      enabled: false
+  web:
+    error:
+      whitelabel:
+        enabled: false
 
 # Config for spring actuator endpoints
 management:
@@ -40,8 +39,6 @@ management:
   endpoint:
     health:
       access: read_only
-      probes:
-        enabled: true
     info:
       access: read_only
     prometheus:
@@ -50,11 +47,6 @@ management:
       access: read_only
   info:
     env:
-      enabled: true
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
       enabled: true
 
 springdoc:
