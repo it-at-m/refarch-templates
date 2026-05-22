@@ -43,6 +43,7 @@ public class AuthoritiesConverterConfiguration {
     private ClientHttpRequestFactory clientHttpRequestFactory() {
         final RequestConfig requestConfig = RequestConfig.custom()
                 .setResponseTimeout(Timeout.ofSeconds(KEYCLOAK_FETCH_TIMEOUT))
+                .setConnectionRequestTimeout(Timeout.ofSeconds(KEYCLOAK_FETCH_TIMEOUT))
                 .build();
 
         final ConnectionConfig connectionConfig = ConnectionConfig.custom()
