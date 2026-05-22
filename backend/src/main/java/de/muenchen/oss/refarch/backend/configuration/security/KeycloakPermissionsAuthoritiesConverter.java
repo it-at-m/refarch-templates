@@ -32,6 +32,9 @@ import org.springframework.web.client.RestClientException;
 @Slf4j
 public final class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
+    public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST = new ParameterizedTypeReference<>() {
+    };
+
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
 
     private static final String PERMISSION_NAME_KEY = "rsname";
@@ -116,9 +119,6 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
                 .map(i -> (GrantedAuthority) new SimpleGrantedAuthority(i))
                 .toList();
     }
-
-    public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST = new ParameterizedTypeReference<>() {
-    };
 
     private List<Map<String, Object>> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
         try {
