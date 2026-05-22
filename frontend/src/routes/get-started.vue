@@ -42,8 +42,15 @@ import { useI18n } from "vue-i18n";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
 import { useSaveLeave } from "@/composables/saveLeave";
+import { Role } from "@/types/Role";
 
 const { t } = useI18n();
+
+definePage({
+  meta: {
+    hasAnyRole: [Role.READER, Role.WRITER],
+  },
+});
 
 const documentationClicked = ref(false);
 const { cancel, leave, saveLeaveDialog } = useSaveLeave(isDirty);

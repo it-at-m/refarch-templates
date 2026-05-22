@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { routes as fileBasedRoutes, handleHotUpdate } from "vue-router/auto-routes";
+import {
+  routes as fileBasedRoutes,
+  handleHotUpdate,
+} from "vue-router/auto-routes";
 
-
-
+import { useHasAnyRole } from "@/composables/useHasAnyRole";
 import { useUserInfoStore } from "@/stores/userinfo";
-
 
 const routes = [
   ...fileBasedRoutes,
@@ -28,18 +29,15 @@ router.beforeEach(async (to) => {
     await userInfoStore.fetchUserInfo();
   }
 
-  if (!to.meta.requiredRoles) {
-    return true;
+  if (!to.meta.hasAnyRole) {
+    return;
   }
 
-  const requiredRoles = Array.isArray(to.meta.requiredRoles)
-    ? to.meta.requiredRoles
-    : [to.meta.requiredRoles];
+  if (!useHasAnyRole(to.meta.hasAnyRole).value) {
+    return { path: "/" };
+  }
 
-  const userRoles =
-    (userInfoStore.userInfo?.resource_access?.local?.roles as string[]) || [];
-
-  return requiredRoles.some((role) => userRoles.includes(role));
+  return;
 });
 
 if (import.meta.hot) {

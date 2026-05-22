@@ -7,6 +7,12 @@
           class="my-3"
           height="200"
         />
+        <p v-if="isWriter">
+          {{ t("views.index.isWriterText") }}
+        </p>
+        <p v-else>
+          {{ t("views.index.isNotWriterText") }}
+        </p>
       </v-col>
 
       <v-col class="mb-4">
@@ -35,16 +41,14 @@ import { useI18n } from "vue-i18n";
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
+import { useHasAnyRole } from "@/composables/useHasAnyRole";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
+import { Role } from "@/types/Role";
 
 const { t } = useI18n();
 
-definePage({
-  meta: {
-    requiredRoles: "reader"
-  }
-})
+const isWriter = useHasAnyRole(Role.WRITER);
 
 const snackbarStore = useSnackbarStore();
 const apiGwStatus = ref("DOWN");
