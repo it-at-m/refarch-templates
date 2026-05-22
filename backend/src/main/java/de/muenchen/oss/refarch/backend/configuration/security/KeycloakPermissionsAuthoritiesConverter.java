@@ -117,9 +117,8 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
                 .toList();
     }
 
-    public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST =
-            new ParameterizedTypeReference<>() {
-            };
+    public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST = new ParameterizedTypeReference<>() {
+    };
 
     private List<Map<String, Object>> fetchPermissions(final String endpointUrl, final Jwt jwt, final String clientId) {
         try {
