@@ -23,14 +23,19 @@ const router = createRouter({
   },
 });
 
-router.beforeEach(async (to) => {
+router.beforeEach(async (to, from) => {
   const userInfoStore = useUserInfoStore();
   if (!userInfoStore.userInfo) {
     await userInfoStore.fetchUserInfo();
   }
 
   if (!to.meta.hasAnyRole || useHasAnyRole(to.meta.hasAnyRole).value) {
-    return;
+    return true;
+  }
+
+  // Check if application was already running in browser
+  if (from.name) {
+    return false;
   }
 
   return { path: "/" };
