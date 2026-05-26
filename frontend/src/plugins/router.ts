@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import {
-  routes as fileBasedRoutes,
-  handleHotUpdate,
-} from "vue-router/auto-routes";
+import { routes as fileBasedRoutes, handleHotUpdate } from "vue-router/auto-routes";
+
+
 
 import { useHasAnyRole } from "@/composables/useHasAnyRole";
 import { useUserInfoStore } from "@/stores/userinfo";
+
 
 const routes = [
   ...fileBasedRoutes,
@@ -29,15 +29,11 @@ router.beforeEach(async (to) => {
     await userInfoStore.fetchUserInfo();
   }
 
-  if (!to.meta.hasAnyRole) {
+  if (!to.meta.hasAnyRole || useHasAnyRole(to.meta.hasAnyRole).value) {
     return;
   }
 
-  if (!useHasAnyRole(to.meta.hasAnyRole).value) {
-    return { path: "/" };
-  }
-
-  return;
+  return { path: "/" };
 });
 
 if (import.meta.hot) {

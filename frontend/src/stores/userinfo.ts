@@ -1,12 +1,20 @@
 import type { UserInfo } from "@/types/UserInfo";
 
+
+
 import { defineStore } from "pinia";
 import { computed, readonly, ref } from "vue";
+
+
 
 import { getUserInfo } from "@/api/userinfo-client";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { Role } from "@/types/Role";
+
+function isRole(value: string): value is Role {
+  return Object.values(Role).includes(value as Role);
+}
 
 export const useUserInfoStore = defineStore("userInfo", () => {
   const snackbarStore = useSnackbarStore();
@@ -33,7 +41,3 @@ export const useUserInfoStore = defineStore("userInfo", () => {
 
   return { userInfo, currentRoles, fetchUserInfo };
 });
-
-function isRole(value: string): value is Role {
-  return Object.values(Role).includes(value as Role);
-}
