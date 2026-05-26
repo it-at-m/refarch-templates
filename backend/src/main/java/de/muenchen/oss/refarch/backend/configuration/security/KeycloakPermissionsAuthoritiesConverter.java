@@ -12,9 +12,7 @@ import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,8 +20,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Service that calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant)
@@ -33,6 +31,9 @@ import org.springframework.web.client.RestTemplate;
  */
 @Slf4j
 public final class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+
+    public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST = new ParameterizedTypeReference<>() {
+    };
 
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
 
@@ -44,14 +45,14 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     private static final String RESPONSE_MODE_PERMISSIONS = "permissions";
 
     private final SecurityProperties securityProperties;
-    private final RestTemplate restTemplate;
+    private final RestClient restClient;
     private final Cache cache;
 
     public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-            final RestTemplate restTemplate) {
+            final RestClient restClient) {
         this(
                 securityProperties,
-                restTemplate,
+                restClient,
                 new CaffeineCache(
                         AUTHENTICATION_CACHE_NAME,
                         Caffeine.newBuilder()
@@ -62,13 +63,13 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     }
 
     public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-            final RestTemplate restTemplate,
+            final RestClient restClient,
             final Cache cache) {
         if (!StringUtils.hasText(securityProperties.getPermissionsUri())) {
             throw new IllegalArgumentException("refarch.security.permissions-uri is required for resolving permissions");
         }
         this.securityProperties = securityProperties;
-        this.restTemplate = restTemplate;
+        this.restClient = restClient;
         this.cache = cache;
     }
 
@@ -123,7 +124,6 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
         try {
             log.debug("Fetching permissions for token subject: {}", jwt.getSubject());
             // build headers
-            @SuppressWarnings("PMD.LooseCoupling")
             final HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
             headers.setBearerAuth(jwt.getTokenValue());
@@ -132,11 +132,13 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
             body.add(BODY_GRANT_TYPE, GRANT_TYPE);
             body.add(BODY_AUDIENCE, clientId);
             body.add(BODY_RESPONSE_MODE, RESPONSE_MODE_PERMISSIONS);
-            final HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
             // fetch permissions
-            return restTemplate.exchange(endpointUrl, HttpMethod.POST, entity,
-                    new ParameterizedTypeReference<List<Map<String, Object>>>() {
-                    }).getBody();
+            return restClient.post()
+                    .uri(endpointUrl)
+                    .body(body)
+                    .headers(hdrs -> hdrs.addAll(headers))
+                    .retrieve()
+                    .body(PERMISSION_LIST);
         } catch (final RestClientException e) {
             log.error("Error while fetching permissions - user is granted no authorities", e);
             return List.of();
