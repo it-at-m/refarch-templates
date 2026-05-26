@@ -41,7 +41,7 @@ import { useI18n } from "vue-i18n";
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
-import { useHasAnyRole } from "@/composables/useHasAnyRole";
+import useHasAnyRole from "@/composables/useHasAnyRole";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { Role } from "@/types/Role";

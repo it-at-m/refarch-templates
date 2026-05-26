@@ -4,7 +4,7 @@ import {
   handleHotUpdate,
 } from "vue-router/auto-routes";
 
-import { useHasAnyRole } from "@/composables/useHasAnyRole";
+import { hasAnyRole } from "@/composables/useHasAnyRole";
 import { useUserInfoStore } from "@/stores/userinfo";
 
 const routes = [
@@ -23,13 +23,16 @@ const router = createRouter({
   },
 });
 
+const userInfoStore = useUserInfoStore();
 router.beforeEach(async (to, from) => {
-  const userInfoStore = useUserInfoStore();
   if (!userInfoStore.userInfo) {
     await userInfoStore.fetchUserInfo();
   }
 
-  if (!to.meta.hasAnyRole || useHasAnyRole(to.meta.hasAnyRole).value) {
+  if (
+    !to.meta.hasAnyRole ||
+    hasAnyRole(to.meta.hasAnyRole, userInfoStore.currentRoles)
+  ) {
     return true;
   }
 
