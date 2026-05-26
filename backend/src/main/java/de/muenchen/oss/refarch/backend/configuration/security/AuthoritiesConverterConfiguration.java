@@ -1,10 +1,12 @@
 package de.muenchen.oss.refarch.backend.configuration.security;
 
 import java.time.Duration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.web.client.RestClient;
 
 /**
  * Configure how authorities are resolved.
@@ -25,12 +27,18 @@ public class AuthoritiesConverterConfiguration {
     @Bean
     @Profile("keycloak-permissions")
     public KeycloakPermissionsAuthoritiesConverter keycloakPermissionsAuthoritiesConverter(
-            final SecurityProperties securityProperties, final RestTemplateBuilder restTemplateBuilder) {
+            final SecurityProperties securityProperties, final RestClient.Builder restClientBuilder) {
         return new KeycloakPermissionsAuthoritiesConverter(
                 securityProperties,
-                restTemplateBuilder
-                        .connectTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT))
-                        .readTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT))
+                restClientBuilder
+                        .requestFactory(clientHttpRequestFactory())
                         .build());
+    }
+
+    private ClientHttpRequestFactory clientHttpRequestFactory() {
+        final SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT));
+        factory.setReadTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT));
+        return factory;
     }
 }
