@@ -52,6 +52,6 @@
     "vite-plugin-vue-devtools": "8.1.2",
     "vite-plugin-vuetify": "2.1.3",
     "vitest": "4.1.6",
-    "vue-tsc": "3.2.9"
+    "vue-tsc": "3.3.1"
   }
 }
