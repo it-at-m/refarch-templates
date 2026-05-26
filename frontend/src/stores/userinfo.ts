@@ -1,11 +1,7 @@
 import type { UserInfo } from "@/types/UserInfo";
 
-
-
 import { defineStore } from "pinia";
 import { computed, readonly, ref } from "vue";
-
-
 
 import { getUserInfo } from "@/api/userinfo-client";
 import { STATUS_INDICATORS } from "@/constants";
