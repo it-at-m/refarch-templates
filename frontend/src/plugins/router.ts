@@ -1,3 +1,4 @@
+import { mdiShieldLock } from "@mdi/js";
 import { createRouter, createWebHistory } from "vue-router";
 import {
   routes as fileBasedRoutes,
@@ -5,6 +6,8 @@ import {
 } from "vue-router/auto-routes";
 
 import { hasAnyRole } from "@/composables/useHasAnyRole";
+import { STATUS_INDICATORS } from "@/constants.ts";
+import { useSnackbarStore } from "@/stores/snackbar.ts";
 import { useUserInfoStore } from "@/stores/userinfo";
 
 const routes = [
@@ -23,8 +26,9 @@ const router = createRouter({
   },
 });
 
-const userInfoStore = useUserInfoStore();
 router.beforeEach(async (to, from) => {
+  const userInfoStore = useUserInfoStore();
+  const snackbarStore = useSnackbarStore();
   if (!userInfoStore.userInfo) {
     await userInfoStore.fetchUserInfo();
   }
@@ -35,6 +39,12 @@ router.beforeEach(async (to, from) => {
   ) {
     return true;
   }
+
+  snackbarStore.push({
+    color: STATUS_INDICATORS.ERROR,
+    text: "Du hast nicht die erforderlichen Berechtigungen, um diese Seite anzuzeigen.",
+    icon: mdiShieldLock,
+  });
 
   // Check if application was already running in browser
   if (from.name) {
