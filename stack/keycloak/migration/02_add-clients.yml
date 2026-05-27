@@ -10,6 +10,11 @@ changes:
         - http://*
         - https://*
 
+  # Diable fullScope to only return userInfo of requested client
+  - updateClient:
+      clientId: local
+      fullScopeAllowed: false
+
   # Add roles to user-info
   - deleteClientScopeMapper:
       clientScopeName: roles
