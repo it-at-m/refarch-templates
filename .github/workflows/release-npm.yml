@@ -20,10 +20,7 @@ on:
         options: # Add or modify paths according to your project structure
           - frontend
           - webcomponent
-      skip-deployment:
-        default: true
-        type: boolean
-        description: "skip deployment to npm registry"
+          
 jobs:
   release-npm-artifact:
     runs-on: ubuntu-latest
