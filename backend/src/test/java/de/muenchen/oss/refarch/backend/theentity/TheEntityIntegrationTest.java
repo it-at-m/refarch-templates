@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import de.muenchen.oss.refarch.backend.TestConstants;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -89,8 +91,11 @@ class TheEntityIntegrationTest {
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON)
                     .expectBody()
-                    .jsonPath("$.content").isArray()
-                    .jsonPath("$.content.length()").isEqualTo(1);
+                    .jsonPath("$.content")
+                    .value(new ParameterizedTypeReference<List<TheEntityResponseDTO>>() {
+                    }, content -> {
+                        assertThat(content.size()).isEqualTo(1);
+                    });
         }
     }
 
