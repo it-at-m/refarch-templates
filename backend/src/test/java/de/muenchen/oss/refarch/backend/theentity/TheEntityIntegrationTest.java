@@ -9,6 +9,7 @@ import de.muenchen.oss.refarch.backend.TestConstants;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,9 +94,7 @@ class TheEntityIntegrationTest {
                     .expectBody()
                     .jsonPath("$.content")
                     .value(new ParameterizedTypeReference<List<TheEntityResponseDTO>>() {
-                    }, content -> {
-                        assertThat(content.size()).isEqualTo(1);
-                    });
+                    }, content -> assertThat(content.size()).isEqualTo(1));
         }
     }
 
@@ -103,9 +102,10 @@ class TheEntityIntegrationTest {
     class SaveEntity {
         @Test
         void givenEntity_thenEntityIsSaved() {
-            final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test1");
+            final String value = "Test1";
+            final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO(value);
 
-            restTestClient.post()
+            final TheEntityResponseDTO responseDTO = restTestClient.post()
                     .uri("/theEntity")
                     .body(requestDTO)
                     .accept(MediaType.APPLICATION_JSON)
@@ -116,7 +116,14 @@ class TheEntityIntegrationTest {
                     .value(theEntityResponseDTO -> {
                         assertNotNull(theEntityResponseDTO);
                         assertThat(theEntityResponseDTO.textAttribute()).isEqualTo(requestDTO.textAttribute());
-                    });
+                    })
+                    .returnResult()
+                    .getResponseBody();
+
+            assertThat(responseDTO).isNotNull();
+            final Optional<TheEntity> theEntity = theEntityRepository.findById(responseDTO.id());
+            assertThat(theEntity).isPresent();
+            assertThat(theEntity.get().getTextAttribute()).isEqualTo(value);
         }
     }
 
@@ -124,7 +131,8 @@ class TheEntityIntegrationTest {
     class UpdateEntity {
         @Test
         void givenEntity_thenEntityIsUpdated() {
-            final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO("Test2");
+            final String newValue = "Test2";
+            final TheEntityRequestDTO requestDTO = new TheEntityRequestDTO(newValue);
 
             restTestClient.put()
                     .uri("/theEntity/{theEntityId}", testEntityId)
@@ -139,6 +147,8 @@ class TheEntityIntegrationTest {
                         assertThat(theEntityResponseDTO.id()).isEqualTo(testEntityId);
                         assertThat(theEntityResponseDTO.textAttribute()).isEqualTo(requestDTO.textAttribute());
                     });
+
+            assertThat(theEntityRepository.findById(testEntityId).orElseThrow().getTextAttribute()).isEqualTo(newValue);
         }
     }
 
@@ -150,6 +160,8 @@ class TheEntityIntegrationTest {
                     .uri("/theEntity/{theEntityID}", testEntityId)
                     .exchange()
                     .expectStatus().isOk();
+
+            assertThat(theEntityRepository.findById(testEntityId)).isEmpty();
         }
     }
 
