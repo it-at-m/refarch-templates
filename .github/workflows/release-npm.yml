@@ -44,7 +44,7 @@ jobs:
         with:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
-    # need if publish to npm registry    
+          # necessary to publish to npm registry
     #  - id: publish
     #    shell: bash
     #    working-directory: ./${{ inputs.app-path }}
