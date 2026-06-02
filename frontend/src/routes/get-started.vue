@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="fill-height d-flex align-center flex-wrap">
     <v-row class="text-center">
       <v-col>
-        <h1 class="text-h3 font-weight-bold mb-10">
+        <h1 class="text-display-medium font-weight-bold mb-10">
           {{ t("views.getStarted.header") }}
         </h1>
         <h3>{{ t("views.getStarted.docsText") }}</h3>
