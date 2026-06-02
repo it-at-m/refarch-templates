@@ -38,9 +38,9 @@ jobs:
       analyze-javascript-typescript-vue: ${{ steps.analyze-flags.outputs.analyze-javascript-typescript-vue }}
       analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@1a673d9c3be4a4f59cf29f425bc2b00fc42751fd # v1.0.32
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@1a673d9c3be4a4f59cf29f425bc2b00fc42751fd # v1.0.32
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
       - id: analyze-flags
         run: |
           {
@@ -60,7 +60,7 @@ jobs:
       matrix:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1a673d9c3be4a4f59cf29f425bc2b00fc42751fd # v1.0.32
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -75,7 +75,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1a673d9c3be4a4f59cf29f425bc2b00fc42751fd # v1.0.32
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -87,7 +87,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1a673d9c3be4a4f59cf29f425bc2b00fc42751fd # v1.0.32
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}
