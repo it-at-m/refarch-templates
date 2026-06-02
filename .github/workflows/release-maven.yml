@@ -40,7 +40,7 @@ jobs:
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           use-pr: "true"
-          # you neeed the following variables, if you want to publish the packages to maven central
+          # the following variables are necessary to publish the packages to maven central
           # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
