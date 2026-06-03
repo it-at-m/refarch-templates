@@ -48,6 +48,10 @@ management:
   info:
     env:
       enabled: true
+  otlp:
+    metrics:
+      export:
+        enabled: false
 
 springdoc:
   show-actuator: true
