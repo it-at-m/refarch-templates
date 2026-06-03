@@ -1,0 +1,45 @@
+package de.muenchen.oss.refarch.backend;
+
+import java.util.List;
+import java.util.Map;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+
+/**
+ * Configures a mocked JwtDecoder as Spring bean to test authorization via roles.
+ * When an Authorization header is provided in the request, the Bearer value is mapped to an
+ * equivalent role if registered in {@link TestSecurityConfiguration#MOCKED_ROLES}.
+ * e.g. Authorization: "Bearer reader" -> Role reader
+ */
+@TestConfiguration
+public class TestSecurityConfiguration {
+
+    private final static List<String> MOCKED_ROLES = List.of("reader", "writer");
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+        JwtDecoder jwtDecoder = Mockito.mock(JwtDecoder.class);
+
+        MOCKED_ROLES.forEach(role -> {
+            Mockito.when(jwtDecoder.decode(role))
+                    .thenReturn(jwtWithRole(role));
+        });
+
+        return jwtDecoder;
+    }
+
+    private Jwt jwtWithRole(String role) {
+        return Jwt.withTokenValue(role)
+                .header("alg", "none")
+                .claim(
+                        "resource_access",
+                        Map.of(
+                                "test-client",
+                                Map.of("roles", List.of(role))))
+                .build();
+    }
+
+}

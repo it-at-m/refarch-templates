@@ -1,11 +1,11 @@
 package de.muenchen.oss.refarch.backend.theentity;
 
-import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import de.muenchen.oss.refarch.backend.TestConstants;
+import de.muenchen.oss.refarch.backend.TestSecurityConfiguration;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
 import java.util.List;
@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.client.RestTestClient;
@@ -31,7 +33,8 @@ import org.testcontainers.utility.DockerImageName;
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureRestTestClient
-@ActiveProfiles(profiles = { SPRING_TEST_PROFILE, SPRING_NO_SECURITY_PROFILE })
+@ActiveProfiles(profiles = { SPRING_TEST_PROFILE })
+@Import(TestSecurityConfiguration.class)
 class TheEntityIntegrationTest {
 
     @Autowired
@@ -65,8 +68,10 @@ class TheEntityIntegrationTest {
     class GetEntity {
         @Test
         void givenEntityId_thenReturnEntity() {
-            restTestClient.get()
+            restTestClient
+                    .get()
                     .uri("/theEntity/{theEntityID}", testEntityId)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer reader")
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -88,6 +93,7 @@ class TheEntityIntegrationTest {
                             .queryParam("pageNumber", "0")
                             .queryParam("pageSize", "10")
                             .build())
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer reader")
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON)
@@ -107,6 +113,7 @@ class TheEntityIntegrationTest {
 
             final TheEntityResponseDTO responseDTO = restTestClient.post()
                     .uri("/theEntity")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer writer")
                     .body(requestDTO)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange()
@@ -136,6 +143,7 @@ class TheEntityIntegrationTest {
 
             restTestClient.put()
                     .uri("/theEntity/{theEntityId}", testEntityId)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer writer")
                     .body(requestDTO)
                     .accept(MediaType.APPLICATION_JSON)
                     .exchange()
@@ -158,6 +166,7 @@ class TheEntityIntegrationTest {
         void givenEntityId_thenEntityIsDeleted() {
             restTestClient.delete()
                     .uri("/theEntity/{theEntityID}", testEntityId)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer writer")
                     .exchange()
                     .expectStatus().isOk();
 
