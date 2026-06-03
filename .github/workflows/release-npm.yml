@@ -44,11 +44,11 @@ jobs:
         with:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
-          # necessary to publish to npm registry
-    #  - id: publish
-    #    shell: bash
-    #    working-directory: ./${{ inputs.app-path }}
-    #    run: npm publish --provenance --access public
+      # necessary to publish to npm registry
+      # - id: publish
+      #   shell: bash
+      #   working-directory: ./${{ inputs.app-path }}
+      #   run: npm publish --provenance --access public
 
   release-npm-image:
     needs: release-npm-artifact
