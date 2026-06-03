@@ -4,13 +4,11 @@
     <the-app-bar @clicked-nav-icon="toggleNavigation" />
     <the-navigation-drawer v-model="isNavigationShown" />
     <v-main>
-      <v-container fluid>
-        <router-view v-slot="{ Component }">
-          <v-fade-transition mode="out-in">
-            <component :is="Component" />
-          </v-fade-transition>
-        </router-view>
-      </v-container>
+      <router-view v-slot="{ Component }">
+        <v-fade-transition mode="out-in">
+          <component :is="Component" />
+        </v-fade-transition>
+      </router-view>
     </v-main>
   </v-app>
 </template>
