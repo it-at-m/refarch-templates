@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="primary">
-    <v-row align="center">
+    <v-row class="align-center">
       <v-col
         cols="3"
         class="d-flex align-center justify-start"
@@ -44,13 +44,13 @@
           :icon="mdiApps"
         />
         <v-btn
-          v-if="userInfoStore.getUserInfo !== null"
+          v-if="userInfoStore.userInfo !== null"
           class="mx-2"
           variant="text"
           icon
         >
           <ad2-image-avatar
-            :username="userInfoStore.getUserInfo.preferred_username"
+            :username="userInfoStore.userInfo.preferred_username"
           />
         </v-btn>
       </v-col>

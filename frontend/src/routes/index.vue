@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="fill-height">
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -7,10 +7,16 @@
           class="my-3"
           height="200"
         />
+        <p v-if="isWriter">
+          {{ t("views.index.isWriterText") }}
+        </p>
+        <p v-else>
+          {{ t("views.index.isNotWriterText") }}
+        </p>
       </v-col>
 
       <v-col class="mb-4">
-        <h1 class="text-h3 font-weight-bold mb-3">
+        <h1 class="text-display-medium font-weight-bold mb-3">
           {{ t("views.index.header") }}
         </h1>
         <p>
@@ -35,10 +41,14 @@ import { useI18n } from "vue-i18n";
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
+import useHasAnyRole from "@/composables/useHasAnyRole";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
+import { Role } from "@/types/Role";
 
 const { t } = useI18n();
+
+const isWriter = useHasAnyRole(Role.WRITER);
 
 const snackbarStore = useSnackbarStore();
 const apiGwStatus = ref("DOWN");

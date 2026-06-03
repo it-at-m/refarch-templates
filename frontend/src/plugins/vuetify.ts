@@ -1,4 +1,3 @@
-// @ts-expect-error: "TS2307 cannot find module" is a false positive here
 import "vuetify/styles";
 
 import type { VueI18nAdapterParams } from "vuetify/locale/adapters/vue-i18n";
@@ -19,6 +18,7 @@ export default createVuetify({
     },
   },
   theme: {
+    defaultTheme: "light",
     themes: {
       light: {
         colors: {

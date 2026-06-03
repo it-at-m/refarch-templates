@@ -11,7 +11,7 @@
           size="25"
           :icon="textData.item.icon"
         />
-        <p class="text-body-1">{{ textData.item.text }}</p>
+        <p class="my-0 text-body-large">{{ textData.item.text }}</p>
       </v-layout>
     </template>
     <template #actions="{ props, item }">

@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck@acb09213786b76dd7aa52ec1d901390d28c60eb0 # v1.0.29
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dockercompose-healthcheck@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
         with:
           skip-exited: true # required for keycloakmigration init container
           compose-file-path: "./stack/"

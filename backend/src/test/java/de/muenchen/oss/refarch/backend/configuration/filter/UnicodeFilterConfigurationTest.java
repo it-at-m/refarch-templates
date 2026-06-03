@@ -1,5 +1,6 @@
 package de.muenchen.oss.refarch.backend.configuration.filter;
 
+import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_NO_SECURITY_PROFILE;
 import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,16 +11,16 @@ import de.muenchen.oss.refarch.backend.theentity.TheEntity;
 import de.muenchen.oss.refarch.backend.theentity.TheEntityRepository;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
-import java.net.URI;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.springframework.test.web.servlet.client.RestTestClient;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @Testcontainers
@@ -27,13 +28,14 @@ import org.testcontainers.utility.DockerImageName;
         classes = { MicroServiceApplication.class },
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@ActiveProfiles(profiles = { SPRING_TEST_PROFILE })
+@AutoConfigureRestTestClient
+@ActiveProfiles(profiles = { SPRING_TEST_PROFILE, SPRING_NO_SECURITY_PROFILE })
 class UnicodeFilterConfigurationTest {
 
     @Container
     @ServiceConnection
     @SuppressWarnings("unused")
-    private static final PostgreSQLContainer<?> POSTGRE_SQL_CONTAINER = new PostgreSQLContainer<>(
+    private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
             DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
 
     private static final String ENTITY_ENDPOINT_URL = "/theEntity";
@@ -51,7 +53,7 @@ class UnicodeFilterConfigurationTest {
     private static final String TEXT_ATTRIBUTE_COMPOSED = "\u00c4-\u00e9";
 
     @Autowired
-    private TestRestTemplate testRestTemplate;
+    private RestTestClient restTestClient;
 
     @Autowired
     private TheEntityRepository theEntityRepository;
@@ -63,8 +65,17 @@ class UnicodeFilterConfigurationTest {
         final TheEntityRequestDTO theEntityRequestDto = new TheEntityRequestDTO(TEXT_ATTRIBUTE_DECOMPOSED);
 
         // When
-        final TheEntityResponseDTO response = testRestTemplate.postForEntity(URI.create(ENTITY_ENDPOINT_URL), theEntityRequestDto, TheEntityResponseDTO.class)
-                .getBody();
+        TheEntityResponseDTO response = restTestClient.post()
+                .uri(ENTITY_ENDPOINT_URL)
+                .body(theEntityRequestDto)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody(TheEntityResponseDTO.class)
+                .returnResult()
+                .getResponseBody();
+
+        assertNotNull(response);
+
         final TheEntity theEntity = theEntityRepository.findById(response.id()).orElse(null);
 
         // Then
@@ -74,6 +85,7 @@ class UnicodeFilterConfigurationTest {
         assertEquals(TEXT_ATTRIBUTE_COMPOSED.length(), response.textAttribute().length());
 
         // Check persisted entity contains a composed string via JPA repository.
+        assertNotNull(theEntity);
         assertNotNull(theEntity.getTextAttribute());
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, theEntity.getTextAttribute());
         assertEquals(TEXT_ATTRIBUTE_COMPOSED.length(), theEntity.getTextAttribute().length());

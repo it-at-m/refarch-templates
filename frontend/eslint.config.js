@@ -1,3 +1,5 @@
+import { fileURLToPath, URL } from "node:url";
+
 import jsEslintConfig from "@eslint/js";
 import vueI18nEslintConfig from "@intlify/eslint-plugin-vue-i18n";
 import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
@@ -7,7 +9,11 @@ import {
 } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
-import { globalIgnores } from "eslint/config";
+import { includeIgnoreFile } from "eslint/config";
+
+const prettierIgnorePath = fileURLToPath(
+  new URL(".prettierignore", import.meta.url)
+);
 
 export default defineConfigWithVueTs(
   ESLint.defaultConfig,
@@ -55,12 +61,7 @@ export default defineConfigWithVueTs(
       "vue/multi-word-component-names": "off",
     },
   },
-  globalIgnores([
-    "dist",
-    "target",
-    "node_modules",
-    "env.d.ts",
-    "route-map.d.ts",
-    "src/api/generated/*/**",
-  ])
+  includeIgnoreFile(prettierIgnorePath, {
+    gitignoreResolution: true,
+  })
 );

@@ -5,7 +5,8 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=24.11 <25"
+    "node": ">=24.11 <25",
+    "npm": ">=11.6 <12"
   },
   "scripts": {
     "dev": "vite",
@@ -18,30 +19,30 @@
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
   "dependencies": {
-    "@muenchen/muc-patternlab-vue": "8.1.0",
+    "@muenchen/muc-patternlab-vue": "10.0.0",
     "@vueuse/core": "14.3.0",
-    "vue": "3.5.33"
+    "vue": "3.5.35"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "4.2.1",
     "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@openapitools/openapi-generator-cli": "2.32.0",
+    "@openapitools/openapi-generator-cli": "2.34.0",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.11.2",
-    "@vitejs/plugin-vue": "6.0.6",
+    "@vitejs/plugin-vue": "6.0.7",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.7.0",
-    "@vue/test-utils": "2.4.6",
+    "@vue/test-utils": "2.4.10",
     "@vue/tsconfig": "0.9.1",
-    "eslint": "10.3.0",
-    "eslint-plugin-vue": "10.9.0",
-    "jsdom": "29.1.0",
+    "eslint": "10.4.0",
+    "eslint-plugin-vue": "10.9.1",
+    "jsdom": "29.1.1",
     "prettier": "3.8.3",
     "typescript": "5.9.3",
-    "vite": "8.0.10",
-    "vite-plugin-vue-devtools": "8.1.1",
-    "vitest": "4.1.5",
-    "vue-tsc": "3.2.7"
+    "vite": "8.0.14",
+    "vite-plugin-vue-devtools": "8.1.2",
+    "vitest": "4.1.7",
+    "vue-tsc": "3.3.2"
   }
 }

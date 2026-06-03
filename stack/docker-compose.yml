@@ -19,7 +19,7 @@ services:
       - no-new-privileges:true
 
   pg-admin:
-    image: dpage/pgadmin4:9.14.0@sha256:ff557f69d9808085dc3554f56c1b06a36ac8cddabe4485212920b9604261abdb
+    image: dpage/pgadmin4:9.15.0@sha256:cefc4cc6b7d9d71a9e81e76fb9d7e14038ab5661b539a190eea1b63fa612589a
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
@@ -86,7 +86,7 @@ services:
     security_opt: *security_settings
 
   refarch-gateway:
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.7.0@sha256:3f82ab83c212ca53c9c2b606cfe29291f21525eac86fece215d0e1c6ca51273f
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.8.0@sha256:839ed564a7cafa921dfc1eb08cdf0865214266ee6915804f882ae67d3593b541
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
