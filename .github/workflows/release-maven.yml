@@ -40,10 +40,11 @@ jobs:
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           use-pr: "true"
-          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
-          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
-          GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
+          # the following variables are necessary to publish the packages to maven central
+          # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
+          # GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
 
   release-maven-image:
     runs-on: ubuntu-latest

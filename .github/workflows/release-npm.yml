@@ -20,17 +20,14 @@ on:
         options: # Add or modify paths according to your project structure
           - frontend
           - webcomponent
-      skip-deployment:
-        default: true
-        type: boolean
-        description: "skip deployment to npm registry"
+          
 jobs:
   release-npm-artifact:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write # can be removed if use-pr is 'false'
-      id-token: write # required when publishing with `npm publish --provenance`
+      # id-token: write # required when publishing with `npm publish --provenance`
     outputs:
       ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
@@ -47,12 +44,11 @@ jobs:
         with:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
-      - if: ${{ !inputs.skip-deployment }}
-        shell: bash
-        working-directory: ./${{ inputs.app-path }}
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
+      # necessary to publish to npm registry
+      # - id: publish
+      #   shell: bash
+      #   working-directory: ./${{ inputs.app-path }}
+      #   run: npm publish --provenance --access public
 
   release-npm-image:
     needs: release-npm-artifact
