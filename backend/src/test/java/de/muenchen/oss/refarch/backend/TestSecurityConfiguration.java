@@ -25,15 +25,15 @@ public class TestSecurityConfiguration {
     private static final List<String> MOCKED_ROLES = List.of("reader", "writer");
 
     @Bean
-    public JwtDecoder jwtDecoder() {
-        JwtDecoder jwtDecoder = Mockito.mock(JwtDecoder.class);
+    public JwtDecoder mockedJwtDecoder() {
+        JwtDecoder mockedJwtDecoder = Mockito.mock(JwtDecoder.class);
 
         MOCKED_ROLES.forEach(role -> {
-            Mockito.when(jwtDecoder.decode(role))
+            Mockito.when(mockedJwtDecoder.decode(role))
                     .thenReturn(jwtWithRole(role));
         });
 
-        return jwtDecoder;
+        return mockedJwtDecoder;
     }
 
     private Jwt jwtWithRole(String role) {
