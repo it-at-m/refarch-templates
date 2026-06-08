@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 @TestConfiguration
 public class TestSecurityConfiguration {
 
-    private final static List<String> MOCKED_ROLES = List.of("reader", "writer");
+    private static final List<String> MOCKED_ROLES = List.of("reader", "writer");
 
     @Bean
     public JwtDecoder jwtDecoder() {
