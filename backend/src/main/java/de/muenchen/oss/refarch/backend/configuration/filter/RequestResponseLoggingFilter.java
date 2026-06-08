@@ -11,7 +11,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * This filter logs the username for requests.
  */
-@Profile("!no-security")
 @Component
 @FilterRegistration(urlPatterns = "/*", order = 1)
 @Slf4j

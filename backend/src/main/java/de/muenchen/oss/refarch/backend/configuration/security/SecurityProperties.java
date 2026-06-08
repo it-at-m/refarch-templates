@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
  */
 @ConfigurationProperties(prefix = "refarch.security")
 @Validated
-@Profile("!no-security")
 @Data
 public class SecurityProperties {
     /**

@@ -16,7 +16,6 @@ import org.springframework.web.client.RestClient;
  * {@link KeycloakPermissionsAuthoritiesConverter}.
  */
 @Configuration
-@Profile("!no-security")
 public class AuthoritiesConverterConfiguration {
     public static final int KEYCLOAK_FETCH_TIMEOUT = 30;
 
