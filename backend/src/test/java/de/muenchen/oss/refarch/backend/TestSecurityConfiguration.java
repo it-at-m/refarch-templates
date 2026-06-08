@@ -1,7 +1,9 @@
 package de.muenchen.oss.refarch.backend;
 
+import de.muenchen.oss.refarch.backend.configuration.security.SecurityProperties;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +17,10 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
  * e.g. Authorization: "Bearer reader" -> Role reader
  */
 @TestConfiguration
+@RequiredArgsConstructor
 public class TestSecurityConfiguration {
+
+    private final SecurityProperties securityProperties;
 
     private static final List<String> MOCKED_ROLES = List.of("reader", "writer");
 
@@ -37,7 +42,7 @@ public class TestSecurityConfiguration {
                 .claim(
                         "resource_access",
                         Map.of(
-                                "test-client",
+                                securityProperties.getClientId(),
                                 Map.of("roles", List.of(role))))
                 .build();
     }
