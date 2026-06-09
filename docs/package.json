@@ -23,7 +23,7 @@
     "vitepress-plugin-mermaid": "2.0.17"
   },
   "overrides": {
-    "esbuild": "0.25.0",
+    "esbuild": "0.25.12",
     "vite": "6.4.2"
   }
 }
