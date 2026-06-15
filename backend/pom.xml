@@ -62,7 +62,7 @@
 
         <!-- Utility -->
         <mapstruct.version>1.6.3</mapstruct.version>
-        <refarch-tools.version>1.2.2</refarch-tools.version>
+        <refarch-tools.version>1.3.0</refarch-tools.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
