@@ -1,4 +1,6 @@
 {
+  "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
+  "overrides": {},
   "name": "refarch-templates-docs",
   "version": "0.0.0",
   "type": "module",
@@ -21,9 +23,5 @@
     "prettier": "3.8.3",
     "vitepress": "1.6.4",
     "vitepress-plugin-mermaid": "2.0.17"
-  },
-  "overrides": {
-    "esbuild": "0.25.0",
-    "vite": "6.4.2"
   }
 }

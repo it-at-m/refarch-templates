@@ -1,4 +1,6 @@
 {
+  "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
+  "overrides": {},
   "name": "refarch-webcomponent",
   "version": "0.0.0",
   "type": "module",
@@ -27,7 +29,7 @@
     "@cyclonedx/cyclonedx-npm": "4.2.1",
     "@eslint/js": "10.0.1",
     "@muenchen/prettier-codeformat": "1.0.2",
-    "@openapitools/openapi-generator-cli": "2.34.0",
+    "@openapitools/openapi-generator-cli": "2.38.0",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.11.2",
     "@vitejs/plugin-vue": "6.0.7",
