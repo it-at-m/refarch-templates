@@ -48,7 +48,7 @@
         <spotless-maven-plugin.version>3.6.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.8.3</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.8.5</spotbugs-maven-plugin.version>
         <spotbugs-annotations.version>4.9.8</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
@@ -62,7 +62,7 @@
 
         <!-- Utility -->
         <mapstruct.version>1.6.3</mapstruct.version>
-        <refarch-tools.version>1.2.2</refarch-tools.version>
+        <refarch-tools.version>1.3.0</refarch-tools.version>
 
         <!-- Additional required dependencies -->
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
@@ -440,17 +440,16 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${spotbugs-maven-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h3xstream.findsecbugs</groupId>
+                        <artifactId>findsecbugs-plugin</artifactId>
+                        <version>${findsecbugs-plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <effort>Max</effort>
                     <excludeFilterFile>spotbugs-exclude-rules.xml</excludeFilterFile>
-                    <spotbugsXmlOutputDirectory>${project.build.directory}/spotbugs-results</spotbugsXmlOutputDirectory> <!-- required to ensure only the artifact jar is on top level when building -->
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>${findsecbugs-plugin.version}</version>
-                        </plugin>
-                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
