@@ -2,7 +2,7 @@
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
   "overrides": {
     "vitepress": {
-      "vite": "6.4.2"
+      "vite": "8.0.16"
     }
   },
   "name": "refarch-templates-docs",
