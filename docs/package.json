@@ -24,7 +24,7 @@
     "@muenchen/prettier-codeformat": "1.0.2",
     "markdownlint-cli": "0.48.0",
     "mermaid": "11.15.0",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "vitepress": "1.6.4",
     "vitepress-plugin-mermaid": "2.0.17"
   }
