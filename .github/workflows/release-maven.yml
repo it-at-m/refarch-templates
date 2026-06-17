@@ -33,7 +33,7 @@ jobs:
       TZ: Europe/Berlin
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@877aafa9f0732cbc91819b60d237c351ea88f95c # v1.0.34
         with:
           app-path: ${{ github.event.inputs.app-path }}
           java-version: "21"
@@ -52,7 +52,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@877aafa9f0732cbc91819b60d237c351ea88f95c # v1.0.34
         with:
           path: ${{ github.event.inputs.app-path }}
           image-name: ${{ github.event.inputs.app-path }}
@@ -69,7 +69,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@b088b94cad35e50b197104c9e2ac8fb25a7116b3 # v1.0.33
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@877aafa9f0732cbc91819b60d237c351ea88f95c # v1.0.34
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
