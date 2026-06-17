@@ -5,8 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- TEMPORARY OVERRIDE TO FIX CVE-2026-40973 -->
-        <version>3.5.14</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <version>3.5.15</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
@@ -49,7 +48,7 @@
         <camel-spring-boot-dependencies.version>4.18.2</camel-spring-boot-dependencies.version>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>3.6.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.7.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.8.5</spotbugs-maven-plugin.version>
@@ -71,10 +70,6 @@
         <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
         <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
         <p2.mirror>download.eclipse.org</p2.mirror>
-
-        <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <jackson-bom.version>2.21.2</jackson-bom.version> <!-- Added to fix CVE-2026-29062-->
-        <tomcat.version>10.1.54</tomcat.version> <!-- Added to fix CVE-2026-34483, CVE-2026-34486, CVE-2026-34487 -->
     </properties>
 
     <dependencyManagement>
