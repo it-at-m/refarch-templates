@@ -44,7 +44,6 @@ if [ -f "$DIR/$LOCAL_JAR" ]; then
 fi
 
 echo " => Downloading .jar file:"
-echo "    URL:        $URL"
 echo "    Target-file: $DIR/$LOCAL_JAR"
 
 mvn dependency:copy -Dartifact=org.openapitools:openapi-generator-cli:$VER:jar -DoutputDirectory=.
