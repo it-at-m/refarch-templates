@@ -33,7 +33,7 @@
     "@cyclonedx/cyclonedx-npm": "5.0.0",
     "@eslint/js": "10.0.1",
     "@intlify/eslint-plugin-vue-i18n": "4.5.1",
-    "@intlify/unplugin-vue-i18n": "11.2.3",
+    "@intlify/unplugin-vue-i18n": "11.2.4",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@pinia/testing": "1.0.3",
