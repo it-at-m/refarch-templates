@@ -6,33 +6,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 echo "Starting download script ..."
 
-set_proxy_from_global_npmrc() {
-  local GLOBAL_NPMRC
-  GLOBAL_NPMRC=$(npm config get userconfig 2>/dev/null || echo "")
-  [ -n "$GLOBAL_NPMRC" ] && [ -f "$GLOBAL_NPMRC" ] || return 0
-
-  echo "Reading proxy-configuration from global .npmrc: $GLOBAL_NPMRC"
-
-  unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
-
-  local P HP
-  P=$(grep -E '^[[:space:]]*proxy=' "$GLOBAL_NPMRC"        | tail -n1 | cut -d'=' -f2- || true)
-  HP=$(grep -E '^[[:space:]]*https-proxy=' "$GLOBAL_NPMRC" | tail -n1 | cut -d'=' -f2- || true)
-
-  if [ -n "$P" ]; then
-    export http_proxy="$P" HTTP_PROXY="$P"
-    echo " => set http_proxy to: $P"
-  fi
-  if [ -n "$HP" ]; then
-    export https_proxy="$HP" HTTPS_PROXY="$HP"
-    echo " => set https_proxy to: $HP"
-  fi
-  if [ -z "$P" ] && [ -z "$HP" ]; then
-    echo " => No proxy-configuration found in .npmrc"
-  fi
-}
-
-set_proxy_from_global_npmrc
 
 echo "----------------------------------------"
 echo "Project: $SCRIPT_DIR"
@@ -57,7 +30,6 @@ echo " => Selected version in config-file: $VER"
 
 # Remote filename and location of jar
 REMOTE_JAR="openapi-generator-cli-$VER.jar"
-URL="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$VER/$REMOTE_JAR"
 
 # Local desired filename and location
 LOCAL_JAR="$VER.jar"
@@ -72,16 +44,10 @@ if [ -f "$DIR/$LOCAL_JAR" ]; then
 fi
 
 echo " => Downloading .jar file:"
-echo "    URL:        $URL"
 echo "    Target-file: $DIR/$LOCAL_JAR"
 
-if command -v curl >/dev/null 2>&1; then
-  echo "  => Using curl"
-  curl -fSL "$URL" -o "$DIR/$LOCAL_JAR"
-else
-  echo "  => Using wget"
-  wget -O "$DIR/$LOCAL_JAR" "$URL"
-fi
+mvn dependency:copy -Dartifact=org.openapitools:openapi-generator-cli:$VER:jar -DoutputDirectory=.
+mv $REMOTE_JAR $DIR/$LOCAL_JAR
 
 echo " => Download completed"
 echo "----------------------------------------"
