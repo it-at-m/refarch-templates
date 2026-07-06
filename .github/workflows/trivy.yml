@@ -27,7 +27,7 @@ jobs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
     # For pull requests it's not necessary to checkout the code
-    - uses: dorny/paths-filter@v4
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@feat/trivy-allow-failure
       id: filter
       with:
         filters: |
