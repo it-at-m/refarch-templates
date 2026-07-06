@@ -40,7 +40,7 @@ jobs:
         echo ${{ toJSON(steps.filter.outputs.changes) }}
         
   # JOB to find out modified packages
-  build:
+  trivy-partial:
     needs: changes
     if:  ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
     strategy:
