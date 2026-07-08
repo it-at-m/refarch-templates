@@ -11,4 +11,4 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@877aafa9f0732cbc91819b60d237c351ea88f95c # v1.0.34
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-dependency-review@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
