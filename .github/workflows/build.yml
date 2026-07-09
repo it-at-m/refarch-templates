@@ -34,7 +34,7 @@ jobs:
           node-version: "24"
       - id: maven # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@300-maven-build-action-should-read-java-version-from-pomxml
         with:
           app-path: ${{ matrix.app-path }}
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
