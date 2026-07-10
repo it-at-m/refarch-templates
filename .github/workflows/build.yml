@@ -37,7 +37,6 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@300-maven-build-action-should-read-java-version-from-pomxml
         with:
           app-path: ${{ matrix.app-path }}
-          java-version: "21"
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
         with:
