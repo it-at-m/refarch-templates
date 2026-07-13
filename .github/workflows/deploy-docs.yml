@@ -23,7 +23,5 @@ jobs:
       id-token: write
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@299-npm-build-action-should-read-node-version-from-packagejson
-        with:
-          node-version: "24"
       # Only deploy documentation from the main branch to prevent unauthorized changes
       - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
