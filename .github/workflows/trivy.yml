@@ -12,6 +12,44 @@ jobs:
     permissions:
       contents: read
       security-events: write # Required to upload SARIF results to the GitHub Security tab
-    if: github.event_name != 'schedule' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'schedule' 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@877aafa9f0732cbc91819b60d237c351ea88f95c # v1.0.34
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    if: github.event_name == 'pull_request' 
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+    # For pull requests it's not necessary to checkout the code
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      id: filter
+      with:
+        filters: |
+          docs: docs/**
+          backend: backend/**
+          frontend: frontend/**
+          webcomponent: webcomponent/**
+          eai: eai/**
+    - run: |
+        echo ${{ toJSON(steps.filter.outputs.changes) }}
+        
+  # JOB to find out modified packages
+  trivy-partial:
+    needs: changes
+    if:  ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
+    strategy:
+      matrix:
+        # Parse JSON array containing names of all filters matching any of changed files
+        # e.g. ['package1', 'package2'] if both package folders contains changes
+        package: ${{ fromJSON(needs.changes.outputs.packages) [0] && fromJSON(needs.changes.outputs.packages) || fromJSON('["skip"]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        with:
+          path: ${{ matrix.package }}
