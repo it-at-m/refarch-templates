@@ -36,7 +36,7 @@ jobs:
 
 
   build:
-    if:  ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
+    if: ${{ needs.changes.outputs.packages != '' && toJson(fromJson(needs.changes.outputs.packages)) != '[]' }}
     needs: changes
     runs-on: ubuntu-latest
     permissions:
@@ -47,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app-path: ${{ fromJSON(needs.changes.outputs.packages) [0] && fromJSON(needs.changes.outputs.packages) || fromJSON('["skip"]') }}
+        app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
 
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
