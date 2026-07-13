@@ -42,12 +42,12 @@ jobs:
   # JOB to find out modified packages
   trivy-partial:
     needs: changes
-    if:  ${{ needs.changes.outputs.packages != '[]' && needs.changes.outputs.packages != '' }} 
+    if: ${{ needs.changes.outputs.packages != '' && toJson(fromJson(needs.changes.outputs.packages)) != '[]' }}
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
-        package: ${{ fromJSON(needs.changes.outputs.packages) [0] && fromJSON(needs.changes.outputs.packages) || fromJSON('["skip"]') }}
+        package: ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
