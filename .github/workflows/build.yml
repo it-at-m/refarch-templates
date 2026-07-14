@@ -25,10 +25,18 @@ jobs:
       with:
         base: ${{ github.ref }}    
         filters: |
-          backend: backend/**
-          frontend: frontend/**
-          webcomponent: webcomponent/**
-          eai: eai/**
+          backend: 
+           - backend/**
+           - .github/workflows/build.yml
+          frontend: 
+           - frontend/**
+           - .github/**
+          webcomponent: 
+           - webcomponent/**
+           - .github/workflows/build.yml
+          eai: 
+           - eai/**
+           - .github/workflows/build.yml
     - run: |
         echo ${{ toJSON(steps.filter.outputs.changes) }}
 
