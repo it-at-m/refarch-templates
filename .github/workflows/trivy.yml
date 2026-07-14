@@ -42,7 +42,7 @@ jobs:
   # JOB to find out modified packages
   trivy-partial:
     needs: changes
-    if: ${{ needs.changes.outputs.packages != '' && toJson(fromJson(needs.changes.outputs.packages)) != '[]' }}
+    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
