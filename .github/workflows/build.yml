@@ -40,7 +40,7 @@ jobs:
     - run: |
         echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
-    if: ${{ needs.changes.outputs.packages != '' && toJson(fromJson(needs.changes.outputs.packages)) != '[]' }}
+    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
     needs: changes
     runs-on: ubuntu-latest
     permissions:
