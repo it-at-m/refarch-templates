@@ -41,7 +41,7 @@ jobs:
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           use-pr: "true"
           # the following variables are necessary to publish the packages to maven central
-          # docs: https://github.com/it-at-m/lhm_actions/blob/main/docs/workflows.md#maven-central
+          # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
           # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}

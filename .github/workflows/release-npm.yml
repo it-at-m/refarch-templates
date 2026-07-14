@@ -45,7 +45,7 @@ jobs:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
       # necessary to publish to npm registry
-      # docs: https://github.com/it-at-m/lhm_actions/blob/main/docs/workflows.md#npm
+      # docs: https://it-at-m.github.io/lhm_actions/workflows.html#npm
       # - id: publish
       #   shell: bash
       #   working-directory: ./${{ inputs.app-path }}
