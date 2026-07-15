@@ -43,7 +43,6 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ inputs.app-path }}
-          node-version: "24"
       # necessary to publish to npm registry
       # docs: https://it-at-m.github.io/lhm_actions/workflows.html#npm
       # - id: publish
