@@ -8,7 +8,42 @@ on:
       - "main"
 
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+    # For pull requests it's not necessary to checkout the code
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+      id: filter
+      with:
+        base: ${{ github.ref }}    
+        filters: |
+          backend: 
+           - backend/**
+           - .github/workflows/build.yml
+          frontend: 
+           - frontend/**
+           - backend/api-spec/**
+           - .github/workflows/build.yml
+          webcomponent: 
+           - webcomponent/**
+           - backend/api-spec/**
+           - .github/workflows/build.yml
+          eai: 
+           - eai/**
+           - .github/workflows/build.yml
+    - run: |
+        echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
+    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
+    needs: changes
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,28 +53,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: # Add or modify paths according to your project structure
-          - app-path: backend
-          - app-path: frontend
-          - app-path: eai
-          - app-path: webcomponent
+        app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
       - id: node # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ matrix.app-path }}
-          node-version: "24"
       - id: maven # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ matrix.app-path }}
-          java-version: "21"
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           path: ${{ matrix.app-path }}
           image-name: ${{ matrix.app-path }}

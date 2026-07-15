@@ -5,8 +5,6 @@ env:
   analyze-java: true
   # Build mode to use for analysis of Java code (e.g. none, autobuild, manual)
   java-buildmode: autobuild
-  # Temurin JDK version to use for autobuild (only when java-buildmode is set to autobuild)
-  java-version: 21
   # Whether to analyze JavaScript/TypeScript/Vue code or not (only set to true if repo has Javascript/Typescript/Vue source code)
   analyze-javascript-typescript-vue: true
   # Whether to analyze Python code or not (only set to true if repo has Python source code)
@@ -38,9 +36,9 @@ jobs:
       analyze-javascript-typescript-vue: ${{ steps.analyze-flags.outputs.analyze-javascript-typescript-vue }}
       analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
       - id: analyze-flags
         run: |
           {
@@ -60,12 +58,11 @@ jobs:
       matrix:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
           codeql-query: ${{ env.analysis-query }}
-          java-version: ${{ env.java-version }}
           path: ${{ matrix.build-path }}
   codeql-javascript-typescript-vue:
     if: ${{ needs.codeql-check-changed-files.outputs.analyze-javascript-typescript-vue == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.javascript-typescript-vue == 'true') }}
@@ -75,7 +72,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -87,7 +84,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}
