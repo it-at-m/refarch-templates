@@ -8,7 +8,40 @@ on:
       - "main"
 
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+    # For pull requests it's not necessary to checkout the code
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+      id: filter
+      with:
+        base: ${{ github.ref }}    
+        filters: |
+          backend: 
+           - backend/**
+           - .github/workflows/build.yml
+          frontend: 
+           - frontend/**
+           - .github/workflows/build.yml
+          webcomponent: 
+           - webcomponent/**
+           - .github/workflows/build.yml
+          eai: 
+           - eai/**
+           - .github/workflows/build.yml
+    - run: |
+        echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
+    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
+    needs: changes
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,11 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: # Add or modify paths according to your project structure
-          - app-path: backend
-          - app-path: frontend
-          - app-path: eai
-          - app-path: webcomponent
+        app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
 
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
