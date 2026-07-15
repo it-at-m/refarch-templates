@@ -30,7 +30,7 @@ jobs:
            - .github/workflows/build.yml
           frontend: 
            - frontend/**
-           - .github/**
+           - .github/workflows/build.yml
           webcomponent: 
            - webcomponent/**
            - .github/workflows/build.yml
