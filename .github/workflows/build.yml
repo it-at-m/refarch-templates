@@ -34,6 +34,7 @@ jobs:
            - .github/workflows/build.yml
           webcomponent: 
            - webcomponent/**
+           - backend/api-spec/**
            - .github/workflows/build.yml
           eai: 
            - eai/**
