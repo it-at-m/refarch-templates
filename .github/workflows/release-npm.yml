@@ -33,18 +33,19 @@ jobs:
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
     steps:
       - id: release-npm-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
           releaseVersion: ${{ inputs.release-version }}
           use-pr: "true"
       - id: build
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ inputs.app-path }}
           node-version: "24"
       # necessary to publish to npm registry
+      # docs: https://it-at-m.github.io/lhm_actions/workflows.html#npm
       # - id: publish
       #   shell: bash
       #   working-directory: ./${{ inputs.app-path }}
@@ -56,7 +57,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           path: ${{ inputs.app-path }}
           image-name: ${{ inputs.app-path }}
@@ -73,7 +74,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@699d5d46ed8bcce2227e2d58101d1dde7a713d53 # v1.2.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
