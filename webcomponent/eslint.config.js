@@ -2,10 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 
 import jsEslintConfig from "@eslint/js";
 import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
-import {
-  withVueTs,
-  vueTsConfigs,
-} from "@vue/eslint-config-typescript";
+import { vueTsConfigs, withVueTs } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
