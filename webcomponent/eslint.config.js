@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from "node:url";
 import jsEslintConfig from "@eslint/js";
 import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import {
-  defineConfigWithVueTs,
+  withVueTs,
   vueTsConfigs,
 } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
@@ -14,7 +14,7 @@ const prettierIgnorePath = fileURLToPath(
   new URL(".prettierignore", import.meta.url)
 );
 
-export default defineConfigWithVueTs(
+export default withVueTs(
   ESLint.defaultConfig,
   jsEslintConfig.configs.recommended,
   vueEslintConfig.configs["flat/recommended-error"],
