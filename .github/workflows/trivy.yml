@@ -14,7 +14,7 @@ jobs:
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: github.event_name == 'schedule' 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
   # JOB to run change detection
   changes:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
     # For pull requests it's not necessary to checkout the code
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       id: filter
       with:
         filters: |
@@ -50,6 +50,6 @@ jobs:
         package: ${{ fromJSON(needs.changes.outputs.packages) }}
     runs-on: ubuntu-latest
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           path: ${{ matrix.package }}
