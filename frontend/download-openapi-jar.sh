@@ -52,8 +52,8 @@ fi
 echo " => Downloading .jar file using Maven:"
 echo "    Target-file: $DIR/$LOCAL_JAR"
 
-mvn dependency:copy -Dartifact=org.openapitools:openapi-generator-cli:$VER:jar -DoutputDirectory=$DIR
-mv $DIR/$REMOTE_JAR $DIR/$LOCAL_JAR
+mvn dependency:copy "-Dartifact=org.openapitools:openapi-generator-cli:$VER:jar" "-DoutputDirectory=$DIR"
+mv "$DIR/$REMOTE_JAR" "$DIR/$LOCAL_JAR"
 
 echo " => Download completed"
 echo "----------------------------------------"
