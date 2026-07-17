@@ -6,7 +6,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 echo "Starting download script ..."
 
-
 echo "----------------------------------------"
 echo "Project: $SCRIPT_DIR"
 
@@ -36,6 +35,7 @@ LOCAL_JAR="$VER.jar"
 DIR="$SCRIPT_DIR/node_modules/@openapitools/openapi-generator-cli/versions"
 mkdir -p "$DIR"
 
+# Check if jar file already exists
 if [ -f "$DIR/$LOCAL_JAR" ]; then
   echo " => .jar file already exists: $DIR/$LOCAL_JAR, skipping download."
   echo "----------------------------------------"
@@ -43,11 +43,17 @@ if [ -f "$DIR/$LOCAL_JAR" ]; then
   exit 0
 fi
 
-echo " => Downloading .jar file:"
+# Check if mvn is available
+if ! command -v mvn > /dev/null 2>&1; then
+  echo "Error: Maven (mvn) is not installed or not in PATH but required for downloading."
+  exit 1
+fi
+
+echo " => Downloading .jar file using Maven:"
 echo "    Target-file: $DIR/$LOCAL_JAR"
 
-mvn dependency:copy -Dartifact=org.openapitools:openapi-generator-cli:$VER:jar -DoutputDirectory=.
-mv $REMOTE_JAR $DIR/$LOCAL_JAR
+mvn dependency:copy -Dartifact=org.openapitools:openapi-generator-cli:$VER:jar -DoutputDirectory=$DIR
+mv $DIR/$REMOTE_JAR $DIR/$LOCAL_JAR
 
 echo " => Download completed"
 echo "----------------------------------------"
