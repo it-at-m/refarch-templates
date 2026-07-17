@@ -33,17 +33,18 @@ jobs:
       TZ: Europe/Berlin
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ github.event.inputs.app-path }}
-          java-version: "21"
           releaseVersion: ${{ github.event.inputs.releaseVersion }}
           developmentVersion: ${{ github.event.inputs.developmentVersion }}
           use-pr: "true"
-          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
-          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
-          GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
+          # the following variables are necessary to publish the packages to maven central
+          # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
+          # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
+          # GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
 
   release-maven-image:
     runs-on: ubuntu-latest
@@ -51,7 +52,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           path: ${{ github.event.inputs.app-path }}
           image-name: ${{ github.event.inputs.app-path }}
@@ -68,7 +69,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           generate-release-notes: true

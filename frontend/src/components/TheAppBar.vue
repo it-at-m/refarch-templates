@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="primary">
-    <v-row align="center">
+    <v-row class="align-center">
       <v-col
         cols="3"
         class="d-flex align-center justify-start"
@@ -44,12 +44,14 @@
           :icon="mdiApps"
         />
         <v-btn
-          v-if="userInfoStore.getUserInfo !== null"
+          v-if="userInfoStore.userInfo !== null"
           class="mx-2"
           variant="text"
           icon
         >
-          <ad2-image-avatar :username="userInfoStore.getUserInfo.username" />
+          <ad2-image-avatar
+            :username="userInfoStore.userInfo.preferred_username"
+          />
         </v-btn>
       </v-col>
     </v-row>
@@ -73,7 +75,7 @@ const { t } = useI18n();
 
 const query = ref<string>("");
 
-async function search(): Promise<void> {
+function search() {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.push({
       text: "Sie haben nach " + query.value + " gesucht. ;)",

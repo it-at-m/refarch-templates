@@ -20,39 +20,34 @@ on:
         options: # Add or modify paths according to your project structure
           - frontend
           - webcomponent
-      skip-deployment:
-        default: true
-        type: boolean
-        description: "skip deployment to npm registry"
+          
 jobs:
   release-npm-artifact:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write # can be removed if use-pr is 'false'
-      id-token: write # required when publishing with `npm publish --provenance`
+      # id-token: write # required when publishing with `npm publish --provenance`
     outputs:
       ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
     steps:
       - id: release-npm-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ inputs.app-path }}
-          node-version: "24"
           releaseVersion: ${{ inputs.release-version }}
           use-pr: "true"
       - id: build
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           app-path: ${{ inputs.app-path }}
-          node-version: "24"
-      - if: ${{ !inputs.skip-deployment }}
-        shell: bash
-        working-directory: ./${{ inputs.app-path }}
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Centralized token in it-at-m GitHub organization
+      # necessary to publish to npm registry
+      # docs: https://it-at-m.github.io/lhm_actions/workflows.html#npm
+      # - id: publish
+      #   shell: bash
+      #   working-directory: ./${{ inputs.app-path }}
+      #   run: npm publish --provenance --access public
 
   release-npm-image:
     needs: release-npm-artifact
@@ -60,7 +55,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           path: ${{ inputs.app-path }}
           image-name: ${{ inputs.app-path }}
@@ -77,7 +72,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
         with:
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}

@@ -3,11 +3,10 @@ package de.muenchen.oss.refarch.backend.configuration.security;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
+import org.springframework.boot.restclient.autoconfigure.RestClientAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +17,6 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 
 /**
  * The central class for configuration of all security aspects.
- * Automatically used when not running with profile `no-security`.
  * Configures all endpoints to require authentication via access token.
  * (except the Spring Boot Actuator endpoints)
  * Additionally it configures the use of {@link KeycloakRolesAuthoritiesConverter} or
@@ -26,10 +24,9 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  */
 @RequiredArgsConstructor
 @Configuration
-@Profile("!no-security")
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
-@Import(RestTemplateAutoConfiguration.class)
+@Import(RestClientAutoConfiguration.class)
 @Slf4j
 public class SecurityConfiguration {
     private final Optional<KeycloakRolesAuthoritiesConverter> keycloakRolesAuthoritiesConverter;
