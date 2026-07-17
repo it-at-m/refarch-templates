@@ -41,14 +41,17 @@ jobs:
         
   # JOB to find out modified packages
   trivy-partial:
+    runs-on: ubuntu-latest
     needs: changes
+    permissions:
+      contents: read
+      security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
     strategy:
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
         package: ${{ fromJSON(needs.changes.outputs.packages) }}
-    runs-on: ubuntu-latest
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
