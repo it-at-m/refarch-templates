@@ -1,13 +1,158 @@
-# ⚠️ WARNING: PRs without a "Type" label are not taken into account
 changelog:
   categories:
+    # ⚠️ WARNING: PRs without a "Component" label will land in one of the "CI/CD" sections
+    # CI/CD
+    - title: CI/CD - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: CI/CD - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: Stack"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+
+    # Stack
+    - title: Stack - 💥 Breaking Changes
+      labels:
+        - BREAKING
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - 🎉 New Features
+      labels:
+        - "Type: Feature"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - 🐞 Bug Fixes
+      labels:
+        - "Type: Bug"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - 🔨 Maintenance
+      labels:
+        - "Type: Maintenance"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - 📔 Documentation
+      labels:
+        - "Type: Documentation"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - ⬆️ Dependency Upgrades
+      labels:
+        - "Type: Dependency"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+    - title: Stack - 🔒️ Security
+      labels:
+        - "Type: Security"
+      exclude:
+        labels:
+          - "Component: CI/CD"
+          - "Component: Backend"
+          - "Component: EAI"
+          - "Component: Frontend"
+          - "Component: Webcomponent"
+
     # Backend
-    # ⚠️ WARNING: PRs without a "Component" label will land in one of the "Backend" sections
     - title: Backend - 💥 Breaking Changes
       labels:
         - BREAKING
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -16,6 +161,8 @@ changelog:
         - "Type: Feature"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -24,6 +171,8 @@ changelog:
         - "Type: Bug"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -32,6 +181,8 @@ changelog:
         - "Type: Maintenance"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -40,6 +191,8 @@ changelog:
         - "Type: Documentation"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -48,6 +201,8 @@ changelog:
         - "Type: Dependency"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -56,6 +211,8 @@ changelog:
         - "Type: Security"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -66,6 +223,8 @@ changelog:
         - BREAKING
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -74,6 +233,8 @@ changelog:
         - "Type: Feature"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -82,6 +243,8 @@ changelog:
         - "Type: Bug"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -90,6 +253,8 @@ changelog:
         - "Type: Maintenance"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -98,6 +263,8 @@ changelog:
         - "Type: Documentation"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -106,6 +273,8 @@ changelog:
         - "Type: Dependency"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -114,6 +283,8 @@ changelog:
         - "Type: Security"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
           - "Component: Webcomponent"
@@ -124,6 +295,8 @@ changelog:
         - BREAKING
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -132,6 +305,8 @@ changelog:
         - "Type: Feature"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -140,6 +315,8 @@ changelog:
         - "Type: Bug"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -148,6 +325,8 @@ changelog:
         - "Type: Maintenance"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -156,6 +335,8 @@ changelog:
         - "Type: Documentation"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -164,6 +345,8 @@ changelog:
         - "Type: Dependency"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -172,6 +355,8 @@ changelog:
         - "Type: Security"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Webcomponent"
@@ -182,6 +367,8 @@ changelog:
         - BREAKING
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -190,6 +377,8 @@ changelog:
         - "Type: Feature"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -198,6 +387,8 @@ changelog:
         - "Type: Bug"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -206,6 +397,8 @@ changelog:
         - "Type: Maintenance"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -214,6 +407,8 @@ changelog:
         - "Type: Documentation"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -222,6 +417,8 @@ changelog:
         - "Type: Dependency"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -230,6 +427,8 @@ changelog:
         - "Type: Security"
       exclude:
         labels:
+          - "Component: CI/CD"
+          - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
@@ -256,3 +455,6 @@ changelog:
     - title: 🔒️ Security
       labels:
         - "Type: Security"
+    - title: Other Changes
+      labels:
+        - "*"
