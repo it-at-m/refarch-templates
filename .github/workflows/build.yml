@@ -18,9 +18,9 @@ jobs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
     steps:
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
     # For pull requests it's not necessary to checkout the code
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       id: filter
       with:
         base: ${{ github.ref }}    
@@ -56,19 +56,19 @@ jobs:
         app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       - id: node # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           app-path: ${{ matrix.app-path }}
       - id: maven # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           app-path: ${{ matrix.app-path }}
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@798bbf171750a308ece31e0ee7257b766888ccdc # v1.2.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           path: ${{ matrix.app-path }}
           image-name: ${{ matrix.app-path }}
