@@ -79,7 +79,6 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <jackson.version>2.21.5</jackson.version>
         <!-- Preferably override properties defined in spring-boot-starter ->
         spring-boot-dependencies POM -->
     </properties>
@@ -114,6 +113,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.21.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
