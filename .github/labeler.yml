@@ -27,6 +27,6 @@
 "Component: Frontend":
   - changed-files:
     - any-glob-to-any-file: ['frontend/**']
-"Component: Webcomponent":
+"Component: Web Component":
   - changed-files:
     - any-glob-to-any-file: ['webcomponent/**']

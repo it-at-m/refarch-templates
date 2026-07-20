@@ -72,6 +72,6 @@ jobs:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
-          generate-release-notes: true
           tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
+          generate-release-notes: true
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
