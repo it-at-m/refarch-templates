@@ -75,7 +75,7 @@ const { t } = useI18n();
 
 const query = ref<string>("");
 
-async function search(): Promise<void> {
+function search() {
   if (query.value !== "" && query.value !== null) {
     snackbarStore.push({
       text: "Sie haben nach " + query.value + " gesucht. ;)",
