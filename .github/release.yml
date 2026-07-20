@@ -11,7 +11,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - 🎉 New Features
       labels:
         - "Type: Feature"
@@ -21,7 +21,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - 🐞 Bug Fixes
       labels:
         - "Type: Bug"
@@ -31,7 +31,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - 🔨 Maintenance
       labels:
         - "Type: Maintenance"
@@ -41,7 +41,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - 📔 Documentation
       labels:
         - "Type: Documentation"
@@ -51,7 +51,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - ⬆️ Dependency Upgrades
       labels:
         - "Type: Dependency"
@@ -61,7 +61,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: CI/CD - 🔒️ Security
       labels:
         - "Type: Security"
@@ -71,7 +71,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
 
     # Stack
     - title: Stack - 💥 Breaking Changes
@@ -83,7 +83,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - 🎉 New Features
       labels:
         - "Type: Feature"
@@ -93,7 +93,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - 🐞 Bug Fixes
       labels:
         - "Type: Bug"
@@ -103,7 +103,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - 🔨 Maintenance
       labels:
         - "Type: Maintenance"
@@ -113,7 +113,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - 📔 Documentation
       labels:
         - "Type: Documentation"
@@ -123,7 +123,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - ⬆️ Dependency Upgrades
       labels:
         - "Type: Dependency"
@@ -133,7 +133,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Stack - 🔒️ Security
       labels:
         - "Type: Security"
@@ -143,7 +143,7 @@ changelog:
           - "Component: Backend"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
 
     # Backend
     - title: Backend - 💥 Breaking Changes
@@ -155,7 +155,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - 🎉 New Features
       labels:
         - "Type: Feature"
@@ -165,7 +165,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - 🐞 Bug Fixes
       labels:
         - "Type: Bug"
@@ -175,7 +175,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - 🔨 Maintenance
       labels:
         - "Type: Maintenance"
@@ -185,7 +185,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - 📔 Documentation
       labels:
         - "Type: Documentation"
@@ -195,7 +195,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - ⬆️ Dependency Upgrades
       labels:
         - "Type: Dependency"
@@ -205,7 +205,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Backend - 🔒️ Security
       labels:
         - "Type: Security"
@@ -215,7 +215,7 @@ changelog:
           - "Component: Stack"
           - "Component: EAI"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
 
     # EAI
     - title: EAI - 💥 Breaking Changes
@@ -227,7 +227,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - 🎉 New Features
       labels:
         - "Type: Feature"
@@ -237,7 +237,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - 🐞 Bug Fixes
       labels:
         - "Type: Bug"
@@ -247,7 +247,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - 🔨 Maintenance
       labels:
         - "Type: Maintenance"
@@ -257,7 +257,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - 📔 Documentation
       labels:
         - "Type: Documentation"
@@ -267,7 +267,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - ⬆️ Dependency Upgrades
       labels:
         - "Type: Dependency"
@@ -277,7 +277,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: EAI - 🔒️ Security
       labels:
         - "Type: Security"
@@ -287,7 +287,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: Frontend"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
 
     # Frontend
     - title: Frontend - 💥 Breaking Changes
@@ -299,7 +299,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - 🎉 New Features
       labels:
         - "Type: Feature"
@@ -309,7 +309,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - 🐞 Bug Fixes
       labels:
         - "Type: Bug"
@@ -319,7 +319,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - 🔨 Maintenance
       labels:
         - "Type: Maintenance"
@@ -329,7 +329,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - 📔 Documentation
       labels:
         - "Type: Documentation"
@@ -339,7 +339,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - ⬆️ Dependency Upgrades
       labels:
         - "Type: Dependency"
@@ -349,7 +349,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
     - title: Frontend - 🔒️ Security
       labels:
         - "Type: Security"
@@ -359,7 +359,7 @@ changelog:
           - "Component: Stack"
           - "Component: Backend"
           - "Component: EAI"
-          - "Component: Webcomponent"
+          - "Component: Web Component"
 
     # Webcomponent
     - title: Webcomponent - 💥 Breaking Changes
