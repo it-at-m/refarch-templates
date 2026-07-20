@@ -13,6 +13,7 @@ env:
   analyze-python: false
   # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
   analysis-query: security-and-quality
+  # why not scanning workflow files?
 
 on:
   pull_request:
