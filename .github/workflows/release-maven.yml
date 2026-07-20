@@ -37,9 +37,9 @@ jobs:
           releaseVersion: ${{ inputs.release-version }}
           developmentVersion: ${{ inputs.development-version }}
           use-pr: "true"
-          # skipDeployment: false
           # the following variables are necessary to publish the packages to maven central
           # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
+          # skipDeployment: false
           # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
