@@ -23,7 +23,7 @@
     "@fontsource/roboto": "5.2.10",
     "@muenchen/appswitcher-vue": "3.0.0",
     "@vueuse/core": "14.3.0",
-    "pinia": "3.0.4",
+    "pinia": "4.0.2",
     "vue": "3.5.39",
     "vue-i18n": "11.4.6",
     "vue-router": "5.2.0",
