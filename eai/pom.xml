@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.16</version> <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
+        <version>3.5.16</version> <!-- must match the chosen Camel version in properties ->
+        camel-spring-boot-dependencies.version, see e.g.
+        https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies
+        and search for 'spring-boot-starter' -->
         <relativePath />
     </parent>
 
@@ -52,12 +57,14 @@
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.10.3.0</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.10.3</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <spotbugs-annotations.version>4.10.3</spotbugs-annotations.version> <!-- must match the patch
+        version of spotbugs-maven-plugin -->
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
-        <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
+        <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via
+        @{argLine} lazy property evaluation -->
         <archunit.version>1.4.2</archunit.version>
 
         <!-- Release -->
@@ -72,7 +79,9 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
+        <jackson-bom.version>2.11.5</jackson-bom.version>
+        <!-- Preferably override properties defined in spring-boot-starter ->
+        spring-boot-dependencies POM -->
     </properties>
 
     <dependencyManagement>
@@ -100,7 +109,8 @@
             <artifactId>camel-servlet-starter</artifactId>
         </dependency>
 
-        <!--  Spring-Boot-Actuator (https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.enabling) -->
+        <!--  Spring-Boot-Actuator
+        (https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.enabling) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -283,7 +293,8 @@
                         <formatAnnotations />
                     </java>
                     <lintSuppressions>
-                        <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
+                        <!-- Add your own Spotless suppressions, see
+                        https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
                     </lintSuppressions>
                 </configuration>
                 <executions>
