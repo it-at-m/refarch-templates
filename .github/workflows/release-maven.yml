@@ -73,4 +73,5 @@ jobs:
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
+          generate-release-notes: true
           artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
