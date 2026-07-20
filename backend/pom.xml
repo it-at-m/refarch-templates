@@ -11,7 +11,7 @@
 
     <groupId>de.muenchen.oss.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
-    <version>2026.0.0-RC1</version>
+    <version>2026.1.0-SNAPSHOT</version>
 
     <name>refarch-backend</name>
     <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
@@ -27,7 +27,7 @@
         <url>https://github.com/it-at-m/refarch-templates.git</url>
         <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
-        <tag>refarch-backend-2026.0.0-RC1</tag>
+        <tag>HEAD</tag>
     </scm>
     <developers>
         <developer>
