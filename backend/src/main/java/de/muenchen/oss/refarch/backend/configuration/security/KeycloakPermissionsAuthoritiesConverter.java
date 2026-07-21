@@ -26,6 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
@@ -62,6 +63,7 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
             final SecurityProperties securityProperties,
             final RestClient.Builder restClientBuilder,
             final ClientHttpRequestFactoryBuilder<?> requestFactoryBuilder) {
+        Assert.hasText(securityProperties.getPermissionsUri(), "permissionsUri must be set to use keycloak-permissions profile");
         this.securityProperties = securityProperties;
         this.restClient = restClientBuilder
                 .requestFactory(requestFactory(requestFactoryBuilder))

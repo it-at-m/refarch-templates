@@ -33,7 +33,7 @@ public class SecurityConfiguration {
     private final Optional<KeycloakPermissionsAuthoritiesConverter> keycloakPermissionsAuthoritiesConverter;
 
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) {
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
                         // allow access to /actuator/info
