@@ -59,20 +59,17 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((requests) -> requests
                         .anyRequest()
                         .authenticated())
-                .oauth2ResourceServer(oAuth2ResourceServerConfigurer ->
-                        keycloakPermissionsAuthoritiesConverter.ifPresentOrElse(
-                                converter -> oAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> {
-                                    log.info("Using permission-based authorization. Start without 'keycloak-permissions' profile to use role-based authorization.");
-                                    final JwtAuthenticationConverter jwtAuthenticationConverter =
-                                            new JwtAuthenticationConverter();
-                                    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(converter);
-                                    jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
-                                }),
-                                () -> {
-                                    log.info("Using role-based authorization. Start with 'keycloak-permissions' profile to use permission-based authorization.");
-                                    oAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults());
-                                }
-                        ));
+                .oauth2ResourceServer(oAuth2ResourceServerConfigurer -> keycloakPermissionsAuthoritiesConverter.ifPresentOrElse(
+                        converter -> oAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> {
+                            log.info("Using permission-based authorization. Start without 'keycloak-permissions' profile to use role-based authorization.");
+                            final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+                            jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(converter);
+                            jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
+                        }),
+                        () -> {
+                            log.info("Using role-based authorization. Start with 'keycloak-permissions' profile to use permission-based authorization.");
+                            oAuth2ResourceServerConfigurer.jwt(Customizer.withDefaults());
+                        }));
 
         return http.build();
     }
