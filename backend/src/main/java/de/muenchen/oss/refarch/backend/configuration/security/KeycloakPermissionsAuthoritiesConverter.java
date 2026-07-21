@@ -75,6 +75,15 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
                         .build());
     }
 
+    KeycloakPermissionsAuthoritiesConverter(
+            final SecurityProperties securityProperties,
+            final RestClient restClient,
+            final Cache cache) {
+        this.securityProperties = securityProperties;
+        this.restClient = restClient;
+        this.cache = cache;
+    }
+
     private static ClientHttpRequestFactory requestFactory(
             final ClientHttpRequestFactoryBuilder<?> requestFactoryBuilder) {
 
