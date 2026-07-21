@@ -75,7 +75,7 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
                         .build());
     }
 
-    KeycloakPermissionsAuthoritiesConverter(
+    /* package */ KeycloakPermissionsAuthoritiesConverter(
             final SecurityProperties securityProperties,
             final RestClient restClient,
             final Cache cache) {
