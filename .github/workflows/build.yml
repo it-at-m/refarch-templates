@@ -67,6 +67,11 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           app-path: ${{ matrix.app-path }}
+      - name: Run Trivy vulnerability scanner in sbom mode
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@6db6885319cb1f85f75cd2947caa96596047711b # v1.1.0
+        with:
+         scan-type: "sbom"
+         path: "${{ join(steps.*.outputs.cyclone-path) }}"
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
