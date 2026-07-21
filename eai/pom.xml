@@ -79,7 +79,7 @@
         <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <jackson-2-bom.version>2.21.5</jackson-2-bom.version>
+        <jackson-bom.version>2.21.5</jackson-bom.version>
         <!-- Preferably override properties defined in spring-boot-starter ->
         spring-boot-dependencies POM -->
     </properties>
