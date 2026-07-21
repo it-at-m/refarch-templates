@@ -42,6 +42,9 @@ jobs:
   # JOB to find out modified packages
   trivy-partial:
     needs: changes
+    permissions:
+      contents: read
+      security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
     strategy:
       matrix:
