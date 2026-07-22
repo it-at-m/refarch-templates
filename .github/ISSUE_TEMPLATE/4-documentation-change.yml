@@ -13,7 +13,7 @@ body:
     attributes:
       value: "## General"
   - type: dropdown
-    id: template
+    id: component
     attributes:
       label: Relevant documentation
       multiple: true
@@ -23,6 +23,8 @@ body:
         - backend
         - eai
         - webcomponent
+        - stack
+        - cicd
         - Other
     validations:
       required: true
