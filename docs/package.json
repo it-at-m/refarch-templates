@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
-    "markdownlint-cli": "0.49.0",
+    "markdownlint-cli": "0.49.1",
     "mermaid": "11.16.0",
     "prettier": "3.9.4",
     "vitepress": "1.6.4",
