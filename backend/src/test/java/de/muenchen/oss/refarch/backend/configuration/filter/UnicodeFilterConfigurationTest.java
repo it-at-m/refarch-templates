@@ -38,45 +38,49 @@ class UnicodeFilterConfigurationTest {
 
     @Test
     void givenWhitelistedContentType_thenNormalizeWrappedRequest() throws ServletException, IOException {
+        // setup and call
         final HttpServletRequest wrappedRequest = filterWhitelistedRequest();
+        // test
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getParameter(PARAMETER_NAME_COMPOSED));
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getHeader(HEADER_NAME_COMPOSED));
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getCookies()[0].getValue());
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getReader().readLine());
-        assertArrayEquals(
-                TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8),
-                StreamUtils.copyToByteArray(wrappedRequest.getPart("file").getInputStream()));
     }
 
     @Test
     void givenWhitelistedContentType_thenNormalizeInputStream() throws ServletException, IOException {
+        // setup and call
         final HttpServletRequest wrappedRequest = filterWhitelistedRequest();
-
+        // test
         assertArrayEquals(
                 TEXT_ATTRIBUTE_COMPOSED.getBytes(StandardCharsets.UTF_8),
                 StreamUtils.copyToByteArray(wrappedRequest.getInputStream()));
     }
 
     @Test
-    void givenNonWhitelistedContentType_thenPassOriginalRequestThrough() throws ServletException, IOException {
+    void givenMultipartFormData_thenPassOriginalRequestThrough() throws ServletException, IOException {
+        // setup
         final MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setContentType("application/octet-stream");
+        request.setContentType("multipart/form-data");
         request.setRequestURI("/unicode-filter-test");
         request.addHeader(HEADER_NAME_DECOMPOSED, TEXT_ATTRIBUTE_DECOMPOSED);
         request.addParameter(PARAMETER_NAME_DECOMPOSED, TEXT_ATTRIBUTE_DECOMPOSED);
         request.setCookies(new Cookie("token", TEXT_ATTRIBUTE_DECOMPOSED));
         request.setContent(TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8));
         request.addPart(new MockPart("file", TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8)));
-
         final MockHttpServletResponse response = new MockHttpServletResponse();
         final MockFilterChain filterChain = new MockFilterChain();
-
+        // call
         filter.doFilter(request, response, filterChain);
-
+        // test
         assertSame(request, filterChain.getRequest());
+        assertArrayEquals(
+                TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8),
+                StreamUtils.copyToByteArray(((HttpServletRequest) filterChain.getRequest()).getPart("file").getInputStream()));
     }
 
     private HttpServletRequest filterWhitelistedRequest() throws ServletException, IOException {
+        // setup
         final MockHttpServletRequest request = new MockHttpServletRequest();
         request.setContentType("application/json;charset=UTF-8");
         request.setRequestURI("/unicode-filter-test");
@@ -85,11 +89,9 @@ class UnicodeFilterConfigurationTest {
         request.addParameter(PARAMETER_NAME_DECOMPOSED, TEXT_ATTRIBUTE_DECOMPOSED);
         request.setCookies(new Cookie("token", TEXT_ATTRIBUTE_DECOMPOSED));
         request.setContent(TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8));
-        request.addPart(new MockPart("file", TEXT_ATTRIBUTE_DECOMPOSED.getBytes(StandardCharsets.UTF_8)));
-
         final MockHttpServletResponse response = new MockHttpServletResponse();
         final MockFilterChain filterChain = new MockFilterChain();
-
+        // call
         filter.doFilter(request, response, filterChain);
 
         return (HttpServletRequest) filterChain.getRequest();
