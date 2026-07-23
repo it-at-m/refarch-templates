@@ -22,7 +22,7 @@ class CacheControlFilterTest {
     private MockFilterChain filterChain;
 
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         filterChain = new MockFilterChain();
