@@ -9,7 +9,7 @@ on:
 
 jobs:
   # JOB to run change detection
-  changes:
+  build-check-changed-files:
     runs-on: ubuntu-latest
     # Required permissions
     permissions:
@@ -42,8 +42,8 @@ jobs:
       - run: |
           echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
-    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
-    needs: changes
+    if: ${{ needs.build-check-changed-files.outputs.packages != '' && needs.build-check-changed-files.outputs.packages != '[]' }}
+    needs: build-check-changed-files
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
+        app-path: ${{ fromJSON(needs.build-check-changed-files.outputs.packages) }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       - id: node # required for steps.* syntax
