@@ -38,7 +38,7 @@ class UnicodeFilterConfigurationTest {
 
     @Test
     void givenWhitelistedContentType_thenNormalizeWrappedRequest() throws ServletException, IOException {
-        final var wrappedRequest = filterWhitelistedRequest();
+        final HttpServletRequest wrappedRequest = filterWhitelistedRequest();
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getParameter(PARAMETER_NAME_COMPOSED));
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getHeader(HEADER_NAME_COMPOSED));
         assertEquals(TEXT_ATTRIBUTE_COMPOSED, wrappedRequest.getCookies()[0].getValue());
@@ -50,7 +50,7 @@ class UnicodeFilterConfigurationTest {
 
     @Test
     void givenWhitelistedContentType_thenNormalizeInputStream() throws ServletException, IOException {
-        final var wrappedRequest = filterWhitelistedRequest();
+        final HttpServletRequest wrappedRequest = filterWhitelistedRequest();
 
         assertArrayEquals(
                 TEXT_ATTRIBUTE_COMPOSED.getBytes(StandardCharsets.UTF_8),
