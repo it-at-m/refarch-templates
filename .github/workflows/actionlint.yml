@@ -3,6 +3,7 @@ name: actionlint
 
 on:
   pull_request:
+  push: 
 
 jobs:
   actionlint:
