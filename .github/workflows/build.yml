@@ -9,6 +9,7 @@ on:
 
 jobs:
   # JOB to run change detection
+  build-check-changed-files:
     runs-on: ubuntu-latest
     # Required permissions
     permissions:
