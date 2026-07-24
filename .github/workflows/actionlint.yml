@@ -9,5 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      # needed to annotate the files in a pull request with comments
+      pull-requests: write
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint@275-change-actionlints-default-version
