@@ -83,6 +83,7 @@
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
         <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
+        <postgresql.version>42.7.12</postgresql.version> <!-- CVE-2026-54291 -->
     </properties>
 
     <dependencies>
