@@ -15,14 +15,14 @@ public final class AuthUtils {
     private AuthUtils() {
     }
 
-     /**
-      * Extracts the user name from the existing Spring Security Context via
-      * {@link SecurityContextHolder}.
-      *
-      * @param usernameClaim name of the claim containing the username in JWT tokens
-      * @return the username or an "unauthenticated" if no {@link Authentication} exists
-      */
-     public static String getUsername(final String usernameClaim) {
+    /**
+     * Extracts the username from the existing Spring Security Context via
+     * {@link SecurityContextHolder}.
+     *
+     * @param usernameClaim name of the claim containing the username in JWT tokens
+     * @return the username or an "unauthenticated" if no {@link Authentication} exists
+     */
+    public static String getUsername(final String usernameClaim) {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken) {
             final JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) authentication;

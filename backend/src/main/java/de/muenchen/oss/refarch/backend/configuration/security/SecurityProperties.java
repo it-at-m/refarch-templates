@@ -21,16 +21,16 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @Data
 public class SecurityProperties {
-     /**
-      * ID of the used oAuth client.
-      */
-     @NotBlank private String clientId;
+    /**
+     * ID of the used oAuth client.
+     */
+    @NotBlank private String clientId;
 
-     /**
-      * Name of the JWT claim that contains the username.
-      * Defaults to "preferred_username" if not configured.
-      */
-     @NotBlank private String usernameClaim = "preferred_username";
+    /**
+     * Name of the JWT claim that contains the username.
+     * Defaults to "preferred_username" if not configured.
+     */
+    @NotBlank private String usernameClaim = "preferred_username";
 
     /**
      * URI of the endpoint used for fetching permissions,
