@@ -1,6 +1,10 @@
 {
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
-  "overrides": {},
+  "overrides": {
+    "@openapitools/openapi-generator-cli": {
+      "shell-quote": "1.9.0"
+    }
+  },
   "name": "refarch-webcomponent",
   "version": "0.0.0",
   "type": "module",
