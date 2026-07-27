@@ -59,7 +59,7 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
         if (checkForLogging(request)) {
             log.info("User {} executed {} on URI {} with http status {}",
-                    AuthUtils.getUsername(),
+                    AuthUtils.getUsername(securityProperties.getUsernameClaim()),
                     request.getMethod(),
                     request.getRequestURI(),
                     response.getStatus());
