@@ -36,7 +36,7 @@
     "@openapitools/openapi-generator-cli": "2.40.1",
     "@tsconfig/node-lts": "24.0.0",
     "@types/node": "24.11.2",
-    "@vitejs/plugin-vue": "6.0.7",
+    "@vitejs/plugin-vue": "6.0.8",
     "@vue/eslint-config-prettier": "10.2.0",
     "@vue/eslint-config-typescript": "14.9.0",
     "@vue/test-utils": "2.4.11",
