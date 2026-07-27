@@ -24,7 +24,7 @@
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
   "dependencies": {
-    "@fontsource/roboto": "5.2.10",
+    "@fontsource/roboto": "5.3.0",
     "@muenchen/appswitcher-vue": "3.0.0",
     "@vueuse/core": "14.3.0",
     "pinia": "4.0.2",
