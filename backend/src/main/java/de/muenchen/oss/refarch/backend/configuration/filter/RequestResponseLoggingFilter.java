@@ -1,7 +1,6 @@
 package de.muenchen.oss.refarch.backend.configuration.filter;
 
 import de.muenchen.oss.refarch.backend.configuration.security.SecurityProperties;
-import de.muenchen.oss.refarch.backend.configuration.security.UsernameAuditorAware;
 import de.muenchen.oss.refarch.backend.security.AuthUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * This filter logs the username using a {@link UsernameAuditorAware} for requests.
+ * This filter logs the username in requests via the {@link AuthUtils} bean.
  */
 @Component
 @FilterRegistration(urlPatterns = "/*", order = 1)
