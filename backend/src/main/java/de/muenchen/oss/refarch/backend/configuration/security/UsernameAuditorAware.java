@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
  * {@link AuditorAware} implementation that provides the username of the
  * currently authenticated user for Spring Data JPA auditing.
  * <p>
- * The implementation can also be autowired to access the username outside of Spring Data JPA Auditing.
+ * The implementation can also be autowired to access the username outside of Spring Data JPA
+ * Auditing.
  */
 @Component("usernameAuditorAware")
 @RequiredArgsConstructor
