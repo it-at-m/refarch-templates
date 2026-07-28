@@ -38,7 +38,7 @@ To learn more about the architecture itself, checkout its [documentation][refarc
 
 The templates are based on [Spring][spring-documentation] and [Vue.js][vuejs-documentation].
 
-## Usage
+## Usages
 
 To get set up and learn more about the templates, please check out the [Getting Started][getting-started-documentation] page.
 Also check the respective pages with suggestions on how to [develop][develop-documentation], [document][document-documentation] and [organize][organize-documentation] your project.
