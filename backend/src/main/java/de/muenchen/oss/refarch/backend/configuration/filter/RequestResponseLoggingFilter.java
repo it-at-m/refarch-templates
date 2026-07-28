@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * This filter logs the username in requests via the {@link AuthUtils} bean.
+ * This filter logs the username from requests using the {@link AuthUtils} bean.
  */
 @Component
 @FilterRegistration(urlPatterns = "/*", order = 1)
