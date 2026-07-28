@@ -2,6 +2,7 @@ package de.muenchen.oss.refarch.backend.configuration.filter;
 
 import de.muenchen.oss.refarch.backend.configuration.security.SecurityProperties;
 import de.muenchen.oss.refarch.backend.configuration.security.UsernameAuditorAware;
+import de.muenchen.oss.refarch.backend.security.AuthUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
     private static final List<String> CHANGING_METHODS = List.of(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
             HttpMethod.DELETE.name());
 
-    private final AuditorAware<String> auditorAware;
+    private final AuthUtils authUtils;
     private final SecurityProperties securityProperties;
 
     /**
@@ -62,7 +62,7 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
         if (checkForLogging(request)) {
             log.info("User {} executed {} on URI {} with http status {}",
-                    auditorAware.getCurrentAuditor().orElse(UsernameAuditorAware.NAME_UNAUTHENTICATED_USER),
+                    authUtils.getUsername(),
                     request.getMethod(),
                     request.getRequestURI(),
                     response.getStatus());
