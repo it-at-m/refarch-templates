@@ -80,7 +80,7 @@ jobs:
 
   handlefailure:
     needs:
-      - changes
+      - build-check-changed-files
       - build
     runs-on: ubuntu-latest
     permissions: {}

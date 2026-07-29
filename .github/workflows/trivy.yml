@@ -61,7 +61,7 @@ jobs:
   handlefailure:
     needs:
       - trivy
-      - changes
+      - trivy-check-changed-files
       - trivy-partial
     runs-on: ubuntu-latest
     permissions: {}
