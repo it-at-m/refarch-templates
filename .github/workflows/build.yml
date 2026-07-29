@@ -12,7 +12,7 @@ on:
 
 jobs:
   # JOB to run change detection
-  changes:
+  build-check-changed-files:
     runs-on: ubuntu-latest
     # Required permissions
     permissions:
@@ -21,43 +21,40 @@ jobs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
     steps:
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
-    # For pull requests it's not necessary to checkout the code
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
-      id: filter
-      with:
-        base: ${{ github.ref }}    
-        filters: |
-          backend: 
-           - backend/**
-           - .github/workflows/build.yml
-          frontend: 
-           - frontend/**
-           - backend/api-spec/**
-           - .github/workflows/build.yml
-          webcomponent: 
-           - webcomponent/**
-           - backend/api-spec/**
-           - .github/workflows/build.yml
-          eai: 
-           - eai/**
-           - .github/workflows/build.yml
-    - run: |
-        echo ${{ toJSON(steps.filter.outputs.changes) }}
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      # For pull requests it's not necessary to checkout the code
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            backend: 
+              - backend/**
+              - .github/workflows/build.yml
+            frontend: 
+              - frontend/**
+              - backend/api-spec/**
+              - .github/workflows/build.yml
+            webcomponent: 
+              - webcomponent/**
+              - backend/api-spec/**
+              - .github/workflows/build.yml
+            eai: 
+              - eai/**
+              - .github/workflows/build.yml
+      - run: |
+          echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
-    if: ${{ needs.changes.outputs.packages != '' && needs.changes.outputs.packages != '[]' }}
-    needs: changes
+    if: ${{ needs.build-check-changed-files.outputs.packages != '' && needs.build-check-changed-files.outputs.packages != '[]' }}
+    needs: build-check-changed-files
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    env:
-      TZ: Europe/Berlin
     strategy:
       fail-fast: false
       matrix:
-        app-path: ${{ fromJSON(needs.changes.outputs.packages) }}
-
+        app-path: ${{ fromJSON(needs.build-check-changed-files.outputs.packages) }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       - id: node # required for steps.* syntax
@@ -70,7 +67,7 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           app-path: ${{ matrix.app-path }}
-      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') }}
+      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
         with:
           path: ${{ matrix.app-path }}

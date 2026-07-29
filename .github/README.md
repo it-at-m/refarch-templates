@@ -36,8 +36,7 @@ it@m internally used for their CI/CD Pipelines and everything what's going with 
 sps-test is  used to test it@m's GitHub Actions implemented in repository [it-at-m/lhm_actions][lhm_actions] 
 and RefArch template workflows implemented in repository [it-at-m/refarch-templates][refarch-templates].
 
-## Usage
-This project isn't intended for external usage.
+## Usages
 
 If you want to setup and learn more about the RefArch templates, please check out the [Getting Started][getting-started-documentation] page.
 Also check the respective pages with suggestions on how to [develop][develop-documentation], [document][document-documentation] and [organize][organize-documentation] your project.

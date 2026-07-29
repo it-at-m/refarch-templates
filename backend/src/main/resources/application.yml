@@ -21,6 +21,12 @@ spring:
     error:
       whitelabel:
         enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          authority-prefix: "ROLE_"
+          authorities-claim-expressions: "['resource_access']['${refarch.security.client-id}']['roles']"
 
 # Config for spring actuator endpoints
 management:

@@ -4,14 +4,14 @@ name: release-maven
 on:
   workflow_dispatch:
     inputs:
-      releaseVersion:
+      release-version:
         description: "Version to use when preparing a release (e.g., 1.2.3)"
         required: true
-        default: 0.0.1
-      developmentVersion:
+        default: "X.Y.Z"
+      development-version:
         description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
         required: true
-        default: 0.0.2-SNAPSHOT
+        default: X.Y.Z-SNAPSHOT
       app-path:
         type: choice
         description: Service-Name
@@ -33,12 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write # can be removed if use-pr is 'false'
+      pull-requests: write # must be removed if use-pr is 'false'
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
-    env:
-      TZ: Europe/Berlin
     steps:
       - id: release-maven-artifact
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
@@ -49,6 +47,7 @@ jobs:
           use-pr: "true"
           # the following variables are necessary to publish the packages to maven central
           # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
+          # skipDeployment: false
           # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
           # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
           # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
@@ -66,13 +65,15 @@ jobs:
           image-name: ${{ github.event.inputs.app-path || env.DEFAULT_APP_PATH }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
-          registry-username: ${{ github.actor }}
+          image-name: ${{ inputs.app-path }}
           image-tags: |
             type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion || env.DEFAULT_RELEASE_VERSION }}
             type=raw,value=latest
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
 
   release-maven-github:
-    needs: release-maven-artifact
+    needs: [release-maven-artifact, release-maven-image]
     runs-on: ubuntu-latest
     permissions:
       contents: write
