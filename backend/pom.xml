@@ -11,7 +11,7 @@
 
     <groupId>de.muenchen.oss.refarch</groupId>
     <artifactId>refarch-backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <name>refarch-backend</name>
     <description>This is the default starting project for a backend project based on the reference architecture of it@M</description>
