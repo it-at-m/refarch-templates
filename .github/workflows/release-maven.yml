@@ -4,14 +4,18 @@ name: release-maven
 on:
   workflow_dispatch:
     inputs:
+      release-method:
+        type: choice
+        description: "Release-Methode = patch, minor oder major"
+        required: true
+        options:
+          - patch
+          - minor
+          - major
       release-version:
         description: "Version to use when preparing a release (e.g., 1.2.3)"
-        required: true
-        default: "X.Y.Z"
-      development-version:
-        description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
-        required: true
-        default: X.Y.Z-SNAPSHOT
+        required: false
+        default: ""
       app-path:
         type: choice
         description: Service-Name
@@ -31,11 +35,11 @@ jobs:
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@330-action-release-mvn-should-offer-input-variable-to-use-patchminormajor
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
-          developmentVersion: ${{ inputs.development-version }}
+          release-method:  ${{ inputs.release-method }}
           use-pr: "true"
           # the following variables are necessary to publish the packages to maven central
           # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
