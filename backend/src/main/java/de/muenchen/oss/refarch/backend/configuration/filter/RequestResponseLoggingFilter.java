@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.core.context.SecurityContext;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * This filter logs the username for requests.
+ * This filter logs the username from requests using the {@link AuthUtils} bean.
  */
 @Component
 @FilterRegistration(urlPatterns = "/*", order = 1)
@@ -28,6 +29,7 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
     private static final List<String> CHANGING_METHODS = List.of(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
             HttpMethod.DELETE.name());
 
+    private final AuthUtils authUtils;
     private final SecurityProperties securityProperties;
 
     /**
@@ -54,12 +56,12 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
      * {@inheritDoc}
      */
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
+    protected void doFilterInternal(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
         filterChain.doFilter(request, response);
         if (checkForLogging(request)) {
             log.info("User {} executed {} on URI {} with http status {}",
-                    AuthUtils.getUsername(),
+                    authUtils.getUsername(),
                     request.getMethod(),
                     request.getRequestURI(),
                     response.getStatus());
