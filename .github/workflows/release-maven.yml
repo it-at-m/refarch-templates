@@ -40,7 +40,7 @@ jobs:
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
-          releaseMethod:  ${{ inputs.release-method }}
+          release-method:  ${{ inputs.release-method }}
           use-pr: "true"
           # the following variables are necessary to publish the packages to maven central
           # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
