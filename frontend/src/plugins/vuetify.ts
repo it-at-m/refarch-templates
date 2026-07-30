@@ -18,7 +18,6 @@ export default createVuetify({
     },
   },
   theme: {
-    defaultTheme: "light",
     themes: {
       light: {
         colors: {
@@ -27,6 +26,15 @@ export default createVuetify({
           accent: "#7BA4D9",
           success: "#69BE28",
           error: "#FF0000",
+        },
+      },
+      dark: {
+        colors: {
+          primary: "#EEEEEE",
+          secondary: "#FFD54F",
+          accent: "#90CAF9",
+          success: "#81C784",
+          error: "#E57373",
         },
       },
     },
