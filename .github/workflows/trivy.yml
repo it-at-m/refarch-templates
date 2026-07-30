@@ -5,7 +5,7 @@ on:
   pull_request:
   schedule:
     - cron: '42 3 5 6 *' # Default annual scan; maintainers should adjust the schedule to a weekly schedule
-    
+
 jobs:
   trivy:
     runs-on: ubuntu-latest
