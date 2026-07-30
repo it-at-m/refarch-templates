@@ -33,7 +33,7 @@ jobs:
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
-      RELEASE: ${{ steps.release-maven-artifact.outputs.RELEASE }}
+      RELEASE_VERSION: ${{ steps.release-maven-artifact.outputs.release-version}}
     steps:
       - id: release-maven-artifact
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@330-action-release-mvn-should-offer-input-variable-to-use-patchminormajor
