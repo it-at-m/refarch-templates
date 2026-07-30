@@ -9,9 +9,9 @@
           class="mx-2"
           @click="emit('clickedNavIcon')"
         />
-        <router-link to="/">
+        <router-link to="/" class="text-decoration-none on-primary">
           <v-toolbar-title class="font-weight-bold">
-            <span class="text-white">{{ t("app.name.part1") }}</span>
+            <span>{{ t("app.name.part1") }}</span>
             <span class="text-secondary">{{ t("app.name.part2") }}</span>
           </v-toolbar-title>
         </router-link>
