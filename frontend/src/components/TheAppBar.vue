@@ -9,7 +9,10 @@
           class="mx-2"
           @click="emit('clickedNavIcon')"
         />
-        <router-link to="/" class="text-decoration-none on-primary">
+        <router-link
+          to="/"
+          class="text-decoration-none on-primary"
+        >
           <v-toolbar-title class="font-weight-bold">
             <span>{{ t("app.name.part1") }}</span>
             <span class="text-secondary">{{ t("app.name.part2") }}</span>
@@ -30,6 +33,7 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
+          :rules="[rules.maxLength(20, 'Zu lang')]"
           @keyup.enter="search"
         />
       </v-col>
@@ -37,8 +41,15 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
+        <v-icon-btn
+          :icon="
+            theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight
+          "
+          @click="theme.toggle()"
+        />
         <app-switcher
           v-if="APPSWITCHER_URL"
+          class="ml-2"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
           :icon="mdiApps"
@@ -59,10 +70,12 @@
 </template>
 
 <script setup lang="ts">
-import { mdiApps, mdiMagnify } from "@mdi/js";
+import { mdiApps, mdiMagnify, mdiWeatherNight, mdiWeatherSunny } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRules } from "vuetify";
+import { useTheme } from "vuetify/framework";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import { APPSWITCHER_URL } from "@/constants";
@@ -72,6 +85,10 @@ import { useUserInfoStore } from "@/stores/userinfo";
 const userInfoStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
 const { t } = useI18n();
+
+const theme = useTheme();
+
+const rules = useRules();
 
 const query = ref<string>("");
 
