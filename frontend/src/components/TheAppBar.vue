@@ -33,7 +33,6 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
-          :rules="[rules.maxLength(20, 'Zu lang')]"
           @keyup.enter="search"
         />
       </v-col>
@@ -74,7 +73,6 @@ import { mdiApps, mdiMagnify, mdiWeatherNight, mdiWeatherSunny } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRules } from "vuetify";
 import { useTheme } from "vuetify/framework";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
@@ -87,8 +85,6 @@ const snackbarStore = useSnackbarStore();
 const { t } = useI18n();
 
 const theme = useTheme();
-
-const rules = useRules();
 
 const query = ref<string>("");
 
