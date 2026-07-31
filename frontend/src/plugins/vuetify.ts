@@ -18,7 +18,7 @@ export default createVuetify({
     },
   },
   theme: {
-    transition: false,
+    transition: true,
     themes: {
       light: {
         colors: {
