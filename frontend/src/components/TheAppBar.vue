@@ -53,16 +53,15 @@
           :tags="['global']"
           :icon="mdiApps"
         />
-        <v-btn
+        <v-icon-btn
           v-if="userInfoStore.userInfo !== null"
           class="mx-2"
           variant="text"
-          icon
         >
           <ad2-image-avatar
             :username="userInfoStore.userInfo.preferred_username"
           />
-        </v-btn>
+        </v-icon-btn>
       </v-col>
     </v-row>
   </v-app-bar>
