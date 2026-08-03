@@ -23,12 +23,13 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: False
-      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: False
-      PGADMIN_REPLACE_SERVERS_ON_STARTUP: True
-      PGADMIN_DISABLE_POSTFIX: True
       PGADMIN_LISTEN_PORT: 5050
-      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: False
+      # pgAdmin Boolean environment variables always have to be passed as "True" / "False"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_REPLACE_SERVERS_ON_STARTUP: "True"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_DISABLE_POSTFIX: "True"
+      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: "False"
     ports:
       - "5050:5050"
     depends_on:
