@@ -40,7 +40,7 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
-        <v-icon-btn
+        <v-btn
           :icon="
             theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight
           "
