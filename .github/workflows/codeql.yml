@@ -9,6 +9,8 @@ env:
   analyze-javascript-typescript-vue: true
   # Whether to analyze Python code or not (only set to true if repo has Python source code)
   analyze-python: false
+  # Whether to analyze GitHub Actions workflow files
+  analyze-actions: true
   # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
   analysis-query: security-and-quality
 
@@ -38,16 +40,19 @@ jobs:
       analyze-java: ${{ steps.analyze-flags.outputs.analyze-java }}
       analyze-javascript-typescript-vue: ${{ steps.analyze-flags.outputs.analyze-javascript-typescript-vue }}
       analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
+      analyze-actions: ${{ steps.analyze-flags.outputs.analyze-actions }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@341-sps-scan_workflow_files
+#        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
       - id: analyze-flags
         run: |
           {
             echo "analyze-java=${{ env.analyze-java }}";
             echo "analyze-javascript-typescript-vue=${{ env.analyze-javascript-typescript-vue }}";
             echo "analyze-python=${{ env.analyze-python }}";
+            echo "analyze-actions=${{ env.analyze-actions }}";
           } >> "$GITHUB_OUTPUT"
   codeql-java:
     if: ${{ needs.codeql-check-changed-files.outputs.analyze-java == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
@@ -61,7 +66,8 @@ jobs:
       matrix:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+#      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@341-sps-scan_workflow_files
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -75,7 +81,8 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+#      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@341-sps-scan_workflow_files
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -88,8 +95,22 @@ jobs:
     needs: codeql-check-changed-files
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+#      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@341-sps-scan_workflow_files
         with:
           codeql-language: python
+          codeql-query: ${{ env.analysis-query }}
+  codeql-actions:
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-actions == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.actions == 'true') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    needs: codeql-check-changed-files
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@341-sps-scan_workflow_files
+#      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+        with:
+          codeql-language: actions
           codeql-query: ${{ env.analysis-query }}
 
   handlefailure:
