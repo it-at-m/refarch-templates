@@ -4,9 +4,9 @@ services:
   postgres:
     image: postgres:17.4-alpine3.21@sha256:7062a2109c4b51f3c792c7ea01e83ed12ef9a980886e3b3d380a7d2e5f6ce3f5
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
     healthcheck: &healthcheck
@@ -21,14 +21,15 @@ services:
   pg-admin:
     image: dpage/pgadmin4:9.15.0@sha256:cefc4cc6b7d9d71a9e81e76fb9d7e14038ab5661b539a190eea1b63fa612589a
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-      - PGADMIN_CONFIG_SERVER_MODE=False
-      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
-      - PGADMIN_REPLACE_SERVERS_ON_STARTUP=True
-      - PGADMIN_DISABLE_POSTFIX=True
-      - PGADMIN_LISTEN_PORT=5050
-      - PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED=False
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 5050
+      # pgAdmin Boolean environment variables always have to be passed as "True" / "False"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_REPLACE_SERVERS_ON_STARTUP: "True"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_DISABLE_POSTFIX: "True"
+      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: "False"
     ports:
       - "5050:5050"
     depends_on:
@@ -38,10 +39,10 @@ services:
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
     security_opt: *security_settings
     volumes:
-      - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
-      - './pgadmin/preferences.json:/pgadmin4/preferences.json:ro'
-      - './pgadmin/pgpass:/tmp/pgpass.mounted:ro'
-      - './pgadmin/data:/tmp/data'
+      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
+      - ./pgadmin/preferences.json:/pgadmin4/preferences.json:ro
+      - ./pgadmin/pgpass:/tmp/pgpass.mounted:ro
+      - ./pgadmin/data:/tmp/data
     entrypoint: >
       /bin/sh -c "
         cp -f /tmp/pgpass.mounted /tmp/pgpass;
@@ -54,11 +55,11 @@ services:
     command:
       - start-dev
     environment:
-      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
-      - KC_HEALTH_ENABLED=true
-      - KC_HTTP_PORT=8100
-      - KC_HTTP_RELATIVE_PATH=/auth
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: "true"
+      KC_HTTP_PORT: 8100
+      KC_HTTP_RELATIVE_PATH: /auth
     ports:
       - "8100:8100"
     networks:
@@ -69,18 +70,18 @@ services:
     security_opt: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.129@sha256:356bb15df86d6476f1469789718f597ac70583f83c2ae9c90408a3e00e3a1796
+    image: klg71/keycloakmigration:0.2.130@sha256:fbec0fbbec2f90e9e912576cfb2ff108fb5703a59383b5e51c8633c130173af8
     depends_on:
       - keycloak
     environment:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
       BASEURL: http://keycloak:8100/auth
-      WAIT_FOR_KEYCLOAK: 'true'
-      FAIL_ON_UNDEFINED_VARIABLES: 'true'
+      WAIT_FOR_KEYCLOAK: "true"
+      FAIL_ON_UNDEFINED_VARIABLES: "true"
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
     volumes:
-      - './keycloak/migration:/migration'
+      - ./keycloak/migration:/migration
     networks:
       - keycloak
     security_opt: *security_settings
@@ -93,27 +94,27 @@ services:
     ports:
       - "8083:8080"
     environment:
-    - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
-    - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID=sso
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_URI=http://keycloak:8100/
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_ID=backend
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_URI=http://host.docker.internal:8086/
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_PREDICATES_0=Path=/api/backend/**
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_FILTERS_0=RewritePath=/api/backend/(?<urlsegments>.*), /$\{urlsegments}
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_ID=frontend
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_URI=http://host.docker.internal:8081/
-    - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_PREDICATES_0=Path=/**
-    - SPRING_PROFILES_ACTIVE=hazelcast-local
-    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8100/auth/realms/local_realm
-    - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET=client_secret
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE=profile, openid, roles
-    - LOGGING_STRUCTURED_FORMAT_CONSOLE=
+      ALLOWED_ORIGINS_PUBLIC: http://localhost:*
+      ALLOWED_ORIGINS_CLIENTS: http://localhost:*
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID: sso
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_URI: http://keycloak:8100/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_PREDICATES_0: Path=/api/sso/userinfo
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_FILTERS_0: RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_ID: backend
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_URI: http://host.docker.internal:8086/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_PREDICATES_0: Path=/api/backend/**
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_FILTERS_0: RewritePath=/api/backend/(?<urlsegments>.*), /$\{urlsegments}
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_ID: frontend
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_URI: http://host.docker.internal:8081/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_PREDICATES_0: Path=/**
+      SPRING_PROFILES_ACTIVE: hazelcast-local
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: http://keycloak:8100/auth/realms/local_realm
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI: $${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER: sso
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID: local
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET: client_secret
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE: profile, openid, roles
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ""
     networks:
       - keycloak
     extra_hosts:
@@ -124,15 +125,15 @@ services:
     security_opt: *security_settings
 
   appswitcher-server:
-    image: ghcr.io/it-at-m/appswitcher-server:1.3.0@sha256:10006bc0f3093a548cf977dd65b3df56baa8a08e42eb04872e9e51011c9e21f8
+    image: ghcr.io/it-at-m/appswitcher-server-native:1.3.0@sha256:888d2f1c8ddd59e2e9e84a833cf41cf380cc69e7e54cc10b5bd78378b666a067
     environment:
-      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
-      - THC_PATH=/actuator/health/liveness
+      SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:/workspace/static
+      THC_PATH: /actuator/health/liveness
     ports:
       - "8084:8080"
     volumes:
-      - "./appswitcher-server/application.yml:/workspace/config/application.yml"
-      - "./appswitcher-server/static:/workspace/static"
+      - ./appswitcher-server/application.yml:/workspace/config/application.yml
+      - ./appswitcher-server/static:/workspace/static
     healthcheck:
       <<: *healthcheck
       test: ["CMD-SHELL", "/workspace/health-check"]
