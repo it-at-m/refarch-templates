@@ -16,5 +16,3 @@ function toggleTheme(e: MouseEvent) {
   theme.toggle();
 }
 </script>
-
-<style scoped></style>
