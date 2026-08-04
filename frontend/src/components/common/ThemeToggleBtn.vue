@@ -12,7 +12,7 @@ import { useTheme } from "vuetify";
 const theme = useTheme();
 
 function toggleTheme(e: MouseEvent) {
-  theme.setTransitionOrigin(e.target as HTMLElement);
+  theme.setTransitionOrigin(e.currentTarget as HTMLElement);
   theme.toggle();
 }
 </script>
