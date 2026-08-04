@@ -40,12 +40,7 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
-        <v-btn
-          :icon="
-            theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight
-          "
-          @click="theme.toggle()"
-        />
+        <theme-toggle-btn />
         <app-switcher
           v-if="APPSWITCHER_URL"
           class="ml-2"
@@ -68,13 +63,13 @@
 </template>
 
 <script setup lang="ts">
-import { mdiApps, mdiMagnify, mdiWeatherNight, mdiWeatherSunny } from "@mdi/js";
+import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useTheme } from "vuetify/framework";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
+import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
 import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";
@@ -82,8 +77,6 @@ import { useUserInfoStore } from "@/stores/userinfo";
 const userInfoStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
 const { t } = useI18n();
-
-const theme = useTheme();
 
 const query = ref<string>("");
 

@@ -1,0 +1,20 @@
+<template>
+  <v-btn
+    :icon="theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight"
+    @click="toggleTheme"
+  />
+</template>
+
+<script setup lang="ts">
+import { mdiWeatherNight, mdiWeatherSunny } from "@mdi/js";
+import { useTheme } from "vuetify";
+
+const theme = useTheme();
+
+function toggleTheme(e: MouseEvent) {
+  theme.setTransitionOrigin(e.target as HTMLElement);
+  theme.toggle();
+}
+</script>
+
+<style scoped></style>
