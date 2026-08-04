@@ -18,7 +18,6 @@ export default createVuetify({
     },
   },
   theme: {
-    transition: true,
     themes: {
       light: {
         colors: {
@@ -31,8 +30,8 @@ export default createVuetify({
       },
       dark: {
         colors: {
-          primary: "#EEEEEE",
-          secondary: "#FFD54F",
+          primary: "#333333",
+          secondary: "#FFCC00",
           accent: "#90CAF9",
           success: "#81C784",
           error: "#E57373",
