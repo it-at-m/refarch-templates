@@ -15,7 +15,7 @@ export class ApiError extends Error {
     // Retains the correct stack trace for the point at which the error was triggered
     this.stack = new Error().stack;
 
-    // Specific information
+    // Specific informations
     this.level = level;
     this.message = message;
   }
