@@ -41,7 +41,7 @@ import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
-import { useSaveLeave } from "@/composables/saveLeave";
+import { useSaveLeave } from "@/composables/useSaveLeave";
 import { Role } from "@/types/Role";
 
 const { t } = useI18n();
