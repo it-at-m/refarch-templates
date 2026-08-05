@@ -10,7 +10,6 @@
     "yes": "Ja",
     "no": "Nein",
     "actions": {
-      "close": "Schließen",
       "search": "Suchen"
     },
     "messages": {}
