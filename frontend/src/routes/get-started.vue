@@ -27,7 +27,7 @@
       </v-col>
     </v-row>
     <yes-no-dialog
-      v-model="saveLeaveDialog"
+      v-model="showDialog"
       :dialogtitle="t('views.getStarted.saveLeave.title')"
       :dialogtext="t('views.getStarted.saveLeave.text')"
       @no="cancel"
@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
@@ -53,9 +53,6 @@ definePage({
 });
 
 const documentationClicked = ref(false);
-const { cancel, leave, saveLeaveDialog } = useSaveLeave(isDirty);
-
-function isDirty(): boolean {
-  return !documentationClicked.value;
-}
+const isDirty = computed(() => !documentationClicked.value);
+const { cancel, leave, showDialog } = useSaveLeave(isDirty);
 </script>

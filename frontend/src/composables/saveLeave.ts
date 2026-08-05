@@ -1,63 +1,56 @@
 /**
- * The SaveLeave Composable can be used to prevent data loss due to unintentional navigation.
+ * The useSaveLeave composable can be used to prevent data loss due to unintentional navigation.
  *
- * Accepts a function `isDirty()`, in which it can be determined whether it is safe to navigate or whether a query should be sent to the user.
- * This query can be resolved via a dialog, for example. For this purpose, the SaveLeaveComposable
- * offers a `saveLeaveDialog` flag for this purpose. For generic dialogs, the SaveLeaveComposable already provides the title and
- * text for generic dialogs.
+ * Accepts a Ref, Getter or plain value boolean that determines whether it is safe to navigate or whether a query should be sent to the user.
+ * This query can be resolved via a dialog, for example. For this purpose the composable
+ * offers a `showDialog` boolean. The composable also provides the title and text for generic dialogs.
  *
  * The user's decision can be executed by calling `leave()` or `cancel()`.
  */
-import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
+import type { MaybeRefOrGetter } from "vue";
 
-import { ref } from "vue";
+import { ref, toValue } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 
-export function useSaveLeave(isDirty: () => boolean) {
-  const saveLeaveDialogTitle = ref("Ungespeicherte Änderungen");
-  const saveLeaveDialogText = ref(
-    "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?"
-  );
-  const saveLeaveDialog = ref(false);
-  const isSave = ref(false);
+export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
+  const dialogTitle = "Ungespeicherte Änderungen";
+  const dialogText = "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?";
+  const showDialog = ref(false);
+  const isSaved = ref(false);
 
-  const nextRoute = ref<NavigationGuardNext | null>(null);
+  const pendingNavigationDecision = ref<
+    ((allowNavigation: boolean) => void) | null
+  >(null);
 
-  onBeforeRouteLeave(
-    (
-      to: RouteLocationNormalized,
-      from: RouteLocationNormalized,
-      next: NavigationGuardNext
-    ) => {
-      if (isDirty() && !isSave.value) {
-        saveLeaveDialog.value = true;
-        nextRoute.value = next;
-      } else {
-        saveLeaveDialog.value = false;
-        next();
-      }
+  onBeforeRouteLeave(() => {
+    if (toValue(isDirty) && !isSaved.value) {
+      showDialog.value = true;
+      return new Promise<boolean>((resolve) => {
+        pendingNavigationDecision.value?.(false);
+        pendingNavigationDecision.value = resolve;
+      });
+    } else {
+      showDialog.value = false;
+      return true;
     }
-  );
+  });
 
   function cancel(): void {
-    saveLeaveDialog.value = false;
-    if (nextRoute.value != null) {
-      nextRoute.value(false);
-    }
+    showDialog.value = false;
+    pendingNavigationDecision.value?.(false);
+    pendingNavigationDecision.value = null;
   }
 
   function leave(): void {
-    if (nextRoute.value != null) {
-      nextRoute.value();
-    }
+    pendingNavigationDecision.value?.(true);
+    pendingNavigationDecision.value = null;
   }
 
   return {
-    saveLeaveDialogTitle,
-    saveLeaveDialogText,
-    saveLeaveDialog,
-    isSave,
-    nextRoute,
+    dialogTitle,
+    dialogText,
+    showDialog,
+    isSaved,
     cancel,
     leave,
   };
