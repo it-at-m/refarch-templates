@@ -1,7 +1,6 @@
 import type { MaybeRefOrGetter } from "vue";
 
 import { onMounted, onUnmounted, ref, toValue } from "vue";
-import { useI18n } from "vue-i18n";
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
 
 /**
@@ -9,16 +8,12 @@ import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
  *
  * Accepts a Ref, Getter or plain value boolean that determines whether it is safe to navigate or whether a query should be sent to the user.
  * This query can be resolved via a dialog, for example. For this purpose the composable
- * offers a `showDialog` boolean. The composable also provides the title and text for generic dialogs.
+ * offers a `showDialog` boolean.
  *
  * The user's decision can be executed by calling `leave()` or `cancel()`.
  */
 
 export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
-  const { t } = useI18n();
-  const dialogTitle = t("common.messages.unsavedChangesDialogTitle");
-  const dialogText = t("common.messages.unsavedChangesDialogText");
-
   const showDialog = ref(false);
 
   const pendingNavigationDecision = ref<
@@ -70,8 +65,6 @@ export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
   });
 
   return {
-    dialogTitle,
-    dialogText,
     showDialog,
     cancel,
     leave,

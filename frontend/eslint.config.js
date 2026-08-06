@@ -37,15 +37,7 @@ export default withVueTs(
       "@intlify/vue-i18n/no-duplicate-keys-in-locale": ["error"],
       "@intlify/vue-i18n/no-missing-keys-in-other-locales": ["error"],
       "@intlify/vue-i18n/no-unknown-locale": ["error"],
-      "@intlify/vue-i18n/no-unused-keys": [
-        "error",
-        {
-          ignores: [
-            "common.messages.unsavedChangesDialogTitle",
-            "common.messages.unsavedChangesDialogText",
-          ],
-        },
-      ],
+      "@intlify/vue-i18n/no-unused-keys": ["error"],
     },
     settings: {
       "vue-i18n": {
