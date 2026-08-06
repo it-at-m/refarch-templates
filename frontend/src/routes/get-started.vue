@@ -28,8 +28,8 @@
     </v-row>
     <yes-no-dialog
       v-model="showDialog"
-      :dialogtitle="t('views.getStarted.saveLeave.title')"
-      :dialogtext="t('views.getStarted.saveLeave.text')"
+      :dialogtitle="dialogTitle"
+      :dialogtext="dialogText"
       @no="cancel"
       @yes="leave"
     />
@@ -54,5 +54,6 @@ definePage({
 
 const documentationClicked = ref(false);
 const isDirty = computed(() => !documentationClicked.value);
-const { cancel, leave, showDialog } = useSaveLeave(isDirty);
+const { cancel, leave, showDialog, dialogText, dialogTitle } =
+  useSaveLeave(isDirty);
 </script>

@@ -1,3 +1,9 @@
+import type { MaybeRefOrGetter } from "vue";
+
+import { onMounted, onUnmounted, ref, toValue } from "vue";
+import { useI18n } from "vue-i18n";
+import { onBeforeRouteLeave, onBeforeRouteUpdate } from "vue-router";
+
 /**
  * The useSaveLeave composable can be used to prevent data loss due to unintentional navigation.
  *
@@ -7,22 +13,19 @@
  *
  * The user's decision can be executed by calling `leave()` or `cancel()`.
  */
-import type { MaybeRefOrGetter } from "vue";
-
-import { ref, toValue } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
 
 export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
-  const dialogTitle = "Ungespeicherte Änderungen";
-  const dialogText =
-    "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?";
+  const { t } = useI18n();
+  const dialogTitle = t("common.messages.unsavedChangesDialogTitle");
+  const dialogText = t("common.messages.unsavedChangesDialogText");
+
   const showDialog = ref(false);
 
   const pendingNavigationDecision = ref<
     ((allowNavigation: boolean) => void) | null
   >(null);
 
-  onBeforeRouteLeave(() => {
+  function onBeforeRouteChange() {
     if (!toValue(isDirty)) {
       showDialog.value = false;
       return true;
@@ -33,7 +36,10 @@ export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
         pendingNavigationDecision.value = resolve;
       });
     }
-  });
+  }
+
+  onBeforeRouteLeave(onBeforeRouteChange);
+  onBeforeRouteUpdate(onBeforeRouteChange);
 
   function cancel(): void {
     showDialog.value = false;
@@ -42,9 +48,26 @@ export function useSaveLeave(isDirty: MaybeRefOrGetter<boolean>) {
   }
 
   function leave(): void {
+    showDialog.value = false;
     pendingNavigationDecision.value?.(true);
     pendingNavigationDecision.value = null;
   }
+
+  function onBeforeUnload(event: BeforeUnloadEvent) {
+    if (!toValue(isDirty)) {
+      return;
+    }
+
+    event.preventDefault();
+  }
+
+  onMounted(() => {
+    window.addEventListener("beforeunload", onBeforeUnload);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("beforeunload", onBeforeUnload);
+  });
 
   return {
     dialogTitle,
