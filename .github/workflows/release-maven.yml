@@ -31,7 +31,7 @@ jobs:
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
@@ -51,7 +51,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           path: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
@@ -68,7 +68,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           artifact-path: ${{ inputs.app-path }}/target/*.jar
