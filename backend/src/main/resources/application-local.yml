@@ -1,5 +1,6 @@
 server:
   port: 8086
+
 spring:
   # Spring JPA
   jpa:
@@ -25,11 +26,13 @@ spring:
           # requires client to be in audience claim, see https://www.keycloak.org/docs/latest/server_admin/#_audience_resolve
           audiences:
             - ${sso.client}
+  jmx:
+    enabled: true # additionally must set -Djava.rmi.server.hostname=localhost to use local debugging via JMX+RMI
 
 management:
   endpoints:
     access:
-      default: unrestricted # Required for local debugging via JMX+RMI, additionally might have to set -Djava.rmi.server.hostname=localhost as JVM arguments
+      default: unrestricted
   endpoint:
     health:
       show-details: always

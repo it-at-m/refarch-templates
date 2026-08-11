@@ -48,6 +48,7 @@ jobs:
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: ${{ needs.trivy-check-changed-files.outputs.packages != '' && needs.trivy-check-changed-files.outputs.packages != '[]' }}
     strategy:
+      fail-fast: false
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes

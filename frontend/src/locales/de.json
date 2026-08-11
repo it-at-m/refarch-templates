@@ -10,10 +10,12 @@
     "yes": "Ja",
     "no": "Nein",
     "actions": {
-      "close": "Schließen",
       "search": "Suchen"
     },
-    "messages": {}
+    "messages": {
+      "unsavedChangesDialogTitle": "Ungespeicherte Änderungen",
+      "unsavedChangesDialogText": "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?"
+    }
   },
   "views": {
     "index": {
@@ -31,10 +33,6 @@
       "docsLinks": {
         "templates": "Dokumentation RefArch-Templates",
         "main": "Dokumentation RefArch"
-      },
-      "saveLeave": {
-        "title": "Wirklich verlassen?",
-        "text": "Wollen Sie wirklich nicht die Dokumentation anschauen?"
       }
     }
   },
