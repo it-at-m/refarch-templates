@@ -9,6 +9,8 @@ env:
   analyze-javascript-typescript-vue: true
   # Whether to analyze Python code or not (only set to true if repo has Python source code)
   analyze-python: false
+  # Whether to analyze GitHub Actions and Workflows or not (only set to true if repo has GitHub Actions or Workflows)
+  analyze-actions: true
   # Query set to use when analyzing the source code (e.g. default, security-extended, security-and-quality)
   analysis-query: security-and-quality
 
@@ -32,19 +34,22 @@ jobs:
       java: ${{ steps.filter.outputs.java }}
       javascript-typescript-vue: ${{ steps.filter.outputs.javascript-typescript-vue }}
       python: ${{ steps.filter.outputs.python }}
+      actions: ${{ steps.filter.outputs.actions }}
       analyze-java: ${{ steps.analyze-flags.outputs.analyze-java }}
       analyze-javascript-typescript-vue: ${{ steps.analyze-flags.outputs.analyze-javascript-typescript-vue }}
       analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
+      analyze-actions: ${{ steps.analyze-flags.outputs.analyze-actions }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@86506514b2b85a82440e2ed47bb1013401b39f01 # v1.3.0
       - id: analyze-flags
         run: |
           {
             echo "analyze-java=${{ env.analyze-java }}";
             echo "analyze-javascript-typescript-vue=${{ env.analyze-javascript-typescript-vue }}";
             echo "analyze-python=${{ env.analyze-python }}";
+            echo "analyze-actions=${{ env.analyze-actions }}";
           } >> "$GITHUB_OUTPUT"
   codeql-java:
     if: ${{ needs.codeql-check-changed-files.outputs.analyze-java == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.java == 'true') }}
@@ -87,4 +92,16 @@ jobs:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
         with:
           codeql-language: python
+          codeql-query: ${{ env.analysis-query }}
+  codeql-actions:
+    if: ${{ needs.codeql-check-changed-files.outputs.analyze-actions == 'true' && (github.ref == 'refs/heads/main' || needs.codeql-check-changed-files.outputs.actions == 'true') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    needs: codeql-check-changed-files
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+        with:
+          codeql-language: actions
           codeql-query: ${{ env.analysis-query }}
