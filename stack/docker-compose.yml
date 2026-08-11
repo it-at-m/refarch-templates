@@ -66,11 +66,21 @@ services:
       - keycloak
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then exit 0;else exit 1;fi;"]
+      test: [
+        "CMD-SHELL",
+        "exec 3<>/dev/tcp/localhost/9000; \
+        echo -en 'GET /health/ready' >&3; \
+        # Give the server a moment to respond, then search for 'UP'
+        if timeout 3 cat <&3 | grep -m 1 'UP'; then \
+          exec 3<&-; exec 3>&-; exit 0; \
+        else \
+          exec 3<&-; exec 3>&-; exit 1; \
+        fi"
+      ]
     security_opt: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.131@sha256:a311cce3b961062000e6e9ef08ecb5712f3ea81859beeee8cd0c836fe8e4f2cf
+    image: klg71/keycloakmigration:0.2.130@sha256:fbec0fbbec2f90e9e912576cfb2ff108fb5703a59383b5e51c8633c130173af8
     depends_on:
       - keycloak
     environment:
@@ -80,6 +90,7 @@ services:
       WAIT_FOR_KEYCLOAK: "true"
       FAIL_ON_UNDEFINED_VARIABLES: "true"
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+      EXIT_ON_ERROR: "true"
     volumes:
       - ./keycloak/migration:/migration
     networks:
@@ -91,6 +102,8 @@ services:
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
+      keycloak:
+        condition: service_healthy
     ports:
       - "8083:8080"
     environment:
