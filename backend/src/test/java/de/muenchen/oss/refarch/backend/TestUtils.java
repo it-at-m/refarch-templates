@@ -16,12 +16,12 @@ public final class TestUtils {
     /**
      * Utility function to extract an image reference from the {@code stack/docker-compose.yaml} file.
      * This is useful for container definitions with Testcontainers and keeps versions used in
-     * integration testing in sync
-     * with versions used for development.
-     * <br>
-     * <br>
+     * integration testing in sync with versions used for development.
+     *
+     * <p>
      * <b>Note:</b> The tag is being removed due to Testcontainers not supporting supplying both tag and
      * SHA value.
+     * </p>
      *
      * @param serviceName docker service name
      * @return image reference with name and SHA
