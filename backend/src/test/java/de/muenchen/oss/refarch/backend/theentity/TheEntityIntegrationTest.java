@@ -44,7 +44,7 @@ class TheEntityIntegrationTest {
     @ServiceConnection
     @SuppressWarnings("unused")
     private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-            DockerImageName.parse(TestUtils.getImageFromDockerCompose("postgres")).asCompatibleSubstituteFor("postgres"));
+            DockerImageName.parse(TestUtils.getImageFromDockerCompose("postgres")));
 
     private UUID testEntityId;
 

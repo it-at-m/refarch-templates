@@ -61,7 +61,8 @@ public final class TestUtils {
 
             // Remove the tag from the repository, if present.
             final int tagSeparator = repository.lastIndexOf(":");
-            final String imageWithoutTag = tagSeparator >= 0
+            final int pathSeparator = repository.lastIndexOf("/");
+            final String imageWithoutTag = tagSeparator > pathSeparator
                     ? repository.substring(0, tagSeparator)
                     : repository;
 
