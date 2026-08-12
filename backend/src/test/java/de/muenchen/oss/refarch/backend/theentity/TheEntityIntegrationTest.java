@@ -4,8 +4,8 @@ import static de.muenchen.oss.refarch.backend.TestConstants.SPRING_TEST_PROFILE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import de.muenchen.oss.refarch.backend.TestConstants;
 import de.muenchen.oss.refarch.backend.TestSecurityConfiguration;
+import de.muenchen.oss.refarch.backend.TestUtils;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityRequestDTO;
 import de.muenchen.oss.refarch.backend.theentity.dto.TheEntityResponseDTO;
 import java.util.List;
@@ -44,7 +44,7 @@ class TheEntityIntegrationTest {
     @ServiceConnection
     @SuppressWarnings("unused")
     private static final PostgreSQLContainer POSTGRE_SQL_CONTAINER = new PostgreSQLContainer(
-            DockerImageName.parse(TestConstants.TESTCONTAINERS_POSTGRES_IMAGE));
+            DockerImageName.parse(TestUtils.getImageFromDockerCompose("postgres")).asCompatibleSubstituteFor("postgres"));
 
     private UUID testEntityId;
 
