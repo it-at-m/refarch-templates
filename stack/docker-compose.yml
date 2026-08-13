@@ -53,7 +53,7 @@ services:
       "
     healthcheck:
       <<: *healthcheck
-      test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"lint]
+      test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
     <<: *security_settings
 
   keycloak:
