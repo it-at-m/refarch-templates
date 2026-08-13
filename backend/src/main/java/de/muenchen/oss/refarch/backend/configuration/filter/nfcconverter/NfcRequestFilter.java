@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -16,8 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 /**
  * <p>
  * Spring filter that performs an NFC normalization of all <em>safe textual</em> content.
- * </p>
- *
+ * <p>
  * <strong>Please note:</strong>
  * <ul>
  * <li>All data streams associated with multipart requests are not normalized according to NFC.
@@ -43,7 +43,7 @@ public class NfcRequestFilter extends OncePerRequestFilter {
     private static final Set<String> CONTENT_TYPES = new HashSet<>(Arrays.asList("text/plain", "application/json", "text/html"));
 
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response, final FilterChain filterChain)
+    protected void doFilterInternal(final HttpServletRequest request, @NonNull final HttpServletResponse response, @NonNull final FilterChain filterChain)
             throws ServletException, IOException {
 
         log.debug("Request-Type={}", request.getClass().getName());

@@ -15,7 +15,6 @@ import lombok.ToString;
  * This class represents a TheEntity.
  * <p>
  * The entity's content will be loaded according to the reference variable.
- * </p>
  */
 @Entity
 // Definition of getter, setter, ...
