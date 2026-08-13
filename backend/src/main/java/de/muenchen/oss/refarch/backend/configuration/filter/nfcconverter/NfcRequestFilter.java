@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * <p>
  * Spring filter that performs an NFC normalization of all <em>safe textual</em> content.
  * <p>
  * <strong>Please note:</strong>

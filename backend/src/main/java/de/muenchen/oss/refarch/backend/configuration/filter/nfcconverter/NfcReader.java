@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 
 /**
- * <p>
  * Wrapper for readers that performs an NFC conversion.
  * <p>
  * <strong>Please note:</strong>
