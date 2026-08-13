@@ -5,11 +5,10 @@ spring:
     name: @project.artifactId@
     group: @project.groupId@
     version: @project.version@
-
-server:
-  error:
-    whitelabel:
-      enabled: false
+  web:
+    error:
+      whitelabel:
+        enabled: false
 
 management:
   endpoints:
@@ -27,8 +26,6 @@ management:
   endpoint:
     health:
       access: read_only
-      probes:
-        enabled: true
     info:
       access: read_only
     prometheus:
@@ -40,11 +37,10 @@ management:
       enabled: true
     camel:
       enabled: false
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
+  otlp:
+    metrics:
+      export:
+        enabled: false
 
 logging:
   level:
