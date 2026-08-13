@@ -53,7 +53,7 @@ services:
       "
     healthcheck:
       <<: *healthcheck
-      test: [ "CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping" ]
+      test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"lint]
     <<: *security_settings
 
   keycloak:
@@ -134,7 +134,7 @@ services:
       - "host.docker.internal:host-gateway"
     healthcheck:
       <<: *healthcheck
-      test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
+      test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
     <<: *security_settings
 
   appswitcher-server:
