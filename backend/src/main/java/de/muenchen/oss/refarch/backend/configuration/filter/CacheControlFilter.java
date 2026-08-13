@@ -5,6 +5,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -33,9 +35,9 @@ public class CacheControlFilter extends OncePerRequestFilter {
      * default ServletRequest and ServletResponse ones.
      */
     @Override
-    protected void doFilterInternal(final HttpServletRequest request,
+    protected void doFilterInternal(@NonNull final HttpServletRequest request,
             final HttpServletResponse response,
-            final FilterChain filterChain) throws ServletException, IOException {
+            @NonNull final FilterChain filterChain) throws ServletException, IOException {
 
         final String cacheControlHeaderValue = response.getHeader(HttpHeaders.CACHE_CONTROL);
         if (!StringUtils.hasText(cacheControlHeaderValue)) {
