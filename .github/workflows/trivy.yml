@@ -53,6 +53,6 @@ jobs:
         # e.g. ['package1', 'package2'] if both package folders contains changes
         package: ${{ fromJSON(needs.trivy-check-changed-files.outputs.packages) }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@e9a8422d740d4e9eaef25cfeeb3a5790da97a7aa # v1.2.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@355-trivy-partial-missing-sarif-categories
         with:
           path: ${{ matrix.package }}
