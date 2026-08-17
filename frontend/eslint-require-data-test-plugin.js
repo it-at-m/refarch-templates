@@ -1,5 +1,5 @@
 // List of Vuetify components (see Vuetify API, e.g. https://vuetifyjs.com/en/api/v-btn/) to enforce data-test for
-const interactiveVuetifyComponents = new Set([
+const INTERACTIVE_VUETIFY_COMPONENTS = [
   // Containment
   "VBtn",
   "VIconBtn",
@@ -43,25 +43,41 @@ const interactiveVuetifyComponents = new Set([
   // Pickers
   "VColorPicker",
   "VDatePicker",
-  "VTimePicker"
-]);
+  "VTimePicker",
+];
 
 const TEST_ATTRIBUTE = "data-test";
 
-export default {
+const requireDataTest = {
   meta: {
     type: "problem",
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          components: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     messages: {
-      missing: "Interactive Vuetify component '{{ component }}' must have a data-test attribute.",
+      missing:
+        "Interactive Vuetify component '{{ component }}' must have a data-test attribute.",
     },
   },
   create(context) {
+    const [{ components }] = context.options;
+
     const parserServices = context.sourceCode.parserServices;
 
     // check if defineTemplateBodyVisitor provided by https://github.com/vuejs/vue-eslint-parser is available
     if (!parserServices.defineTemplateBodyVisitor) {
-      return {}
+      return {};
     }
 
     return parserServices.defineTemplateBodyVisitor({
@@ -69,33 +85,62 @@ export default {
         // normalize scanned component to PascalCase to support different usages in SFCs
         const componentName = toPascalCase(node.rawName);
 
-        if (!interactiveVuetifyComponents.has(componentName)) {
-          return
+        if (!components.includes(componentName)) {
+          return;
         }
 
         const hasDataTest = node.startTag.attributes.some(
-            (attribute) =>
-                attribute.type === 'VAttribute' &&
-                attribute.key.name === TEST_ATTRIBUTE,
-        )
+          (attribute) =>
+            attribute.type === "VAttribute" &&
+            attribute.key.name === TEST_ATTRIBUTE
+        );
 
         if (!hasDataTest) {
           context.report({
             node,
             messageId: "missing",
             data: {
-              component: componentName
-            }
-          })
+              component: componentName,
+            },
+          });
         }
       },
     });
   },
 };
 
+const plugin = {
+  rules: {
+    "require-data-test": requireDataTest,
+  },
+};
+
+function createConfig(components) {
+  return {
+    plugins: {
+      local: plugin,
+    },
+    rules: {
+      "local/require-data-test": [
+        "error",
+        {
+          components,
+        },
+      ],
+    },
+  };
+}
+
+export default {
+  ...plugin,
+  configs: {
+    "flat/vuetify": createConfig(INTERACTIVE_VUETIFY_COMPONENTS),
+  },
+};
+
 function toPascalCase(name) {
   return name
-      .split("-")
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join("");
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
 }
