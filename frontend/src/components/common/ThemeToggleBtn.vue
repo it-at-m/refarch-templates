@@ -1,6 +1,7 @@
 <template>
   <v-btn
     :icon="theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight"
+    data-test="theme-toggle-btn"
     @click="toggleTheme"
   />
 </template>
