@@ -23,7 +23,7 @@
   "dependencies": {
     "@muenchen/muc-patternlab-vue": "10.0.2",
     "@vueuse/core": "14.4.0",
-    "vue": "3.5.40"
+    "vue": "3.5.41"
   },
   "devDependencies": {
     "@cyclonedx/cyclonedx-npm": "6.0.0",
