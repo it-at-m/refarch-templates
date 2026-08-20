@@ -59,6 +59,7 @@ jobs:
           image-tags: |
             type=semver,pattern={{version}},value=${{ inputs.release-version }}
             type=raw,value=latest
+          platforms: "linux/amd64,linux/arm64"
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
 
