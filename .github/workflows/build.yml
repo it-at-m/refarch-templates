@@ -18,9 +18,9 @@ jobs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
       # For pull requests it's not necessary to checkout the code
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
         id: filter
         with:
           base: ${{ github.ref }}
@@ -53,19 +53,19 @@ jobs:
       matrix:
         app-path: ${{ fromJSON(needs.build-check-changed-files.outputs.packages) }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
       - id: node # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
         with:
           app-path: ${{ matrix.app-path }}
       - id: maven # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
         with:
           app-path: ${{ matrix.app-path }}
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
         with:
           path: ${{ matrix.app-path }}
           image-name: ${{ matrix.app-path }}

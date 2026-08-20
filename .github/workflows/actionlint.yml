@@ -12,4 +12,4 @@ jobs:
       # needed to annotate the files in a pull request with comments
       pull-requests: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint@7bed7092684c0bcc176811016aed27b532aa5f51 # v1.4.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-actionlint@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
