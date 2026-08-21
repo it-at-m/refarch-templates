@@ -9,7 +9,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 import vuetify, { transformAssetUrls } from "vite-plugin-vuetify";
 import VueRouter from "vue-router/vite";
 
-import { EncodeBracketsPlugin, extendRoute } from "./encode-brackets-plugin";
+import { EncodeBracketsPlugin, extendRoute } from "./encode-brackets-plugin.ts";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
