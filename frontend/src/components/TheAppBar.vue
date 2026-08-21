@@ -9,9 +9,12 @@
           class="mx-2"
           @click="emit('clickedNavIcon')"
         />
-        <router-link to="/">
+        <router-link
+          to="/"
+          class="text-decoration-none on-primary"
+        >
           <v-toolbar-title class="font-weight-bold">
-            <span class="text-white">{{ t("app.name.part1") }}</span>
+            <span>{{ t("app.name.part1") }}</span>
             <span class="text-secondary">{{ t("app.name.part2") }}</span>
           </v-toolbar-title>
         </router-link>
@@ -37,22 +40,23 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
+        <theme-toggle-btn />
         <app-switcher
           v-if="APPSWITCHER_URL"
+          class="ml-2"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
           :icon="mdiApps"
         />
-        <v-btn
+        <v-icon-btn
           v-if="userInfoStore.userInfo !== null"
           class="mx-2"
           variant="text"
-          icon
         >
           <ad2-image-avatar
             :username="userInfoStore.userInfo.preferred_username"
           />
-        </v-btn>
+        </v-icon-btn>
       </v-col>
     </v-row>
   </v-app-bar>
@@ -65,6 +69,7 @@ import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
+import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
 import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";

@@ -2,24 +2,33 @@ package de.muenchen.oss.refarch.backend.configuration.security;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
+import org.springframework.boot.http.client.HttpClientSettings;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
@@ -27,16 +36,21 @@ import org.springframework.web.client.RestClientException;
  * Service that calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant)
  * and extracts authorities from the permission resources.
  * <p>
- * The usage of simpler {@link KeycloakRolesAuthoritiesConverter} should be preferred.
+ * The usage of default role-based authorization should be preferred.
  */
 @Slf4j
+@Component
+@Profile("keycloak-permissions")
 public final class KeycloakPermissionsAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+
+    private final SecurityProperties securityProperties;
+    private final RestClient restClient;
+    private final Cache cache;
 
     public static final ParameterizedTypeReference<List<Map<String, Object>>> PERMISSION_LIST = new ParameterizedTypeReference<>() {
     };
-
+    public static final int KEYCLOAK_FETCH_TIMEOUT = 30;
     private static final String AUTHENTICATION_CACHE_NAME = "authentication_cache";
-
     private static final String PERMISSION_NAME_KEY = "rsname";
     private static final String BODY_GRANT_TYPE = "grant_type";
     private static final String GRANT_TYPE = "urn:ietf:params:oauth:grant-type:uma-ticket";
@@ -44,33 +58,41 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
     private static final String BODY_RESPONSE_MODE = "response_mode";
     private static final String RESPONSE_MODE_PERMISSIONS = "permissions";
 
-    private final SecurityProperties securityProperties;
-    private final RestClient restClient;
-    private final Cache cache;
-
-    public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
-            final RestClient restClient) {
-        this(
-                securityProperties,
-                restClient,
-                new CaffeineCache(
-                        AUTHENTICATION_CACHE_NAME,
-                        Caffeine.newBuilder()
-                                .maximumSize(securityProperties.getPermissionsCacheMaxSize())
-                                .expireAfterWrite(securityProperties.getPermissionsCacheLifetime())
-                                .ticker(Ticker.systemTicker())
-                                .build()));
+    @Autowired
+    public KeycloakPermissionsAuthoritiesConverter(
+            final SecurityProperties securityProperties,
+            final RestClient.Builder restClientBuilder,
+            final ClientHttpRequestFactoryBuilder<?> requestFactoryBuilder) {
+        Assert.hasText(securityProperties.getPermissionsUri(), "permissionsUri must be set to use keycloak-permissions profile");
+        this.securityProperties = securityProperties;
+        this.restClient = restClientBuilder
+                .requestFactory(requestFactory(requestFactoryBuilder))
+                .build();
+        this.cache = new CaffeineCache(
+                AUTHENTICATION_CACHE_NAME,
+                Caffeine.newBuilder()
+                        .maximumSize(securityProperties.getPermissionsCacheMaxSize())
+                        .expireAfterWrite(securityProperties.getPermissionsCacheLifetime())
+                        .ticker(Ticker.systemTicker())
+                        .build());
     }
 
-    public KeycloakPermissionsAuthoritiesConverter(final SecurityProperties securityProperties,
+    /* package */ KeycloakPermissionsAuthoritiesConverter(
+            final SecurityProperties securityProperties,
             final RestClient restClient,
             final Cache cache) {
-        if (!StringUtils.hasText(securityProperties.getPermissionsUri())) {
-            throw new IllegalArgumentException("refarch.security.permissions-uri is required for resolving permissions");
-        }
         this.securityProperties = securityProperties;
         this.restClient = restClient;
         this.cache = cache;
+    }
+
+    private static ClientHttpRequestFactory requestFactory(
+            final ClientHttpRequestFactoryBuilder<?> requestFactoryBuilder) {
+
+        return requestFactoryBuilder.build(
+                HttpClientSettings.defaults()
+                        .withConnectTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT))
+                        .withReadTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT)));
     }
 
     /**

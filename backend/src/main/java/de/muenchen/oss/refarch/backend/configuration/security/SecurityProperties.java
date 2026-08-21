@@ -27,6 +27,12 @@ public class SecurityProperties {
     @NotBlank private String clientId;
 
     /**
+     * Name of the JWT claim that contains the username.
+     * Defaults to "preferred_username" if not configured.
+     */
+    @NotBlank private String usernameClaim = "preferred_username";
+
+    /**
      * URI of the endpoint used for fetching permissions,
      * see also {@link KeycloakPermissionsAuthoritiesConverter}.
      */

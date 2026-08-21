@@ -6,12 +6,11 @@ import java.io.Reader;
 import java.io.StringWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
 
 /**
- * <p>
  * Wrapper for readers that performs an NFC conversion.
- * </p>
- *
+ * <p>
  * <strong>Please note:</strong>
  * <ul>
  * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
@@ -53,7 +52,7 @@ public class NfcReader extends Reader {
     }
 
     @Override
-    public int read(final char[] cbuf, final int off, final int len) throws IOException {
+    public int read(final char @NonNull [] cbuf, final int off, final int len) throws IOException {
         convert();
         return converted.read(cbuf, off, len);
     }
