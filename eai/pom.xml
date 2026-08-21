@@ -221,7 +221,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>sbom-without-dev-deps</id>
+                        <id>sbom-prod</id>
                         <phase>package</phase>
                         <goals>
                             <goal>makeAggregateBom</goal>

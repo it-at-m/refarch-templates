@@ -325,7 +325,7 @@
                         <configuration>
                             <skipNotDeployed>false</skipNotDeployed>
                             <includeTestScope>false</includeTestScope>
-                            <outputName>application-without-dev.cdx</outputName>
+                            <outputName>application-prod</outputName>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
                         </configuration>
                     </execution>
