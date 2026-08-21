@@ -303,7 +303,6 @@
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
                 <executions>
-                    <!-- 1. Report: INKLUSIVE Dev-/Test-Abhängigkeiten -->
                     <execution>
                         <id>sbom-with-dev-deps</id>
                         <phase>package</phase>
@@ -312,15 +311,11 @@
                         </goals>
                         <configuration>
                             <skipNotDeployed>false</skipNotDeployed>
-                            <!-- Aktiviert Test- und Entwicklungs-Scopes (z.B. test) -->
                             <includeTestScope>true</includeTestScope>
-                            <!-- Namen der Ausgabedatei anpassen -->
                             <outputName>application.cdx</outputName>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
                         </configuration>
                     </execution>
-
-                    <!-- 2. Report: EXKLUSIVE Dev-/Test-Abhängigkeiten (Nur Production) -->
                     <execution>
                         <id>sbom-without-dev-deps</id>
                         <phase>package</phase>
@@ -329,9 +324,7 @@
                         </goals>
                         <configuration>
                             <skipNotDeployed>false</skipNotDeployed>
-                            <!-- Deaktiviert Test- und Entwicklungs-Scopes -->
                             <includeTestScope>false</includeTestScope>
-                            <!-- Namen der Ausgabedatei anpassen -->
                             <outputName>application-without-dev.cdx</outputName>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
                         </configuration>
