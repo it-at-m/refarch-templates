@@ -33,13 +33,13 @@ jobs:
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
     steps:
       - id: release-npm-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
           use-pr: "true"
       - id: build
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
         with:
           app-path: ${{ inputs.app-path }}
       # necessary to publish to npm registry
@@ -55,7 +55,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
         with:
           path: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
@@ -73,7 +73,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
         with:
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
           tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
