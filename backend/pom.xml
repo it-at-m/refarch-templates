@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.0</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>de.muenchen.oss.refarch</groupId>
@@ -23,19 +23,19 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <email>opensource@muenchen.de</email>
+            <url>https://github.com/it-at-m</url>
+            <organization>it@M</organization>
+        </developer>
+    </developers>
     <scm>
-        <url>https://github.com/it-at-m/refarch-templates.git</url>
         <connection>scm:git:https://github.com/it-at-m/refarch-templates.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/refarch-templates.git</developerConnection>
         <tag>HEAD</tag>
+        <url>https://github.com/it-at-m/refarch-templates.git</url>
     </scm>
-    <developers>
-        <developer>
-            <organization>it@M</organization>
-            <email>opensource@muenchen.de</email>
-            <url>https://github.com/it-at-m</url>
-        </developer>
-    </developers>
 
     <properties>
         <!-- Compilation -->
@@ -49,12 +49,14 @@
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.10.3.0</spotbugs-maven-plugin.version>
-        <spotbugs-annotations.version>4.10.3</spotbugs-annotations.version> <!-- must match the patch version of spotbugs-maven-plugin -->
+        <!-- spotbugs-annotations.version must match the patch version of spotbugs-maven-plugin.version -->
+        <spotbugs-annotations.version>4.10.3</spotbugs-annotations.version>
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
-        <argLine /> <!-- Must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
+        <!-- argLine must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
+        <argLine />
         <archunit.version>1.5.0</archunit.version>
 
         <!-- Release -->
@@ -65,7 +67,7 @@
         <refarch-tools.version>1.4.0</refarch-tools.version>
 
         <!-- Additional required dependencies -->
-        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version> <!-- Needed to make MapStruct and Lombok work together -->
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <springdoc-openapi-starter-webmvc-ui.version>3.1.0</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-maven-plugin.version>1.5</springdoc-openapi-maven-plugin.version>
         <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
@@ -78,7 +80,8 @@
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
         <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
-        <postgresql.version>42.7.12</postgresql.version> <!-- CVE-2026-54291 -->
+        <!-- CVE-2026-54291 -->
+        <postgresql.version>42.7.12</postgresql.version>
     </properties>
 
     <dependencies>
@@ -277,12 +280,8 @@
                         <id>default-compile</id>
                         <configuration>
                             <compilerArgs>
-                                <compilerArg>
-                                    -Amapstruct.defaultComponentModel=spring
-                                </compilerArg>
-                                <compilerArg>
-                                    -Amapstruct.unmappedTargetPolicy=ERROR
-                                </compilerArg>
+                                <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
+                                <compilerArg>-Amapstruct.unmappedTargetPolicy=ERROR</compilerArg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -317,11 +316,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>
-                        @{argLine} -Dfile.encoding=${project.build.sourceEncoding}
+                    <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}
                         -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
-                        -Xshare:off
-                    </argLine>
+                        -Xshare:off</argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -357,18 +354,21 @@
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>${spotless-maven-plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.muenchen.oss</groupId>
-                        <artifactId>itm-java-codeformat</artifactId>
-                        <version>${itm-java-codeformat.version}</version>
-                    </dependency>
-                </dependencies>
                 <configuration>
+                    <pom>
+                        <sortPom>
+                            <expandEmptyElements>false</expandEmptyElements>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <!-- Required for proper Maven release -->
+                            <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
+                        </sortPom>
+                    </pom>
                     <java>
                         <includes>
-                            <include>src/main/java/**/*.java</include> <!-- Check application code -->
-                            <include>src/test/java/**/*.java</include> <!-- Check application tests code -->
+                            <!-- Check application code -->
+                            <include>src/main/java/**/*.java</include>
+                            <!-- Check application tests code -->
+                            <include>src/test/java/**/*.java</include>
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
@@ -386,6 +386,13 @@
                         <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
                     </lintSuppressions>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.muenchen.oss</groupId>
+                        <artifactId>itm-java-codeformat</artifactId>
+                        <version>${itm-java-codeformat.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
@@ -413,6 +420,13 @@
                         <ruleset>refarch-pmd-ruleset.xml</ruleset>
                     </rulesets>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.muenchen.oss.refarch</groupId>
+                        <artifactId>refarch-pmd</artifactId>
+                        <version>${refarch-tools.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
@@ -421,18 +435,15 @@
                         </goals>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.muenchen.oss.refarch</groupId>
-                        <artifactId>refarch-pmd</artifactId>
-                        <version>${refarch-tools.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${spotbugs-maven-plugin.version}</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <excludeFilterFile>spotbugs-exclude-rules.xml</excludeFilterFile>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.h3xstream.findsecbugs</groupId>
@@ -440,10 +451,6 @@
                         <version>${findsecbugs-plugin.version}</version>
                     </dependency>
                 </dependencies>
-                <configuration>
-                    <effort>Max</effort>
-                    <excludeFilterFile>spotbugs-exclude-rules.xml</excludeFilterFile>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
