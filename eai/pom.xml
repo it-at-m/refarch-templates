@@ -265,10 +265,11 @@
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
+                        <shortenFullyQualifiedTypes />
                         <importOrder />
                         <removeUnusedImports />
-                        <forbidWildcardImports />
                         <expandWildcardImports />
+                        <forbidWildcardImports />
                         <formatAnnotations />
                     </java>
                     <lintSuppressions>
