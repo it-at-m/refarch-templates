@@ -45,7 +45,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Linting & Formatting -->
-        <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.10.0</spotless-maven-plugin.version>
         <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
         <pmd-maven-plugin.version>3.28.0</pmd-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.10.3.0</spotbugs-maven-plugin.version>
@@ -75,11 +75,6 @@
         <flyway.user>admin</flyway.user>
         <flyway.password>admin</flyway.password>
         <flyway.locations>classpath:db/migration/schema,classpath:db/migration/testdata</flyway.locations>
-
-        <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
-        <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
-        <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
-        <p2.mirror>download.eclipse.org</p2.mirror>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
         <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
@@ -377,19 +372,14 @@
                         </includes>
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
-                            <p2Mirrors>
-                                <p2Mirror>
-                                    <prefix>https://download.eclipse.org</prefix>
-                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
-                                </p2Mirror>
-                            </p2Mirrors>
                         </eclipse>
                         <trimTrailingWhitespace />
                         <endWithNewline />
+                        <shortenFullyQualifiedTypes />
                         <importOrder />
                         <removeUnusedImports />
-                        <forbidWildcardImports />
                         <expandWildcardImports />
+                        <forbidWildcardImports />
                         <formatAnnotations />
                     </java>
                     <lintSuppressions>
