@@ -40,9 +40,9 @@ jobs:
       analyze-python: ${{ steps.analyze-flags.outputs.analyze-python }}
       analyze-actions: ${{ steps.analyze-flags.outputs.analyze-actions }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
       - id: filter
-        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+        uses: it-at-m/lhm_actions/action-templates/actions/action-filter@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
       - id: analyze-flags
         run: |
           {
@@ -63,7 +63,7 @@ jobs:
       matrix:
         build-path: ["./backend", "./eai"] # JSON array formatted as string, contains the paths to the java projects to build
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           codeql-language: java-kotlin
           codeql-buildmode: ${{ env.java-buildmode }}
@@ -77,7 +77,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           codeql-language: javascript-typescript
           codeql-query: ${{ env.analysis-query }}
@@ -89,7 +89,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           codeql-language: python
           codeql-query: ${{ env.analysis-query }}
@@ -101,7 +101,7 @@ jobs:
       security-events: write
     needs: codeql-check-changed-files
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-codeql@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           codeql-language: actions
           codeql-query: ${{ env.analysis-query }}

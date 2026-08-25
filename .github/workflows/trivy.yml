@@ -14,7 +14,7 @@ jobs:
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: github.event_name == 'schedule' 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
   # JOB to run change detection
   trivy-check-changed-files:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
     # For pull requests it's not necessary to checkout the code
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
       id: filter
       with:
         filters: |
@@ -54,6 +54,6 @@ jobs:
         # e.g. ['package1', 'package2'] if both package folders contains changes
         package: ${{ fromJSON(needs.trivy-check-changed-files.outputs.packages) }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@1f4370c5e243b96e9a90d7569b20b535e24e7c17 # v1.5.1
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           path: ${{ matrix.package }}
