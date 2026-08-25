@@ -6,7 +6,12 @@ on:
 
 jobs:
   dockercompose-healthcheck:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runner: # see https://github.com/actions/runner-images#available-images
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
     steps:
