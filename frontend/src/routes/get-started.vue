@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="fill-height d-flex align-center flex-wrap">
     <v-row class="text-center">
       <v-col>
-        <h1 class="text-h3 font-weight-bold mb-10">
+        <h1 class="text-display-medium font-weight-bold mb-10">
           {{ t("views.getStarted.header") }}
         </h1>
         <h3>{{ t("views.getStarted.docsText") }}</h3>
@@ -27,9 +27,9 @@
       </v-col>
     </v-row>
     <yes-no-dialog
-      v-model="saveLeaveDialog"
-      :dialogtitle="t('views.getStarted.saveLeave.title')"
-      :dialogtext="t('views.getStarted.saveLeave.text')"
+      v-model="showDialog"
+      :dialogtitle="t('common.messages.unsavedChangesDialogTitle')"
+      :dialogtext="t('common.messages.unsavedChangesDialogText')"
       @no="cancel"
       @yes="leave"
     />
@@ -37,18 +37,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 import YesNoDialog from "@/components/common/YesNoDialog.vue";
-import { useSaveLeave } from "@/composables/saveLeave";
+import { useSaveLeave } from "@/composables/useSaveLeave";
+import { Role } from "@/types/Role";
 
 const { t } = useI18n();
 
-const documentationClicked = ref(false);
-const { cancel, leave, saveLeaveDialog } = useSaveLeave(isDirty);
+definePage({
+  meta: {
+    hasAnyRole: [Role.READER, Role.WRITER],
+  },
+});
 
-function isDirty(): boolean {
-  return !documentationClicked.value;
-}
+const documentationClicked = ref(false);
+const isDirty = computed(() => !documentationClicked.value);
+const { cancel, leave, showDialog } = useSaveLeave(isDirty);
 </script>

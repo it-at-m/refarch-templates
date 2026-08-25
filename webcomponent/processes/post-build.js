@@ -1,6 +1,7 @@
 import path from "node:path";
-import { generateLoaderJs } from './lib/fileGenerator.js';
-import manifest from '../dist/src/.vite/manifest.json' with {type: 'json'};
+
+import manifest from "../dist/src/.vite/manifest.json" with { type: "json" };
+import { generateLoaderJs } from "./lib/fileGenerator.js";
 
 /**
  * Why this?
@@ -26,17 +27,17 @@ import manifest from '../dist/src/.vite/manifest.json' with {type: 'json'};
  */
 
 // Required filename content to be treated as webcomponent
-const REQUIRED_PREFIX = 'src/';
-const REQUIRED_SUFFIX = '-webcomponent.ts';
+const REQUIRED_PREFIX = "src/";
+const REQUIRED_SUFFIX = "-webcomponent.ts";
 
 for (const key in manifest) {
-    if (key.startsWith(REQUIRED_PREFIX) && key.endsWith(REQUIRED_SUFFIX)) {
-        // read filename from manifest
-        const entrypoint = manifest[key].file;
+  if (key.startsWith(REQUIRED_PREFIX) && key.endsWith(REQUIRED_SUFFIX)) {
+    // read filename from manifest
+    const entrypoint = manifest[key].file;
 
-        // get fileName and directory for generating loader file
-        const fileName = path.basename(key, path.extname(key));
-        const dirName = path.dirname(key);
-        generateLoaderJs(entrypoint, dirName, fileName);
-    }
+    // get fileName and directory for generating loader file
+    const fileName = path.basename(key, path.extname(key));
+    const dirName = path.dirname(key);
+    generateLoaderJs(entrypoint, dirName, fileName);
+  }
 }

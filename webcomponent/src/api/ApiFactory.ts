@@ -46,13 +46,13 @@ function createConfig(): Configuration {
  * @param ApiClass the OpenAPI class to instantiate / retrieve
  */
 function getInstance<T extends BaseAPI>(ApiClass: ApiCtor<T>): T {
-  const existing = instances.get(ApiClass as ApiCtor<BaseAPI>);
+  const existing = instances.get(ApiClass);
   if (existing) {
     return existing as T;
   }
 
   const api = new ApiClass(createConfig());
-  instances.set(ApiClass as ApiCtor<BaseAPI>, api);
+  instances.set(ApiClass, api);
   return api;
 }
 

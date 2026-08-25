@@ -1,7 +1,3 @@
-export default class HealthState {
+export interface HealthState {
   status: string;
-
-  constructor(status: string) {
-    this.status = status;
-  }
 }

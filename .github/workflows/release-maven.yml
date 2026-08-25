@@ -4,14 +4,14 @@ name: release-maven
 on:
   workflow_dispatch:
     inputs:
-      releaseVersion:
+      release-version:
         description: "Version to use when preparing a release (e.g., 1.2.3)"
         required: true
-        default: 0.0.1
-      developmentVersion:
+        default: "X.Y.Z"
+      development-version:
         description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
         required: true
-        default: 0.0.2-SNAPSHOT
+        default: X.Y.Z-SNAPSHOT
       app-path:
         type: choice
         description: Service-Name
@@ -25,25 +25,25 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write # can be removed if use-pr is 'false'
+      pull-requests: write # must be removed if use-pr is 'false'
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
-    env:
-      TZ: Europe/Berlin
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
-          app-path: ${{ github.event.inputs.app-path }}
-          java-version: "25"
-          releaseVersion: ${{ github.event.inputs.releaseVersion }}
-          developmentVersion: ${{ github.event.inputs.developmentVersion }}
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
+          developmentVersion: ${{ inputs.development-version }}
           use-pr: "true"
-          SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
-          CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
-          CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
-          GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
+          # the following variables are necessary to publish the packages to maven central
+          # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
+          # skipDeployment: false
+          # SIGN_KEY_PASS: ${{ secrets.gpg_passphrase }}
+          # CENTRAL_USERNAME: ${{ secrets.sonatype_username }}
+          # CENTRAL_PASSWORD: ${{ secrets.sonatype_password }}
+          # GPG_PRIVATE_KEY: ${{ secrets.gpg_private_key }}
 
   release-maven-image:
     runs-on: ubuntu-latest
@@ -51,25 +51,27 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
-          path: ${{ github.event.inputs.app-path }}
-          image-name: ${{ github.event.inputs.app-path }}
-          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          path: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
-          registry-username: ${{ github.actor }}
+          image-name: ${{ inputs.app-path }}
           image-tags: |
-            type=semver,pattern={{version}},value=${{ github.event.inputs.releaseVersion }}
+            type=semver,pattern={{version}},value=${{ inputs.release-version }}
             type=raw,value=latest
+          platforms: "linux/amd64,linux/arm64"
+          registry-username: ${{ github.actor }}
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
 
   release-maven-github:
-    needs: release-maven-artifact
+    needs: [release-maven-artifact, release-maven-image]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@94f7e40aa557a2790abfa98a9cc9186d260b94f8 # v1.0.27
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
-          tag-name: ${{ inputs.app-path }}-${{ github.event.inputs.releaseVersion }}
-          artifact-path: ${{ github.event.inputs.app-path }}/target/*.jar
+          artifact-path: ${{ inputs.app-path }}/target/*.jar
+          tag-name: ${{ inputs.app-path }}-${{ inputs.release-version }}
+          generate-release-notes: true

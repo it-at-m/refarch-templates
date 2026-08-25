@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,13 +19,18 @@ import org.springframework.validation.annotation.Validated;
  */
 @ConfigurationProperties(prefix = "refarch.security")
 @Validated
-@Profile("!no-security")
 @Data
 public class SecurityProperties {
     /**
      * ID of the used oAuth client.
      */
     @NotBlank private String clientId;
+
+    /**
+     * Name of the JWT claim that contains the username.
+     * Defaults to "preferred_username" if not configured.
+     */
+    @NotBlank private String usernameClaim = "preferred_username";
 
     /**
      * URI of the endpoint used for fetching permissions,
