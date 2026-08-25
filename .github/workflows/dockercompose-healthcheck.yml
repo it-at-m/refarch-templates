@@ -7,11 +7,15 @@ on:
 jobs:
   dockercompose-healthcheck:
     strategy:
+      fail-fast: false
       matrix:
-        runner: # see https://github.com/actions/runner-images#available-images
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+        include:
+          - name: amd64
+            runner: ubuntu-24.04
+          - name: arm64
+            runner: ubuntu-24.04-arm
     runs-on: ${{ matrix.runner }}
+    name: dockercompose-healthcheck (${{ matrix.name }})
     permissions:
       contents: read
     steps:
