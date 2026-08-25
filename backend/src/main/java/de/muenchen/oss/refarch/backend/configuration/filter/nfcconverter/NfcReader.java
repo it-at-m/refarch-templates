@@ -8,18 +8,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 
-/**
- * Wrapper for readers that performs an NFC conversion.
- * <p>
- * <strong>Please note:</strong>
- * <ul>
- * <li>With Java readers and writers, an NFC conversion can be carried out safely, as characters are
- * processed there.</li>
- * <li>Before reading the first character, this reader reads the complete text of the wrapped reader
- * into an internal buffer and performs NFC normalization on it.
- * The reason is that NFC conversion cannot be performed on a character-by-character basis.</li>
- * </ul>
- */
+/// Wrapper for readers that performs an NFC conversion.
+///
+/// **Please note:**
+///
+///   - With Java readers and writers, an NFC conversion can be carried out safely, as characters are
+///     processed there.
+///   - Before reading the first character, this reader reads the complete text of the wrapped reader
+///     into an internal buffer and performs NFC normalization on it.
+///     The reason is that NFC conversion cannot be performed on a character-by-character basis.
+///
 @Slf4j
 @RequiredArgsConstructor
 public class NfcReader extends Reader {
