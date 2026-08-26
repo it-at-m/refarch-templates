@@ -132,10 +132,10 @@ export function defaultCatchHandler(
 }
 
 /**
- * Builds the headers for request with fetch-utils directly.
+ * Builds the headers for request ({@link patchConfig} and {@link putConfig}) with fetch-utils directly.
  * @returns {Headers}
  */
-export function getHeaders(): HeadersInit {
+function getHeaders(): HeadersInit {
   const headers: HeadersInit = {};
   headers["Content-Type"] = "application/json";
   return headers;
