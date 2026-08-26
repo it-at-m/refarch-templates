@@ -133,7 +133,7 @@ export function defaultCatchHandler(
 
 /**
  * Builds the headers for request ({@link patchConfig} and {@link putConfig}) with fetch-utils directly.
- * @returns {Headers}
+ * @returns {HeadersInit}
  */
 function getHeaders(): HeadersInit {
   const headers: HeadersInit = {};
@@ -143,7 +143,7 @@ function getHeaders(): HeadersInit {
 
 /**
  * Builds the security relevant headers.
- * @returns {Headers}
+ * @returns {HeadersInit}
  */
 export function getSecurityHeaders(): HeadersInit {
   const headers: HeadersInit = {};
