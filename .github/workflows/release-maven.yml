@@ -6,7 +6,7 @@ on:
     inputs:
       release-method:
         type: choice
-        description: "Release-Methode = patch, minor oder major"
+        description: "Release method. Allowed values: patch, minor or major"
         required: true
         options:
           - patch
