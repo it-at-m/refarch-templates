@@ -9,6 +9,4 @@ public final class TestConstants {
 
     public static final String SPRING_TEST_PROFILE = "test";
 
-    public static final String TESTCONTAINERS_POSTGRES_IMAGE = "postgres:17.4-alpine3.21";
-
 }

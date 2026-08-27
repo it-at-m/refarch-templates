@@ -36,7 +36,7 @@ jobs:
       RELEASE_VERSION: ${{ steps.release-maven-artifact.outputs.release-version}}
     steps:
       - id: release-maven-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@330-action-release-mvn-should-offer-input-variable-to-use-patchminormajor
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@937e36ce2b026ce4c9a33ceaa5e13b8c8db50842 # v1.5.3
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
@@ -56,7 +56,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           path: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
@@ -64,6 +64,7 @@ jobs:
           image-tags: |
             type=semver,pattern={{version}},value=${{ inputs.release-version }}
             type=raw,value=latest
+          platforms: "linux/amd64,linux/arm64"
           registry-username: ${{ github.actor }}
           registry-password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -73,7 +74,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           artifact-path: ${{ inputs.app-path }}/target/*.jar

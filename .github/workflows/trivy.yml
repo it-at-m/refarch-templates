@@ -14,7 +14,7 @@ jobs:
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: github.event_name == 'schedule' 
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
   # JOB to run change detection
   trivy-check-changed-files:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       packages: ${{ steps.filter.outputs.changes }}
     steps:
     # For pull requests it's not necessary to checkout the code
-    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+    - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
       id: filter
       with:
         filters: |
@@ -48,11 +48,12 @@ jobs:
       security-events: write # Required to upload SARIF results to the GitHub Security tab
     if: ${{ needs.trivy-check-changed-files.outputs.packages != '' && needs.trivy-check-changed-files.outputs.packages != '[]' }}
     strategy:
+      fail-fast: false
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         # e.g. ['package1', 'package2'] if both package folders contains changes
         package: ${{ fromJSON(needs.trivy-check-changed-files.outputs.packages) }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@4ed8f906bab8111fbd9a7af8e3f4129f9b721757 # v1.2.3
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
         with:
           path: ${{ matrix.package }}
