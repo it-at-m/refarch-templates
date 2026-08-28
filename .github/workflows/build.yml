@@ -20,9 +20,9 @@ jobs:
       # Expose matched filters as job 'packages' output variable
       packages: ${{ steps.filter.outputs.changes }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
       # For pull requests it's not necessary to checkout the code
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         id: filter
         with:
           base: ${{ github.ref }}
@@ -55,24 +55,24 @@ jobs:
       matrix:
         app-path: ${{ fromJSON(needs.build-check-changed-files.outputs.packages) }}
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
       - id: node # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: ${{ matrix.app-path }}
       - id: maven # required for steps.* syntax
         if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
-        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: ${{ matrix.app-path }}
       - name: Run Trivy vulnerability scanner in sbom mode
-        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
          scan-type: "sbom"
          path: "${{ join(steps.*.outputs.sbom-path) }}"
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' && github.event_name != 'schedule' }} 
-        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@bcd2cb2a470e6de82ba45ce9ede3d2f43560c58a # v1.5.0
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           path: ${{ matrix.app-path }}
           artifact-name: ${{ join(steps.*.outputs.artifact-name) }}
