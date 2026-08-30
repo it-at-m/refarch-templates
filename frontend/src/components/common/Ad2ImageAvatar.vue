@@ -1,5 +1,5 @@
 <template>
-  <v-avatar>
+  <v-avatar :size="avatarSize">
     <img
       :src="avatarUrl"
       :alt="altText"
@@ -14,7 +14,7 @@ import { getAvatarHref } from "@/api/ad2imageavatar-client";
 const {
   username,
   avatarMode = "fallbackGeneric",
-  avatarSize = "64",
+  avatarSize = "48",
 } = defineProps<{
   username: string;
   avatarMode?: string;
