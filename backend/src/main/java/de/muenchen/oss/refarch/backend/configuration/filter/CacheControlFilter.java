@@ -13,24 +13,22 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-/// The filter adds a [HttpHeaders#CACHE_CONTROL] header to each HTTP response, if
-/// the header is not already set.
+/// The filter adds a [HttpHeaders#CACHE_CONTROL] header to each HTTP response, if the header is not
+/// already set.
 @Component
 @FilterRegistration(urlPatterns = "/*")
 public class CacheControlFilter extends OncePerRequestFilter {
 
     private static final String CACHE_CONTROL_HEADER_VALUES = "no-cache, no-store, must-revalidate";
 
-    /// The method which adds the [HttpHeaders#CACHE_CONTROL] header
-    /// to the [HttpServletResponse] given in the parameter,
-    /// if the header is not already set.
-    /// Same contract as for `super.doFilter`, but guaranteed to be
-    /// just invoked once per request within a single request thread.
+    /// The method which adds the [HttpHeaders#CACHE_CONTROL] header to the [HttpServletResponse] given
+    /// in the parameter, if the header is not already set. Same contract as for `super.doFilter`, but
+    /// guaranteed to be just invoked once per request within a single request thread.
     ///
     /// See [OncePerRequestFilter#shouldNotFilterAsyncDispatch()] for details.
     ///
-    /// Provides HttpServletRequest and HttpServletResponse arguments instead of the
-    /// default ServletRequest and ServletResponse ones.
+    /// Provides HttpServletRequest and HttpServletResponse arguments instead of the default
+    /// ServletRequest and ServletResponse ones.
     @Override
     protected void doFilterInternal(@NonNull final HttpServletRequest request,
             final HttpServletResponse response,

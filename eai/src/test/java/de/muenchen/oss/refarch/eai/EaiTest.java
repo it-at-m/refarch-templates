@@ -25,7 +25,8 @@ class EaiTest {
     @EndpointInject("mock:example")
     private MockEndpoint output;
 
-    /// The test sends a message through the EAI and verifies that it reaches the expected mock endpoint.
+    /// The test sends a message through the EAI and verifies that it reaches the expected
+    /// mock endpoint.
     @Test
     void givenMessage_thenSendToMockShouldSucceed() throws InterruptedException {
         final String message = "Hello Test !";

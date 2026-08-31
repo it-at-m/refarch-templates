@@ -12,11 +12,11 @@ import org.jspecify.annotations.NonNull;
 ///
 /// **Please note:**
 ///
-///   - With Java readers and writers, an NFC conversion can be carried out safely, as characters are
-///     processed there.
-///   - Before reading the first character, this reader reads the complete text of the wrapped reader
-///     into an internal buffer and performs NFC normalization on it.
-///     The reason is that NFC conversion cannot be performed on a character-by-character basis.
+/// - With Java readers and writers, an NFC conversion can be carried out safely, as characters are
+///   processed there.
+/// - Before reading the first character, this reader reads the complete text of the wrapped reader
+///   into an internal buffer and performs NFC normalization on it. The reason is that NFC conversion
+///   cannot be performed on a character-by-character basis.
 ///
 @Slf4j
 @RequiredArgsConstructor

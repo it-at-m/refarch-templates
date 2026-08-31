@@ -1,12 +1,10 @@
 package de.muenchen.oss.refarch.backend.security;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-
 /// Each possible authority in this project is represented by a constant in this class.
 ///
 /// The constants are used within the [org.springframework.stereotype.Controller] or
-/// [org.springframework.stereotype.Service] classes in the method security annotations
-/// (e.g. [PreAuthorize]).
+/// [org.springframework.stereotype.Service] classes in the method security annotations (e.g.
+/// [org.springframework.security.access.prepost.PreAuthorize]).
 @SuppressWarnings("PMD.DataClass")
 public final class Authorities {
     // Role based auth (default)

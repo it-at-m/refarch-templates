@@ -13,9 +13,9 @@ import org.yaml.snakeyaml.Yaml;
 @SuppressWarnings({ "PMD.TestClassWithoutTestCases" })
 public final class TestUtils {
 
-    /// Utility function to extract an image reference from the `stack/docker-compose.yaml` file.
-    /// This is useful for container definitions with Testcontainers and keeps versions used in
-    /// integration testing in sync with versions used for development.
+    /// Utility function to extract an image reference from the `stack/docker-compose.yaml` file. This
+    /// is useful for container definitions with Testcontainers and keeps versions used in integration
+    /// testing in sync with versions used for development.
     ///
     /// **Note:** The tag is being removed due to Testcontainers not supporting supplying both tag and
     /// SHA value.

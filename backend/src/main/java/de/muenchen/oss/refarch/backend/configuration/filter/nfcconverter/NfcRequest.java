@@ -119,8 +119,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return NfcHelper.nfcConverter(getOriginalRequest().getRequestURL());
     }
 
-    /// {@inheritDoc}
-    /// Only the username is converted to nfc. Password won't be touched!
+    /// {@inheritDoc} Only the username is converted to nfc. Password won't be touched!
     @Override
     public void login(final String username, final String password) throws ServletException {
         getOriginalRequest().login(NfcHelper.nfcConverter(username), password);

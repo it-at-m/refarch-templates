@@ -118,8 +118,8 @@ public class NfcHelper {
                 .toArray(Cookie[]::new);
     }
 
-    /// Converts the headers of a [HttpServletRequest] from strings to the canonical Unicode
-    /// normal form (NFC).
+    /// Converts the headers of a [HttpServletRequest] from strings to the canonical Unicode normal form
+    /// (NFC).
     ///
     /// @param originalRequest The [HttpServletRequest] for extracting and converting the headers.
     /// @return Map with normalized content.

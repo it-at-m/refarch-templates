@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -40,9 +39,9 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
         NONE
     }
 
-    /// Logs the username extracted out of the [SecurityContext],
-    /// the kind of HTTP-Request, the targeted URI and the response http status code.
-    /// {@inheritDoc}
+    /// Logs the username extracted out of the
+    /// [org.springframework.security.core.context.SecurityContext], the kind of HTTP-Request, the
+    /// targeted URI and the response http status code. {@inheritDoc}
     @Override
     protected void doFilterInternal(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {

@@ -17,8 +17,7 @@ public class AuthUtils {
 
     private final SecurityProperties securityProperties;
 
-    /// Extracts the user name from the existing Spring Security Context via
-    /// [SecurityContextHolder].
+    /// Extracts the user name from the existing Spring Security Context via [SecurityContextHolder].
     ///
     /// @return the username or an "unauthenticated" if no [Authentication] exists
     public String getUsername() {

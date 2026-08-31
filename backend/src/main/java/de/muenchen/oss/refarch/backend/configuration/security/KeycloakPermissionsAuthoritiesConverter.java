@@ -32,8 +32,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
-/// Calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant)
-/// and extracts authorities from the permission resources.
+/// Calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant) and extracts
+/// authorities from the permission resources.
 ///
 /// The usage of default role-based authorization should be preferred.
 @Slf4j

@@ -18,15 +18,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 ///
 /// **Please note:**
 ///
-///   - All data streams associated with multipart requests are not normalized according to NFC.
-///     The reason for this is that binary data streams are transferred here and these are generally not
-///     simple text.
-///     If necessary or useful, the application logic or a suitable library can or must carry out NFC
-///     normalization.
-///   - NFC normalization can only be performed at the character level
-///     and the conversion of binary data streams requires knowledge of the data format,
-///     which implies knowledge of the charset used.
-///     This makes NFC normalization in a generic filter seem sensible.
+/// - All data streams associated with multipart requests are not normalized according to NFC. The
+///   reason for this is that binary data streams are transferred here and these are generally not
+///   simple text. If necessary or useful, the application logic or a suitable library can or must
+///   carry out NFC normalization.
+/// - NFC normalization can only be performed at the character level and the conversion of binary
+///   data streams requires knowledge of the data format, which implies knowledge of the charset
+///   used. This makes NFC normalization in a generic filter seem sensible.
 ///
 /// @see java.text.Normalizer
 /// @see HttpServletRequest#getPart(String)
