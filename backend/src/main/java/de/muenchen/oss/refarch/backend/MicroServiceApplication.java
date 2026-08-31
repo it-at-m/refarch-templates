@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 @SuppressWarnings("PMD.UseUtilityClass")
 public class MicroServiceApplication {
-    static void main(final String[] args) {
+    /* package */ static void main(final String... args) {
         SpringApplication.run(MicroServiceApplication.class, args);
     }
 }
