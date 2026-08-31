@@ -24,7 +24,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 ///   carry out NFC normalization.
 /// - NFC normalization can only be performed at the character level and the conversion of binary
 ///   data streams requires knowledge of the data format, which implies knowledge of the charset
-///   used. This makes NFC normalization in a generic filter seem sensible.
+///   used.
 ///
 /// @see java.text.Normalizer
 /// @see HttpServletRequest#getPart(String)
