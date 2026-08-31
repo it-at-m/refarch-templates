@@ -4,9 +4,7 @@ import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
 import java.io.ByteArrayInputStream;
 
-/**
- * ServletInputStream, which reads from a buffer.
- */
+/// ServletInputStream, which reads from a buffer.
 public class NfcServletInputStream extends ServletInputStream {
 
     private final ByteArrayInputStream buffer;

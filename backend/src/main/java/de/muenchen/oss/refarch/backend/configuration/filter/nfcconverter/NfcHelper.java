@@ -17,22 +17,18 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
-/**
- * Utility class for NFC normalization
- *
- * @see Normalizer
- */
+/// Utility class for NFC normalization
+///
+/// @see Normalizer
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
 public class NfcHelper {
 
-    /**
-     * Converting a string to the canonical Unicode normal form (NFC)
-     *
-     * @param in Input string
-     * @return Normalized string
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts a string to the canonical Unicode normal form (NFC)
+    ///
+    /// @param in Input string
+    /// @return Normalized string
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static String nfcConverter(final String in) {
         if (in == null) {
             log.debug("String BEFORE nfc conversion is \"null\".");
@@ -47,40 +43,34 @@ public class NfcHelper {
         return nfcConvertedContent;
     }
 
-    /**
-     * Converting {@link StringBuffer} content to canonical Unicode normal form (NFC)
-     *
-     * @param in Input buffer
-     * @return Normalized buffer
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts [StringBuffer] content to canonical Unicode normal form (NFC)
+    ///
+    /// @param in Input buffer
+    /// @return Normalized buffer
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static StringBuffer nfcConverter(final StringBuffer in) {
         return new StringBuffer(nfcConverter(in.toString()));
     }
 
-    /**
-     * Converting an array of strings into the canonical Unicode normal form (NFC)
-     *
-     * @param original Input array
-     * @return Array with normalized strings
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts an array of strings into the canonical Unicode normal form (NFC)
+    ///
+    /// @param original Input array
+    /// @return Array with normalized strings
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static String[] nfcConverter(final String... original) {
         return Arrays.stream(original)
                 .map(NfcHelper::nfcConverter)
                 .toArray(String[]::new);
     }
 
-    /**
-     * Converting a {@link Map} of strings into the canonical Unicode normal form (NFC).
-     *
-     * @param original Input map
-     * @return Map with normalized content
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts a [Map] of strings into the canonical Unicode normal form (NFC).
+    ///
+    /// @param original Input map
+    /// @return Map with normalized content
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static Map<String, String[]> nfcConverter(final Map<String, String[]> original) {
         final Map<String, String[]> nfcConverted = new HashMap<>(original.size());
         original.forEach((nfdKey, nfdValueArray) -> nfcConverted.put(
@@ -89,14 +79,12 @@ public class NfcHelper {
         return nfcConverted;
     }
 
-    /**
-     * Converting a {@link Cookie} to the canonical Unicode normal form (NFC).
-     *
-     * @param original Input cookie
-     * @return Cookie with normalized content
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts a [Cookie] to the canonical Unicode normal form (NFC).
+    ///
+    /// @param original Input cookie
+    /// @return Cookie with normalized content
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     @SuppressFBWarnings(
             value = { "HTTPONLY_COOKIE", "INSECURE_COOKIE" },
             justification = "conversion only alters string based types, other attributes are copied from the original cookie",
@@ -115,14 +103,12 @@ public class NfcHelper {
         return nfcCookie;
     }
 
-    /**
-     * Converting an array of {@link Cookie}s to canonical Unicode normal form (NFC).
-     *
-     * @param original Input array of cookies
-     * @return Array with normalized cookies
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts an array of [Cookie]s to canonical Unicode normal form (NFC).
+    ///
+    /// @param original Input array of cookies
+    /// @return Array with normalized cookies
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static Cookie[] nfcConverter(final Cookie... original) {
         if (original == null) {
             return new Cookie[0];
@@ -132,15 +118,13 @@ public class NfcHelper {
                 .toArray(Cookie[]::new);
     }
 
-    /**
-     * Converting the headers of a {@link HttpServletRequest} from strings to the canonical Unicode
-     * normal form (NFC).
-     *
-     * @param originalRequest The {@link HttpServletRequest} for extracting and converting the headers.
-     * @return Map with normalized content.
-     * @see #nfcConverter(String)
-     * @see Normalizer#normalize(CharSequence, Normalizer.Form)
-     */
+    /// Converts the headers of a [HttpServletRequest] from strings to the canonical Unicode normal form
+    /// (NFC).
+    ///
+    /// @param originalRequest The [HttpServletRequest] for extracting and converting the headers.
+    /// @return Map with normalized content.
+    /// @see #nfcConverter(String)
+    /// @see Normalizer#normalize(CharSequence, Normalizer.Form)
     public static Map<String, List<String>> nfcConverterForHeadersFromOriginalRequest(final HttpServletRequest originalRequest) {
         final Map<String, List<String>> converted = new LinkedCaseInsensitiveMap<>(Locale.ROOT);
         Collections.list(originalRequest.getHeaderNames()).forEach(nfdHeaderName -> {
