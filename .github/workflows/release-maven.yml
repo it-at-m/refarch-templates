@@ -62,7 +62,7 @@ jobs:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           image-name: ${{ inputs.app-path }}
           image-tags: |
-            type=semver,pattern={{version}},value=${{ inputs.release-version }}
+            type=semver,pattern={{version}},value=${{ needs.release-maven-artifact.outputs.RELEASE_VERSION}}
             type=raw,value=latest
           platforms: "linux/amd64,linux/arm64"
           registry-username: ${{ github.actor }}
