@@ -4,14 +4,18 @@ name: release-maven
 on:
   workflow_dispatch:
     inputs:
+      release-method:
+        type: choice
+        description: "Release method. Allowed values: patch, minor or major"
+        required: true
+        options:
+          - patch
+          - minor
+          - major
       release-version:
         description: "Version to use when preparing a release (e.g., 1.2.3)"
-        required: true
-        default: "X.Y.Z"
-      development-version:
-        description: "Version to use for new local working copy (e.g., 1.2.4-SNAPSHOT)"
-        required: true
-        default: X.Y.Z-SNAPSHOT
+        required: false
+        default: ""
       app-path:
         type: choice
         description: Service-Name
@@ -29,13 +33,14 @@ jobs:
     outputs:
       MVN_ARTIFACT_ID: ${{ steps.release-maven-artifact.outputs.MVN_ARTIFACT_ID }}
       ARTIFACT_NAME: ${{ steps.release-maven-artifact.outputs.artifact-name }}
+      RELEASE_VERSION: ${{ steps.release-maven-artifact.outputs.release-version}}
     steps:
       - id: release-maven-artifact
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-release@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
-          developmentVersion: ${{ inputs.development-version }}
+          release-method:  ${{ inputs.release-method }}
           use-pr: "true"
           # the following variables are necessary to publish the packages to maven central
           # docs: https://it-at-m.github.io/lhm_actions/workflows.html#maven-central
@@ -57,7 +62,7 @@ jobs:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           image-name: ${{ inputs.app-path }}
           image-tags: |
-            type=semver,pattern={{version}},value=${{ inputs.release-version }}
+            type=semver,pattern={{version}},value=${{ needs.release-maven-artifact.outputs.RELEASE_VERSION}}
             type=raw,value=latest
           platforms: "linux/amd64,linux/arm64"
           registry-username: ${{ github.actor }}
@@ -73,5 +78,5 @@ jobs:
         with:
           artifact-name: ${{ needs.release-maven-artifact.outputs.ARTIFACT_NAME }}
           artifact-path: ${{ inputs.app-path }}/target/*.jar
-          tag-name: ${{ inputs.app-path }}-${{ inputs.release-version }}
+          tag-name: ${{ inputs.app-path }}-${{ needs.release-maven-artifact.outputs.RELEASE_VERSION}}
           generate-release-notes: true
