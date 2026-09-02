@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
-/**
- * Configures a mocked JwtDecoder as Spring bean to test authorization via roles.
- * When an Authorization header is provided in the request, the Bearer value is mapped to an
- * equivalent role if registered in {@link TestSecurityConfiguration#MOCKED_ROLES}.
- * e.g. Authorization: "Bearer reader" -> Role reader
- */
+/// Configures a mocked [JwtDecoder] as Spring bean to test authorization via roles.
+///
+/// When an Authorization header is provided in the request, the Bearer value is mapped to an
+/// equivalent role if registered in [TestSecurityConfiguration#MOCKED_ROLES].
+///
+/// e.g. `Authorization: "Bearer reader"` -> Role reader
 @TestConfiguration
 @RequiredArgsConstructor
 public class TestSecurityConfiguration {

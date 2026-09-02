@@ -32,12 +32,10 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
-/**
- * Service that calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant)
- * and extracts authorities from the permission resources.
- * <p>
- * The usage of default role-based authorization should be preferred.
- */
+/// Calls a Keycloak permissions endpoint (with JWT Bearer Auth using UMA ticket grant) and extracts
+/// authorities from the permission resources.
+///
+/// The usage of default role-based authorization should be preferred.
 @Slf4j
 @Component
 @Profile("keycloak-permissions")
@@ -95,13 +93,11 @@ public final class KeycloakPermissionsAuthoritiesConverter implements Converter<
                         .withReadTimeout(Duration.ofSeconds(KEYCLOAK_FETCH_TIMEOUT)));
     }
 
-    /**
-     * Calls the Keycloak permissions endpoint and extracts {@link GrantedAuthority}s from permission
-     * resources.
-     *
-     * @param jwt the JWT
-     * @return the {@link GrantedAuthority}s extracted from the permissions endpoint response
-     */
+    /// Calls the Keycloak permissions endpoint and extracts [GrantedAuthority]s from permission
+    /// resources.
+    ///
+    /// @param jwt the JWT
+    /// @return the [GrantedAuthority]s extracted from the permissions endpoint response
     @Override
     public Collection<GrantedAuthority> convert(final Jwt jwt) {
         final ValueWrapper valueWrapper = this.cache.get(jwt.getSubject());

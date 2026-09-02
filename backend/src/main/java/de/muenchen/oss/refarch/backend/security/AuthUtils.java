@@ -8,9 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
-/**
- * Utility bean for authentication related data.
- */
+/// Utility bean for authentication related data.
 @Component
 @RequiredArgsConstructor
 public class AuthUtils {
@@ -19,12 +17,9 @@ public class AuthUtils {
 
     private final SecurityProperties securityProperties;
 
-    /**
-     * Extracts the user name from the existing Spring Security Context via
-     * {@link SecurityContextHolder}.
-     *
-     * @return the username or an "unauthenticated" if no {@link Authentication} exists
-     */
+    /// Extracts the user name from the existing Spring Security Context via [SecurityContextHolder].
+    ///
+    /// @return the username or an "unauthenticated" if no [Authentication] exists
     public String getUsername() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof JwtAuthenticationToken jwtAuth) {
