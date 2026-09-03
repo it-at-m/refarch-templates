@@ -68,13 +68,13 @@ import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRules } from "vuetify";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
 import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";
-import { useRules } from "vuetify";
 
 const userInfoStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
