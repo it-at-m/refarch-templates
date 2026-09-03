@@ -9,6 +9,7 @@
     "composite": true,
     "noEmit": true,
     "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+    "allowImportingTsExtensions": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]
