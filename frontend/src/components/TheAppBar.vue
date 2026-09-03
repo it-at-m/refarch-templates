@@ -40,18 +40,18 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
-        <theme-toggle-btn />
+        <theme-toggle-btn class="mr-2" />
         <app-switcher
           v-if="APPSWITCHER_URL"
-          class="ml-2"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
           :icon="mdiApps"
+          class="mr-2"
         />
         <v-icon-btn
           v-if="userInfoStore.userInfo !== null"
-          class="mx-2"
           variant="text"
+          class="mr-2"
         >
           <ad2-image-avatar
             :username="userInfoStore.userInfo.preferred_username"
