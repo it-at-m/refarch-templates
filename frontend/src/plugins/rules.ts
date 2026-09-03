@@ -20,7 +20,7 @@ type CustomRule = (...args: any[]) => (value: any) => string | boolean;
  * @returns A validation function returning `true` for valid values or an error
  *   message when the minimum is not met.
  */
-const minRule: CustomRule = (minNumber: number, exclusive = false, err: string) => {
+const minRule: CustomRule = (minNumber: number, exclusive = false, err?: string) => {
     return (v) =>
         exclusive
             ? v > minNumber || err || `Der Wert muss größer als ${minNumber} sein.`
@@ -42,7 +42,7 @@ const minRule: CustomRule = (minNumber: number, exclusive = false, err: string) 
  * @returns A validation function returning `true` for valid values or an error
  *   message when the maximum is exceeded.
  */
-const maxRule: CustomRule = (maxNumber: number, exclusive = false, err: string) => {
+const maxRule: CustomRule = (maxNumber: number, exclusive = false, err?: string) => {
     return (v) =>
         exclusive
             ? v < maxNumber || err || `Der Wert muss kleiner als ${maxNumber} sein.`
@@ -66,7 +66,7 @@ const maxRule: CustomRule = (maxNumber: number, exclusive = false, err: string) 
  *   or an error message when it is already present.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const uniqueRule: CustomRule = (values: any[], initialValue = undefined, err: string) => {
+const uniqueRule: CustomRule = (values: any[], initialValue = undefined, err?: string) => {
     return (v) =>
         !!initialValue && v === initialValue ||
         !values.includes(v) ||
