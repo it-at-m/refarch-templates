@@ -20,13 +20,17 @@ type CustomRule = (...args: any[]) => (value: any) => string | boolean;
  * @returns A validation function returning `true` for valid values or an error
  *   message when the minimum is not met.
  */
-const minRule: CustomRule = (minNumber: number, exclusive = false, err?: string) => {
-    return (v) =>
-        exclusive
-            ? v > minNumber || err || `Der Wert muss größer als ${minNumber} sein.`
-            : v >= minNumber ||
-            err ||
-            `Der Wert muss mindestens ${minNumber} betragen.`;
+const minRule: CustomRule = (
+  minNumber: number,
+  exclusive = false,
+  err?: string
+) => {
+  return (v) =>
+    exclusive
+      ? v > minNumber || err || `Der Wert muss größer als ${minNumber} sein.`
+      : v >= minNumber ||
+        err ||
+        `Der Wert muss mindestens ${minNumber} betragen.`;
 };
 
 /**
@@ -42,13 +46,17 @@ const minRule: CustomRule = (minNumber: number, exclusive = false, err?: string)
  * @returns A validation function returning `true` for valid values or an error
  *   message when the maximum is exceeded.
  */
-const maxRule: CustomRule = (maxNumber: number, exclusive = false, err?: string) => {
-    return (v) =>
-        exclusive
-            ? v < maxNumber || err || `Der Wert muss kleiner als ${maxNumber} sein.`
-            : v <= maxNumber ||
-            err ||
-            `Der Wert darf höchstens ${maxNumber} betragen.`;
+const maxRule: CustomRule = (
+  maxNumber: number,
+  exclusive = false,
+  err?: string
+) => {
+  return (v) =>
+    exclusive
+      ? v < maxNumber || err || `Der Wert muss kleiner als ${maxNumber} sein.`
+      : v <= maxNumber ||
+        err ||
+        `Der Wert darf höchstens ${maxNumber} betragen.`;
 };
 
 /**
@@ -65,13 +73,17 @@ const maxRule: CustomRule = (maxNumber: number, exclusive = false, err?: string)
  * @returns A validation function that returns `true` when the value is unique,
  *   or an error message when it is already present.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const uniqueRule: CustomRule = (values: any[], initialValue = undefined, err?: string) => {
-    return (v) =>
-        !!initialValue && v === initialValue ||
-        !values.includes(v) ||
-        err ||
-        `Der Wert ${v} ist bereits vorhanden.`;
+const uniqueRule: CustomRule = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  values: any[],
+  initialValue = undefined,
+  err?: string
+) => {
+  return (v) =>
+    (!!initialValue && v === initialValue) ||
+    !values.includes(v) ||
+    err ||
+    `Der Wert ${v} ist bereits vorhanden.`;
 };
 
 /**
@@ -84,16 +96,15 @@ const uniqueRule: CustomRule = (values: any[], initialValue = undefined, err?: s
  *
  * More information in https://vuetifyjs.com/en/features/rules/
  */
-
 export default createRulesPlugin(
-    {
-        aliases: {
-            min: minRule,
-            max: maxRule,
-            unique: uniqueRule,
-        },
+  {
+    aliases: {
+      min: minRule,
+      max: maxRule,
+      unique: uniqueRule,
     },
-    vuetify.locale
+  },
+  vuetify.locale
 ) as Plugin;
 
 // Test-only exports: exposed to allow unit tests to import the individual rules.
