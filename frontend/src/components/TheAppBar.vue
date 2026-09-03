@@ -33,6 +33,7 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
+          :rules="[rules.maxLength(20)]"
           @keyup.enter="search"
         />
       </v-col>
@@ -73,6 +74,7 @@ import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
 import { APPSWITCHER_URL } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";
+import { useRules } from "vuetify";
 
 const userInfoStore = useUserInfoStore();
 const snackbarStore = useSnackbarStore();
@@ -87,6 +89,8 @@ function search() {
     });
   }
 }
+
+const rules = useRules();
 
 const emit = defineEmits<{
   clickedNavIcon: [];
