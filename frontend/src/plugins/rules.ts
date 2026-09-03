@@ -80,7 +80,7 @@ const uniqueRule: CustomRule = (
   err?: string
 ) => {
   return (v) =>
-    (!!initialValue && v === initialValue) ||
+    (initialValue !== undefined && v === initialValue) ||
     !values.includes(v) ||
     err ||
     `Der Wert ${v} ist bereits vorhanden.`;
