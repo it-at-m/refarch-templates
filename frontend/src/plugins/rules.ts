@@ -35,11 +35,14 @@ const minRule: CustomRule<[number, boolean?, string?], number> = (
   err
 ) => {
   return (v) =>
-    exclusive
-      ? v > minNumber || err || `Der Wert muss größer als ${minNumber} sein.`
-      : v >= minNumber ||
-        err ||
-        `Der Wert muss mindestens ${minNumber} betragen.`;
+      v == null ||
+      (exclusive
+          ? v > minNumber
+          : v >= minNumber) ||
+      err ||
+      (exclusive
+          ? `Der Wert muss größer als ${minNumber} sein.`
+          : `Der Wert muss mindestens ${minNumber} betragen.`);
 };
 
 /**
@@ -57,11 +60,14 @@ const maxRule: CustomRule<[number, boolean?, string?], number> = (
   err?
 ) => {
   return (v) =>
-    exclusive
-      ? v < maxNumber || err || `Der Wert muss kleiner als ${maxNumber} sein.`
-      : v <= maxNumber ||
-        err ||
-        `Der Wert darf höchstens ${maxNumber} betragen.`;
+      v == null ||
+      (exclusive
+          ? v < maxNumber
+          : v <= maxNumber) ||
+      err ||
+      (exclusive
+          ? `Der Wert muss kleiner als ${maxNumber} sein.`
+          : `Der Wert darf höchstens ${maxNumber} betragen.`);
 };
 
 /**
@@ -83,7 +89,8 @@ const uniqueRule: UniqueRule = (
   err?
 ) => {
   return (v) =>
-    (initialValue !== undefined && v === initialValue) ||
+    v == null ||
+    (initialValue != null && v === initialValue) ||
     !values.includes(v) ||
     err ||
     `Der Wert ${v} ist bereits vorhanden.`;
