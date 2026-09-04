@@ -23,13 +23,9 @@ type UniqueRule = <T>(
 /**
  * Creates a validation rule that ensures a value is not below a minimum.
  *
- * By default, the minimum value is inclusive, meaning values equal to
- * `minNumber` are considered valid. When `exclusive` is `true`, the value
- * must be strictly greater than `minNumber`.
- *
- * @param minNumber - Minimum allowed value.
- * @param exclusive - Whether `minNumber` itself should be considered invalid.
- * @param err - Custom error message returned when the value is below the minimum.
+ * @param minNumber - Minimum allowed value
+ * @param exclusive - Sets `value` to be strictly greater than `minNumber`
+ * @param err - Optional custom error message
  * @returns A validation function returning `true` for valid values or an error
  *   message when the minimum is not met.
  */
@@ -49,20 +45,16 @@ const minRule: CustomRule<[number, boolean?, string?], number> = (
 /**
  * Creates a validation rule that ensures a value does not exceed a maximum.
  *
- * By default, the maximum value is inclusive, meaning values equal to
- * `maxNumber` are considered valid. When `exclusive` is `true`, the value
- * must be strictly less than `maxNumber`.
- *
- * @param maxNumber - Maximum allowed value.
- * @param exclusive - Whether `maxNumber` itself should be considered invalid.
- * @param err - Custom error message returned when the value exceeds the maximum.
+ * @param maxNumber - Maximum allowed value
+ * @param exclusive - Sets `value` to be strictly smaller than `maxNumber`
+ * @param err - Optional custom error message
  * @returns A validation function returning `true` for valid values or an error
  *   message when the maximum is exceeded.
  */
 const maxRule: CustomRule<[number, boolean?, string?], number> = (
-  maxNumber: number,
+  maxNumber,
   exclusive = false,
-  err?: string
+  err?
 ) => {
   return (v) =>
     exclusive
@@ -79,17 +71,16 @@ const maxRule: CustomRule<[number, boolean?, string?], number> = (
  * This is useful when editing an existing entity, where its current value
  * naturally appears in the list of existing values.
  *
- * @param values - Values against which the value is checked for uniqueness.
- * @param initialValue - The current value of the entity being edited. This
- *   value is considered valid even if it is included in `values`.
- * @param err - Optional custom error message returned when the value is not unique.
+ * @param values - Values against which the value is checked for uniqueness
+ * @param initialValue - The current value of the entity being edited
+ * @param err - Optional custom error message
  * @returns A validation function that returns `true` when the value is unique,
  *   or an error message when it is already present.
  */
 const uniqueRule: UniqueRule = (
   values,
   initialValue = undefined,
-  err?: string
+  err?
 ) => {
   return (v) =>
     (initialValue !== undefined && v === initialValue) ||
