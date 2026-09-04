@@ -33,6 +33,7 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
+          :rules="[rules.maxLength(20)]"
           @keyup.enter="search"
         />
       </v-col>
@@ -67,6 +68,7 @@ import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRules } from "vuetify";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
@@ -87,6 +89,8 @@ function search() {
     });
   }
 }
+
+const rules = useRules();
 
 const emit = defineEmits<{
   clickedNavIcon: [];
