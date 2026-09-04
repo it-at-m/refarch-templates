@@ -98,7 +98,7 @@ services:
     <<: *security_settings
 
   refarch-gateway:
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.10.0@sha256:85157f2b6899bd3c4c46792ad539f63956a5aec0684ebd0acd51b40cda52c609
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.10.0@sha256:d74e6a31e2fe255989008fbf9a8d5e024bc01f418acf8c1852558e6925db9764
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
