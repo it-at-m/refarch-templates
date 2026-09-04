@@ -35,14 +35,12 @@ const minRule: CustomRule<[number, boolean?, string?], number> = (
   err
 ) => {
   return (v) =>
-      v == null ||
-      (exclusive
-          ? v > minNumber
-          : v >= minNumber) ||
-      err ||
-      (exclusive
-          ? `Der Wert muss größer als ${minNumber} sein.`
-          : `Der Wert muss mindestens ${minNumber} betragen.`);
+    v == null ||
+    (exclusive ? v > minNumber : v >= minNumber) ||
+    err ||
+    (exclusive
+      ? `Der Wert muss größer als ${minNumber} sein.`
+      : `Der Wert muss mindestens ${minNumber} betragen.`);
 };
 
 /**
@@ -60,14 +58,12 @@ const maxRule: CustomRule<[number, boolean?, string?], number> = (
   err?
 ) => {
   return (v) =>
-      v == null ||
-      (exclusive
-          ? v < maxNumber
-          : v <= maxNumber) ||
-      err ||
-      (exclusive
-          ? `Der Wert muss kleiner als ${maxNumber} sein.`
-          : `Der Wert darf höchstens ${maxNumber} betragen.`);
+    v == null ||
+    (exclusive ? v < maxNumber : v <= maxNumber) ||
+    err ||
+    (exclusive
+      ? `Der Wert muss kleiner als ${maxNumber} sein.`
+      : `Der Wert darf höchstens ${maxNumber} betragen.`);
 };
 
 /**
@@ -83,11 +79,7 @@ const maxRule: CustomRule<[number, boolean?, string?], number> = (
  * @returns A validation function that returns `true` when the value is unique,
  *   or an error message when it is already present.
  */
-const uniqueRule: UniqueRule = (
-  values,
-  initialValue = undefined,
-  err?
-) => {
+const uniqueRule: UniqueRule = (values, initialValue = undefined, err?) => {
   return (v) =>
     v == null ||
     (initialValue != null && v === initialValue) ||
