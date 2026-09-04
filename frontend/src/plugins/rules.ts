@@ -4,8 +4,21 @@ import { createRulesPlugin } from "vuetify";
 
 import vuetify from "@/plugins/vuetify";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type CustomRule = (...args: any[]) => (value: any) => string | boolean;
+/**
+ * Custom type required as CustomValidationRuleBuilder type from Vuetify is not accessible.
+ */
+type CustomRule<RuleArgs extends unknown[], RuleValue> = (
+  ...args: RuleArgs
+) => (value: RuleValue) => string | boolean;
+
+/**
+ * Custom type for use in {@link uniqueRule}.
+ */
+type UniqueRule = <T>(
+  values: T[],
+  initialValue?: T,
+  err?: string
+) => (value: T) => string | boolean;
 
 /**
  * Creates a validation rule that ensures a value is not below a minimum.
@@ -20,10 +33,10 @@ type CustomRule = (...args: any[]) => (value: any) => string | boolean;
  * @returns A validation function returning `true` for valid values or an error
  *   message when the minimum is not met.
  */
-const minRule: CustomRule = (
-  minNumber: number,
+const minRule: CustomRule<[number, boolean?, string?], number> = (
+  minNumber,
   exclusive = false,
-  err?: string
+  err
 ) => {
   return (v) =>
     exclusive
@@ -46,7 +59,7 @@ const minRule: CustomRule = (
  * @returns A validation function returning `true` for valid values or an error
  *   message when the maximum is exceeded.
  */
-const maxRule: CustomRule = (
+const maxRule: CustomRule<[number, boolean?, string?], number> = (
   maxNumber: number,
   exclusive = false,
   err?: string
@@ -73,9 +86,8 @@ const maxRule: CustomRule = (
  * @returns A validation function that returns `true` when the value is unique,
  *   or an error message when it is already present.
  */
-const uniqueRule: CustomRule = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  values: any[],
+const uniqueRule: UniqueRule = (
+  values,
   initialValue = undefined,
   err?: string
 ) => {
