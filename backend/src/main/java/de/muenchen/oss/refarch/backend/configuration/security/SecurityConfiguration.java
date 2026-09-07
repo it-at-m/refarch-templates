@@ -16,13 +16,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 
-/**
- * The central class for configuration of all security aspects.
- * Configures all endpoints to require authentication via access token.
- * (except the Spring Boot Actuator endpoints)
- * Additionally it configures the use of role-based authorization (via application.yml) or
- * {@link KeycloakPermissionsAuthoritiesConverter} (when profile "keycloak-permissions" is set).
- */
+/// The central class for configuration of all security aspects. Configures all endpoints to require
+/// authentication via access token. (except the Spring Boot Actuator endpoints) Additionally it
+/// configures the use of role-based authorization (via application.yml) or
+/// [KeycloakPermissionsAuthoritiesConverter] (when profile "keycloak-permissions" is set).
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity

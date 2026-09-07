@@ -11,11 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-/**
- * The test is used to demonstrate how any test configuration
- * (test/application-test.yml) to test the
- * entire EAI can be tested from start to shut down with one test call.
- **/
+/// Demonstrates how the complete EAI can be tested from startup to shutdown.
+///
+/// Uses the test configuration defined in `test/application-test.yml`.
 @SpringBootTest
 @CamelSpringBootTest
 @ActiveProfiles(TestConstants.SPRING_TEST_PROFILE)
@@ -27,6 +25,8 @@ class EaiTest {
     @EndpointInject("mock:example")
     private MockEndpoint output;
 
+    /// The test sends a message through the EAI and verifies that it reaches the expected
+    /// mock endpoint.
     @Test
     void givenMessage_thenSendToMockShouldSucceed() throws InterruptedException {
         final String message = "Hello Test !";

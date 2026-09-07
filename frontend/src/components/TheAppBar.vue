@@ -34,6 +34,7 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
+          :rules="[rules.maxLength(20)]"
           @keyup.enter="search"
         />
       </v-col>
@@ -41,18 +42,17 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
-        <theme-toggle-btn />
+        <theme-toggle-btn class="mr-2" />
         <app-switcher
           v-if="APPSWITCHER_URL"
-          class="ml-2"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
           :icon="mdiApps"
+          class="mr-2"
         />
         <ad2-image-avatar
           v-if="userInfoStore.userInfo !== null"
           :username="userInfoStore.userInfo.preferred_username"
-          class="mx-2"
         />
       </v-col>
     </v-row>
@@ -64,6 +64,7 @@ import { mdiApps, mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRules } from "vuetify";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
@@ -84,6 +85,8 @@ function search() {
     });
   }
 }
+
+const rules = useRules();
 
 const emit = defineEmits<{
   clickedNavIcon: [];

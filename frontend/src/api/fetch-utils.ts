@@ -6,7 +6,7 @@ import { STATUS_INDICATORS } from "@/constants";
  */
 export function getConfig(): RequestInit {
   return {
-    headers: getHeaders(),
+    headers: getSecurityHeaders(),
     mode: "cors",
     credentials: "same-origin",
     redirect: "manual",
@@ -22,7 +22,7 @@ export function postConfig(body: any): RequestInit {
   return {
     method: "POST",
     body: body ? JSON.stringify(body) : undefined,
-    headers: getHeaders(),
+    headers: { ...getSecurityHeaders(), ...getHeaders() },
     mode: "cors",
     credentials: "same-origin",
     redirect: "manual",
@@ -36,14 +36,14 @@ export function postConfig(body: any): RequestInit {
  */
 // eslint-disable-next-line
 export function putConfig(body: any): RequestInit {
-  const headers = getHeaders();
-  if (body.version) {
-    headers.append("If-Match", body.version);
-  }
+  const appendHeaders: HeadersInit = body.version
+    ? { "If-Match": body.version }
+    : {};
+
   return {
     method: "PUT",
     body: body ? JSON.stringify(body) : undefined,
-    headers,
+    headers: { ...getSecurityHeaders(), ...getHeaders(), ...appendHeaders },
     mode: "cors",
     credentials: "same-origin",
     redirect: "manual",
@@ -57,14 +57,14 @@ export function putConfig(body: any): RequestInit {
  */
 // eslint-disable-next-line
 export function patchConfig(body: any): RequestInit {
-  const headers = getHeaders();
-  if (body.version !== undefined) {
-    headers.append("If-Match", body.version);
-  }
+  const appendHeaders: HeadersInit = body.version
+    ? { "If-Match": body.version }
+    : {};
+
   return {
     method: "PATCH",
     body: body ? JSON.stringify(body) : undefined,
-    headers,
+    headers: { ...getSecurityHeaders(), ...getHeaders(), ...appendHeaders },
     mode: "cors",
     credentials: "same-origin",
     redirect: "manual",
@@ -77,7 +77,7 @@ export function patchConfig(body: any): RequestInit {
 export function deleteConfig(): RequestInit {
   return {
     method: "DELETE",
-    headers: getHeaders(),
+    headers: getSecurityHeaders(),
     mode: "cors",
     credentials: "same-origin",
     redirect: "manual",
@@ -132,16 +132,24 @@ export function defaultCatchHandler(
 }
 
 /**
- * Builds the headers for the request.
- * @returns {Headers}
+ * Builds the headers for request ({@link patchConfig} and {@link putConfig}) with fetch-utils directly.
+ * @returns {HeadersInit}
  */
-export function getHeaders(): Headers {
-  const headers = new Headers({
-    "Content-Type": "application/json",
-  });
+function getHeaders(): HeadersInit {
+  const headers: HeadersInit = {};
+  headers["Content-Type"] = "application/json";
+  return headers;
+}
+
+/**
+ * Builds the security relevant headers.
+ * @returns {HeadersInit}
+ */
+export function getSecurityHeaders(): HeadersInit {
+  const headers: HeadersInit = {};
   const csrfCookie = getXSRFToken();
   if (csrfCookie !== "") {
-    headers.append("X-XSRF-TOKEN", csrfCookie);
+    headers["X-XSRF-TOKEN"] = csrfCookie;
   }
   return headers;
 }

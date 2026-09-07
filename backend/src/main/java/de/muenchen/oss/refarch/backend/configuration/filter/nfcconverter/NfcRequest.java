@@ -20,11 +20,9 @@ import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Wrapper for HttpServletRequest that performs NFC conversion.
- *
- * @see java.text.Normalizer
- */
+/// Wrapper for [HttpServletRequest] that performs NFC conversion.
+///
+/// @see java.text.Normalizer
 @Slf4j
 public class NfcRequest extends HttpServletRequestWrapper implements HttpServletRequest {
 
@@ -121,11 +119,7 @@ public class NfcRequest extends HttpServletRequestWrapper implements HttpServlet
         return NfcHelper.nfcConverter(getOriginalRequest().getRequestURL());
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * Only the username is converted to nfc. Password won't be touched!
-     */
+    /// {@inheritDoc} Only the username is converted to nfc. Password won't be touched!
     @Override
     public void login(final String username, final String password) throws ServletException {
         getOriginalRequest().login(NfcHelper.nfcConverter(username), password);
