@@ -21,11 +21,11 @@
         </h1>
         <p>
           {{ t("views.index.apiGatewayStatus") }}
-          <span :class="apiGwStatus">{{ apiGwStatus }}</span>
+          <span :class="statusColor(apiGwStatus)">{{ apiGwStatus }}</span>
         </p>
         <p>
           {{ t("views.index.backendStatus") }}
-          <span :class="backendStatus">{{ backendStatus }}</span>
+          <span :class="statusColor(backendStatus)">{{ backendStatus }}</span>
         </p>
       </v-col>
     </v-row>
@@ -77,14 +77,8 @@ onMounted(async () => {
     });
   }
 });
+
+function statusColor(status: string) {
+  return status === "UP" ? "text-success" : "text-error";
+}
 </script>
-
-<style scoped>
-.UP {
-  color: limegreen;
-}
-
-.DOWN {
-  color: lightcoral;
-}
-</style>
