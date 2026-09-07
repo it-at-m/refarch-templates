@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { maxRule, minRule } from "@/plugins/rules";
 import type { ValidationRule } from "vuetify";
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import useVuetifyRulesFromOpenAPI from "@/composables/useVuetifyRulesFromOpenAPI.ts";
 

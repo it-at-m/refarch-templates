@@ -1,27 +1,27 @@
 import type { ValidationAttributes } from "@/util/validation";
+import type { ComputedRef, MaybeRefOrGetter } from "vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { ValidationRule } from "vuetify";
 
 import { computed, toValue } from "vue";
-import type { MaybeRefOrGetter, ComputedRef } from "vue";
 import { useRules } from "vuetify";
 
 import { mapOpenAPIToVuetifyValidationRules } from "@/util/validation";
 
 export default function useVuetifyRulesFromOpenAPI<
-    T extends Record<string, ValidationAttributes>,
-    K extends keyof T,
+  T extends Record<string, ValidationAttributes>,
+  K extends keyof T,
 >(
-    validationAttributesMap: MaybeRefOrGetter<T>,
-    property: MaybeRefOrGetter<K>,
+  validationAttributesMap: MaybeRefOrGetter<T>,
+  property: MaybeRefOrGetter<K>
 ): ComputedRef<ReturnType<typeof mapOpenAPIToVuetifyValidationRules>>;
 
 export default function useVuetifyRulesFromOpenAPI<
-    T extends Record<string, ValidationAttributes>,
+  T extends Record<string, ValidationAttributes>,
 >(
-    validationAttributesMap: MaybeRefOrGetter<T>,
+  validationAttributesMap: MaybeRefOrGetter<T>
 ): <K extends keyof T>(
-    property: MaybeRefOrGetter<K>,
+  property: MaybeRefOrGetter<K>
 ) => ComputedRef<ReturnType<typeof mapOpenAPIToVuetifyValidationRules>>;
 
 /**
@@ -63,24 +63,22 @@ export default function useVuetifyRulesFromOpenAPI<
  * property when it is omitted.
  */
 export default function useVuetifyRulesFromOpenAPI<
-    T extends Record<string, ValidationAttributes>,
-    K extends keyof T,
+  T extends Record<string, ValidationAttributes>,
+  K extends keyof T,
 >(
-    validationAttributesMap: MaybeRefOrGetter<T>,
-    property?: MaybeRefOrGetter<K>,
+  validationAttributesMap: MaybeRefOrGetter<T>,
+  property?: MaybeRefOrGetter<K>
 ) {
-    const rules = useRules();
+  const rules = useRules();
 
-    const calculateRules = (property: MaybeRefOrGetter<K>) =>
-        computed(() =>
-            mapOpenAPIToVuetifyValidationRules(
-                rules,
-                toValue(validationAttributesMap),
-                toValue(property),
-            ),
-        );
+  const calculateRules = (property: MaybeRefOrGetter<K>) =>
+    computed(() =>
+      mapOpenAPIToVuetifyValidationRules(
+        rules,
+        toValue(validationAttributesMap),
+        toValue(property)
+      )
+    );
 
-    return property === undefined
-        ? calculateRules
-        : calculateRules(property);
+  return property === undefined ? calculateRules : calculateRules(property);
 }
