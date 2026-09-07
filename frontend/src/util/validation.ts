@@ -85,7 +85,8 @@ export function mapOpenAPIToVuetifyValidationRules<
   if (
     attributes.minLength !== undefined &&
     attributes.maxLength !== undefined &&
-    attributes.minLength === attributes.maxLength
+    attributes.minLength === attributes.maxLength &&
+    attributes.minLength > 0
   ) {
     result.push(rules.strictLength(attributes.minLength));
   } else {
