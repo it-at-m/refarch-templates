@@ -8,7 +8,7 @@ import { useRules } from "vuetify";
 
 import { mapOpenAPIToVuetifyValidationRules } from "@/util/validation";
 
-export default function useRulesFromOpenAPI<
+export default function useVuetifyRulesFromOpenAPI<
     T extends Record<string, ValidationAttributes>,
     K extends keyof T,
 >(
@@ -16,7 +16,7 @@ export default function useRulesFromOpenAPI<
     property: MaybeRefOrGetter<K>,
 ): ComputedRef<ReturnType<typeof mapOpenAPIToVuetifyValidationRules>>;
 
-export default function useRulesFromOpenAPI<
+export default function useVuetifyRulesFromOpenAPI<
     T extends Record<string, ValidationAttributes>,
 >(
     validationAttributesMap: MaybeRefOrGetter<T>,
@@ -62,7 +62,7 @@ export default function useRulesFromOpenAPI<
  * provided, or a function for creating computed validation rules for a
  * property when it is omitted.
  */
-export default function useRulesFromOpenAPI<
+export default function useVuetifyRulesFromOpenAPI<
     T extends Record<string, ValidationAttributes>,
     K extends keyof T,
 >(
