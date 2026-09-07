@@ -101,7 +101,8 @@ export function mapOpenAPIToVuetifyValidationRules<
   }
 
   if (attributes.pattern !== undefined) {
-    const regex = new RegExp(attributes.pattern.replace(/^\/|\/$/g, ""));
+    // Remove regex delimiters before constructing the RegExp.
+    const regex = new RegExp(attributes.pattern.slice(1, -1));
     result.push(rules.pattern(regex));
   }
 

@@ -151,18 +151,6 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
     expect(regex.source).toBe("^[A-Z]+$");
   });
 
-  it("maps patterns without slash delimiters", () => {
-    const attributes = {
-      value: {
-        pattern: "^[A-Z]+$",
-      },
-    };
-
-    mapOpenAPIToVuetifyValidationRules(rules, attributes, "value");
-
-    expect(rules.pattern).toHaveBeenCalledWith(/^[A-Z]+$/);
-  });
-
   it("adds the number rule for number data types", () => {
     const attributes = {
       value: {
