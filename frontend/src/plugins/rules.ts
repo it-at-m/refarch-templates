@@ -9,16 +9,16 @@ import vuetify from "@/plugins/vuetify";
  */
 type CustomRule<RuleArgs extends unknown[], RuleValue> = (
   ...args: RuleArgs
-) => (value: RuleValue) => string | boolean;
+) => (value: RuleValue | null | undefined) => string | boolean;
 
 /**
  * Custom type for use in {@link uniqueRule}.
  */
 type UniqueRule = <T>(
   values: T[],
-  initialValue?: T,
+  initialValue?: T | null | undefined,
   err?: string
-) => (value: T) => string | boolean;
+) => (value: T | null | undefined) => string | boolean;
 
 /**
  * Creates a validation rule that ensures a value is not below a minimum.
