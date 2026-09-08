@@ -77,6 +77,6 @@ jobs:
         with:
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
           artifact-path: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}.zip
-          is-folder: true
+         skip-artifact-decompress: true
           tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
           generate-release-notes: true
