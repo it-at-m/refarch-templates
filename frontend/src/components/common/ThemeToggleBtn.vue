@@ -2,6 +2,7 @@
   <v-icon-btn
     variant="text"
     :icon="theme.global.current.value.dark ? mdiWeatherSunny : mdiWeatherNight"
+    data-test="theme-toggle-btn"
     @click="toggleTheme"
   />
 </template>

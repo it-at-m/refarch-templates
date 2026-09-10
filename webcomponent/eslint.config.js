@@ -7,6 +7,8 @@ import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
+import requireDataTestConfig from "./eslint-require-data-test-plugin.js";
+
 const prettierIgnorePath = fileURLToPath(
   new URL(".prettierignore", import.meta.url)
 );
@@ -18,6 +20,7 @@ export default withVueTs(
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
   vuePrettierEslintConfigSkipFormatting,
+  requireDataTestConfig.configs["flat/muc-patternlab-vue"],
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",

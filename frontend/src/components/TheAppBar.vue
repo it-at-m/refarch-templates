@@ -7,6 +7,7 @@
       >
         <v-app-bar-nav-icon
           class="mx-2"
+          data-test="navigation-menu"
           @click="emit('clickedNavIcon')"
         />
         <router-link
@@ -24,8 +25,8 @@
         class="d-flex align-center justify-center"
       >
         <v-text-field
-          id="searchField"
           v-model="query"
+          data-test="search-field"
           flat
           variant="solo-inverted"
           hide-details
@@ -49,15 +50,10 @@
           :icon="mdiApps"
           class="mr-2"
         />
-        <v-icon-btn
+        <ad2-image-avatar
           v-if="userInfoStore.userInfo !== null"
-          variant="text"
-          class="mr-2"
-        >
-          <ad2-image-avatar
-            :username="userInfoStore.userInfo.preferred_username"
-          />
-        </v-icon-btn>
+          :username="userInfoStore.userInfo.preferred_username"
+        />
       </v-col>
     </v-row>
   </v-app-bar>

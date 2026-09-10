@@ -5,24 +5,24 @@
     width="800"
   >
     <template #activator="{ props: open }">
-      <template v-if="buttontext">
-        <v-btn
-          color="primary"
-          v-bind="open"
-        >
-          {{ buttontext }}
-        </v-btn>
-      </template>
-      <template v-else-if="icontext">
-        <v-btn
-          color="primary"
-          v-bind="open"
-        >
-          <v-icon size="large">
-            {{ icontext }}
-          </v-icon>
-        </v-btn>
-      </template>
+      <v-btn
+        v-if="buttontext"
+        color="primary"
+        data-test="yesno-dialog-btn-open"
+        v-bind="open"
+      >
+        {{ buttontext }}
+      </v-btn>
+      <v-icon-btn
+        v-else
+        color="primary"
+        data-test="yesno-dialog-btn-open"
+        v-bind="open"
+      >
+        <v-icon size="large">
+          {{ icontext }}
+        </v-icon>
+      </v-icon-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -34,14 +34,14 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
-          id="yesnodialog-btn-no"
+          data-test="yesnodialog-btn-no"
           variant="text"
           @click="no"
         >
           {{ t("common.no") }}
         </v-btn>
         <v-btn
-          id="yesnodialog-btn-yes"
+          data-test="yesnodialog-btn-yes"
           color="primary"
           @click="yes"
         >
