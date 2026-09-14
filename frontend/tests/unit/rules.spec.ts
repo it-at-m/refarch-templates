@@ -2,11 +2,14 @@ import { assert, describe, test } from "vitest";
 
 import { maxRule, minRule, uniqueRule } from "../../src/plugins/rules";
 
+const valid = (result: unknown) => assert.isTrue(result);
+const error = (result: unknown) => assert.isString(result);
+
 describe("min rule tests", () => {
   test.concurrent.for([
-    { num: 5, expected: "error" },
-    { num: 10, expected: "valid" },
-    { num: undefined, expected: "valid" },
+    { num: 5, expected: error },
+    { num: 10, expected: valid },
+    { num: undefined, expected: valid },
   ])("validates $num as $expected", ({ num, expected }) => {
     // given
     const validationRule = minRule(10);
@@ -15,19 +18,15 @@ describe("min rule tests", () => {
     const result = validationRule(num);
 
     // then
-    if (expected === "error") {
-      assert.isString(result);
-    } else {
-      assert.isTrue(result);
-    }
+    expected(result);
   });
 });
 
 describe("max rule tests", () => {
   test.concurrent.for([
-    { num: 15, expected: "error" },
-    { num: 10, expected: "valid" },
-    { num: undefined, expected: "valid" },
+    { num: 15, expected: error },
+    { num: 10, expected: valid },
+    { num: undefined, expected: valid },
   ])("validates $num as $expected", ({ num, expected }) => {
     // given
     const validationRule = maxRule(10);
@@ -36,11 +35,7 @@ describe("max rule tests", () => {
     const result = validationRule(num);
 
     // then
-    if (expected === "error") {
-      assert.isString(result);
-    } else {
-      assert.isTrue(result);
-    }
+    expected(result);
   });
 });
 
@@ -50,25 +45,25 @@ describe("unique rule tests", () => {
       newValue: 10,
       existingValues: [5, 8, 10],
       initialValue: undefined,
-      expected: "error",
+      expected: error,
     },
     {
       newValue: 10,
       existingValues: [5, 8],
       initialValue: undefined,
-      expected: "valid",
+      expected: valid,
     },
     {
       newValue: 10,
       existingValues: [5, 8, 10],
       initialValue: 10,
-      expected: "valid",
+      expected: valid,
     },
     {
       newValue: undefined,
       existingValues: [5, 8, 10],
       initialValue: undefined,
-      expected: "valid",
+      expected: valid,
     },
   ])(
     "validates $newValue as $expected",
@@ -80,11 +75,7 @@ describe("unique rule tests", () => {
       const result = validationRule(newValue);
 
       // then
-      if (expected === "error") {
-        assert.isString(result);
-      } else {
-        assert.isTrue(result);
-      }
+      expected(result);
     }
   );
 });
