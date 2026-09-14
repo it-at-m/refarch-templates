@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, test, vi } from "vitest";
 
 import type {
   ValidationAttributes,
@@ -312,42 +312,60 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
 });
 
 describe("getOpenAPIValidationConstraint", () => {
-  it("returns the requested constraint", () => {
-    const attributes: Record<string, ValidationAttributes> = {
-      name: {
-        required: true,
-        maxLength: 100,
+  interface TestCase {
+    attributes: Record<string, ValidationAttributes>;
+    property: string;
+    constraint: keyof ValidationAttributes;
+    expected: unknown;
+  }
+
+  test.concurrent.for<TestCase>([
+    {
+      attributes: {
+        name: {
+          required: true,
+          maxLength: 100,
+        },
       },
-    };
-
-    expect(
-      getOpenAPIValidationConstraint(attributes, "name", "maxLength")
-    ).toBe(100);
-
-    expect(getOpenAPIValidationConstraint(attributes, "name", "required")).toBe(
-      true
-    );
-  });
-
-  it("returns undefined when the constraint is not defined", () => {
-    const attributes: Record<string, ValidationAttributes> = {
-      name: {},
-    };
-
-    expect(
-      getOpenAPIValidationConstraint(attributes, "name", "maxLength")
-    ).toBeUndefined();
-  });
-
-  it("returns undefined when the property does not exist", () => {
-    const attributes: Record<string, ValidationAttributes> = {
-      name: {
-        required: true,
+      property: "name",
+      constraint: "maxLength",
+      expected: 100,
+    },
+    {
+      attributes: {
+        name: {
+          required: true,
+          maxLength: 100,
+        },
       },
-    };
-
-    expect(
-      getOpenAPIValidationConstraint(attributes, "unknown", "required")
-    ).toBeUndefined();
-  });
+      property: "name",
+      constraint: "required",
+      expected: true,
+    },
+    {
+      attributes: {
+        name: {},
+      },
+      property: "name",
+      constraint: "maxLength",
+      expected: undefined,
+    },
+    {
+      attributes: {
+        name: {
+          required: true,
+        },
+      },
+      property: "unknown",
+      constraint: "required",
+      expected: undefined,
+    },
+  ])(
+    "returns $expected for $property.$constraint",
+    ({ attributes, property, constraint, expected }) => {
+      expect(
+        getOpenAPIValidationConstraint(attributes, property, constraint)
+      ).toBe(expected);
+    }
+  );
 });
