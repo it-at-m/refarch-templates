@@ -46,7 +46,7 @@
           v-if="APPSWITCHER_URL"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
-          :icon="mdiApps"
+          variant="text"
           class="mr-2"
         />
         <v-icon-btn
@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { mdiApps, mdiMagnify } from "@mdi/js";
+import { mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
