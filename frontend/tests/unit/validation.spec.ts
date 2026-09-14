@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test, vi } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import type {
   ValidationAttributes,
@@ -26,106 +26,178 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
     };
   });
 
-  it("returns no rules when the property does not exist", () => {
-    const attributes = {
-      name: { required: true },
-    };
-
-    expect(
-      mapOpenAPIToVuetifyValidationRules(rules, attributes, "unknown" as never)
-    ).toEqual([]);
-  });
-
-  it("adds the required rule", () => {
-    const attributes = {
-      name: { required: true },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "name"
-    );
-
-    expect(result).toEqual(["required-rule"]);
-    expect(rules.required).toHaveBeenCalledOnce();
-  });
-
-  it("does not add the required rule when required is false", () => {
-    const attributes = {
-      name: { required: false },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "name"
-    );
-
-    expect(result).toEqual([]);
-    expect(rules.required).not.toHaveBeenCalled();
-  });
-
-  it("maps equal minLength and maxLength to strictLength", () => {
-    const attributes = {
-      value: {
-        minLength: 10,
-        maxLength: 10,
+  test.concurrent.for([
+    {
+      description: "returns no rules when the property does not exist",
+      attributes: {
+        name: {
+          required: true,
+        },
       },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual(["strict-length-10"]);
-    expect(rules.strictLength).toHaveBeenCalledWith(10);
-    expect(rules.minLength).not.toHaveBeenCalled();
-    expect(rules.maxLength).not.toHaveBeenCalled();
-  });
-
-  it("maps minLength and maxLength independently", () => {
-    const attributes = {
-      value: {
-        minLength: 2,
-        maxLength: 20,
+      property: "unknown",
+      expected: [],
+    },
+    {
+      description: "adds the required rule",
+      attributes: {
+        name: {
+          required: true,
+        },
       },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual(["min-length-2", "max-length-20"]);
-    expect(rules.minLength).toHaveBeenCalledWith(2);
-    expect(rules.maxLength).toHaveBeenCalledWith(20);
-  });
-
-  it("does not add string length rules for zero", () => {
-    const attributes = {
-      value: {
-        minLength: 0,
-        maxLength: 0,
+      property: "name",
+      expected: ["required-rule"],
+    },
+    {
+      description: "does not add required when required is false",
+      attributes: {
+        name: {
+          required: false,
+        },
       },
-    };
-
+      property: "name",
+      expected: [],
+    },
+    {
+      description: "maps equal minLength and maxLength to strictLength",
+      attributes: {
+        value: {
+          minLength: 10,
+          maxLength: 10,
+        },
+      },
+      property: "value",
+      expected: ["strict-length-10"],
+    },
+    {
+      description: "maps minLength and maxLength independently",
+      attributes: {
+        value: {
+          minLength: 2,
+          maxLength: 20,
+        },
+      },
+      property: "value",
+      expected: ["min-length-2", "max-length-20"],
+    },
+    {
+      description: "does not add string length rules for zero",
+      attributes: {
+        value: {
+          minLength: 0,
+          maxLength: 0,
+        },
+      },
+      property: "value",
+      expected: [],
+    },
+    {
+      description: "adds the number rule for number data types",
+      attributes: {
+        value: {
+          dataType: "number",
+        },
+      },
+      property: "value",
+      expected: ["number-rule"],
+    },
+    {
+      description: "does not add the number rule for other data types",
+      attributes: {
+        value: {
+          dataType: "string",
+        },
+      },
+      property: "value",
+      expected: [],
+    },
+    {
+      description: "maps minimum to the custom min rule",
+      attributes: {
+        value: {
+          minimum: 10,
+        },
+      },
+      property: "value",
+      expected: ["min-10-undefined"],
+    },
+    {
+      description: "passes exclusiveMinimum to the min rule",
+      attributes: {
+        value: {
+          minimum: 10,
+          exclusiveMinimum: true,
+        },
+      },
+      property: "value",
+      expected: ["min-10-true"],
+    },
+    {
+      description: "maps maximum to the custom max rule",
+      attributes: {
+        value: {
+          maximum: 100,
+        },
+      },
+      property: "value",
+      expected: ["max-100-undefined"],
+    },
+    {
+      description: "passes exclusiveMaximum to the max rule",
+      attributes: {
+        value: {
+          maximum: 100,
+          exclusiveMaximum: true,
+        },
+      },
+      property: "value",
+      expected: ["max-100-true"],
+    },
+  ])("$description", ({ attributes, property, expected }) => {
     const result = mapOpenAPIToVuetifyValidationRules(
       rules,
       attributes,
-      "value"
+      property as never
     );
 
-    expect(result).toEqual([]);
-    expect(rules.minLength).not.toHaveBeenCalled();
-    expect(rules.maxLength).not.toHaveBeenCalled();
-    expect(rules.strictLength).not.toHaveBeenCalled();
+    expect(result).toEqual(expected);
   });
 
-  it("maps pattern strings to regular expressions", () => {
+  test.concurrent.for([
+    {
+      rule: "min",
+      attributes: {
+        value: {
+          minimum: 10,
+        },
+      },
+    },
+    {
+      rule: "max",
+      attributes: {
+        value: {
+          maximum: 100,
+        },
+      },
+    },
+  ])(
+    "does not add custom rule '$rule' when unavailable",
+    ({ rule, attributes }) => {
+      const rulesWithoutRule = {
+        ...rules,
+        [rule]: undefined,
+      };
+
+      const result = mapOpenAPIToVuetifyValidationRules(
+        rulesWithoutRule,
+        attributes,
+        "value"
+      );
+
+      expect(result).toEqual([]);
+    }
+  );
+
+  test("maps pattern strings to regular expressions", () => {
     const attributes = {
       value: {
         pattern: "/^[A-Z]+$/",
@@ -142,143 +214,7 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
     expect(regex.source).toBe("^[A-Z]+$");
   });
 
-  it("adds the number rule for number data types", () => {
-    const attributes = {
-      value: {
-        dataType: "number",
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual(["number-rule"]);
-    expect(rules.number).toHaveBeenCalledOnce();
-  });
-
-  it("does not add the number rule for other data types", () => {
-    const attributes = {
-      value: {
-        dataType: "string",
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual([]);
-    expect(rules.number).not.toHaveBeenCalled();
-  });
-
-  it("maps minimum to the custom min rule", () => {
-    const attributes = {
-      value: {
-        minimum: 10,
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual(["min-10-undefined"]);
-    expect(rules.min).toHaveBeenCalledWith(10, undefined);
-  });
-
-  it("passes exclusiveMinimum to the min rule", () => {
-    const attributes = {
-      value: {
-        minimum: 10,
-        exclusiveMinimum: true,
-      },
-    };
-
-    mapOpenAPIToVuetifyValidationRules(rules, attributes, "value");
-
-    expect(rules.min).toHaveBeenCalledWith(10, true);
-  });
-
-  it("maps maximum to the custom max rule", () => {
-    const attributes = {
-      value: {
-        maximum: 100,
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rules,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual(["max-100-undefined"]);
-    expect(rules.max).toHaveBeenCalledWith(100, undefined);
-  });
-
-  it("passes exclusiveMaximum to the max rule", () => {
-    const attributes = {
-      value: {
-        maximum: 100,
-        exclusiveMaximum: true,
-      },
-    };
-
-    mapOpenAPIToVuetifyValidationRules(rules, attributes, "value");
-
-    expect(rules.max).toHaveBeenCalledWith(100, true);
-  });
-
-  it("does not add min when the min rule is unavailable", () => {
-    const rulesWithoutMin = {
-      ...rules,
-      min: undefined,
-    };
-
-    const attributes = {
-      value: {
-        minimum: 10,
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rulesWithoutMin,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual([]);
-  });
-
-  it("does not add max when the max rule is unavailable", () => {
-    const rulesWithoutMax = {
-      ...rules,
-      max: undefined,
-    };
-
-    const attributes = {
-      value: {
-        maximum: 100,
-      },
-    };
-
-    const result = mapOpenAPIToVuetifyValidationRules(
-      rulesWithoutMax,
-      attributes,
-      "value"
-    );
-
-    expect(result).toEqual([]);
-  });
-
-  it("maps all applicable rules in the expected order", () => {
+  test("maps all applicable rules in the expected order", () => {
     const attributes = {
       value: {
         required: true,
