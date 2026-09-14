@@ -80,25 +80,16 @@ export function mapOpenAPIToVuetifyValidationRules<
   }
 
   // Strings
-  if (
-    attributes.minLength !== undefined &&
-    attributes.maxLength !== undefined &&
-    attributes.minLength === attributes.maxLength &&
-    attributes.minLength > 0
-  ) {
-    result.push(rules.strictLength(attributes.minLength));
+  const { minLength = 0, maxLength = 0 } = attributes;
+  if (minLength > 0 && minLength === maxLength) {
+    result.push(rules.strictLength(minLength));
   } else {
-    if (attributes.minLength !== undefined && attributes.minLength > 0) {
-      result.push(rules.minLength(attributes.minLength));
-    }
-
-    if (attributes.maxLength !== undefined && attributes.maxLength > 0) {
-      result.push(rules.maxLength(attributes.maxLength));
-    }
+    if (minLength > 0) result.push(rules.minLength(minLength));
+    if (maxLength > 0) result.push(rules.maxLength(maxLength));
   }
 
   if (attributes.pattern !== undefined) {
-    // Remove regex delimiters before constructing the RegExp.
+    // typescript-fetch generator creates validation attribute with regex delimiters, thus remove before constructing the RegExp object
     const regex = new RegExp(attributes.pattern.slice(1, -1));
     result.push(rules.pattern(regex));
   }
