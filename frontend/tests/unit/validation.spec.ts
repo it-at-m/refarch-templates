@@ -31,18 +31,9 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
       name: { required: true },
     };
 
-    const debugSpy = vi
-      .spyOn(console, "debug")
-      .mockImplementation(() => undefined);
-
     expect(
       mapOpenAPIToVuetifyValidationRules(rules, attributes, "unknown" as never)
     ).toEqual([]);
-
-    expect(debugSpy).toHaveBeenCalledOnce();
-    expect(debugSpy).toHaveBeenCalledWith(
-      'Validation property "unknown" not found in {"name":{"required":true}}"'
-    );
   });
 
   it("adds the required rule", () => {
@@ -321,10 +312,6 @@ describe("mapOpenAPIToVuetifyValidationRules", () => {
 });
 
 describe("getOpenAPIValidationConstraint", () => {
-  beforeEach(() => {
-    vi.spyOn(console, "debug").mockImplementation(() => undefined);
-  });
-
   it("returns the requested constraint", () => {
     const attributes: Record<string, ValidationAttributes> = {
       name: {
@@ -362,9 +349,5 @@ describe("getOpenAPIValidationConstraint", () => {
     expect(
       getOpenAPIValidationConstraint(attributes, "unknown", "required")
     ).toBeUndefined();
-
-    expect(console.debug).toHaveBeenCalledWith(
-      expect.stringContaining('Validation property "unknown" not found')
-    );
   });
 });

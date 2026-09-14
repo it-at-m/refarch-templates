@@ -3,7 +3,7 @@ import type { maxRule, minRule } from "@/plugins/rules";
 import type { ValidationRule } from "vuetify";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import useVuetifyRulesFromOpenAPI from "@/composables/useVuetifyRulesFromOpenAPI.ts";
+import useOpenApiRules from "@/composables/useOpenApiRules.ts";
 
 /**
  * Type that holds a sub-set of attributes in generated *ValidationAttributesMap types via the OpenAPI generator.
@@ -43,7 +43,7 @@ export interface VuetifyRuleAliases {
  *
  * The mapped Vuetify rules can be used with the `rules` property on Vuetify input components.
  *
- * **Note:** Prefer using the {@link useVuetifyRulesFromOpenAPI} Vue composable instead of calling this function directly.
+ * **Note:** Prefer using the {@link useOpenApiRules} Vue composable instead of calling this function directly.
  *
  * Supported rules currently are:
  * - {@link VuetifyRuleAliases.required}
@@ -71,9 +71,6 @@ export function mapOpenAPIToVuetifyValidationRules<
   const result: ValidationRule[] = [];
 
   if (!attributes) {
-    console.debug(
-      `Validation property "${String(property)}" not found in ${JSON.stringify(validationAttributes)}"`
-    );
     return [];
   }
 
@@ -134,14 +131,5 @@ export function getOpenAPIValidationConstraint<
   K extends keyof T,
   C extends keyof ValidationAttributes,
 >(validationAttributes: T, property: K, constraint: C) {
-  const attributes = validationAttributes[property];
-
-  if (!attributes) {
-    console.debug(
-      `Validation property "${String(property)}" not found in ${JSON.stringify(validationAttributes)}"`
-    );
-    return undefined;
-  }
-
-  return attributes[constraint];
+  return validationAttributes[property]?.[constraint];
 }
