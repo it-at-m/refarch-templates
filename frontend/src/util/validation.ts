@@ -89,8 +89,9 @@ export function mapOpenAPIToVuetifyValidationRules<
   }
 
   if (attributes.pattern !== undefined) {
-    // typescript-fetch generator creates validation attribute with regex delimiters, thus remove before constructing the RegExp object
-    const regex = new RegExp(attributes.pattern.slice(1, -1));
+    // typescript-fetch generator creates validation attribute with regex delimiters.
+    // Thus remove leading and trailing slash before constructing the RegExp object
+    const regex = new RegExp(attributes.pattern.replace(/^\/|\/$/g, ""));
     result.push(rules.pattern(regex));
   }
 
