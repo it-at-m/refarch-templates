@@ -89,7 +89,7 @@ const requireDataTest = {
     },
   },
   create(context) {
-    const [{ components }] = context.options;
+    const [{ components = [] } = {}] = context.options;
 
     const parserServices = context.sourceCode.parserServices;
 
