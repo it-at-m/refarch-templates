@@ -107,11 +107,21 @@ const requireDataTest = {
           return;
         }
 
-        const hasDataTest = node.startTag.attributes.some(
-          (attribute) =>
-            attribute.type === "VAttribute" &&
-            attribute.key.name === TEST_ATTRIBUTE
-        );
+        const hasDataTest = node.startTag.attributes.some((attribute) => {
+          if (attribute.type !== "VAttribute") {
+            return false;
+          }
+
+          if (!attribute.directive) {
+            return attribute.key.name === TEST_ATTRIBUTE;
+          }
+
+          return (
+            attribute.key.name.name === "bind" &&
+            attribute.key.argument?.type === "VIdentifier" &&
+            attribute.key.argument.name === TEST_ATTRIBUTE
+          );
+        });
 
         if (!hasDataTest) {
           context.report({

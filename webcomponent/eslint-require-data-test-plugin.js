@@ -85,7 +85,7 @@ const requireDataTest = {
     ],
     messages: {
       missing:
-        "Interactive component '{{ component }}' must have a data-test attribute.",
+          "Interactive component '{{ component }}' must have a data-test attribute.",
     },
   },
   create(context) {
@@ -107,11 +107,21 @@ const requireDataTest = {
           return;
         }
 
-        const hasDataTest = node.startTag.attributes.some(
-          (attribute) =>
-            attribute.type === "VAttribute" &&
-            attribute.key.name === TEST_ATTRIBUTE
-        );
+        const hasDataTest = node.startTag.attributes.some((attribute) => {
+          if (attribute.type !== "VAttribute") {
+            return false;
+          }
+
+          if (!attribute.directive) {
+            return attribute.key.name === TEST_ATTRIBUTE;
+          }
+
+          return (
+              attribute.key.name.name === "bind" &&
+              attribute.key.argument?.type === "VIdentifier" &&
+              attribute.key.argument.name === TEST_ATTRIBUTE
+          );
+        });
 
         if (!hasDataTest) {
           context.report({
@@ -154,14 +164,14 @@ export default {
   configs: {
     "flat/vuetify": createConfig(INTERACTIVE_VUETIFY_COMPONENTS),
     "flat/muc-patternlab-vue": createConfig(
-      INTERACTIVE_MUC_PATTERNLAB_VUE_COMPONENTS
+        INTERACTIVE_MUC_PATTERNLAB_VUE_COMPONENTS
     ),
   },
 };
 
 function toPascalCase(name) {
   return name
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join("");
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join("");
 }
