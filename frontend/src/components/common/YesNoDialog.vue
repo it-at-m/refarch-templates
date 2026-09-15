@@ -20,7 +20,10 @@
         :icon="icontext"
       />
     </template>
-    <v-card :title="dialogtitle" :text="dialogtext">
+    <v-card
+      :title="dialogtitle"
+      :text="dialogtext"
+    >
       <v-card-actions>
         <v-spacer />
         <v-btn
