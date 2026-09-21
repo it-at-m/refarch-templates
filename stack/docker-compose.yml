@@ -109,6 +109,7 @@ services:
     environment:
       ALLOWED_ORIGINS_PUBLIC: http://localhost:*
       ALLOWED_ORIGINS_CLIENTS: http://localhost:*
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_TRUSTED_PROXIES: .* # required for local X-Forwarded-* headers (used by Swagger UI), do not use .* in production
       SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID: sso
       SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_URI: http://keycloak:8100/
       SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_PREDICATES_0: Path=/api/sso/userinfo

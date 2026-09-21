@@ -1,3 +1,6 @@
+server:
+  forward-headers-strategy: framework
+
 spring:
   main:
     banner-mode: console
@@ -64,6 +67,8 @@ springdoc:
   # Disable swagger-ui as default
   swagger-ui:
     enabled: false
+    csrf:
+      enabled: true
   api-docs:
     version: openapi_3_0
     enabled: false
