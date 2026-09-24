@@ -15,7 +15,7 @@
     "test": "vitest run",
     "build": "npm run pre-build && vue-tsc --build --noCheck && vite build && npm run post-build",
     "pre-build": "openapi-generator-cli generate",
-    "post-build": "node ./processes/post-build.js && cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
+    "post-build": "node ./processes/post-build.js && cyclonedx-npm --omit optional --output-reproducible -o dist/application.cdx.json && cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application-prod.cdx.json",
     "preview": "vite preview",
     "lint": "npm run pre-build && prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
