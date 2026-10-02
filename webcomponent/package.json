@@ -40,7 +40,7 @@
     "eslint": "10.11.0",
     "eslint-plugin-vue": "10.11.1",
     "jsdom": "29.1.1",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "typescript": "5.9.3",
     "vite": "8.3.1",
     "vite-plugin-vue-devtools": "8.2.1",
