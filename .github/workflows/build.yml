@@ -3,6 +3,8 @@ name: build
 
 on:
   pull_request:
+  schedule:
+    - cron: '0 3 * * *' # Daily at 03:00 UTC
   push:
     branches:
       - "main"
@@ -64,7 +66,12 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           app-path: ${{ matrix.app-path }}
-      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' }}
+      - name: Run Trivy vulnerability scanner in sbom mode
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+         scan-type: "sbom"
+         path: "${{ join(steps.*.outputs.sbom-path) }}"
+      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' && github.event_name != 'schedule' }} 
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
         with:
           path: ${{ matrix.app-path }}

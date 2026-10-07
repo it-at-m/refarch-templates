@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -290,8 +292,29 @@
                 <artifactId>cyclonedx-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>sbom-with-dev-deps</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
                         <configuration>
                             <skipNotDeployed>false</skipNotDeployed>
+                            <includeTestScope>true</includeTestScope>
+                            <outputName>application.cdx</outputName>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>sbom-without-dev-deps</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                        <configuration>
+                            <skipNotDeployed>false</skipNotDeployed>
+                            <includeTestScope>false</includeTestScope>
+                            <outputName>application-prod</outputName>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -381,7 +404,8 @@
                         <formatAnnotations />
                     </java>
                     <lintSuppressions>
-                        <!-- Add your own Spotless suppressions, see https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
+                        <!-- Add your own Spotless suppressions, see
+                        https://github.com/diffplug/spotless/tree/main/plugin-maven#suppressing-lint-errors -->
                     </lintSuppressions>
                 </configuration>
                 <dependencies>
