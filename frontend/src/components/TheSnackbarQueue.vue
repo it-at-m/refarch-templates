@@ -1,6 +1,7 @@
 <template>
   <v-snackbar-queue
     v-model="snackbarStore.queue"
+    data-test="snackbar"
     :timeout="5000"
     :color="STATUS_INDICATORS.INFO"
     closable
