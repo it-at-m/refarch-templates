@@ -1,10 +1,7 @@
 #!/bin/sh
 set -e
 
-KEYCLOAK_URL="http://keycloak:8100/auth"
-ADMIN_USER="admin"
-ADMIN_PASSWORD="admin"
-KEYCLOAK_REALMS="local_realm LHM-Demo"
+
 
 # Wait until Keycloak is available
 echo "Waiting for Keycloak at ${KEYCLOAK_URL}..."

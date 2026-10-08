@@ -6,7 +6,7 @@ FROM alpine:3.20
 COPY --from=tofu /usr/local/bin/tofu /usr/local/bin/tofu
 
 # Add curl and jq
-RUN apk add --no-cache bash curl jq
+RUN apk add --no-cache bash curl jq git
 
 # Your application setup
 WORKDIR /workspace
