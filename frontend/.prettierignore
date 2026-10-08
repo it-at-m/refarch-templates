@@ -1,0 +1,5 @@
+# Used for Prettier and ESLint
+dist
+node_modules
+route-map.d.ts
+src/api/generated/*/**

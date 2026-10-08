@@ -1,0 +1,72 @@
+package de.muenchen.oss.refarch.backend.configuration.filter;
+
+import de.muenchen.oss.refarch.backend.configuration.security.SecurityProperties;
+import de.muenchen.oss.refarch.backend.security.AuthUtils;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jspecify.annotations.NonNull;
+import org.springframework.boot.web.servlet.FilterRegistration;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+/// Filter that logs the username from requests using the [AuthUtils] bean.
+@Component
+@FilterRegistration(urlPatterns = "/*", order = 1)
+@Slf4j
+@RequiredArgsConstructor
+public class RequestResponseLoggingFilter extends OncePerRequestFilter {
+
+    private static final List<String> CHANGING_METHODS = List.of(HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.PATCH.name(),
+            HttpMethod.DELETE.name());
+
+    private final AuthUtils authUtils;
+    private final SecurityProperties securityProperties;
+
+    /// Logging mode to use for incoming HTTP requests
+    public enum LoggingMode {
+        /// Logs all requests
+        ALL,
+        /// Logs only changing requests, see [RequestResponseLoggingFilter#CHANGING_METHODS]
+        CHANGING,
+        /// Logs no requests
+        NONE
+    }
+
+    /// Logs the username extracted out of the
+    /// [org.springframework.security.core.context.SecurityContext], the kind of HTTP-Request, the
+    /// targeted URI and the response http status code. {@inheritDoc}
+    @Override
+    protected void doFilterInternal(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final FilterChain filterChain)
+            throws ServletException, IOException {
+        filterChain.doFilter(request, response);
+        if (checkForLogging(request)) {
+            log.info("User {} executed {} on URI {} with http status {}",
+                    authUtils.getUsername(),
+                    request.getMethod(),
+                    request.getRequestURI(),
+                    response.getStatus());
+        }
+    }
+
+    /// Checks if logging the username should be done.
+    ///
+    /// @param httpServletRequest The request to check for logging.
+    /// @return True if logging should be done otherwise false.
+    private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
+        final boolean isLoggingMode = switch (securityProperties.getLoggingMode()) {
+        case ALL -> true;
+        case CHANGING -> CHANGING_METHODS.contains(httpServletRequest.getMethod());
+        default -> false;
+        };
+
+        return isLoggingMode && securityProperties.getLoggingIgnoreListAsMatchers().stream().noneMatch(matcher -> matcher.matches(httpServletRequest));
+    }
+
+}

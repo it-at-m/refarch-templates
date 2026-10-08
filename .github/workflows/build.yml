@@ -1,0 +1,77 @@
+# Workflow for building NPM/Maven projects and Docker images
+name: build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  # JOB to run change detection
+  build-check-changed-files:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    outputs:
+      # Expose matched filters as job 'packages' output variable
+      packages: ${{ steps.filter.outputs.changes }}
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+      # For pull requests it's not necessary to checkout the code
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        id: filter
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            backend: 
+              - backend/**
+              - .github/workflows/build.yml
+            frontend: 
+              - frontend/**
+              - backend/api-spec/**
+              - .github/workflows/build.yml
+            webcomponent: 
+              - webcomponent/**
+              - backend/api-spec/**
+              - .github/workflows/build.yml
+            eai: 
+              - eai/**
+              - .github/workflows/build.yml
+      - run: |
+          echo ${{ toJSON(steps.filter.outputs.changes) }}
+  build:
+    if: ${{ needs.build-check-changed-files.outputs.packages != '' && needs.build-check-changed-files.outputs.packages != '[]' }}
+    needs: build-check-changed-files
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        app-path: ${{ fromJSON(needs.build-check-changed-files.outputs.packages) }}
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+      - id: node # required for steps.* syntax
+        if: ${{ hashFiles(format('./{0}/package.json', matrix.app-path)) != '' }}
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          app-path: ${{ matrix.app-path }}
+      - id: maven # required for steps.* syntax
+        if: ${{ hashFiles(format('./{0}/pom.xml', matrix.app-path)) != '' }}
+        uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          app-path: ${{ matrix.app-path }}
+      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' }}
+        uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          path: ${{ matrix.app-path }}
+          artifact-name: ${{ join(steps.*.outputs.artifact-name) }}
+          image-name: ${{ matrix.app-path }}
+          image-tags: |
+            type=raw,value=dev
+          platforms: "linux/amd64,linux/arm64"
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry-username: ${{ github.actor }}

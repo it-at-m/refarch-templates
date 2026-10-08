@@ -1,0 +1,82 @@
+# Workflow to release NPM-based artifacts
+name: release-npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        type: choice
+        description: "Select version increment type (follows Semantic Versioning)"
+        required: true
+        options:
+          - patch
+          - minor
+          - major
+      app-path:
+        type: choice
+        description: "Select the node service to release"
+        required: true
+        default: frontend
+        options: # Add or modify paths according to your project structure
+          - frontend
+          - webcomponent
+          
+jobs:
+  release-npm-artifact:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write # must be removed if use-pr is 'false'
+      # id-token: write # required when publishing with `npm publish --provenance`
+    outputs:
+      ARTIFACT_NAME: ${{ steps.build.outputs.artifact-name }}
+      ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
+    steps:
+      - id: release-npm-artifact
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          app-path: ${{ inputs.app-path }}
+          releaseVersion: ${{ inputs.release-version }}
+          use-pr: "true"
+      - id: build
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          app-path: ${{ inputs.app-path }}
+      # necessary to publish to npm registry
+      # docs: https://it-at-m.github.io/lhm_actions/workflows.html#npm
+      # - id: publish
+      #   shell: bash
+      #   working-directory: ./${{ inputs.app-path }}
+      #   run: npm publish --provenance --access public
+
+  release-npm-image:
+    needs: release-npm-artifact
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@54b32c7d11363cad45838c9a3d8a8560b93f0e8c # v1.5.4
+        with:
+          path: ${{ inputs.app-path }}
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          image-name: ${{ inputs.app-path }}
+          image-tags: |
+            type=semver,pattern={{version}},value=${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
+            type=raw,value=latest
+          platforms: "linux/amd64,linux/arm64"
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
+          registry-username: ${{ github.actor }}
+
+  release-npm-github:
+    needs: release-npm-artifact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@e967c9de8fb0197faf7a294d153efa76de5cec27 # v1.6.0
+        with:
+          artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          artifact-path: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}.zip
+          skip-artifact-decompress: true
+          tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
+          generate-release-notes: true
