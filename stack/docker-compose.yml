@@ -68,8 +68,6 @@ services:
       KC_HTTP_RELATIVE_PATH: /auth
     ports:
       - "8100:8100"
-    networks:
-      - keycloak
     healthcheck:
       <<: *healthcheck
       test: [
@@ -80,21 +78,25 @@ services:
     <<: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.130@sha256:fbec0fbbec2f90e9e912576cfb2ff108fb5703a59383b5e51c8633c130173af8
+    build:
+      context: ./keycloak/terraform/
+      dockerfile: Dockerfile
+      args:
+        - HTTPS_PROXY=${HTTPS_PROXY}
     depends_on:
-      - keycloak
+      keycloak:
+        condition: service_healthy
+    working_dir: /workspace
+    entrypoint: ["/workspace/entrypoint.sh"]
     environment:
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: admin
-      BASEURL: http://keycloak:8100/auth
-      WAIT_FOR_KEYCLOAK: "true"
-      FAIL_ON_UNDEFINED_VARIABLES: "true"
-      KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
-      EXIT_ON_ERROR: "true"
+      HTTPS_PROXY: ${HTTPS_PROXY}
+      NO_PROXY: localhost,keycloak
+      KEYCLOAK_URL: "http://keycloak:8100/auth"
+      ADMIN_USER: "admin"
+      ADMIN_PASSWORD: "admin"
+      KEYCLOAK_REALMS: "local_realm"
     volumes:
-      - ./keycloak/migration:/migration
-    networks:
-      - keycloak
+      - ./keycloak/terraform:/workspace
     <<: *security_settings
 
   refarch-gateway:
@@ -129,8 +131,6 @@ services:
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET: client_secret
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE: profile, openid, roles
       LOGGING_STRUCTURED_FORMAT_CONSOLE: ""
-    networks:
-      - keycloak
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
@@ -152,6 +152,3 @@ services:
       <<: *healthcheck
       test: ["CMD-SHELL", "/workspace/health-check"]
     <<: *security_settings
-
-networks:
-  keycloak:
