@@ -11,7 +11,7 @@ export default defineConfig((configEnv) =>
       test: {
         environment: "jsdom",
         root: fileURLToPath(new URL("./", import.meta.url)),
-        fsModuleCache: true
+        fsModuleCache: true,
       },
     })
   )
