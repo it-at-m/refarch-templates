@@ -11,3 +11,4 @@ COPY docker/nginx/*.conf "${NGINX_DEFAULT_CONF_PATH}"
 
 # Start the web server
 CMD ["nginx", "-g", "daemon off;"]
+
