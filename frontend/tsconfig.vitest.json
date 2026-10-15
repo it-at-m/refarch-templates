@@ -6,7 +6,9 @@
   ],
   "exclude": [], // explicitly reset exclusion
   "compilerOptions": {
-    "tsBuildInfoFile": "./cache/tsconfig.vitest.tsbuildinfo",
-    "types": ["node", "vitest/globals", "vitest/jsdom"]
+    /* Build */
+    "types": ["node", "vitest/globals", "vitest/jsdom"],
+    "lib": [],
+    "tsBuildInfoFile": "./cache/tsconfig.vitest.tsbuildinfo"
   }
 }
