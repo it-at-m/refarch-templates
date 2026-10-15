@@ -13,6 +13,7 @@
     "moduleResolution": "bundler",
     "module": "preserve",
     "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "composite": true,
