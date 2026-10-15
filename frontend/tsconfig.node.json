@@ -20,10 +20,7 @@
     "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
 
     /* Lint */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "erasableSyntaxOnly": true
   }
 }
