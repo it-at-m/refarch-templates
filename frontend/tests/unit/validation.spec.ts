@@ -1,9 +1,9 @@
-import { beforeEach, describe, expect, test, vi } from "vitest";
-
 import type {
   ValidationAttributes,
   VuetifyRuleAliases,
 } from "@/util/validation";
+
+import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import {
   getOpenAPIValidationConstraint,

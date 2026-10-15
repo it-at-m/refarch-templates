@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { maxRule, minRule } from "@/plugins/rules";
+import type { maxRule, minRule } from "@/util/rules";
 import type { ValidationRule } from "vuetify";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import useOpenApiRules from "@/composables/useOpenApiRules.ts";
+import useOpenApiRules from "@/composables/useOpenApiRules";
 
 /**
  * Type that holds a sub-set of attributes in generated *ValidationAttributesMap types via the OpenAPI generator.
