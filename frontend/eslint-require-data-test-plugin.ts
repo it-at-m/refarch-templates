@@ -1,3 +1,10 @@
+import type { Rule } from "eslint";
+import type { AST } from "vue-eslint-parser";
+
+interface RequireDataTestOptions {
+  components?: string[];
+}
+
 // List of Vuetify components (see Vuetify API, e.g. https://vuetifyjs.com/en/api/v-btn/) to enforce data-test for
 const INTERACTIVE_VUETIFY_COMPONENTS = [
   // Containment
@@ -66,7 +73,7 @@ const INTERACTIVE_MUC_PATTERNLAB_VUE_COMPONENTS = [
 
 const TEST_ATTRIBUTE = "data-test";
 
-const requireDataTest = {
+const requireDataTest: Rule.RuleModule = {
   meta: {
     type: "problem",
     schema: [
@@ -88,8 +95,9 @@ const requireDataTest = {
         "Interactive component '{{ component }}' must have a data-test attribute.",
     },
   },
-  create(context: any) {
-    const [{ components = [] } = {}] = context.options;
+  create(context: Rule.RuleContext) {
+    const options = context.options[0] as RequireDataTestOptions | undefined;
+    const components = options?.components ?? [];
 
     const parserServices = context.sourceCode.parserServices;
 
@@ -99,7 +107,7 @@ const requireDataTest = {
     }
 
     return parserServices.defineTemplateBodyVisitor({
-      VElement(node: any) {
+      VElement(node: AST.VElement) {
         // normalize scanned component to PascalCase to support different usages in SFCs
         const componentName = toPascalCase(node.rawName);
 
@@ -107,7 +115,7 @@ const requireDataTest = {
           return;
         }
 
-        const hasDataTest = node.startTag.attributes.some((attribute: any) => {
+        const hasDataTest = node.startTag.attributes.some((attribute) => {
           if (attribute.type !== "VAttribute") {
             return false;
           }
@@ -143,7 +151,7 @@ const plugin = {
   },
 };
 
-function createConfig(components: any) {
+function createConfig(components: readonly string[]) {
   return {
     plugins: {
       local: plugin,
@@ -169,9 +177,9 @@ export default {
   },
 };
 
-function toPascalCase(name: any) {
+function toPascalCase(name: string) {
   return name
     .split("-")
-    .map((part: any) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("");
 }
