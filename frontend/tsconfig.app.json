@@ -5,8 +5,7 @@
     "declarations.d.ts",
     "router.d.ts",
     "route-map.d.ts",
-    "src/**/*",
-    "src/**/*.vue"
+    "src/**/*"
   ],
   "exclude": ["tests/**/*"],
   "compilerOptions": {

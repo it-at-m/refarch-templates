@@ -10,7 +10,6 @@
     "noEmit": true,
     "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
     "allowImportingTsExtensions": true,
-    "moduleResolution": "bundler",
-    "types": ["node"]
+    "moduleResolution": "bundler"
   }
 }
