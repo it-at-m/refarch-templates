@@ -4,6 +4,7 @@
     "vite.config.ts",
     "vitest.config.ts",
     "eslint.config.ts",
+    "eslint-require-data-test-plugin.ts",
     "encode-brackets-plugin.ts" // temporary fix
   ],
   "compilerOptions": {

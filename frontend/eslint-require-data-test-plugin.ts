@@ -88,7 +88,7 @@ const requireDataTest = {
         "Interactive component '{{ component }}' must have a data-test attribute.",
     },
   },
-  create(context) {
+  create(context: any) {
     const [{ components = [] } = {}] = context.options;
 
     const parserServices = context.sourceCode.parserServices;
@@ -99,7 +99,7 @@ const requireDataTest = {
     }
 
     return parserServices.defineTemplateBodyVisitor({
-      VElement(node) {
+      VElement(node: any) {
         // normalize scanned component to PascalCase to support different usages in SFCs
         const componentName = toPascalCase(node.rawName);
 
@@ -107,7 +107,7 @@ const requireDataTest = {
           return;
         }
 
-        const hasDataTest = node.startTag.attributes.some((attribute) => {
+        const hasDataTest = node.startTag.attributes.some((attribute: any) => {
           if (attribute.type !== "VAttribute") {
             return false;
           }
@@ -143,7 +143,7 @@ const plugin = {
   },
 };
 
-function createConfig(components) {
+function createConfig(components: any) {
   return {
     plugins: {
       local: plugin,
@@ -169,9 +169,9 @@ export default {
   },
 };
 
-function toPascalCase(name) {
+function toPascalCase(name: any) {
   return name
     .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part: any) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("");
 }

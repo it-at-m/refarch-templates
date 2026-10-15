@@ -8,8 +8,7 @@ import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
-// @ts-ignore
-import requireDataTestConfig from "./eslint-require-data-test-plugin.js";
+import requireDataTestConfig from "./eslint-require-data-test-plugin";
 
 const prettierIgnorePath = fileURLToPath(
   new URL(".prettierignore", import.meta.url)
