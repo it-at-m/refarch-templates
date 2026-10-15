@@ -12,7 +12,6 @@
     "allowImportingTsExtensions": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["node"],
-    "allowImportingTsExtensions": true
+    "types": ["node"]
   }
 }
