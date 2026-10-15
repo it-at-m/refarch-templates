@@ -23,7 +23,6 @@ export default defineConfigWithVueTs(
   vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
-  // @ts-ignore
   ...vueI18nEslintConfig.configs.recommended,
   vuePrettierEslintConfigSkipFormatting,
   requireDataTestConfig.configs["flat/vuetify"],
