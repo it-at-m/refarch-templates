@@ -3,7 +3,7 @@ import type { Plugin } from "vue";
 import { createRulesPlugin } from "vuetify";
 
 import vuetify from "@/plugins/vuetify";
-import { maxRule, minRule, uniqueRule } from "@/util/rules";
+import { maxRule, minRule, uniqueRule } from "@/util/custom-rules";
 
 /**
  * Plugin that registers Vuetify-provided rules (see https://v4.vuetifyjs.com/en/features/rules/#api) and custom validation rules for use with
