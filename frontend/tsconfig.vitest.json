@@ -5,6 +5,7 @@
   "compilerOptions": {
     /* Build */
     "types": ["node", "vitest/globals", "jsdom", "vitest/jsdom"],
+    "composite": false,
     "lib": [],
     "tsBuildInfoFile": "./cache/tsconfig.vitest.tsbuildinfo"
   }
