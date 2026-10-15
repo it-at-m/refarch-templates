@@ -3,24 +3,26 @@ import { fileURLToPath, URL } from "node:url";
 import jsEslintConfig from "@eslint/js";
 import vueI18nEslintConfig from "@intlify/eslint-plugin-vue-i18n";
 import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
-import { vueTsConfigs, withVueTs } from "@vue/eslint-config-typescript";
+import { vueTsConfigs, defineConfigWithVueTs } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
+// @ts-ignore
 import requireDataTestConfig from "./eslint-require-data-test-plugin.js";
 
 const prettierIgnorePath = fileURLToPath(
   new URL(".prettierignore", import.meta.url)
 );
 
-export default withVueTs(
+export default defineConfigWithVueTs(
   ESLint.defaultConfig,
   jsEslintConfig.configs.recommended,
   vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
-  vueI18nEslintConfig.configs.recommended,
+  // @ts-ignore
+  ...vueI18nEslintConfig.configs.recommended,
   vuePrettierEslintConfigSkipFormatting,
   requireDataTestConfig.configs["flat/vuetify"],
   {
