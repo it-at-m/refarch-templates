@@ -5,16 +5,25 @@
     "declarations.d.ts",
     "router.d.ts",
     "route-map.d.ts",
-    "src/**/*"
+    "src/**/*.ts",
+    "src/**/*.vue"
   ],
   "exclude": ["tests/**/*"],
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+    /* Build */
+    "types": ["vite/client", "unplugin-fonts/client", "@intlify/unplugin-vue-i18n/messages"],
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["unplugin-fonts/client", "@intlify/unplugin-vue-i18n/messages"],
+    "allowArbitraryExtensions": true,
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+
+    /* Lint */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true
   }
 }

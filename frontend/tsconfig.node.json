@@ -1,15 +1,25 @@
 {
   "extends": "@tsconfig/node-lts/tsconfig.json",
   "include": [
-    "vite.config.*",
-    "vitest.config.*",
+    "vite.config.ts",
+    "vitest.config.ts",
     "encode-brackets-plugin.ts" // temporary fix
   ],
   "compilerOptions": {
-    "composite": true,
+    /* Build */
     "noEmit": true,
-    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
     "allowImportingTsExtensions": true,
-    "moduleResolution": "bundler"
+    "verbatimModuleSyntax": true,
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+
+    /* Lint */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
   }
 }
