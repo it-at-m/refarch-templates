@@ -23,6 +23,7 @@ export default defineConfigWithVueTs(
   vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
+  // @ts-expect-error: TS2345 — plugin not providing correct ConfigInput type
   ...vueI18nEslintConfig.configs.recommended,
   vuePrettierEslintConfigSkipFormatting,
   requireDataTestConfig.configs["flat/vuetify"],
