@@ -9,6 +9,9 @@ resource "keycloak_realm" "local" {
   realm   = "local_realm"
   enabled = true
 
+  # For e.g. Bruno
+  #direct_grant_flow = true
+
   # LHM session lifetimes
   # sso_session_idle_timeout             = module.lifetimes.settings["local_realm"].sso_session_idle_timeout
   # sso_session_max_lifespan             = module.lifetimes.settings["local_realm"].sso_session_max_lifespan
