@@ -1,13 +1,14 @@
 {
   "extends": "./tsconfig.app.json",
   "include": [
+    "vite-env.d.ts",
     "tests/**/*.ts",
     "tests/**/*.vue"
   ],
   "exclude": [], // explicitly reset exclusion
   "compilerOptions": {
     /* Build */
-    "types": ["node", "vitest/globals", "vitest/jsdom"],
+    "types": ["node", "vitest/globals", "jsdom", "vitest/jsdom"],
     "lib": [],
     "tsBuildInfoFile": "./cache/tsconfig.vitest.tsbuildinfo"
   }
