@@ -16,7 +16,6 @@
       "unplugin-fonts/client",
       "@intlify/unplugin-vue-i18n/messages"
     ],
-    "lib": ["WebWorker"], // see https://vite.dev/guide/env-and-mode#intellisense-for-typescript
     "paths": {
       "@/*": ["./src/*"]
     },
