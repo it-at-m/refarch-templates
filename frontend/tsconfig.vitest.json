@@ -1,10 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": [
-    "vite-env.d.ts",
-    "tests/**/*.ts",
-    "tests/**/*.vue"
-  ],
+  "include": ["vite-env.d.ts", "tests/**/*.ts", "tests/**/*.vue"],
   "exclude": [], // explicitly reset exclusion
   "compilerOptions": {
     /* Build */
