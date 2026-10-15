@@ -1,6 +1,6 @@
 # Load session lifespans
 module "lifetimes" {
-  source   = "github.com/it-at-m/keycloak-terraform//modules/realm-session-lifetimes?ref=init"
+  source   = "github.com/it-at-m/keycloak-terraform//modules/realm-session-lifetimes?ref=1.0.0"
   realm_id = ["local_realm"]
 }
 
@@ -49,7 +49,7 @@ resource "keycloak_realm" "local" {
 
 # Create LHM scopes
 module "lhm-scopes" {
-  source = "github.com/it-at-m/keycloak-terraform//modules/realm-scopes?ref=init"
+  source = "github.com/it-at-m/keycloak-terraform//modules/realm-scopes?ref=1.0.0"
 
   realm_id                      = [keycloak_realm.local.realm]
   skip_default_scopes_lookup    = true
@@ -85,7 +85,7 @@ resource "keycloak_realm_optional_client_scopes" "local" {
 
 # Create local client
 module "client-local" {
-  source = "github.com/it-at-m/keycloak-terraform//modules/oidc-client?ref=init"
+  source = "github.com/it-at-m/keycloak-terraform//modules/oidc-client?ref=1.0.0"
 
   realm_id            = keycloak_realm.local.id
   client_id           = "local"
@@ -116,7 +116,7 @@ module "client-local" {
 
 # Create users
 module "user_none" {
-  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=init"
+  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=1.0.0"
   realm_id                  = keycloak_realm.local.id
   username                  = "none"
   first_name                = "none"
@@ -129,7 +129,7 @@ module "user_none" {
 }
 
 module "user_reader" {
-  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=init"
+  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=1.0.0"
   realm_id                  = keycloak_realm.local.id
   username                  = "reader"
   first_name                = "reader"
@@ -142,7 +142,7 @@ module "user_reader" {
 }
 
 module "user_writer" {
-  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=init"
+  source                    = "github.com/it-at-m/keycloak-terraform//modules/keycloak-user?ref=1.0.0"
   realm_id                  = keycloak_realm.local.id
   username                  = "writer"
   first_name                = "writer"

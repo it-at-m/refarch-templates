@@ -4,6 +4,7 @@
 #
 # Purpose:
 #   Ensure the built-in "roles" client scope in specified Keycloak realms includes
+#   itself in the token scope and includes
 #   role claims in the OIDC userinfo endpoint by setting
 #   protocol mapper config "userinfo.token.claim" to "true" for realm and client role mappers.
 #
@@ -102,6 +103,19 @@ get_roles_client_scope_id() {
   printf '%s' "$id"
 }
 
+patch_scope_include_in_token_scope() {
+  # $1: realm
+  # $2: clientScopeId
+  local realm="$1" scope_id="$2"
+
+  local scope_json patched
+  scope_json=$(api_get "$realm" "/client-scopes/${scope_id}") || die "Failed to read roles scope '$scope_id' in realm '$realm'"
+  patched=$(printf '%s' "$scope_json" | jq -c '(.attributes |= (. // {})) | .attributes["include.in.token.scope"] = "true"')
+
+  api_put_json "$realm" "/client-scopes/${scope_id}" "$patched"
+  info "Updated roles scope '$scope_id' to include itself in the token scope"
+}
+
 patch_mapper_userinfo_true() {
   # $1: realm
   # $2: clientScopeId
@@ -133,6 +147,8 @@ update_realm_roles_scope() {
   info "Processing realm '$realm'"
   local scope_id
   scope_id=$(get_roles_client_scope_id "$realm")
+
+  patch_scope_include_in_token_scope "$realm" "$scope_id"
 
   # Update both realm and client role mappers
   # patch_mapper_userinfo_true "$realm" "$scope_id" "oidc-usermodel-realm-role-mapper"

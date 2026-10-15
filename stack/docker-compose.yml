@@ -79,7 +79,7 @@ services:
 
   init-keycloak:
     build:
-      context: ./keycloak/terraform/
+      context: init-keycloak
       dockerfile: Dockerfile
       args:
         - HTTPS_PROXY=${HTTPS_PROXY}
@@ -87,16 +87,16 @@ services:
       keycloak:
         condition: service_healthy
     working_dir: /workspace
-    entrypoint: ["/workspace/entrypoint.sh"]
+    entrypoint: [ "/bin/entrypoint.sh" ]
     environment:
       HTTPS_PROXY: ${HTTPS_PROXY}
-      NO_PROXY: localhost,keycloak
+      NO_PROXY: "localhost,keycloak"
       KEYCLOAK_URL: "http://keycloak:8100/auth"
       ADMIN_USER: "admin"
       ADMIN_PASSWORD: "admin"
       KEYCLOAK_REALMS: "local_realm"
     volumes:
-      - ./keycloak/terraform:/workspace
+      - "./init-keycloak:/workspace:rw"
     <<: *security_settings
 
   refarch-gateway:
