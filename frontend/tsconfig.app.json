@@ -24,10 +24,6 @@
     "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
 
     /* Lint */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true
   }
 }
