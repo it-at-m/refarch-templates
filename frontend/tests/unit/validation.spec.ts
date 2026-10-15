@@ -3,12 +3,12 @@ import { beforeEach, describe, expect, test, vi } from "vitest";
 import type {
   ValidationAttributes,
   VuetifyRuleAliases,
-} from "../../src/util/validation";
+} from "@/util/validation";
 
 import {
   getOpenAPIValidationConstraint,
   mapOpenAPIToVuetifyValidationRules,
-} from "../../src/util/validation";
+} from "@/util/validation";
 
 describe("mapOpenAPIToVuetifyValidationRules", () => {
   let rules: VuetifyRuleAliases;
