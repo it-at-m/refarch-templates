@@ -1,6 +1,6 @@
 import { assert, describe, test } from "vitest";
 
-import { maxRule, minRule, uniqueRule } from "../../src/plugins/rules";
+import { maxRule, minRule, uniqueRule } from "@/util/custom-rules";
 
 const valid = (result: unknown) => assert.isTrue(result);
 const error = (result: unknown) => assert.isString(result);

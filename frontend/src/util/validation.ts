@@ -1,9 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import type { maxRule, minRule } from "@/plugins/rules";
 import type { ValidationRule } from "vuetify";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import useOpenApiRules from "@/composables/useOpenApiRules.ts";
 
 /**
  * Type that holds a sub-set of attributes in generated *ValidationAttributesMap types via the OpenAPI generator.
@@ -43,7 +38,7 @@ export interface VuetifyRuleAliases {
  *
  * The mapped Vuetify rules can be used with the `rules` property on Vuetify input components.
  *
- * **Note:** Prefer using the {@link useOpenApiRules} Vue composable instead of calling this function directly.
+ * **Note:** Prefer using the {@link import("@/composables/useOpenApiRules").default useOpenApiRules} Vue composable instead of calling this function directly.
  *
  * Supported rules currently are:
  * - {@link VuetifyRuleAliases.required}
@@ -52,8 +47,8 @@ export interface VuetifyRuleAliases {
  * - {@link VuetifyRuleAliases.maxLength}
  * - {@link VuetifyRuleAliases.pattern}
  * - {@link VuetifyRuleAliases.number}
- * - Custom {@link minRule} implementation
- * - Custom {@link maxRule} implementation
+ * - Custom {@link import("@/util/custom-rules").minRule minRule} implementation
+ * - Custom {@link import("@/util/custom-rules").maxRule maxRule} implementation
  *
  * @param rules all available {@link VuetifyRuleAliases} typically retrieved via `useRules` composable from Vuetify
  * @param validationAttributes a generated *ValidationAttributesMap object
