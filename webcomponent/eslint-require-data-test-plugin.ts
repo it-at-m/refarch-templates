@@ -1,5 +1,13 @@
-import type { Rule } from "eslint";
+import type { Linter, Rule } from "eslint";
 import type { AST } from "vue-eslint-parser";
+
+interface RequireDataTestPlugin {
+  rules: typeof plugin.rules;
+  configs: {
+    "flat/vuetify": Linter.Config;
+    "flat/muc-patternlab-vue": Linter.Config;
+  };
+}
 
 interface RequireDataTestOptions {
   components?: string[];
@@ -151,7 +159,7 @@ const plugin = {
   },
 };
 
-function createConfig(components: readonly string[]) {
+function createConfig(components: readonly string[]): Linter.Config {
   return {
     plugins: {
       local: plugin,
@@ -167,7 +175,7 @@ function createConfig(components: readonly string[]) {
   };
 }
 
-export default {
+const requireDataTestPlugin: RequireDataTestPlugin = {
   ...plugin,
   configs: {
     "flat/vuetify": createConfig(INTERACTIVE_VUETIFY_COMPONENTS),
@@ -176,6 +184,8 @@ export default {
     ),
   },
 };
+
+export default requireDataTestPlugin;
 
 function toPascalCase(name: string) {
   return name
