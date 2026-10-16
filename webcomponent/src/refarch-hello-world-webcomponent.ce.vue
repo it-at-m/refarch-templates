@@ -38,7 +38,7 @@ import { computed, onMounted, ref } from "vue";
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
-import { FIRSTNAME_DEFAULT } from "@/util/constants";
+import { FIRSTNAME_DEFAULT } from "@/constants";
 
 const apiGwStatus = ref("DOWN");
 const backendStatus = ref("DOWN");
