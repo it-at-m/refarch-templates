@@ -5,7 +5,7 @@ FROM alpine:3.24.2
 # Copy the tofu binary from the minimal image
 COPY --from=tofu /usr/local/bin/tofu /usr/local/bin/tofu
 
-# Add curl and jq
+# Add script dependencies
 RUN apk add --no-cache bash curl jq git
 
 # Copy scripts

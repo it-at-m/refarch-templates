@@ -50,7 +50,8 @@ module "lhm-scopes" {
 
   realm_id                      = [keycloak_realm.local.realm]
   skip_default_scopes_lookup    = true
-  manage_roles_scope            = false # roles scope is auto-created, managed separately
+  # roles scope is auto-created and updated via the update_roles_scope.sh script
+  manage_roles_scope            = false 
   use_custom_authorities_mapper = false
 }
 resource "keycloak_realm_default_client_scopes" "local_default" {
@@ -91,7 +92,7 @@ module "client-local" {
   valid_redirect_uris = ["http://*", "https://*"]
 
   # For e.g. Bruno
-  # direct_access_grants_enabled = true
+  direct_access_grants_enabled = true
 
   roles = {
     "reader" = {
