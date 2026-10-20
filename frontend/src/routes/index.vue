@@ -38,7 +38,7 @@ import type { HealthState } from "@/types/HealthState";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { ApiFactory } from "@/api/ApiFactory.ts";
+import { ApiFactory } from "@/api/ApiFactory";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
 import useHasAnyRole from "@/composables/useHasAnyRole";

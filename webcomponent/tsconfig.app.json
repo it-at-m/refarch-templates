@@ -1,15 +1,23 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "declarations.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": [
+    "vite-env.d.ts",
+    "declarations.d.ts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
   "exclude": ["tests/**/*"],
   "compilerOptions": {
-    "composite": true,
-    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+    /* Build */
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./src/*"]
     },
-    "allowSyntheticDefaultImports": true,
-    "noUncheckedSideEffectImports": true,
+    "allowArbitraryExtensions": true,
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+
+    /* Lint */
     "noUncheckedIndexedAccess": true
   }
 }

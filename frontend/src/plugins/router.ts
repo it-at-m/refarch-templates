@@ -6,8 +6,8 @@ import {
 } from "vue-router/auto-routes";
 
 import { hasAnyRole } from "@/composables/useHasAnyRole";
-import { STATUS_INDICATORS } from "@/constants.ts";
-import { useSnackbarStore } from "@/stores/snackbar.ts";
+import { STATUS_INDICATORS } from "@/constants";
+import { useSnackbarStore } from "@/stores/snackbar";
 import { useUserInfoStore } from "@/stores/userinfo";
 
 const routes = [
