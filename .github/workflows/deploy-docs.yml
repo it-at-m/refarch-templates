@@ -13,6 +13,10 @@ on:
     paths:
       - "docs/**"
       - ".github/workflows/deploy-docs.yml"
+  schedule:
+    - cron: '0 3 * * *' # Daily at 03:00 UTC
+      timezone: "Europe/Berlin"
+
 
 jobs:
   deploy-docs:
@@ -28,4 +32,5 @@ jobs:
         with:
          path: "docs"
       # Only deploy documentation from the main branch to prevent unauthorized changes
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
+      - if: ${{ github.event_name != 'schedule' }}    
+        uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
