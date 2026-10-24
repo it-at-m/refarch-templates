@@ -2,7 +2,7 @@
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
   "overrides": {
     "vitepress": {
-      "vite": "6.4.3"
+      "vite": "6.4.4"
     },
     "markdownlint-cli": {
       "js-yaml": "5.4.1",
