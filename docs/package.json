@@ -7,10 +7,10 @@
     "markdownlint-cli": {
       "js-yaml": "5.4.1",
       "smol-toml": "1.9.0",
-      "katex": "0.18.2"
+      "katex": "0.18.10"
     },
     "mermaid": {
-      "katex": "0.18.2"
+      "katex": "0.18.10"
     }
   },
   "name": "refarch-templates-docs",
