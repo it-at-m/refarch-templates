@@ -6,7 +6,7 @@
     },
     "markdownlint-cli": {
       "js-yaml": "5.4.1",
-      "smol-toml": "1.9.0",
+      "smol-toml": "1.9.1",
       "katex": "0.18.2"
     },
     "mermaid": {
