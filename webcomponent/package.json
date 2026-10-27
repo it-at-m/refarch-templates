@@ -2,8 +2,7 @@
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
   "overrides": {
     "@openapitools/openapi-generator-cli": {
-      "basic-ftp": "6.2.1",
-      "shell-quote": "1.11.0"
+      "basic-ftp": "6.2.1"
     }
   },
   "name": "refarch-webcomponent",

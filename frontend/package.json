@@ -2,8 +2,7 @@
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
   "overrides": {
     "@openapitools/openapi-generator-cli": {
-      "basic-ftp": "6.2.1",
-      "shell-quote": "1.11.0"
+      "basic-ftp": "6.2.1"
     }
   },
   "name": "refarch-frontend",
@@ -38,7 +37,7 @@
     "@cyclonedx/cyclonedx-npm": "6.0.1",
     "@eslint/js": "10.0.1",
     "@intlify/eslint-plugin-vue-i18n": "4.5.1",
-    "@intlify/unplugin-vue-i18n": "11.2.6",
+    "@intlify/unplugin-vue-i18n": "11.2.7",
     "@mdi/js": "7.4.47",
     "@muenchen/prettier-codeformat": "1.0.2",
     "@pinia/testing": "2.0.2",
