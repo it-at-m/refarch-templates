@@ -3,6 +3,9 @@
   "overrides": {
     "vitepress": {
       "vite": "6.4.4"
+    },
+    "mermaid": {
+      "katex": "0.18.2"
     }
   },
   "name": "refarch-templates-docs",
