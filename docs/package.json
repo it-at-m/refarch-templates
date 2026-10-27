@@ -4,6 +4,9 @@
     "vitepress": {
       "vite": "6.4.4"
     },
+    "markdownlint-cli": {
+      "katex": "0.18.2"
+    },
     "mermaid": {
       "katex": "0.18.2"
     }
