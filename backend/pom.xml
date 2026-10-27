@@ -54,7 +54,7 @@
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
-        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.16</jacoco-maven-plugin.version>
         <!-- argLine must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
         <argLine />
         <archunit.version>1.5.1</archunit.version>
