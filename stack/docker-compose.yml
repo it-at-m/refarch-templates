@@ -150,7 +150,7 @@ services:
       - ./appswitcher-server/static:/workspace/static
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL", "/workspace/health-check"]
+      test: ["CMD", "/workspace/health-check"]
     <<: *security_settings
 
 networks:
