@@ -7,7 +7,7 @@
       "backend": {
         "generatorName": "typescript-fetch",
         "glob": "../backend/api-spec/*.yaml",
-        "output": "#{cwd}/src/api/generated/#{name}",
+        "output": "#{cwd}/src/apis/generated/#{name}",
         "additionalProperties": {
           "supportsES6": true,
           "enumPropertyNaming": "UPPERCASE",

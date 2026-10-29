@@ -6,7 +6,9 @@
     "src/**/*.ts",
     "src/**/*.vue"
   ],
-  "exclude": ["tests/**/*"],
+  "exclude": [
+    "test/**/*"
+  ],
   "compilerOptions": {
     /* Build */
     "types": ["vite/client"],
