@@ -14,51 +14,48 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * Properties class that holds configuration data relevant for security mechanisms
- */
+/// Properties class that holds configuration data relevant for security mechanisms
 @ConfigurationProperties(prefix = "refarch.security")
 @Validated
 @Data
 public class SecurityProperties {
-    /**
-     * ID of the used oAuth client.
-     */
+    /// ID of the used OAuth client.
     @NotBlank private String clientId;
 
-    /**
-     * Name of the JWT claim that contains the username.
-     * Defaults to "preferred_username" if not configured.
-     */
+    /// Name of the JWT claim that contains the username.
+    ///
+    /// Defaults to `preferred_username`.
     @NotBlank private String usernameClaim = "preferred_username";
 
-    /**
-     * URI of the endpoint used for fetching permissions,
-     * see also {@link KeycloakPermissionsAuthoritiesConverter}.
-     */
+    /// URI of the endpoint used for fetching permissions.
+    ///
+    /// See [KeycloakPermissionsAuthoritiesConverter].
     private String permissionsUri;
 
-    /**
-     * Timeout for which resolved permissions are cached and reused. Default 60s.
-     * See {@link KeycloakPermissionsAuthoritiesConverter}
-     */
+    /// Timeout for which resolved permissions are cached and reused.
+    ///
+    /// Defaults to `60s`.
+    ///
+    /// See [KeycloakPermissionsAuthoritiesConverter]
     @NotNull private Duration permissionsCacheLifetime = Duration.ofSeconds(60);
 
-    /**
-     * Max number of entries the permissions cache contains.
-     */
+    /// Max number of entries the permissions cache contains.
+    ///
+    /// Defaults to `1000`.
     @Positive private long permissionsCacheMaxSize = 1000;
 
-    /**
-     * Logging mode for incoming HTTP requests, see also
-     * {@link RequestResponseLoggingFilter}
-     */
+    /// Logging mode for incoming HTTP requests.
+    ///
+    /// Defaults to [RequestResponseLoggingFilter.LoggingMode#NONE]
+    ///
+    /// See [RequestResponseLoggingFilter]
     @NotNull private RequestResponseLoggingFilter.LoggingMode loggingMode = RequestResponseLoggingFilter.LoggingMode.NONE;
 
-    /**
-     * List of paths to ignore when logging HTTP requests, see also
-     * {@link RequestResponseLoggingFilter}
-     */
+    /// List of paths to ignore when logging HTTP requests.
+    ///
+    /// Defaults to: `/actuator/**`
+    ///
+    /// See [RequestResponseLoggingFilter]
     @NotNull private List<PathPatternRequestMatcher> loggingIgnoreList = List.of(PathPatternRequestMatcher.withDefaults().matcher("/actuator/**"));
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", matchType = SuppressMatchType.EXACT)

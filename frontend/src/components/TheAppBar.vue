@@ -7,6 +7,7 @@
       >
         <v-app-bar-nav-icon
           class="mx-2"
+          data-test="navigation-menu"
           @click="emit('clickedNavIcon')"
         />
         <router-link
@@ -24,8 +25,8 @@
         class="d-flex align-center justify-center"
       >
         <v-text-field
-          id="searchField"
           v-model="query"
+          data-test="search-field"
           flat
           variant="solo-inverted"
           hide-details
@@ -33,6 +34,7 @@
           clearable
           :prepend-inner-icon="mdiMagnify"
           theme="dark"
+          :rules="[rules.maxLength(20)]"
           @keyup.enter="search"
         />
       </v-col>
@@ -40,33 +42,29 @@
         cols="3"
         class="d-flex align-center justify-end"
       >
-        <theme-toggle-btn />
+        <theme-toggle-btn class="mr-2" />
         <app-switcher
           v-if="APPSWITCHER_URL"
-          class="ml-2"
           :base-url="APPSWITCHER_URL"
           :tags="['global']"
-          :icon="mdiApps"
-        />
-        <v-icon-btn
-          v-if="userInfoStore.userInfo !== null"
-          class="mx-2"
           variant="text"
-        >
-          <ad2-image-avatar
-            :username="userInfoStore.userInfo.preferred_username"
-          />
-        </v-icon-btn>
+          class="mr-2"
+        />
+        <ad2-image-avatar
+          v-if="userInfoStore.userInfo !== null"
+          :username="userInfoStore.userInfo.preferred_username"
+        />
       </v-col>
     </v-row>
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
-import { mdiApps, mdiMagnify } from "@mdi/js";
+import { mdiMagnify } from "@mdi/js";
 import { AppSwitcher } from "@muenchen/appswitcher-vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
+import { useRules } from "vuetify";
 
 import Ad2ImageAvatar from "@/components/common/Ad2ImageAvatar.vue";
 import ThemeToggleBtn from "@/components/common/ThemeToggleBtn.vue";
@@ -87,6 +85,8 @@ function search() {
     });
   }
 }
+
+const rules = useRules();
 
 const emit = defineEmits<{
   clickedNavIcon: [];

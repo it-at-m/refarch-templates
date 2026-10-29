@@ -33,13 +33,13 @@ jobs:
       ARTIFACT_VERSION: ${{ steps.release-npm-artifact.outputs.ARTIFACT_VERSION }}
     steps:
       - id: release-npm-artifact
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-release@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
         with:
           app-path: ${{ inputs.app-path }}
           releaseVersion: ${{ inputs.release-version }}
           use-pr: "true"
       - id: build
-        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+        uses: it-at-m/lhm_actions/action-templates/actions/action-npm-build@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
         with:
           app-path: ${{ inputs.app-path }}
       # necessary to publish to npm registry
@@ -55,7 +55,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
         with:
           path: ${{ inputs.app-path }}
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
@@ -73,8 +73,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@2bb2618a4686a01cc54518c07d9052b80b9a1078 # v1.5.2
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-create-github-release@808f574bd8867b31524b254679fc34fb1fd78ea2 # v1.6.2
         with:
           artifact-name: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}
+          artifact-path: ${{ needs.release-npm-artifact.outputs.ARTIFACT_NAME }}.zip
+          skip-artifact-decompress: true
           tag-name: ${{ inputs.app-path }}-${{ needs.release-npm-artifact.outputs.ARTIFACT_VERSION }}
           generate-release-notes: true

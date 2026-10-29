@@ -7,7 +7,7 @@ appswitcher.apps:
       - global
   swagger-ui:
     display-name: SwaggerUI
-    url: http://localhost:8086/swagger-ui/index.html
+    url: http://localhost:8083/api/backend/swagger-ui/index.html
     image-url: http://localhost:8084/logos/Swagger.png
     tags:
       - global

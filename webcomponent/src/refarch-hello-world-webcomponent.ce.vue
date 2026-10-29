@@ -12,11 +12,15 @@
         <p>{{ calloutContent }}</p>
         <p>
           Das API-Gateway ist:
-          <span :class="apiGwStatus">{{ apiGwStatus }}</span>
+          <span :style="{ color: statusColor(apiGwStatus) }">{{
+            apiGwStatus
+          }}</span>
         </p>
         <p>
           Das Backend ist:
-          <span :class="backendStatus">{{ backendStatus }}</span>
+          <span :style="{ color: statusColor(backendStatus) }">{{
+            backendStatus
+          }}</span>
         </p>
       </template>
     </muc-callout>
@@ -34,7 +38,7 @@ import { computed, onMounted, ref } from "vue";
 import { ApiFactory } from "@/api/ApiFactory.ts";
 import { ActuatorApi } from "@/api/generated/refarch-backend";
 import { checkHealth } from "@/api/healthstate-client";
-import { FIRSTNAME_DEFAULT } from "@/util/constants";
+import { FIRSTNAME_DEFAULT } from "@/constants";
 
 const apiGwStatus = ref("DOWN");
 const backendStatus = ref("DOWN");
@@ -54,18 +58,14 @@ onMounted(async () => {
   const contentBackend = await ApiFactory.getInstance(ActuatorApi).health();
   backendStatus.value = (contentBackend as HealthState).status;
 });
+
+function statusColor(status: string) {
+  return status === "UP" ? "limegreen" : "lightcoral";
+}
 </script>
 
 <style>
-@import url("https://assets.muenchen.de/mde/1.1.23/css/style.css");
+@import url("https://assets.muenchen.de/mde/1.1.27/css/style.css");
 @import "@muenchen/muc-patternlab-vue/assets/css/custom-style.css";
 @import "@muenchen/muc-patternlab-vue/style.css";
-
-.UP {
-  color: limegreen;
-}
-
-.DOWN {
-  color: lightcoral;
-}
 </style>

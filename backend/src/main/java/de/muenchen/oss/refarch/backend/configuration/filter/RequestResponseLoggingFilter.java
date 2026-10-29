@@ -13,13 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.web.servlet.FilterRegistration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-/**
- * This filter logs the username from requests using the {@link AuthUtils} bean.
- */
+/// Filter that logs the username from requests using the [AuthUtils] bean.
 @Component
 @FilterRegistration(urlPatterns = "/*", order = 1)
 @Slf4j
@@ -32,29 +29,19 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
     private final AuthUtils authUtils;
     private final SecurityProperties securityProperties;
 
-    /**
-     * Logging mode to use for incoming HTTP requests
-     */
+    /// Logging mode to use for incoming HTTP requests
     public enum LoggingMode {
-        /**
-         * Logs all requests
-         */
+        /// Logs all requests
         ALL,
-        /**
-         * Logs only changing requests, see {@link RequestResponseLoggingFilter#CHANGING_METHODS}
-         */
+        /// Logs only changing requests, see [RequestResponseLoggingFilter#CHANGING_METHODS]
         CHANGING,
-        /**
-         * Logs no requests
-         */
+        /// Logs no requests
         NONE
     }
 
-    /**
-     * The method logs the username extracted out of the {@link SecurityContext},
-     * the kind of HTTP-Request, the targeted URI and the response http status code.
-     * {@inheritDoc}
-     */
+    /// Logs the username extracted out of the
+    /// [org.springframework.security.core.context.SecurityContext], the kind of HTTP-Request, the
+    /// targeted URI and the response http status code. {@inheritDoc}
     @Override
     protected void doFilterInternal(final @NonNull HttpServletRequest request, final @NonNull HttpServletResponse response, final FilterChain filterChain)
             throws ServletException, IOException {
@@ -68,12 +55,10 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    /**
-     * The method checks if logging the username should be done.
-     *
-     * @param httpServletRequest The request to check for logging.
-     * @return True if logging should be done otherwise false.
-     */
+    /// Checks if logging the username should be done.
+    ///
+    /// @param httpServletRequest The request to check for logging.
+    /// @return True if logging should be done otherwise false.
     private boolean checkForLogging(final HttpServletRequest httpServletRequest) {
         final boolean isLoggingMode = switch (securityProperties.getLoggingMode()) {
         case ALL -> true;
