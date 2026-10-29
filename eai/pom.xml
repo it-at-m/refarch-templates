@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <!-- must match the chosen Camel version in properties -> camel-spring-boot-dependencies.version, see e.g. https://central.sonatype.com/artifact/org.apache.camel.springboot/camel-spring-boot/dependencies and search for 'spring-boot-starter' -->
-        <version>4.1.1</version>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dependencies</artifactId>
+        <!-- Update only this Camel version; the parent supplies the compatible spring-boot-version. -->
+        <version>4.22.2</version>
         <relativePath />
     </parent>
 
@@ -46,7 +46,10 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <!-- Core Frameworks -->
-        <camel-spring-boot-dependencies.version>4.22.2</camel-spring-boot-dependencies.version>
+        <camel-spring-boot-dependencies.version>${project.parent.version}</camel-spring-boot-dependencies.version>
+
+        <!-- Build -->
+        <cyclonedx-maven-plugin.version>2.9.3</cyclonedx-maven-plugin.version>
 
         <!-- Linting & Formatting -->
         <spotless-maven-plugin.version>3.10.4</spotless-maven-plugin.version>
@@ -70,7 +73,7 @@
         <refarch-tools.version>1.4.0</refarch-tools.version>
 
         <!-- TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES -->
-        <!-- Preferably override properties defined in spring-boot-starter -> spring-boot-dependencies POM -->
+        <!-- Override dependencyManagement entries below; imported BOM properties are not inherited. -->
     </properties>
 
     <dependencyManagement>
@@ -80,6 +83,14 @@
                 <groupId>org.apache.camel.springboot</groupId>
                 <artifactId>camel-spring-boot-dependencies</artifactId>
                 <version>${camel-spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Boot BOM, using the version selected by Camel -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -166,10 +177,41 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/application*.yml</include>
+                    <include>**/application*.yaml</include>
+                    <include>**/application*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application*.yml</exclude>
+                    <exclude>**/application*.yaml</exclude>
+                    <exclude>**/application*.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-version}</version>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -178,6 +220,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <release>${java.version}</release>
+                    <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.springframework.boot</groupId>
@@ -186,7 +229,6 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                     <showDeprecation>true</showDeprecation>
@@ -196,22 +238,75 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>${cyclonedx-maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
                             <skipNotDeployed>false</skipNotDeployed>
+                            <projectType>application</projectType>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/sbom</outputDirectory>
+                            <outputFormat>json</outputFormat>
+                            <outputName>application.cdx</outputName>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <propertiesEncoding>${project.build.sourceEncoding}</propertiesEncoding>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin-version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${start-class}</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- Do not add Apache license resources to this MIT-licensed application. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
 
             <!-- Testing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <argLine>@{argLine} -Dfile.encoding=${project.build.sourceEncoding}
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
+                        -javaagent:"@{org.mockito:mockito-core:jar}"
                         -Xshare:off</argLine>
                 </configuration>
             </plugin>
@@ -234,6 +329,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
+                <!-- Do not inherit Apache signing and source-release profiles. -->
+                <configuration combine.self="override" />
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
