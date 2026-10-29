@@ -8,9 +8,7 @@
     "src/**/*.ts",
     "src/**/*.vue"
   ],
-  "exclude": [
-    "test/**/*"
-  ],
+  "exclude": ["test/**/*"],
   "compilerOptions": {
     /* Build */
     "types": [
