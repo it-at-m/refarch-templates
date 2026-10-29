@@ -1,14 +1,14 @@
 import type {
   ValidationAttributes,
   VuetifyRuleAliases,
-} from "@/util/validation";
+} from "@/utils/validation";
 
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
 import {
   getOpenAPIValidationConstraint,
   mapOpenAPIToVuetifyValidationRules,
-} from "@/util/validation";
+} from "@/utils/validation";
 
 describe("mapOpenAPIToVuetifyValidationRules", () => {
   let rules: VuetifyRuleAliases;

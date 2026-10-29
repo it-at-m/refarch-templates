@@ -1,4 +1,4 @@
-import { ApiError } from "@/api/ApiError";
+import { ApiError } from "@/apis/ApiError";
 import { STATUS_INDICATORS } from "@/constants";
 
 /**

@@ -35,9 +35,9 @@ import customIconsSprite from "@muenchen/muc-patternlab-vue/assets/icons/custom-
 import mucIconsSprite from "@muenchen/muc-patternlab-vue/assets/icons/muc-icons.svg?raw";
 import { computed, onMounted, ref } from "vue";
 
-import { ApiFactory } from "@/api/ApiFactory.ts";
-import { ActuatorApi } from "@/api/generated/refarch-backend";
-import { checkHealth } from "@/api/healthstate-client";
+import { ApiFactory } from "@/apis/ApiFactory.ts";
+import { ActuatorApi } from "@/apis/generated/refarch-backend";
+import { checkHealth } from "@/apis/healthstate-client";
 import { FIRSTNAME_DEFAULT } from "@/constants";
 
 const apiGwStatus = ref("DOWN");
