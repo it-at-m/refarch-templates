@@ -1,0 +1,41 @@
+{
+  "app": {
+    "name": {
+      "part1": "refarch-",
+      "part2": "frontend",
+      "full": "@:app.name.part1@:app.name.part2"
+    }
+  },
+  "common": {
+    "yes": "Ja",
+    "no": "Nein",
+    "actions": {
+      "search": "Suchen"
+    },
+    "messages": {
+      "unsavedChangesDialogTitle": "Ungespeicherte Änderungen",
+      "unsavedChangesDialogText": "Es sind ungespeicherte Änderungen vorhanden. Wollen Sie die Seite verlassen?"
+    }
+  },
+  "views": {
+    "index": {
+      "navText": "Willkommen",
+      "header": "Willkommen beim @:app.name.full von it{'@'}M",
+      "isWriterText": "writer-Rolle vorhanden",
+      "isNotWriterText": "writer-Rolle fehlt",
+      "apiGatewayStatus": "Das API-Gateway ist:",
+      "backendStatus": "Das Backend ist:"
+    },
+    "getStarted": {
+      "navText": "Get Started",
+      "header": "Get Started",
+      "docsText": "Dokumentation für die RefArch ist hier zu finden:",
+      "docsLinks": {
+        "templates": "Dokumentation RefArch-Templates",
+        "main": "Dokumentation RefArch"
+      }
+    }
+  },
+  "components": {},
+  "domain": {}
+}

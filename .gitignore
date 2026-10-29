@@ -1,3 +1,6 @@
+# ========= Frontend specific ==========
+route-map.d.ts
+
 # =============== Java =================
 # Compiled class file
 *.class
@@ -10,7 +13,6 @@
 
 # Package Files #
 *.jar
-!/stack/keycloak/plugins/*.jar
 *.war
 *.nar
 *.ear
@@ -39,6 +41,7 @@ buildNumber.properties
 node_modules
 dist/
 .vite
+.vitest
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -185,3 +188,10 @@ nbdist/
 *.njsproj
 *.sln
 *.sw?
+
+# ========== RefArch specific  ==========
+**/src/apis/generated
+# =============== Stack =================
+/stack/pgadmin/data/*
+!/stack/keycloak/plugins/*.jar
+!/stack/pgadmin/data/info.txt

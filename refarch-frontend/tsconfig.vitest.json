@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.app.json",
-  "exclude": [], // explicitly reset exclusion
-  "compilerOptions": {
-    "tsBuildInfoFile": "./cache/tsconfig.vitest.tsbuildinfo",
-    "types": ["node", "vitest/jsdom"]
-  }
-}

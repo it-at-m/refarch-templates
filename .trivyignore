@@ -1,0 +1,2 @@
+# http-cache-semantics is only uses as part of cyclonedx-npm dev dependency
+CVE-2026-93748

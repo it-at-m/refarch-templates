@@ -3,6 +3,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
 const vitepressConfig = defineConfig({
+  base: "/", // needs to be changed if delivered via sub path (e.g. "/docs/" for example.com/docs)
   title: "RefArch Docs Template",
   description: "Documentation template from the RefArch Templates",
   head: [
@@ -52,6 +53,12 @@ const vitepressConfig = defineConfig({
   markdown: {
     image: {
       lazyLoading: true,
+    },
+  },
+  // see https://github.com/emersonbottero/vitepress-plugin-mermaid/issues/98 and https://github.com/vitejs/devtools/pull/567
+  vite: {
+    optimizeDeps: {
+      include: ["fastdom", "fastdom/extensions/fastdom-promised.js"],
     },
   },
 });

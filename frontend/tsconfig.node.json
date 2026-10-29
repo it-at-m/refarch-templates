@@ -1,0 +1,26 @@
+{
+  "extends": "@tsconfig/node-lts/tsconfig.json",
+  "include": [
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.ts",
+    "eslint-require-data-test-plugin.ts",
+    "encode-brackets-plugin.ts" // temporary fix
+  ],
+  "compilerOptions": {
+    /* Build */
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "module": "preserve",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.node.tsbuildinfo",
+
+    /* Lint */
+    "noUncheckedIndexedAccess": true,
+    "erasableSyntaxOnly": true
+  }
+}

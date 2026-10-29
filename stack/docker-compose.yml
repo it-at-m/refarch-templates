@@ -1,135 +1,157 @@
 name: refarch-stack
 
+x-healthcheck: &healthcheck
+  interval: 30s
+  timeout: 60s
+  retries: 3
+  start_period: 60s
+
+x-security-settings: &security_settings
+  security_opt:
+    - no-new-privileges:true
+
 services:
   postgres:
-    image: postgres:17.4-alpine3.21@sha256:7062a2109c4b51f3c792c7ea01e83ed12ef9a980886e3b3d380a7d2e5f6ce3f5
+    image: postgres:18.4-alpine@sha256:9a8afca54e7861fd90fab5fdf4c42477a6b1cb7d293595148e674e0a3181de15
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
-    healthcheck: &healthcheck
+    healthcheck:
+      <<: *healthcheck
       test: ["CMD-SHELL", "pg_isready -d postgres -U admin"]
-      interval: 30s
-      timeout: 60s
-      retries: 3
-      start_period: 60s
-    security_opt: &security_settings
-      - no-new-privileges:true
+    <<: *security_settings
 
-  # see https://event-driven.io/en/automatically_connect_pgadmin_to_database/
   pg-admin:
-    image: dpage/pgadmin4:9.0.0@sha256:1b2f1ecb93ed2c20530703f77acdfa0da8c2470a4e17044504057cea2d6b4fac
+    image: dpage/pgadmin4:9.18.0@sha256:c332c5f6dfba995d9ebc4af261d93506d6876085d712eaaa3defc8dd1a3f26de
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-      - PGADMIN_CONFIG_SERVER_MODE=False
-      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
-      - PGADMIN_LISTEN_PORT=5050
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 5050
+      # pgAdmin Boolean environment variables always have to be passed as "True" / "False"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_REPLACE_SERVERS_ON_STARTUP: "True"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_DISABLE_POSTFIX: "True"
+      PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED: "False"
     ports:
       - "5050:5050"
     depends_on:
       - postgres
+    volumes:
+      - ./pgadmin/servers.json:/pgadmin4/servers.json:ro
+      - ./pgadmin/preferences.json:/pgadmin4/preferences.json:ro
+      - ./pgadmin/pgpass:/tmp/pgpass.mounted:ro
+      - ./pgadmin/data:/tmp/data
+    entrypoint: >
+      /bin/sh -c "
+        cp -f /tmp/pgpass.mounted /tmp/pgpass;
+        chmod 600 /tmp/pgpass;
+        /entrypoint.sh
+      "
     healthcheck:
       <<: *healthcheck
       test: ["CMD", "wget", "-O", "-", "http://localhost:5050/misc/ping"]
-    security_opt: *security_settings
-    volumes:
-      - './pgadmin/servers.json:/pgadmin4/servers.json:ro'
-      - './pgadmin/pgpass:/pgadmin4/pgpass'
-    user: root # see https://github.com/pgadmin-org/pgadmin4/issues/6257
-    entrypoint: /bin/sh -c "chmod 600 /pgadmin4/pgpass; /entrypoint.sh;" # see https://www.postgresql.org/docs/current/libpq-pgpass.html#LIBPQ-PGPASS (last paragraph)
+    <<: *security_settings
 
   keycloak:
-    image: keycloak/keycloak:26.1.5@sha256:be6a86215213145bfb4fb3e2b3ab982a806d00262655abdcf3ffa6a38d241c7c
+    image: quay.io/keycloak/keycloak:26.6.4@sha256:0aae0de7fca85525f727d3354df17896092de8bb26ae4c12d89c77e5df8cbce4
     command:
       - start-dev
     environment:
-      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
-      - KC_HEALTH_ENABLED=true
-      - KC_HTTP_PORT=8100
-      - KC_HTTP_RELATIVE_PATH=/auth
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: "true"
+      KC_HTTP_PORT: 8100
+      KC_HTTP_RELATIVE_PATH: /auth
     ports:
       - "8100:8100"
-    volumes:
-      - ./keycloak/plugins:/opt/keycloak/providers/
     networks:
       - keycloak
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; then exit 0;else exit 1;fi;"]
-    security_opt: *security_settings
+      test: [
+        "CMD-SHELL",
+        # health check see https://www.keycloak.org/observability/health#_healthcheck
+        "{ printf 'HEAD /auth/health/ready HTTP/1.0\r\n\r\n' >&0; grep 'HTTP/1.0 200'; } 0<>/dev/tcp/localhost/9000"
+      ]
+    <<: *security_settings
 
   init-keycloak:
-    image: klg71/keycloakmigration:0.2.81@sha256:2c73c904a644b75637a01434f357caee9c029f37bd8960793c68233d5afa468a
+    image: klg71/keycloakmigration:0.2.130@sha256:fbec0fbbec2f90e9e912576cfb2ff108fb5703a59383b5e51c8633c130173af8
     depends_on:
       - keycloak
     environment:
       ADMIN_USER: admin
       ADMIN_PASSWORD: admin
       BASEURL: http://keycloak:8100/auth
-      WAIT_FOR_KEYCLOAK: 'true'
-      FAIL_ON_UNDEFINED_VARIABLES: 'true'
+      WAIT_FOR_KEYCLOAK: "true"
+      FAIL_ON_UNDEFINED_VARIABLES: "true"
       KEYCLOAK_CHANGELOG: /migration/keycloak-changelog.yml
+      EXIT_ON_ERROR: "true"
     volumes:
-      - './keycloak/migration:/migration'
+      - ./keycloak/migration:/migration
     networks:
       - keycloak
-    security_opt: *security_settings
+    <<: *security_settings
 
   refarch-gateway:
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.5.0@sha256:9ebe76275d7aa7863f66e600ed91aa10c538faa183e06c0a6b3ef87fceb88315
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.10.0@sha256:d74e6a31e2fe255989008fbf9a8d5e024bc01f418acf8c1852558e6925db9764
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
+      keycloak:
+        condition: service_healthy
     ports:
       - "8083:8080"
     environment:
-    - ALLOWED_ORIGINS_PUBLIC=http://localhost:*
-    - ALLOWED_ORIGINS_CLIENTS=http://localhost:*
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=sso
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://keycloak:8100/
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0=Path=/api/sso/userinfo
-    - SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0=RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_ID=backend
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_URI=http://host.docker.internal:39146/
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0=Path=/api/backend-service/**
-    - SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0=RewritePath=/api/backend-service/(?<urlsegments>.*), /$\{urlsegments}
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_ID=frontend
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_URI=http://host.docker.internal:8081/
-    - SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0=Path=/**
-    - SPRING_PROFILES_ACTIVE=hazelcast-local
-    - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8100/auth/realms/local_realm
-    - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI=$${spring.security.oauth2.resourceserver.jwt.issuer-uri}
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER=sso
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID=local
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET=client_secret
-    - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE=profile, openid
+      ALLOWED_ORIGINS_PUBLIC: http://localhost:*
+      ALLOWED_ORIGINS_CLIENTS: http://localhost:*
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_TRUSTED_PROXIES: .* # required for local X-Forwarded-* headers (used by Swagger UI), do not use .* in production
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_ID: sso
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_URI: http://keycloak:8100/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_PREDICATES_0: Path=/api/sso/userinfo
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_FILTERS_0: RewritePath=/api/sso/userinfo, /auth/realms/local_realm/protocol/openid-connect/userinfo
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_ID: backend
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_URI: http://host.docker.internal:8086/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_PREDICATES_0: Path=/api/backend/**
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_1_FILTERS_0: RewritePath=/api/backend/(?<urlsegments>.*), /$\{urlsegments}
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_ID: frontend
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_URI: http://host.docker.internal:8081/
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_2_PREDICATES_0: Path=/**
+      SPRING_PROFILES_ACTIVE: hazelcast-local
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: http://keycloak:8100/auth/realms/local_realm
+      SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_SSO_ISSUERURI: $${spring.security.oauth2.resourceserver.jwt.issuer-uri}
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_PROVIDER: sso
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTID: local
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_CLIENTSECRET: client_secret
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_SSO_SCOPE: profile, openid, roles
+      LOGGING_STRUCTURED_FORMAT_CONSOLE: ""
     networks:
       - keycloak
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
       <<: *healthcheck
-      test: [ "CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness" ]
-    security_opt: *security_settings
+      test: ["CMD-SHELL", "curl http://localhost:8080/actuator/health/liveness"]
+    <<: *security_settings
 
   appswitcher-server:
-    image: ghcr.io/it-at-m/appswitcher-server:1.3.0@sha256:10006bc0f3093a548cf977dd65b3df56baa8a08e42eb04872e9e51011c9e21f8
+    image: ghcr.io/it-at-m/appswitcher-server-native:1.4.1@sha256:973cd1939e7ba42a71f647a42dd56dbc8a2621f573d0b56a5f7766c5e5fb4667
     environment:
-      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/workspace/static
-      - THC_PATH=/actuator/health/liveness
+      SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:/workspace/static
+      THC_PATH: /actuator/health/liveness
     ports:
       - "8084:8080"
     volumes:
-      - "./appswitcher-server/application.yml:/workspace/config/application.yml"
-      - "./appswitcher-server/static:/workspace/static"
+      - ./appswitcher-server/application.yml:/workspace/config/application.yml
+      - ./appswitcher-server/static:/workspace/static
     healthcheck:
       <<: *healthcheck
-      test: ["CMD-SHELL", "/workspace/health-check"]
-    security_opt: *security_settings
+      test: ["CMD", "/workspace/health-check"]
+    <<: *security_settings
 
 networks:
   keycloak:

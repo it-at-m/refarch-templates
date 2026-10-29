@@ -1,22 +1,37 @@
 {
+  "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
+  "overrides": {
+    "vitepress": {
+      "vite": "6.4.4"
+    },
+    "markdownlint-cli": {
+      "katex": "0.18.2"
+    },
+    "mermaid": {
+      "katex": "0.18.2"
+    }
+  },
   "name": "refarch-templates-docs",
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "engines": {
-    "node": ">=22.14 <=22"
+    "node": ">=24.11 <25",
+    "npm": ">=11.6 <12"
   },
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "lint": "prettier . --check && markdownlint .",
-    "fix": "prettier . --write && markdownlint -f ."
+    "lint": "prettier . --check --cache && markdownlint .",
+    "fix": "prettier . --write --cache && markdownlint -f ."
   },
   "devDependencies": {
     "@muenchen/prettier-codeformat": "1.0.2",
-    "markdownlint-cli": "0.45.0",
-    "mermaid": "11.6.0",
-    "vitepress": "1.6.3",
+    "markdownlint-cli": "0.50.0",
+    "mermaid": "11.17.2",
+    "prettier": "3.9.10",
+    "vitepress": "1.6.4",
     "vitepress-plugin-mermaid": "2.0.17"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "vite-env.d.ts",
+    "declarations.d.ts",
+    "src/**/*.ts",
+    "src/**/*.vue"
+  ],
+  "exclude": ["test/**/*"],
+  "compilerOptions": {
+    /* Build */
+    "types": ["vite/client"],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowArbitraryExtensions": true,
+    "composite": true,
+    "tsBuildInfoFile": "./cache/tsconfig.app.tsbuildinfo",
+
+    /* Lint */
+    "noUncheckedIndexedAccess": true
+  }
+}

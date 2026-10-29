@@ -10,22 +10,23 @@ changes:
         - http://*
         - https://*
 
-  # Maps user client roles of current client into a claim "authorities"
-  - addClientMapper:
+  # Diable fullScope to only return userInfo of requested client
+  - updateClient:
       clientId: local
-      name: userClientRolesAuthorities
+      fullScopeAllowed: false
+
+  # Add roles to user-info
+  - deleteClientScopeMapper:
+      clientScopeName: roles
+      name: client roles
+  - addClientScopeMapper:
+      clientScopeName: roles
+      name: client roles
       protocolMapper: oidc-usermodel-client-role-mapper
       config:
-        access.token.claim: true
-        id.token.claim: true
-        userinfo.token.claim: true
-        jsonType.label: String
-        multivalued: true
-        claim.name: "authorities"
-        usermodel.clientRoleMapping.clientId: local
-        usermodel.clientRoleMapping.rolePrefix: "ROLE_"
-
-  # !!! very import must have. Without that default scope u dont have access to userinfo-endpoint
-  - assignDefaultClientScope:
-      clientId: local
-      clientScopeName: openid
+        "multivalued": "true"
+        "userinfo.token.claim": "true"
+        "id.token.claim": "false"
+        "access.token.claim": "true"
+        "claim.name": "resource_access.$${client_id}.roles"
+        "jsonType.label": "String"
