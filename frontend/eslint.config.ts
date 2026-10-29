@@ -2,12 +2,12 @@ import { fileURLToPath, URL } from "node:url";
 
 import jsEslintConfig from "@eslint/js";
 import vueI18nEslintConfig from "@intlify/eslint-plugin-vue-i18n";
-import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
+import skipFormatting from "eslint-config-prettier/flat";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
@@ -25,8 +25,8 @@ export default defineConfigWithVueTs(
   vueTsConfigs.stylistic,
   // @ts-expect-error: TS2345 — plugin not providing correct ConfigInput type
   ...vueI18nEslintConfig.configs.recommended,
-  vuePrettierEslintConfigSkipFormatting,
   requireDataTestConfig.configs["flat/vuetify"],
+  skipFormatting,
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",
