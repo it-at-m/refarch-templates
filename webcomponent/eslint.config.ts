@@ -36,6 +36,14 @@ export default defineConfigWithVueTs(
         "kebab-case",
         { registeredComponentsOnly: false },
       ],
+      "vue/html-self-closing": [
+        "error",
+        {
+          html: {
+            void: "any",
+          },
+        },
+      ],
     },
   },
   includeIgnoreFile(prettierIgnorePath, {
