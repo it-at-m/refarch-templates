@@ -38,9 +38,9 @@ import type { HealthState } from "@/types/HealthState";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-import { ApiFactory } from "@/api/ApiFactory";
-import { ActuatorApi } from "@/api/generated/refarch-backend";
-import { checkHealth } from "@/api/healthstate-client";
+import { ApiFactory } from "@/apis/ApiFactory";
+import { ActuatorApi } from "@/apis/generated/refarch-backend";
+import { checkHealth } from "@/apis/healthstate-client";
 import useHasAnyRole from "@/composables/useHasAnyRole";
 import { STATUS_INDICATORS } from "@/constants";
 import { useSnackbarStore } from "@/stores/snackbar";

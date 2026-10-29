@@ -47,8 +47,8 @@ export interface VuetifyRuleAliases {
  * - {@link VuetifyRuleAliases.maxLength}
  * - {@link VuetifyRuleAliases.pattern}
  * - {@link VuetifyRuleAliases.number}
- * - Custom {@link import("@/util/custom-rules").minRule minRule} implementation
- * - Custom {@link import("@/util/custom-rules").maxRule maxRule} implementation
+ * - Custom {@link import("@/utils/custom-rules").minRule minRule} implementation
+ * - Custom {@link import("@/utils/custom-rules").maxRule maxRule} implementation
  *
  * @param rules all available {@link VuetifyRuleAliases} typically retrieved via `useRules` composable from Vuetify
  * @param validationAttributes a generated *ValidationAttributesMap object
