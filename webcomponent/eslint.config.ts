@@ -1,12 +1,12 @@
 import { fileURLToPath, URL } from "node:url";
 
 import jsEslintConfig from "@eslint/js";
-import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
 import {
   defineConfigWithVueTs,
   vueTsConfigs,
 } from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
+import skipFormatting from "eslint-config-prettier/flat";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
@@ -22,8 +22,8 @@ export default defineConfigWithVueTs(
   vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
-  vuePrettierEslintConfigSkipFormatting,
   requireDataTestConfig.configs["flat/muc-patternlab-vue"],
+  skipFormatting,
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",
