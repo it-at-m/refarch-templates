@@ -55,6 +55,12 @@ const vitepressConfig = defineConfig({
       lazyLoading: true,
     },
   },
+  // see https://github.com/emersonbottero/vitepress-plugin-mermaid/issues/98 and https://github.com/vitejs/devtools/pull/567
+  vite: {
+    optimizeDeps: {
+      include: ["fastdom", "fastdom/extensions/fastdom-promised.js"],
+    },
+  },
 });
 
 export default withMermaid(vitepressConfig);

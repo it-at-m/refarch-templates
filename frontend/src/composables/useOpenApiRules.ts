@@ -1,11 +1,11 @@
-import type { ValidationAttributes } from "@/util/validation";
+import type { ValidationAttributes } from "@/utils/validation";
 import type { ComputedRef, MaybeRefOrGetter } from "vue";
 import type { ValidationRule } from "vuetify";
 
 import { computed, toValue } from "vue";
 import { useRules } from "vuetify";
 
-import { mapOpenAPIToVuetifyValidationRules } from "@/util/validation";
+import { mapOpenAPIToVuetifyValidationRules } from "@/utils/validation";
 
 export default function useOpenApiRules<
   T extends Record<string, ValidationAttributes>,
