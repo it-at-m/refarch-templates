@@ -1,0 +1,56 @@
+_subdirectory: "{{ module_type }}"
+
+module_type:
+  type: str
+  help: Which template would you like to use?
+  choices:
+    - backend
+    - docs
+    - eai
+    - frontend
+    - webcomponent
+
+project_name:
+  type: str
+  help: "Project Name"
+
+module_name:
+  type: str
+  help: "Module Name"
+  default: "{{ module_type }}"
+
+project_slug:
+  type: str
+  default: "{{ project_name | lower | regex_replace('[^a-z0-9-]', '-') }}"
+  help: "Project Slug"
+
+java_package:
+  type: str
+  default: "de.muenchen.oss.{{ project_slug | replace('-', '') }}.{{ module_type }}"
+  help: "Java Package Name"
+  when: "{{ module_type in [ 'backend', 'eai' ] }}"
+  validator: >-
+    {% if not (java_package | regex_search('^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$')) %}
+    Must be a valid lowercase Java package, e.g. de.muenchen.oss.myproject.backend
+    {% endif %}
+
+_exclude: []
+
+_tasks:
+  - command:
+      - "{{ _copier_python }}"
+      - "{{ _copier_conf.src_path }}/.copier/replace.py"
+      - "{{ module_type }}"
+      - "{{ java_package }}"
+      - "{{ project_slug }}"
+    when: "{{ module_type in [ 'backend', 'eai' ] }}"
+  - command:
+      - git
+      - init
+      - --initial-branch=main
+    when: "{{ _copier_operation == 'copy' }}"
+  - command:
+    - git
+    - add
+    - -A
+    when: "{{ _copier_operation == 'copy' }}"
