@@ -1,0 +1,11 @@
+# basic-ftp: No FTP functionality is used
+CVE-2026-102990
+
+# glob: No attacker-influenced patterns or directory trees possible
+CVE-2026-118773
+
+# minimatch: No attacker-controlled **/.. pattern segments possible
+CVE-2026-118764
+
+# katex: No attacker-controlled mathematical LaTeX expressions possible
+CVE-2026-103923
