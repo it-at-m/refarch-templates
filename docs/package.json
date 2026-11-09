@@ -1,16 +1,6 @@
 {
   "_comment": "TEMPORARY TRANSITIVE DEPENDENCY OVERRIDES FOR SECURITY FIXES",
-  "overrides": {
-    "vitepress": {
-      "vite": "6.4.4"
-    },
-    "markdownlint-cli": {
-      "katex": "0.18.2"
-    },
-    "mermaid": {
-      "katex": "0.18.2"
-    }
-  },
+  "overrides": {},
   "name": "refarch-templates-docs",
   "version": "0.0.0",
   "type": "module",
