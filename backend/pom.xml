@@ -70,7 +70,7 @@
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <springdoc-openapi-starter-webmvc-ui.version>3.2.0</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-maven-plugin.version>1.6</springdoc-openapi-maven-plugin.version>
-        <therapi-runtime-javadoc.version>0.15.0</therapi-runtime-javadoc.version>
+        <therapi-runtime-javadoc.version>0.16.0</therapi-runtime-javadoc.version>
 
         <!-- Flyway maven plugin configuration for local stack database -->
         <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
