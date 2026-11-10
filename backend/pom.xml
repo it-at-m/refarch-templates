@@ -54,6 +54,7 @@
         <findsecbugs-plugin.version>1.14.0</findsecbugs-plugin.version>
 
         <!-- Testing -->
+        <skipITs>false</skipITs>
         <jacoco-maven-plugin.version>0.8.16</jacoco-maven-plugin.version>
         <!-- argLine must be empty, definition needed for integration of Jacoco and Surefire via @{argLine} lazy property evaluation -->
         <argLine />
@@ -246,12 +247,18 @@
                         <goals>
                             <goal>start</goal>
                         </goals>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>post-integration-test</id>
                         <goals>
                             <goal>stop</goal>
                         </goals>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -331,6 +338,7 @@
                     <outputFileName>${project.name}.yaml</outputFileName>
                     <outputDir>${project.basedir}/api-spec</outputDir>
                     <failOnError>true</failOnError>
+                    <skip>${skipITs}</skip>
                 </configuration>
             </plugin>
 
