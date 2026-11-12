@@ -7,8 +7,8 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=24.11 <25",
-    "npm": ">=11.6 <12"
+    "node": ">=26.13 <27",
+    "npm": ">=11.20 <12"
   },
   "scripts": {
     "dev": "vite",
@@ -38,9 +38,9 @@
     "@muenchen/prettier-codeformat": "1.0.2",
     "@pinia/testing": "2.0.2",
     "@openapitools/openapi-generator-cli": "2.42.0",
-    "@tsconfig/node-lts": "24.0.1",
+    "@tsconfig/node-lts": "26.0.1",
     "@types/jsdom": "30.0.0",
-    "@types/node": "24.11.2",
+    "@types/node": "26.6.6",
     "@vitejs/plugin-vue": "6.0.10",
     "@vue/devtools-api": "8.2.1",
     "@vue/eslint-config-typescript": "14.9.0",
