@@ -1,5 +1,7 @@
 # basic-ftp: No FTP functionality is used
 CVE-2026-102990
+CVE-2026-126345
+CVE-2026-126346
 
 # glob: No attacker-influenced patterns or directory trees possible
 CVE-2026-118773
