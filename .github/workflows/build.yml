@@ -68,7 +68,7 @@ jobs:
         with:
           app-path: ${{ matrix.app-path }}
       - name: Run Trivy vulnerability scanner in fs mode
-        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
         with:
          path: "${{ matrix.app-path }}"
       - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' && github.event_name != 'schedule' }}    
