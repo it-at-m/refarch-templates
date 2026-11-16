@@ -7,9 +7,15 @@ on:
     branches:
       - "main"
   schedule:
+<<<<<<< HEAD
     - cron: "0 3 * * *" # Daily at 03:00 UTC
       timezone: "Europe/Berlin"
 
+=======
+    - cron: '0 3 * * *' # Daily at 03:00 UTC
+      timezone: "Europe/Berlin"
+      
+>>>>>>> a66eb5dc2758a3105dded095a82e7497b69f41de
 jobs:
   # JOB to run change detection
   build-check-changed-files:
