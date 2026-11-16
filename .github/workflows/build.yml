@@ -18,12 +18,13 @@ jobs:
       pull-requests: read
     outputs:
       # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
+      packages: ${{ github.event_name == 'schedule' && '["backend","frontend","webcomponent","eai"]' || steps.filter.outputs.changes }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
       # For pull requests it's not necessary to checkout the code
       - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
         id: filter
+        if: github.event_name != 'schedule'
         with:
           base: ${{ github.ref }}
           filters: |
@@ -41,7 +42,8 @@ jobs:
             eai: 
               - eai/**
               - .github/workflows/build.yml
-      - run: |
+      - if: github.event_name != 'schedule'
+        run: |
           echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
     if: ${{ needs.build-check-changed-files.outputs.packages != '' && needs.build-check-changed-files.outputs.packages != '[]' }}
