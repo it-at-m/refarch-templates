@@ -17,6 +17,7 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
+    "preview": "vitepress preview",
     "lint": "prettier . --check --cache && markdownlint .",
     "fix": "prettier . --write --cache && markdownlint -f ."
   },

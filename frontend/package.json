@@ -16,6 +16,7 @@
     "build": "npm run pre-build && vue-tsc --build --noCheck && vite build && npm run post-build",
     "pre-build": "openapi-generator-cli generate",
     "post-build": "cyclonedx-npm --omit dev --omit optional --output-reproducible -o dist/application.cdx.json",
+    "preview": "vite preview",
     "lint": "npm run pre-build && prettier . --check --cache && eslint . --cache --concurrency auto && vue-tsc --build --noEmit",
     "fix": "prettier . --write --cache && eslint . --fix --cache --concurrency auto"
   },
@@ -26,11 +27,11 @@
     "pinia": "4.1.0",
     "vue": "3.5.44",
     "vue-i18n": "11.4.14",
-    "vue-router": "5.4.0",
+    "vue-router": "5.5.0",
     "vuetify": "4.3.0"
   },
   "devDependencies": {
-    "@cyclonedx/cyclonedx-npm": "6.0.1",
+    "@cyclonedx/cyclonedx-npm": "7.0.0",
     "@eslint/js": "10.0.1",
     "@intlify/eslint-plugin-vue-i18n": "4.5.1",
     "@intlify/unplugin-vue-i18n": "11.2.8",
@@ -46,7 +47,7 @@
     "@vue/eslint-config-typescript": "14.9.0",
     "@vue/test-utils": "2.4.11",
     "@vue/tsconfig": "0.9.1",
-    "eslint": "10.14.0",
+    "eslint": "10.15.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.12.0",
     "jiti": "2.7.0",
