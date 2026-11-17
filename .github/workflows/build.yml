@@ -52,6 +52,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write # Required to upload SARIF results to the GitHub Security tab
     strategy:
       fail-fast: false
       matrix:
