@@ -35,10 +35,10 @@ import customIconsSprite from "@muenchen/muc-patternlab-vue/assets/icons/custom-
 import mucIconsSprite from "@muenchen/muc-patternlab-vue/assets/icons/muc-icons.svg?raw";
 import { computed, onMounted, ref } from "vue";
 
-import { ApiFactory } from "@/api/ApiFactory.ts";
-import { ActuatorApi } from "@/api/generated/refarch-backend";
-import { checkHealth } from "@/api/healthstate-client";
-import { FIRSTNAME_DEFAULT } from "@/util/constants";
+import { ApiFactory } from "@/apis/ApiFactory.ts";
+import { ActuatorApi } from "@/apis/generated/refarch-backend";
+import { checkHealth } from "@/apis/healthstate-client";
+import { FIRSTNAME_DEFAULT } from "@/constants";
 
 const apiGwStatus = ref("DOWN");
 const backendStatus = ref("DOWN");
@@ -65,7 +65,7 @@ function statusColor(status: string) {
 </script>
 
 <style>
-@import url("https://assets.muenchen.de/mde/1.1.23/css/style.css");
+@import url("https://assets.muenchen.de/mde/1.1.27/css/style.css");
 @import "@muenchen/muc-patternlab-vue/assets/css/custom-style.css";
 @import "@muenchen/muc-patternlab-vue/style.css";
 </style>

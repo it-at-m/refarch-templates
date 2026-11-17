@@ -2,27 +2,31 @@ import { fileURLToPath, URL } from "node:url";
 
 import jsEslintConfig from "@eslint/js";
 import vueI18nEslintConfig from "@intlify/eslint-plugin-vue-i18n";
-import vuePrettierEslintConfigSkipFormatting from "@vue/eslint-config-prettier/skip-formatting";
-import { vueTsConfigs, withVueTs } from "@vue/eslint-config-typescript";
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+} from "@vue/eslint-config-typescript";
 import { ESLint } from "eslint";
+import skipFormatting from "eslint-config-prettier/flat";
 import vueEslintConfig from "eslint-plugin-vue";
 import { includeIgnoreFile } from "eslint/config";
 
-import requireDataTestConfig from "./eslint-require-data-test-plugin.js";
+import requireDataTestConfig from "./eslint-require-data-test-plugin";
 
 const prettierIgnorePath = fileURLToPath(
   new URL(".prettierignore", import.meta.url)
 );
 
-export default withVueTs(
+export default defineConfigWithVueTs(
   ESLint.defaultConfig,
   jsEslintConfig.configs.recommended,
   vueEslintConfig.configs["flat/recommended-error"],
   vueTsConfigs.strict,
   vueTsConfigs.stylistic,
-  vueI18nEslintConfig.configs.recommended,
-  vuePrettierEslintConfigSkipFormatting,
+  // @ts-expect-error: TS2345 — plugin not providing correct ConfigInput type
+  ...vueI18nEslintConfig.configs.recommended,
   requireDataTestConfig.configs["flat/vuetify"],
+  skipFormatting,
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",
@@ -34,6 +38,14 @@ export default withVueTs(
         "error",
         "kebab-case",
         { registeredComponentsOnly: false },
+      ],
+      "vue/html-self-closing": [
+        "error",
+        {
+          html: {
+            void: "any",
+          },
+        },
       ],
       // Enforce i18n best practices manually as no stylistic ruleset exists yet
       "@intlify/vue-i18n/key-format-style": ["error"], // enforce camelCase for message keys
