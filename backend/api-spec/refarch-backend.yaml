@@ -19,9 +19,8 @@ paths:
       tags:
       - the-entity-controller
       summary: Retrieve an entity by its UUID.
-      description: |-
-        Retrieve an entity by its UUID.
-         Fetches the entity details using the provided UUID.
+      description: Retrieve an entity by its UUID. Fetches the entity details using
+        the provided UUID.
       operationId: getTheEntity
       parameters:
       - name: theEntityId
@@ -45,8 +44,8 @@ paths:
       - the-entity-controller
       summary: Update an existing entity.
       description: |-
-        Update an existing entity.
-         Updates the details of an existing entity using the provided UUID and entity details.
+        Update an existing entity. Updates the details of an existing entity using the provided UUID and
+        entity details.
       operationId: updateTheEntity
       parameters:
       - name: theEntityId
@@ -76,9 +75,7 @@ paths:
       tags:
       - the-entity-controller
       summary: Delete an entity.
-      description: |-
-        Delete an entity.
-         Deletes the entity using the provided UUID.
+      description: Delete an entity. Deletes the entity using the provided UUID.
       operationId: deleteTheEntity
       parameters:
       - name: theEntityId
@@ -99,8 +96,8 @@ paths:
       - the-entity-controller
       summary: Retrieve entities with pagination.
       description: |-
-        Retrieve entities with pagination.
-         Fetches a paginated list of entities based on the provided page number and size.
+        Retrieve entities with pagination. Fetches a paginated list of entities based on the provided
+        page number and size.
       operationId: getTheEntitiesByPageAndSize
       parameters:
       - name: pageNumber
@@ -132,9 +129,8 @@ paths:
       tags:
       - the-entity-controller
       summary: Create a new entity.
-      description: |-
-        Create a new entity.
-         Creates a new entity using the provided entity details.
+      description: Create a new entity. Creates a new entity using the provided entity
+        details.
       operationId: saveTheEntity
       requestBody:
         description: the details of the entity to create
@@ -313,6 +309,11 @@ components:
         textAttribute:
           type: string
     PageMetadata:
+      required:
+      - number
+      - size
+      - totalElements
+      - totalPages
       type: object
       properties:
         size:
@@ -328,6 +329,9 @@ components:
           type: integer
           format: int64
     PagedModelTheEntityResponseDTO:
+      required:
+      - content
+      - page
       type: object
       properties:
         content:
