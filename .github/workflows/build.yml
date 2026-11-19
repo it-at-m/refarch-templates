@@ -6,7 +6,9 @@ on:
   push:
     branches:
       - "main"
-
+  schedule:
+    - cron: "0 3 * * *" # Daily at 03:00 UTC
+      timezone: "Europe/Berlin"
 jobs:
   # JOB to run change detection
   build-check-changed-files:
@@ -16,12 +18,13 @@ jobs:
       pull-requests: read
     outputs:
       # Expose matched filters as job 'packages' output variable
-      packages: ${{ steps.filter.outputs.changes }}
+      packages: ${{ github.event_name == 'schedule' && '["backend","frontend","webcomponent","eai"]' || steps.filter.outputs.changes }}
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-checkout@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
       # For pull requests it's not necessary to checkout the code
       - uses: it-at-m/lhm_actions/action-templates/actions/action-filter@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
         id: filter
+        if: github.event_name != 'schedule'
         with:
           base: ${{ github.ref }}
           filters: |
@@ -39,7 +42,8 @@ jobs:
             eai: 
               - eai/**
               - .github/workflows/build.yml
-      - run: |
+      - if: github.event_name != 'schedule'
+        run: |
           echo ${{ toJSON(steps.filter.outputs.changes) }}
   build:
     if: ${{ needs.build-check-changed-files.outputs.packages != '' && needs.build-check-changed-files.outputs.packages != '[]' }}
@@ -48,6 +52,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write # Required to upload SARIF results to the GitHub Security tab
     strategy:
       fail-fast: false
       matrix:
@@ -64,7 +69,11 @@ jobs:
         uses: it-at-m/lhm_actions/action-templates/actions/action-maven-build@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
         with:
           app-path: ${{ matrix.app-path }}
-      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' }}
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+        with:
+          path: "${{ matrix.app-path }}"
+      - if: ${{ github.ref == 'refs/heads/main' && (steps.node.outcome == 'success' || steps.maven.outcome == 'success') && hashFiles(format('./{0}/Dockerfile', matrix.app-path)) != '' && github.event_name != 'schedule' }}
         uses: it-at-m/lhm_actions/action-templates/actions/action-build-image@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
         with:
           path: ${{ matrix.app-path }}
