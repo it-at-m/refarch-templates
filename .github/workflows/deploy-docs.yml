@@ -13,6 +13,9 @@ on:
     paths:
       - "docs/**"
       - ".github/workflows/deploy-docs.yml"
+  schedule:
+    - cron: "0 3 * * *" # Daily at 03:00 UTC
+      timezone: "Europe/Berlin"
 
 jobs:
   deploy-docs:
@@ -23,5 +26,10 @@ jobs:
       id-token: write
     steps:
       - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+      - name: Run Trivy vulnerability scanner in fs mode
+        uses: it-at-m/lhm_actions/action-templates/actions/action-trivy@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+        with:
+          path: "docs"
       # Only deploy documentation from the main branch to prevent unauthorized changes
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+      - if: ${{ github.event_name != 'schedule' }}
+        uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
