@@ -22,6 +22,6 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-build-docs@9bde6576151908ace5f517ca623fea3b98600cb7 # v1.6.5
       # Only deploy documentation from the main branch to prevent unauthorized changes
-      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@87a254fa39e1555ffbbc8317af71b4d5ca7d4a3b # v1.6.4
+      - uses: it-at-m/lhm_actions/action-templates/actions/action-deploy-docs@9bde6576151908ace5f517ca623fea3b98600cb7 # v1.6.5
