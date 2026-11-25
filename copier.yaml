@@ -75,6 +75,7 @@ _tasks:
       - "{{ _copier_python }}"
       - "{{ _copier_conf.src_path }}/.copier/generate_modules.py"
       - "{{ _copier_conf.src_path }}"
+      - "{{ _copier_answers._src_path }}"
       - "{{ project_name }}"
       - "{{ project_slug }}"
       - "{{ modules | join(',') }}"
