@@ -79,7 +79,7 @@ _tasks:
       - "{{ project_name }}"
       - "{{ project_slug }}"
       - "{{ modules | join(',') }}"
-    when: "{{ module_type == 'project' }}"
+    when: "{{ _copier_operation == 'copy' and module_type == 'project' }}"
 
   # Java
   - command:

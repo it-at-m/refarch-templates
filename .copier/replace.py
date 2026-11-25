@@ -1,6 +1,5 @@
 from pathlib import Path
 import re
-import shutil
 import sys
 
 template_type, java_package, project_slug = sys.argv[1:4]
@@ -36,10 +35,15 @@ for root in (Path("src/main/java"), Path("src/test/java")):
     new_dir = root / java_package.replace(".", "/")
     if not old_dir.exists() or old_dir == new_dir:
         continue
-    new_dir.parent.mkdir(parents=True, exist_ok=True)
-    shutil.move(old_dir, new_dir)
-    # remove the now empty de/muenchen/... folders
-    for parent in old_dir.parents:
-        if parent == root or any(parent.iterdir()):
+    # Move file by file: on `copier update` the template is rendered again into the project,
+    # where new_dir already exists, so the folders have to be merged.
+    for file in [f for f in old_dir.rglob("*") if f.is_file()]:
+        target = new_dir / file.relative_to(old_dir)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        file.replace(target)
+    # remove the now empty folders, from the deepest up to the de/muenchen/... parents
+    for folder in [*sorted(old_dir.rglob("*"), reverse=True), old_dir, *old_dir.parents]:
+        if folder == root:
             break
-        parent.rmdir()
+        if folder.is_dir() and not any(folder.iterdir()):
+            folder.rmdir()

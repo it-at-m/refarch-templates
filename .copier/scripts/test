@@ -20,7 +20,8 @@ target="${TMPDIR:-/tmp}"
 target="${target%/}/refarch-template-test"
 
 rm -rf "$target"
-copier copy --trust . "$target" "${data[@]}"
+copier copy --trust "$PWD" "$target" "${data[@]}"
+(cd "$target" && git config user.name "Example" && git config user.email "mail@example.com")
 
 if command -v code >/dev/null; then
     code "$target"
