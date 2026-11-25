@@ -1,7 +1,10 @@
 _subdirectory: "{{ '' if module_type == 'project' else module_type }}"
 
+# Every question has `ask: "{{ <name> is not defined }}"`: it is asked once, on copy, and
+# `copier update` reuses the answer. Force a question with `copier update --ask <name>`.
 module_type:
   type: str
+  ask: "{{ module_type is not defined }}"
   help: Which template would you like to use?
   choices:
     - project
@@ -13,10 +16,12 @@ module_type:
 
 project_name:
   type: str
+  ask: "{{ project_name is not defined }}"
   help: "Project Name"
 
 project_slug:
   type: str
+  ask: "{{ project_slug is not defined }}"
   help: "Project Slug"
   default: "{{
       project_name
@@ -31,6 +36,7 @@ project_slug:
 
 modules:
   type: str
+  ask: "{{ modules is not defined }}"
   help: Which modules should the project contain?
   multiselect: true
   choices:
@@ -43,12 +49,14 @@ modules:
 
 module_name:
   type: str
+  ask: "{{ module_name is not defined }}"
   help: "{{ module_type | capitalize }}: Module Name"
   default: "{{ module_type }}"
   when: "{{ module_type != 'project' }}"
 
 java_package:
   type: str
+  ask: "{{ java_package is not defined }}"
   help: "{{ module_type | capitalize }}: Java Package Name"
   default: "de.muenchen.oss.{{ project_slug | replace('-', '') }}.{{ module_type }}"
   when: "{{ module_type in [ 'backend', 'eai' ] }}"
