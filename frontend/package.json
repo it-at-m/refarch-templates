@@ -42,7 +42,7 @@
     "@tsconfig/node-lts": "26.0.1",
     "@types/jsdom": "30.0.0",
     "@types/node": "26.6.6",
-    "@vitejs/plugin-vue": "6.0.10",
+    "@vitejs/plugin-vue": "6.0.11",
     "@vue/devtools-api": "8.2.1",
     "@vue/eslint-config-typescript": "14.9.0",
     "@vue/test-utils": "2.6.0",
