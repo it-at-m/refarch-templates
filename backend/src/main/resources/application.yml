@@ -1,5 +1,9 @@
 server:
-  forward-headers-strategy: framework
+  request:
+    header:
+      forwarded: # required to use Swagger UI behind a proxy (e.g. API gateway)
+        strategy: framework
+        use-prefix: true
 
 spring:
   main:
