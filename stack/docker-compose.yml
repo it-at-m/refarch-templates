@@ -12,7 +12,7 @@ x-security-settings: &security_settings
 
 services:
   postgres:
-    image: postgres:18.4-alpine@sha256:9a8afca54e7861fd90fab5fdf4c42477a6b1cb7d293595148e674e0a3181de15
+    image: postgres:18.7-alpine@sha256:0115267ab5a509022df9319c77be365cef335adb71556c75f60f5360ee247e71
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: admin
@@ -25,7 +25,7 @@ services:
     <<: *security_settings
 
   pg-admin:
-    image: dpage/pgadmin4:9.18.0@sha256:c332c5f6dfba995d9ebc4af261d93506d6876085d712eaaa3defc8dd1a3f26de
+    image: dpage/pgadmin4:9.19.0@sha256:3591b3d02910dcd817dec6fcaa681c278ba6966945283dd0ea0042731c330c83
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -98,7 +98,7 @@ services:
     <<: *security_settings
 
   refarch-gateway:
-    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.10.0@sha256:d74e6a31e2fe255989008fbf9a8d5e024bc01f418acf8c1852558e6925db9764
+    image: ghcr.io/it-at-m/refarch/refarch-gateway:1.10.2@sha256:f24e12962045eb27d6a35d02d1358f6c5ac1268ed1b8cb44e0f3df9850b8c870
     depends_on:
       init-keycloak:
         condition: service_completed_successfully
