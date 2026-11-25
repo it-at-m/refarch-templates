@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e
+
+# -i / --interactive: pass no -d answers, so Copier asks every question
+data=(
+    -d "project_name=Refarch Template Test"
+    -d project_slug=refarchtemplatetest
+    -d module_type=project
+    -d 'modules=["backend","docs","eai","frontend","webcomponent"]'
+)
+case "$1" in
+    -i|--interactive) data=() ;;
+    "") export TEST_REFARCH_COPIER_DEFAULTS=1 ;;
+    *) echo "usage: $0 [-i|--interactive]" >&2; exit 1 ;;
+esac
+
+# macOS sets TMPDIR to a per-user folder with a trailing slash
+target="${TMPDIR:-/tmp}"
+target="${target%/}/refarch-template-test"
+
+rm -rf "$target"
+copier copy --trust . "$target" "${data[@]}"
+
+if command -v code >/dev/null; then
+    code "$target"
+else
+    echo "Generated: $target"
+fi
